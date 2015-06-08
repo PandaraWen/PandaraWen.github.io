@@ -383,6 +383,7 @@ div#entrance:hover {
 div#lying_man {
 	width: 42px;
 	height: 42px;
+	margin-left: 30%;
 	position: absolute;
 	bottom: 0px;
 	background-image: url(../img/me_lying.png);
