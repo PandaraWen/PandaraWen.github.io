@@ -349,6 +349,7 @@ div#entrance {
 
 div#entrance:hover {
 	background-image: url(../img/house_open.png);
+	cursor: hand;
 }
 
 div#lying_man {

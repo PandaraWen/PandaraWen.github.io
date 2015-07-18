@@ -1,0 +1,7 @@
+div#entrance_container {
+	bottom: 0;
+	width: 100%;
+	position: absolute;
+	border: 1px solid #F0FFFF;
+}
+

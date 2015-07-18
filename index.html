@@ -1,6 +1,6 @@
 <link type="text/css" href="./data/css/index.css" rel="stylesheet" />
-
-<?php eco "hello world"; ?>
+<link type="text/css" href="./data/css/index_menu.css" rel="stylesheet" />
+<script type="text/javascript" src="./data/js/jquery-1.11.3.min.js"></script>
 
 <body>
 	<div id="band_container">
@@ -32,8 +32,36 @@
 		</div><!--band_lineandbands_container-->
 	</div><!--band_container-->
 
-	<div id="entrance_container">
+	<!--
+	<div id="entrance_container" onclick="goEntrance()">
 		<div id="entrance"></div>
 		<div id="lying_man"></div>
 	</div>
+	-->
+	<div id="menu_container">
+		<div id="menu_guitar_container" class="menu_item_container">
+			<div class="standing_man"></div>
+			<div id="menu_guitar" class="menu_internal"></div>
+		</div>
+		<div class="square"></div>
+		<div id="menu_paint_container" class="menu_item_container">
+			<div class="standing_man"></div>
+			<div id="menu_paint" class="menu_internal"></div>
+		</div>
+		<div class="square"></div>
+		<div id="menu_note_container" class="menu_item_container">
+			<div class="standing_man"></div>
+			<div id="menu_note" class="menu_internal"></div>
+		</div>
+	</div>
 </body>
+
+<script type="text/javascript">
+function goEntrance() {
+	$("#entrance_container").animate(
+		{opacity:'0'}, 
+		300, 
+		function(){$("#entrance_container").hide();}
+		);
+}
+</script>
