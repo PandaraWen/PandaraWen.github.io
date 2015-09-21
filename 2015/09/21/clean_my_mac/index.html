@@ -46,7 +46,7 @@
 <meta property="og:site_name" content="Pandara's Zone">
 <meta property="og:description" content="不能掌控自己macbook的硬盘的人谈何扩展生命宽度。说的就是我">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/09/21/clean_my_macssd.png">
-<meta property="og:updated_time" content="2015-09-21T07:25:38.000Z">
+<meta property="og:updated_time" content="2015-09-21T08:54:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Clean my mac">
 <meta name="twitter:description" content="不能掌控自己macbook的硬盘的人谈何扩展生命宽度。说的就是我">
@@ -274,10 +274,13 @@
 <p>——————————后记——————————<br>记录一下这样做的副作用：</p>
 <ol>
 <li>hexo提交代码的时候提示我需要先同意xcode的许可协议</li>
-<li>用cocoaPods导入的库不能用了，要重新安装cocoaPods(我顺便更新了一下)<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem <span class="operator"><span class="keyword">install</span> cocoapods <span class="comment">--pre</span></span></span><br></pre></td></tr></table></figure>
+<li><p>用cocoaPods导入的库不能用了，要重新安装cocoaPods(我顺便更新了一下)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem <span class="operator"><span class="keyword">install</span> cocoapods <span class="comment">--pre</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后安装(更新)依赖</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">pod</span> update</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>然后安装(更新)依赖<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">pod</span> update</span><br></pre></td></tr></table></figure></p>
 <p><br><br>以上</p>
 </span>
       
