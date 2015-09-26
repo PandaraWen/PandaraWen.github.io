@@ -30,7 +30,7 @@
 
 
 
-  <meta name="keywords" content="GCD,Objective-C,iOS,多线程,并发," />
+  <meta name="keywords" content="杂谈,电影," />
 
 
 
@@ -39,22 +39,27 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="翻译自Apple官方文档，让你见识一下什么叫翻译腔。
+<meta name="description" content="虽然白百何梳了个暴露额头的道士头，摸了一脸黑泥，但笑起来还是这么萌。
 
-概述Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。">
+这部电影主要讲：男主角将自己生下来的人妖卖掉了，接着反悔并且跟女主角一起把它抢了回来，顺便娶了女主角，再顺便开了个挂大boss。钱，孩子，老婆，buff，全都有了。
+就是这么吊。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS并发编程—Operation Queues">
-<meta property="og:url" content="http://pandara.xyz/2015/08/27/20150827_gcd_operation_queue/index.html">
+<meta property="og:title" content="捉妖记">
+<meta property="og:url" content="http://pandara.xyz/2015/09/26/monster_hunt/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="翻译自Apple官方文档，让你见识一下什么叫翻译腔。
+<meta property="og:description" content="虽然白百何梳了个暴露额头的道士头，摸了一脸黑泥，但笑起来还是这么萌。
 
-概述Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。">
-<meta property="og:updated_time" content="2015-08-28T07:08:08.000Z">
+这部电影主要讲：男主角将自己生下来的人妖卖掉了，接着反悔并且跟女主角一起把它抢了回来，顺便娶了女主角，再顺便开了个挂大boss。钱，孩子，老婆，buff，全都有了。
+就是这么吊。">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/09/26/monster_huntp2255185423.jpg">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/09/26/monster_huntp2244893238.jpg">
+<meta property="og:updated_time" content="2015-09-26T08:34:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS并发编程—Operation Queues">
-<meta name="twitter:description" content="翻译自Apple官方文档，让你见识一下什么叫翻译腔。
+<meta name="twitter:title" content="捉妖记">
+<meta name="twitter:description" content="虽然白百何梳了个暴露额头的道士头，摸了一脸黑泥，但笑起来还是这么萌。
 
-概述Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。">
+这部电影主要讲：男主角将自己生下来的人妖卖掉了，接着反悔并且跟女主角一起把它抢了回来，顺便娶了女主角，再顺便开了个挂大boss。钱，孩子，老婆，buff，全都有了。
+就是这么吊。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -64,7 +69,7 @@
   };
 </script>
 
-    <title> iOS并发编程—Operation Queues // Pandara's Zone </title>
+    <title> 捉妖记 // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -208,7 +213,7 @@
           
           
             
-              iOS并发编程—Operation Queues
+              捉妖记
             
           
         </h1>
@@ -217,8 +222,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-08-27T00:00:00+08:00" content="2015-08-27">
-            2015-08-27
+          <time itemprop="dateCreated" datetime="2015-09-26T00:00:00+08:00" content="2015-09-26">
+            2015-09-26
           </time>
         </span>
 
@@ -226,7 +231,7 @@
           <span class="post-category" >
             &nbsp; | &nbsp; 分类于
             
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/iOS修行/" itemprop="url" rel="index"><span itemprop="name">iOS修行</span></a></span>
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/电影铺/" itemprop="url" rel="index"><span itemprop="name">电影铺</span></a></span>
 
               
               
@@ -239,8 +244,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/08/27/20150827_gcd_operation_queue/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/27/20150827_gcd_operation_queue/" itemprop="commentsCount"></span>
+              <a href="/2015/09/26/monster_hunt/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/26/monster_hunt/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -255,45 +260,16 @@
 
       
         <span itemprop="articleBody"><blockquote>
-<p>翻译自<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW1" target="_blank" rel="external">Apple官方文档</a>，让你见识一下什么叫翻译腔。</p>
+<p>虽然白百何梳了个暴露额头的道士头，摸了一脸黑泥，但笑起来还是这么萌。</p>
 </blockquote>
-<h4 id="概述">概述</h4><p>Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。<br><a id="more"></a></p>
-<h4 id="关于Operation对象">关于Operation对象</h4><p>一个Operation对象是类<code>NSOperation</code>(in the Foundation framework)的一个实例.NSOperation类本身是一个抽象基类，必须要被子类继承来实现功能。尽管它是一个抽象类，NSoperation 提供了数目可观的基础方法实现，来让你需要在子类中实现的操作达到最少。另外，Foundation framework提供了两种具体的子类，你可以像使用自己的代码一样使用它们。下表列出了这些类，还有一些关于如何使用的概述</p>
-<table>
-<thead>
-<tr>
-<th>Class</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/NSInvocationOperation_Class/index.html#//apple_ref/occ/cl/NSInvocationOperation" target="_blank" rel="external">NSInvocationOperation</a></td>
-<td>可以把它一个基于程序中的对象以及selector创建的operation对象来使用。万一你已经实现了一个方法来实现一些操作，那么你可以使用这个类。因为它并不一定需要继承。你同样也能用它来以更加动态的方式创建operation对象。关于如何使用这个类，可以参照<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW6" target="_blank" rel="external">这里</a></td>
-</tr>
-<tr>
-<td><a href="[https://developer.apple.com/library/ios/documentation/Cocoa/Reference/NSBlockOperation_class/index.html#//apple_ref/occ/cl/NSBlockOperation]">NSBlockOperation</a></td>
-<td>你可以用它来执行一个block对象或者并发执行多个block。因为它能够执行超过一个block，只有当所有相关的block都结束执行，这个operation才会被认为完成。<br>点击<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW2" target="_blank" rel="external">这里</a>查看如何使用。在OS X v10.6以后可以使用。关于block的更多信息，点击<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Blocks/Articles/00_Introduction.html#//apple_ref/doc/uid/TP40007502" target="_blank" rel="external">这里</a>。</td>
-</tr>
-<tr>
-<td><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/NSOperation_class/index.html#//apple_ref/occ/cl/NSOperation" target="_blank" rel="external">NSOperation</a></td>
-<td>用于定义自定义的对象的基类。继承<code>NSOperation</code>让你能够实现自己的操作，你还能够替换默认的方法。点击<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW16" target="_blank" rel="external">这里</a>查看更多。</td>
-</tr>
-</tbody>
-</table>
-<p>所有的这些operation对象都支持下面这些重要特性：</p>
-<blockquote>
-<ul>
-<li>支持建立operation对象之间的基于图结构(离散数学中的图论)的依赖。这些依赖能够防止一个特定的operation一直运行到它所依赖的所有operation都结束才结束。关于更多的建立依赖的方法，点击<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW17" target="_blank" rel="external">这里</a>。</li>
-<li>支持可选的completion block，completion block在operation的主要任务完成之后将会执行(OS X v10.6以后)。点击<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW33" target="_blank" rel="external">这里</a>查看设置completion block的信息。</li>
-<li>支持使用KVO通知机制来监听operation的执行状态变化。<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html#//apple_ref/doc/uid/10000177i" target="_blank" rel="external">for more about kvo</a>。</li>
-<li>支持调整operation的优先级，因此能影响它们之间的相关执行顺序。<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW31" target="_blank" rel="external">改变operaiton的执行优先级</a>。</li>
-<li>支持cancel语法，让你可以停止某个正在执行的操作。<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW39" target="_blank" rel="external">如何取消operation</a>，<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW24" target="_blank" rel="external">如何支持自定义operation的取消操作</a>。</li>
-</ul>
-</blockquote>
-<p>Operation被设计用来帮助你提高app的并发级别。operation同时也是一个将程序中的操作组织以及封装起来的好方法。你可以将一个或者多个operation对象放到队列中，让通信的操作在一个或者多个分离的线程中执行。</p>
-<h4 id="并发_VS_非并发_操作">并发 VS 非并发 操作</h4><p>虽然你很典型的将operation添加到操作队列中来执行它们，不过这并不是唯一的途径。你同样可以通过调用operation对象的<code>star</code>方法来让它执行，但是这样做并不保证operaiton能正确执行你余下的代码。NSOperation类中的isConcurrent方法能够告诉你某个operation是同步执行还是异步执行——与它的<code>start</code>方法被调用所在的线程之间。默认情况下，这个方法会返回NO，这意味着这个operation在调用它的线程中是同步执行的。<br>如果你想要实现一个并发操作——换句话说，与调用它的线程异步执行——你必须额外敲一些代码来异步开始一个operaiton。例如，你可能会生成一个单独的线程，调用一个异步的系统函数，或者做一些别的操作来确保<code>start</code>方法能马上开始某项人物并且在任务完成之前，<code>start</code>方法能立即返回。<br>大多数开发者应该永远都不需要自己来实现并发操作对象。如果你经常将你的operaiton添加到一个operation队列中，你不需要实现并发操作对象。当你提交一个非并发operation到一个operation队列中，队列自己会创建一个线程来执行你的operaiton。这样，将一个非并发operation添加到operation队列中仍然会导致你的operation对象中的代码被异步执行。定义一个并发operation只会被用于当你需要执行一些异步操作，但是并不将它们添加到一个operaiton队列中。<br><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW8" target="_blank" rel="external">设置operation来并发执行</a>，<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/NSOperation_class/index.html#//apple_ref/doc/uid/TP40004591" target="_blank" rel="external">NSOperation Class参考</a>。</p>
-<p>(未完待续)</p>
+<p><br>这部电影主要讲：男主角将自己生下来的人妖卖掉了，接着反悔并且跟女主角一起把它抢了回来，顺便娶了女主角，再顺便开了个挂大boss。钱，孩子，老婆，buff，全都有了。</p>
+<p><br>就是这么吊。</p>
+<a id="more"></a>
+<p><br>这部电影是一部很好的合家欢片子，适合全家老少坐在电视机前面说说笑笑，指指点点，一派欢乐祥和，祥云笼罩。而我是一个人在家里看的，噢，还有一条狗。</p>
+<p><br>个人觉得电影中比较妙的一笔，就是最后男主骂走胡巴与主角记忆中被父亲骂走的画面相呼应。两对父子，两个相同的理由，两段相同的举动，算是一种传承。</p>
+<p><br>影片里面有几段歌剧片段，类似于经典迪斯尼电影中经常会出现那样。唱的挺好，角色动作跟音乐节奏挺搭，还有剧情穿插在其中，给电影有添了一朵祥云。</p>
+<p><br>论细节论特效当然比不上皮克斯电影的级别，不过也还算是达到了我能够接受的程度了，起码不像什么《猪猪侠》那样exin。</p>
+<p><br>看完这部电影之后，它的内容我已经忘得七七八八了，没有在我心里留下什么。就像当年我看duang duang的《功夫之王》一样。而当我敲下这些字时，它在我脑子里的印象已经变回陌生。最后我只记得白百何的一口白白的牙牙齿，大大的水灵灵的眼睛，还有萌萌的笑容。<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/09/26/monster_huntp2255185423.jpg" alt="image1"><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/09/26/monster_huntp2244893238.jpg" alt="image2"></p>
 <p><br><br>以上</p>
 </span>
       
@@ -303,15 +279,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/GCD/" rel="tag">#GCD</a>
+            <a href="/tags/杂谈/" rel="tag">#杂谈</a>
           
-            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
-          
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
-          
-            <a href="/tags/多线程/" rel="tag">#多线程</a>
-          
-            <a href="/tags/并发/" rel="tag">#并发</a>
+            <a href="/tags/电影/" rel="tag">#电影</a>
           
         </div>
       
@@ -320,13 +290,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/29/20150829_perfect_blue/" rel="prev">距离精神分裂仅一步之遥</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/25/about_me/" rel="next">ただいま</a>
+              <a href="/2015/09/21/clean_my_mac/" rel="next">Clean my mac</a>
             
           </div>
         </div>
@@ -352,8 +320,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/08/27/20150827_gcd_operation_queue/"
-                       data-title="iOS并发编程—Operation Queues" data-url="http://pandara.xyz/2015/08/27/20150827_gcd_operation_queue/">
+                  <div class="ds-thread" data-thread-key="2015/09/26/monster_hunt/"
+                       data-title="捉妖记" data-url="http://pandara.xyz/2015/09/26/monster_hunt/">
                   </div>
                 
               </div>
@@ -460,7 +428,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于Operation对象"><span class="nav-number">2.</span> <span class="nav-text">关于Operation对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并发_VS_非并发_操作"><span class="nav-number">3.</span> <span class="nav-text">并发 VS 非并发 操作</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
