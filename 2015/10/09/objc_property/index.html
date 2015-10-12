@@ -57,7 +57,7 @@
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/object-ownership.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/retain-cycle.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/weak-reference.png">
-<meta property="og:updated_time" content="2015-10-10T08:42:11.000Z">
+<meta property="og:updated_time" content="2015-10-12T05:25:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC @property 知多少">
 <meta name="twitter:description" content="翻译自 Ry’s Objective-C Tutorial
@@ -359,6 +359,12 @@
 </tr>
 </tbody>
 </table>
+<hr>
+<h5 id="几个面试可能会出的问题，个人理解作答">几个面试可能会出的问题，个人理解作答</h5><p>1.@property 后面可以有哪些修饰符？<br>getter=, setter=, readonly, nonatomic, strong, weak, copy, retain, unsafe_unretained, assign</p>
+<p><br>2.什么情况适用 weak 关键字，相比 assign 有什么不同？<br>在会发生强引用循环的对象之间，用 weak 关键字来打破。例如 block，以及对象属性。<br>assign 是原始 C 数据类型的默认 attribute。</p>
+<p><br>3.怎么使用 copy 关键字？<br>不希望 property 随原对象改变而改变的时候。例如：<code>@property (copy) NSMutableString *str;</code></p>
+<p><br>4.这个写法会出现什么问题：<code>@property (copy) NSMutableArray *array;</code><br>原数组被创建一份新的拷贝，再赋值给 array，此时内存中存在两份相同内容的数据空间。此后原数组的改变与 array 无关。</p>
+<p><br>5.如何让自己的类使用 copy 修饰符？如何重写带 copy 关键字的setter？<br>1).遵守 NSCopying 协议<br>2).在 setter 方法内部进行对象的拷贝：手动拷贝 或者 调用其 <code>copyToZone:</code> 方法(如果遵守了 NSCopying 协议的话)</p>
 <p><br><br>以上</p>
 </span>
       
@@ -521,7 +527,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#@property_指令"><span class="nav-number">1.</span> <span class="nav-text">@property 指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getter=_跟_setter="><span class="nav-number">2.</span> <span class="nav-text">getter= 跟 setter=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#readonly"><span class="nav-number">3.</span> <span class="nav-text">readonly</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nonatomic"><span class="nav-number">4.</span> <span class="nav-text">nonatomic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存管理"><span class="nav-number">5.</span> <span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#strong"><span class="nav-number">5.1.</span> <span class="nav-text">strong</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#weak"><span class="nav-number">5.2.</span> <span class="nav-text">weak</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#copy"><span class="nav-number">5.3.</span> <span class="nav-text">copy</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Other_Attributes"><span class="nav-number">6.</span> <span class="nav-text">Other Attributes</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#retain"><span class="nav-number">6.1.</span> <span class="nav-text">retain</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#unsafe_unretained"><span class="nav-number">6.2.</span> <span class="nav-text">unsafe_unretained</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#assign"><span class="nav-number">6.3.</span> <span class="nav-text">assign</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#@property_指令"><span class="nav-number">1.</span> <span class="nav-text">@property 指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getter=_跟_setter="><span class="nav-number">2.</span> <span class="nav-text">getter= 跟 setter=</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#readonly"><span class="nav-number">3.</span> <span class="nav-text">readonly</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nonatomic"><span class="nav-number">4.</span> <span class="nav-text">nonatomic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存管理"><span class="nav-number">5.</span> <span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#strong"><span class="nav-number">5.1.</span> <span class="nav-text">strong</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#weak"><span class="nav-number">5.2.</span> <span class="nav-text">weak</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#copy"><span class="nav-number">5.3.</span> <span class="nav-text">copy</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Other_Attributes"><span class="nav-number">6.</span> <span class="nav-text">Other Attributes</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#retain"><span class="nav-number">6.1.</span> <span class="nav-text">retain</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#unsafe_unretained"><span class="nav-number">6.2.</span> <span class="nav-text">unsafe_unretained</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#assign"><span class="nav-number">6.3.</span> <span class="nav-text">assign</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#几个面试可能会出的问题，个人理解作答"><span class="nav-number">7.1.</span> <span class="nav-text">几个面试可能会出的问题，个人理解作答</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
