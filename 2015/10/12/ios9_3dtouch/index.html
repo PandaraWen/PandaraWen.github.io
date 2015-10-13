@@ -30,7 +30,7 @@
 
 
 
-  <meta name="keywords" content="三体,书,刘慈恩," />
+  <meta name="keywords" content="Objective-C,iOS,开发," />
 
 
 
@@ -39,22 +39,27 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="即使你知道我把你想象成善意的，我也知道你把我想象成善意的，但我不知道你是怎么想我怎么想你怎么想我的。
+<meta name="description" content="翻译自苹果官方文档
 
-反复默念上面这句话三遍，就会发现，脑子混乱了。">
+概述3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="三体">
-<meta property="og:url" content="http://pandara.xyz/2015/09/14/thribody/index.html">
+<meta property="og:title" content="iOS9 new feature — 3D Touch 人机交互指南">
+<meta property="og:url" content="http://pandara.xyz/2015/10/12/ios9_3dtouch/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="即使你知道我把你想象成善意的，我也知道你把我想象成善意的，但我不知道你是怎么想我怎么想你怎么想我的。
+<meta property="og:description" content="翻译自苹果官方文档
 
-反复默念上面这句话三遍，就会发现，脑子混乱了。">
-<meta property="og:updated_time" content="2015-09-28T02:40:58.000Z">
+概述3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png?imageView2/2/w/300">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png?imageView2/2/w/300">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png?imageView2/2/w/300">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png?imageView2/2/w/300">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/quick_action_layouts_2x.png">
+<meta property="og:updated_time" content="2015-10-13T17:01:58.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="三体">
-<meta name="twitter:description" content="即使你知道我把你想象成善意的，我也知道你把我想象成善意的，但我不知道你是怎么想我怎么想你怎么想我的。
+<meta name="twitter:title" content="iOS9 new feature — 3D Touch 人机交互指南">
+<meta name="twitter:description" content="翻译自苹果官方文档
 
-反复默念上面这句话三遍，就会发现，脑子混乱了。">
+概述3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -64,7 +69,7 @@
   };
 </script>
 
-    <title> 三体 // Pandara's Zone </title>
+    <title> iOS9 new feature — 3D Touch 人机交互指南 // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -208,7 +213,7 @@
           
           
             
-              三体
+              iOS9 new feature — 3D Touch 人机交互指南
             
           
         </h1>
@@ -217,8 +222,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-09-14T00:00:00+08:00" content="2015-09-14">
-            2015-09-14
+          <time itemprop="dateCreated" datetime="2015-10-12T00:00:00+08:00" content="2015-10-12">
+            2015-10-12
           </time>
         </span>
 
@@ -226,7 +231,7 @@
           <span class="post-category" >
             &nbsp; | &nbsp; 分类于
             
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/说书人/" itemprop="url" rel="index"><span itemprop="name">说书人</span></a></span>
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
 
               
               
@@ -239,8 +244,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/09/14/thribody/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/14/thribody/" itemprop="commentsCount"></span>
+              <a href="/2015/10/12/ios9_3dtouch/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/12/ios9_3dtouch/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -255,17 +260,44 @@
 
       
         <span itemprop="articleBody"><blockquote>
-<p>即使你知道我把你想象成善意的，我也知道你把我想象成善意的，但我不知道你是怎么想我怎么想你怎么想我的。</p>
+<p>翻译自<a href="https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/3DTouch.html" target="_blank" rel="external">苹果官方文档</a></p>
 </blockquote>
-<p><br>反复默念上面这句话三遍，就会发现，脑子混乱了。</p>
+<h4 id="概述">概述</h4><p>3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。</p>
 <a id="more"></a>
-<p><br>我又再把三体重新读了一遍，两三个月前重看了第一部。这个周末我重读了第二部。不得不称赞一下kindle前天更新的系统，真是及时雨，可以在全书搜索词汇，让我得以在第一部里面搜索一些特定的人还是名词，否则为了弄懂第二部我可能又得重新再看第一部。</p>
-<p><br>知道这本书，是因为一年多之前开始听罗辑思维的节目，罗胖在里面一再推荐这本书，而这本书的名字确实也透漏着神秘的科幻气息。这次阅读，跟第一次不同。第一次阅读时我总觉得描述那些关于定理的地方晦涩难懂，总想着快点跳过它们，快点阅读到主线精彩剧情，以至于略过了很多精彩情节，让我在这次重读里面发现了不少新大陆。比如逃离到太阳系外的星际舰队中居然就像一个浓缩的宇宙，上演了一出“黑暗森林法则”的现实实践。老实说，惊呆了。</p>
-<p><br>作者在书里面说的所有东西都那么真真切切，如果黑暗森林法则真的成立（现在看起来没有不成立的理由啊），那么我们地球人之前所做的那些在宇宙中大呼大喊的举动岂不是傻子一样的自杀。</p>
-<p><br>除了作者在作品里面展现出来的的无比瑰丽的想象力，三体另外一个让我触动的地方就是：它能够用科学的笔墨来勾勒文学形象。书里面经常能看到不少用物理学现象来修饰自然景色等等，这就像是两个不怎么相协调甚至有点互相排斥的两个物体融合在了一起，而结果居然能诞生出异于任何一方的新东西，而且还不赖。要让我形容这本书文笔，我会说，它就像是<code>外表冰冷的硬朗汉子心中开出了柔情的花</code>。</p>
-<p><br>我最喜欢书中来自三体星的探测器——水滴。它拥有绝对光滑的表面，极致的曲线外观，以及绝对零度的表面温度。还有跟绝对零度相当的冷酷。三体人仿佛用它来宣示自己科学的高度发展，向人类炫耀着它绝对的文明优越。</p>
-<p><br>我喜欢汪淼，也喜欢罗辑，更喜欢大史。大史拥有敏锐的危机感和迅捷的机动力以及豁达的生活态度，同时还有一个不俗的头脑——起码在《黑暗森林》后半部分罗辑解释宇宙公理的时候他能够明白“猜疑链”，而我早就晕了。</p>
-<p><br>曾经我读书只是为了拼命地拔高我的思想内涵，思想深度，让自己“成熟”起来。可能也由于这个原因，让我在第一次读三体的时候功利性太强，没有办法静下心来享受这份思维的盛宴。让思维在好的小说里面遨游，借助作者的想象力来体验别样的人生，别样的世界，也是修行的一种有趣的途径。现在回想起来，它每一段情节都仍然的让人觉得酣畅淋漓，大呼过瘾。</p>
+<h5 id="Peek_与_Pop">Peek 与 Pop</h5><p>peek（一瞥）让用户可以在当前页面中预览某个 item，并且进行相关操作。用户轻压该 item 时，将会显示一个小矩形 view。</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png" title="A peek preview in Safari" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png?imageView2/2/w/300" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png" title="Quick actions in a Safari peek" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png?imageView2/2/w/300" alt=""></a></center>
+
+<p><br>关于 peek</p>
+<ul>
+<li>当用户 press 一个支持 peek 的 item 时出现，当用户手指离开时消失</li>
+<li>当用户在 peek view 上再用点力，它会打开一个关于 item 的详情 view。称这个 view 为 pop</li>
+<li>当用户在 peek view 中向上 swipe，将会出现一些快速操作</li>
+</ul>
+<p><br>当用户轻压屏幕，提供 peek 的 item 通过展示一个矩形 view 来表示它支持更进一步的交互。该矩形 view 应该足够大，好让用户的手指不会遮挡到内容；并且也应该足够详细，好让用户可以判断是否应该更进一步按压来查看 peek。</p>
+<p><br><strong>使用 peek 来提供一个 live，content-rich 的预览</strong>。peek 应该提供足够的信息，来让用户决定下一步操作。例如，用户在将消息中的 URL 分享给朋友，或者在浏览器中打开它之前，可以通过 peek 来预览该 URL 的网页。在 tableview 中，用户可以通过 peek 来查看某一行的详细视图。</p>
+<p><br><strong>为每个 peek 提供一个 pop</strong>。虽然 peek 应该给用户提供他们所需要的大部分信息，但是你也应该允许用户从他们当前的操作切换到该 item 中去，如果他们想的话。pop 应该与用户 tap 该 item 时呈现的 view 相同。</p>
+<p><br><strong>不要允许同一个 item 呈现 peek 和 edit menu</strong>。同时提供这两种特性会让用户迷惑。edit menu 指的是，当我们在输入框长按时，出现的黑色带小箭头的菜单。</p>
+<p><br><strong>在 peek 中，不要使用看起来像 button 的元素</strong>。如果用户放开他们的手指，来试图去点击那个看起来像 button 的元素，peek 就会消失。</p>
+<p><br><strong>为 peek 提供快速操作，如果合适的话</strong>。在peek中，用户可以向上滑动，来显示一些跟 item 相关的操作。例如，在 Mail 应用中的 peek quick action 包括 Reply All， Forward， 还有 Move Message。不是每个 peek 都需要 quick action。但是如果你准备为 item 提供自定义的长按操作，最好能在 peek 中提供相同的操作。注意，web view 中的 peek 自动提供 peek quick aciton。</p>
+<p><br><strong>不要将 peek 作为提供自定义操作的唯一方式</strong>。不是所有的设备都支持 peek 与 pop，并且某些用户可能选择关闭 3D Touch。当你的 app 在一些旧的机器中运行，可以用长按操作来替代 peek quick action。</p>
+<h5 id="主屏幕快速操作">主屏幕快速操作</h5><p>主屏幕快速操作给用户提供了一种方便的途径来执行一些 app 指定的操作，可以在主屏幕中直接执行。</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png" title="Camera Home screen quick actions" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png?imageView2/2/w/300" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png" title="Mail Home screen quick actions" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png?imageView2/2/w/300" alt=""></a></center>
+
+<p><br>关于 Home screen quick action：</p>
+<ul>
+<li>当用户在主屏幕用比 touch 稍大的力按压 app 的 icon 时出现</li>
+<li>显示你提供的短标题，icon，可选的子标题</li>
+<li>不支持其他自定义内容</li>
+<li>当你的 app 升级了可以显示升级信息</li>
+</ul>
+<p><br><strong>通过 HS quick action 来提供一些特定的操作</strong>。例如，Maps 让用户可以在不打开 Maps app 的情况下搜索他们的当前位置，或者获取回家的方向。每个 app 应该在 HS quick action 中提供最少一个操作。你可以提供最多4个操作。</p>
+<p><br><strong>不要使用 HS quick action 来简化 app 的导航</strong>。如果用户在访问你 app 的某些重要区域时感到困难或者耗时，首先你应该调整你 app 的导航。其次，在 HS quick aciton 中你应该提供的是有用的，creative 的操作。</p>
+<p><br><strong>不要以用户难以预测的方式改变 HS quick action</strong>。最好能以一些用户知道的修改来更改 app 的 HS quick action。例如，可以根据用户当前的位置或者最近在 app 中的操作，时间或者用户的设置来改变 qucik action。</p>
+<p><br><strong>不要使用 HS quick aciton 来作为通知用户的方式</strong>。iOS 用户会期望以另外一种方式来接收通知的(微笑)。</p>
+<p><br><strong>为每个 HS quick action 项提供一个简明的 title 或者 subtitle 跟模板 icon</strong>。title 应该清楚指明改 action 的操作结果。例如，“打道回府”，“创建新的联系人”还有“写短信”。你同时也可以提供一个可选的子标题来让用户直到更多信息。例如，Mail 在 VIP 主屏幕中 使用子标题来告诉用户是否有未读信息。不要将 app 的名字或者其他无关的信息包含在 title 或者 subtitle 中，同时也要考虑你的文本的本地化。</p>
+<p><br>你应该让你的标题尽可能的短，来避免它被裁截，同时也可以帮助用户快速明白操作的含义。如果你提供子标题，如果它太长的话，系统会将它裁截，来让它的长度维持在一行之内。如果你不提供子标题，系统会将过长的标题截断换到第二行。</p>
+<p><br>你可以选择使用系统提供的模板 icon。也可以使用自己的创建的自定义 icon。关于 icon 的size，padding 还有 positioning，从<a href="https://developer.apple.com/design/downloads/Quick-Action-Guides.zip" target="_blank" rel="external">这里下载 HS quick aciton icon template</a>。关于自定义 template icon 的信息，<a href="https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/BarIcons.html#//apple_ref/doc/uid/TP40006556-CH21-SW1" target="_blank" rel="external">看这里</a>。</p>
+<p><br>系统自动在 quick action 的左边或者右边显示 icon，这根据你的 app icon 在用户的手机屏幕位置而定。而文本一般为左对齐。例子如下：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/quick_action_layouts_2x.png" alt="image"></p>
 <p><br><br>以上</p>
 </span>
       
@@ -275,11 +307,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/三体/" rel="tag">#三体</a>
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
           
-            <a href="/tags/书/" rel="tag">#书</a>
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
           
-            <a href="/tags/刘慈恩/" rel="tag">#刘慈恩</a>
+            <a href="/tags/开发/" rel="tag">#开发</a>
           
         </div>
       
@@ -288,13 +320,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/21/clean_my_mac/" rel="prev">Clean my mac</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/13/autumn/" rel="next">味道</a>
+              <a href="/2015/10/12/head_to_dali/" rel="next">去大理</a>
             
           </div>
         </div>
@@ -320,8 +350,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/09/14/thribody/"
-                       data-title="三体" data-url="http://pandara.xyz/2015/09/14/thribody/">
+                  <div class="ds-thread" data-thread-key="2015/10/12/ios9_3dtouch/"
+                       data-title="iOS9 new feature — 3D Touch 人机交互指南" data-url="http://pandara.xyz/2015/10/12/ios9_3dtouch/">
                   </div>
                 
               </div>
@@ -428,7 +458,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Peek_与_Pop"><span class="nav-number">1.1.</span> <span class="nav-text">Peek 与 Pop</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主屏幕快速操作"><span class="nav-number">1.2.</span> <span class="nav-text">主屏幕快速操作</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
