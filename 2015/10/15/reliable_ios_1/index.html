@@ -1,0 +1,857 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="Hey! man~" />
+
+
+
+  <meta name="keywords" content="Objective-C,iOS,开发," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="搬运自ChenYiLong’s Github。
+题目来自sunnyxx的博客：《招聘一个靠谱的iOS》)
+有个人修改
+
+
+本Part整理跟 @property 相关的题目。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《招聘一个靠谱的iOS》— Part Ⅰ">
+<meta property="og:url" content="http://pandara.xyz/2015/10/15/reliable_ios_1/index.html">
+<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:description" content="搬运自ChenYiLong’s Github。
+题目来自sunnyxx的博客：《招聘一个靠谱的iOS》)
+有个人修改
+
+
+本Part整理跟 @property 相关的题目。">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/11/head_to_dali/VlVKl8L.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/reliable_ios/synthesized_doc.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/reliable_ios/synthesize_code.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/reliable_ios/error.png">
+<meta property="og:updated_time" content="2015-10-15T09:06:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《招聘一个靠谱的iOS》— Part Ⅰ">
+<meta name="twitter:description" content="搬运自ChenYiLong’s Github。
+题目来自sunnyxx的博客：《招聘一个靠谱的iOS》)
+有个人修改
+
+
+本Part整理跟 @property 相关的题目。">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+    <title> 《招聘一个靠谱的iOS》— Part Ⅰ // Pandara's Zone </title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c5d0f36c537707dfe01cd190611c07b1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<div class="container one-column page-post-detail">
+    <div id="pandara-brand" class="my-brand">
+      <div id="space-ship" class="pandara-image"></div>
+      <div id="planet0" class="pandara-image"></div>
+      <div id="earth" class="pandara-image"></div>
+      <div id="planet1" class="pandara-image"></div>
+      <div id="planet2" class="pandara-image"></div>
+      <div id="planet3" class="pandara-image"></div>
+      <div id="satellite" class="pandara-image"></div>
+      <div id="planet4" class="pandara-image"></div>
+      <div id="planet5" class="pandara-image"></div>
+      <div id="planet6" class="pandara-image"></div>
+    </div>
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Pandara's Zone</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+            <a href="/" rel="section">
+              <i class="menu-item-icon icon-home"></i> <br />
+              首页
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+            <a href="/categories" rel="section">
+              <i class="menu-item-icon icon-categories"></i> <br />
+              分类
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+            <a href="/about.html" rel="section">
+              <i class="menu-item-icon icon-about"></i> <br />
+              关于
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+            <a href="/archives" rel="section">
+              <i class="menu-item-icon icon-archives"></i> <br />
+              归档
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+            <a href="/tags" rel="section">
+              <i class="menu-item-icon icon-tags"></i> <br />
+              标签
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              《招聘一个靠谱的iOS》— Part Ⅰ
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-10-15T00:00:00+08:00" content="2015-10-15">
+            2015-10-15
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/10/15/reliable_ios_1/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/15/reliable_ios_1/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><blockquote>
+<ul>
+<li>搬运自<a href="https://github.com/ChenYilong/iOSInterviewQuestions/blob/master/01%E3%80%8A%E6%8B%9B%E8%81%98%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84iOS%E3%80%8B%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88/%E3%80%8A%E6%8B%9B%E8%81%98%E4%B8%80%E4%B8%AA%E9%9D%A0%E8%B0%B1%E7%9A%84iOS%E3%80%8B%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88%EF%BC%88%E4%B8%8A%EF%BC%89.md" target="_blank" rel="external">ChenYiLong’s Github</a>。</li>
+<li>题目来自sunnyxx的博客：<a href="(http://blog.sunnyxx.com/2015/07/04/ios-interview/">《招聘一个靠谱的iOS》</a>)</li>
+<li>有个人修改</li>
+</ul>
+</blockquote>
+<p><br>本Part整理跟 @property 相关的题目。</p>
+<a id="more"></a>
+<h5 id="什么情况使用_weak_关键字，相比_assign_有什么不同？">什么情况使用 weak 关键字，相比 assign 有什么不同？</h5><p><strong>什么时候用weak关键字：</strong><br>1.在ARC中,在有可能出现循环引用的时候,往往要通过让其中一端使用weak来解决， 比如:delegate代理属性。</p>
+<p><br>2.自身已经对它进行一次强引用,没有必要再强引用一次，此时也会使用weak，自定义IBOutlet控件属性一般也使用weak；当然，也可以使用strong。在下文也有论述：<strong><em>《IBOutlet连出来的视图属性为什么可以被设置成weak?》</em></strong></p>
+<p><br><strong>不同点</strong><br>1.<code>weak</code> 此特质表明该属性定义了一种“非拥有关系” (nonowning relationship)。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特质同assign类似，然而在属性所指的对象遭到摧毁时，属性值也会清空(nil out)。<br>而 <code>assign</code> 的 setter 只会执行针对“纯量类型” (scalar type，例如 CGFloat 或NSlnteger 等)的简单赋值操作。</p>
+<p><br>2.<code>assigin</code> 可以用于OC对象与非OC对象，而 <code>weak</code> 必须用于OC对象。注意，用于OC对象时，<code>assign</code> 跟 <code>weak</code> 类似，但是在所指向的对象被销毁之后，不会将 property 清空。</p>
+<h5 id="怎么用_copy_关键字？">怎么用 copy 关键字？</h5><p>1.copy此特质所表达的 owning 关系与strong类似。然而 setter 并不保留新值，而是将其“拷贝” (copy)。</p>
+<p><br>当属性类型为NSString时，经常用此特质来保护其封装性，因为传递给设置方法的新值有可能指向一个NSMutableString类的实例。这个类是NSString的子类，表示一种可修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变” (immutable)的字符串(注意这里，拷贝出来的是对应的“不可变类”。例如 NSMutableString 拷贝出来是 NSString，NSMutableArray 拷贝得到的是 NSArray)，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的” (mutable)，就应该在设置新属性值时拷贝一份。</p>
+<p><br>用@property声明 NSString、NSArray、NSDictionary 经常使用copy关键字，是因为他们有对应的可变类型：NSMutableString、NSMutableArray、NSMutableDictionary，他们之间可能进行赋值操作，为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。</p>
+<p><br>2.block也经常使用copy关键字，具体原因见<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/WorkingwithBlocks/WorkingwithBlocks.html#//apple_ref/doc/uid/TP40011210-CH8-SW12" target="_blank" rel="external">官方文档：Objects Use Properties to Keep Track of Blocks：</a></p>
+<p><br>block使用copy是从MRC遗留下来的“传统”,在MRC中,方法内部的block是在栈区的,使用copy可以把它放到堆区.在ARC中写不写都行：对于block使用copy还是strong效果是一样的，但写上copy也无伤大雅，还能时刻提醒我们：编译器自动对block进行了copy操作。<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/11/head_to_dali/VlVKl8L.png" alt="image"></p>
+<h5 id="这个写法会出什么问题：@property_(copy)_NSMutableArray_*array;">这个写法会出什么问题：<code>@property (copy) NSMutableArray *array;</code></h5><p>1.添加,删除,修改数组内的元素的时候,程序会因为找不到对应的方法而崩溃。<br>因为copy就是复制一个不可变NSArray的对象。换言之，就算传入的原对象是 NSMutableArray 类型的，但其 copyToZone: 函数返回的是 NSArray 类型，而系统默认的 setter 是调用对象的 copyToZone: 函数。若要得到 NSMutableArray 类型，则需要自定义 setter，并且在里面调用 mutableCopy 方法。</p>
+<p><br>2.使用了atomic属性会影响性能。<br>该属性使用了同步锁，会在创建时生成一些额外的代码用于帮助编写多线程程序，这会带来性能问题，通过声明nonatomic可以节省这些虽然很小但是不必要额外开销。</p>
+<p>在默认情况下，由编译器所合成的方法会通过锁定机制确保其原子性(atomicity)。如果属性具备nonatomic特质，则不使用同步锁。请注意，尽管没有名为“atomic”的特质(如果某属性不具备nonatomic特质，那它就是“原子的”(atomic))。</p>
+<p><br>在iOS开发中，你会发现，几乎所有属性都声明为nonatomic。</p>
+<p><br>一般情况下并不要求属性必须是“原子的”，因为这并不能保证“线程安全” ( thread safety)，若要实现“线程安全”的操作，还需采用更为深层的锁定机制才行。例如，一个线程在连续多次读取某属性值的过程中有别的线程在同时改写该值，那么即便将属性声明为atomic，也还是会读到不同的属性值。</p>
+<p><br>因此，开发iOS程序时一般都会使用nonatomic属性。但是在开发Mac OS X程序时，使用<br>atomic属性通常都不会有性能瓶颈。</p>
+<h5 id="如何让自己的类用_copy_修饰符？如何重写带_copy_关键字的_setter？">如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？</h5><p>1.若想令自己所写的对象具有拷贝功能，则需实现NSCopying协议。如果自定义的对象分为可变版本与不可变版本，那么就要同时实现NSCopyiog与NSMutableCopying协议。</p>
+<p><br>具体步骤：<br>a. 需声明该类遵从NSCopying协议<br>b. 实现NSCopying协议。该协议只有一个方法:<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>)copyWithZone: (<span class="built_in">NSZone</span>*)zone</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：一提到让自己的类用 copy 修饰符，我们总是想覆盖 copy 方法，其实真正需要实现的却是“copyWithZone”方法。</p>
+</blockquote>
+<p>举个栗子：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Person.h</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">copy</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithName:(<span class="built_in">NSString</span> *)name;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>然后实现协议中规定的方法<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone &#123;</span><br><span class="line">	Person *<span class="keyword">copy</span> = [[Person allocWithZone:zone] initWithName:_name];</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">copy</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但在实际的项目中，不可能这么简单，遇到更复杂一点，比如类对象中的数据结构可能并未在初始化方法中设置好，需要另行设置。再举个栗子，假如 Person 中含有一个数组，与其他 Person 对象建立或解除朋友关系的那些方法都需要操作这个数组。那么在这种情况下，你得把这个包含朋友对象的数组也一并拷贝过来。下面列出了实现此功能所需的全部代码:<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Person.h</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">copy</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithName:(<span class="built_in">NSString</span> *)name;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addFriend:(Person *)user; <span class="comment">//添加盆友</span></span><br><span class="line">- (<span class="keyword">void</span>)removeFriend:(Person *)user; <span class="comment">//删除盆友</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Person<span class="variable">.m</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">	<span class="built_in">NSMutableSet</span> *_friends;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithName:(<span class="built_in">NSString</span> *)name &#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</span><br><span class="line">		_name = [name <span class="keyword">copy</span>];</span><br><span class="line">		_friends = [[<span class="built_in">NSMutableSet</span> alloc] init];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addFriend:(Person *)user &#123;</span><br><span class="line">	[_friends addObject:user];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)removeFriend:(Person *)user &#123;</span><br><span class="line">	[_friends removeObject:user];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone &#123;</span><br><span class="line">	Person *<span class="keyword">copy</span> = [[Person allocWithZone:zone] initWithName:_name];</span><br><span class="line">	<span class="keyword">copy</span>-&gt;_friends = [_friends mutableCopy];</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">copy</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br>2.怎么重写带 copy 关键字的 setter<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name &#123;</span><br><span class="line">	_name = [name <span class="keyword">copy</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="@property_的本质是什么？ivar、getter、setter_是如何生成并添加到这个类中的">@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的</h5><p><strong>1.@property 的本质是什么？</strong></p>
+<blockquote>
+<p>@property = ivar + getter + setter;</p>
+</blockquote>
+<p>“属性” (property)有两大概念：ivar（实例变量）、存取方法（access method ＝ getter + setter）。</p>
+<p><br>“属性” (property)作为 Objective-C 的一项特性，主要的作用就在于封装对象中的数据。 Objective-C 对象通常会把其所需要的数据保存为各种实例变量。实例变量一般通过“存取方法”(access method)来访问。其中，“获取方法” (getter)用于读取变量值，而“设置方法” (setter)用于写入变量值。这个概念已经定型，并且经由“属性”这一特性而成为Objective-C 2.0的一部分。</p>
+<p><br>而在正规的 Objective-C 编码风格中，存取方法有着严格的命名规范。<br>正因为有了这种严格的命名规范，所以 Objective-C 这门语言才能根据名称自动创建出存取方法。其实也可以把属性当做一种关键字，其表示编译器会自动写出一套存取方法，用以访问给定类型中具有给定名称的变量。<br>所以你也可以这么说：</p>
+<blockquote>
+<p>@property = getter + setter;</p>
+</blockquote>
+<p><br>例如下面类：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span> </span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *firstName; </span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *lastName; </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>上面代码写出来的类与下面这种写法等效：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span> </span></span><br><span class="line">- (<span class="built_in">NSString</span> *)firstName; </span><br><span class="line">- (<span class="keyword">void</span>)setFirstName:(<span class="built_in">NSString</span> *)firstName; </span><br><span class="line">- (<span class="built_in">NSString</span> *)lastName; </span><br><span class="line">- (<span class="keyword">void</span>)setLastName:(<span class="built_in">NSString</span> *)lastName; </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p><br><strong>2.ivar getter setter 是如何生成并添加到这个类中的？</strong></p>
+<p><br>“自动合成”(autosynthesis)</p>
+<p><br>完成属性定义后，编译器会自动编写访问这些属性所需的方法，此过程叫做“自动合成”( autosynthesis)。需要强调的是，这个过程由编译器在编译期执行，所以编辑器里看不到这些“合成方法”(synthesized method)的源代码。除了生成方法代码 getter、setter 之外，编译器还要自动向类中添加适当类型的实例变量，并且在属性名前面加下划线，以此作为实例变量的名字。在前例中，会生成两个实例变量，其名称分别为 _firstName 与 _lastName。也可以在类的实现代码里通过 @synthesize 语法来指定实例变量的名字。<br> <figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span> </span></span><br><span class="line"><span class="keyword">@synthesize</span> firstName = _myFirstName; </span><br><span class="line"><span class="keyword">@synthesize</span> lastName = myLastName; </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>反编译相关的代码，大致生成了五个东西</p>
+<ol>
+<li><code>OBJC_IVAR_$类名$属性名称</code> ：该属性的“偏移量” (offset)，这个偏移量是“硬编码” (hardcode)，表示该变量距离存放对象的内存区域的起始地址有多远</li>
+<li>setter与getter方法对应的实现函数</li>
+<li><code>ivar_list</code>: 成员变量列表</li>
+<li><code>method_list</code>: 方法列表</li>
+<li><code>prop_list</code>: 属性列表</li>
+</ol>
+<p>也就是说我们每次增加一个属性，系统都会在 <code>ivar_list</code> 中添加一个成员变量的描述，在 <code>method_list</code> 中增加 setter 与 getter 方法的描述，在属性列表中增加一个属性的描述，然后计算该属性在对象中的偏移量，然后给出 setter 与 getter 方法对应的实现，在 setter 方法中从偏移量的位置开始赋值，在 getter 方法中从偏移量开始取值，为了能够读取正确字节数，系统对象偏移量的指针类型进行了类型强转。</p>
+<h5 id="@protocol_和_category_中如何使用_@property">@protocol 和 category 中如何使用 @property</h5><p>1.在 protocol 中使用 property 只会生成 setter 和 getter 方法声明，我们使用属性的目的，是希望遵守协议的对象能实现该属性。换言之，对于 protocol 中声明的属性，如果未在类中实现其 getter 与 setter，在 app 使用到这些属性的地方会因为找不到方法而崩溃。</p>
+<p><br>2.category 使用 @property 也是只会生成setter和getter方法的声明,如果我们真的需要给category增加属性的实现,需要借助于运行时的两个函数：<code>objc_setAssociatedObject</code> 与 <code>objc_getAssociatedObject</code>。用刚刚的 Person 作为例子，给它增加一个名为 MetaHuman 的 category：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"Person.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> (<span class="title">MetaHuman</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">copy</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSString</span> *skillName;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"Person+MetaHuman.h"</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> *key = <span class="string">@"skillName"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span> (<span class="title">MetaHuman</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@dynamic</span> skillName;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setSkillName:(<span class="built_in">NSString</span> *)skillName &#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(key), skillName, OBJC_ASSO<span class="built_in">CIATION_COPY_NONATOMIC</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)skillName &#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(key));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h5 id="runtime_如何实现_weak_属性">runtime 如何实现 weak 属性</h5><p>要实现 weak 属性，首先要搞清楚weak属性的特点：</p>
+<p><br> weak 此特质表明该属性定义了一种“非拥有关系” (nonowning relationship)。为这种属性设置新值时，设置方法既不保留新值，也不释放旧值。此特质同assign类似， 然而在属性所指的对象遭到摧毁时，属性值也会清空(nil out)。</p>
+<p><br>那么runtime如何实现weak变量的自动置nil？</p>
+<p><br>runtime 对注册的类， 会进行布局，对于 weak 对象会放入一个 hash 表中。 用 weak 指向的对象内存地址作为 key，当此对象的引用计数为0的时候会 dealloc，假如 weak 指向的对象内存地址是a，那么就会以a为键， 在这个 weak 表中搜索，找到所有以a为键的 weak 对象，从而设置为 nil。</p>
+<p><br>设计一个函数（伪代码）来表示上述机制，objc_storeWeak(&amp;a, b)：</p>
+<p><br>objc_storeWeak 函数把第二个参数—赋值对象 b 的内存地址作为键值 key，将第一个参数（weak 修饰的属性变量 a）的内存地址 &amp;a 作为value，注册到 weak 表中。如果第二个参数 b 为 nil，那么把变量 a 的内存地址 &amp;a 从weak表中删除。注意区分<em>变量的内存地址</em>跟<em>变量指向的对象的内存地址</em>。</p>
+<p><br> 你可以把 objc_storeWeak(&amp;a, b) 理解为：objc_storeWeak(value, key)，并且当 key 变 nil，将 value 置 nil。</p>
+<p><br>而如果a是由assign修饰的，则：<br>在b非nil时，a和b指向同一个内存地址，在b变nil时，a还是指向该内存地址，变野指针。此时向a发送消息极易崩溃。</p>
+<p><br>下面我们将基于 objc_storeWeak(&amp;a, b) 函数，使用伪代码模拟“runtime如何实现weak属性”：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">id</span> obj1;</span><br><span class="line">objc_initWeak(&amp;obj1, obj);</span><br><span class="line"></span><br><span class="line"><span class="comment">// obj引用计数变为0，变量作用域结束</span></span><br><span class="line"></span><br><span class="line">objc_destroyWeak(&amp;obj1);</span><br></pre></td></tr></table></figure></p>
+<p>通过 objc_initWeak 函数初始化 weak property obj1 ，在变量作用域结束时通过 objc_destoryWeak 函数释放 obj1。</p>
+<p><br>其中，objc_initWeak 函数的实现是这样的：在将 weak property obj1 初始化为 nil 后，会将 obj 作为参数，调用 objc_storeWeak 函数。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// objc_initWeak 内部原理</span></span><br><span class="line"></span><br><span class="line">obj1 = <span class="number">0</span>；</span><br><span class="line">obj_storeWeak(&amp;obj1, obj);</span><br></pre></td></tr></table></figure></p>
+<p>而 obj_destroyWeak 的工作原理是将 nil 作为参数，调用 objc_storeWeak 函数：objc_storeWeak(&amp;obj1, 0);</p>
+<p><br>于是前面的代码等价于下面代码<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">id</span> obj1;</span><br><span class="line">obj1 = <span class="number">0</span>;</span><br><span class="line">objc_storeWeak(&amp;obj1, obj);</span><br><span class="line"><span class="comment">// obj的引用计数变为0，被置nil</span></span><br><span class="line">objc_storeWeak(&amp;obj1, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
+<p>objc_storeWeak 函数把赋值对象 obj 的内存地址作为键值，将 weak property obj1 的内存地址注册到 weak 表中。如果obj 为 nil，那么把变量 obj1 的地址从 weak 表中删除，在后面的相关一题会详解。</p>
+<p><br>使用伪代码是为了方便理解，下面我们“真枪实弹”地实现下: <strong>如何让不使用weak修饰的@property，拥有weak的效果。</strong></p>
+<p><br>首先看 setter<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setObject:(<span class="built_in">NSObject</span> *)object</span><br><span class="line">&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, <span class="string">"object"</span>, object, OBJC_ASSO<span class="built_in">CIATION_ASSIGN</span>);</span><br><span class="line">    [object cyl_runAtDealloc:^&#123;</span><br><span class="line">        _object = <span class="literal">nil</span>;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里重点是，如何实现这个 cyl_runAtDealloc: 函数，思路如下<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">id</span> objectToBeDeallocated; <span class="comment">//要销毁的目标对象</span></span><br><span class="line"><span class="keyword">id</span> objectWeWantToBeReleasedWhenThatHappens; <span class="comment">//可以理解为一个“事件”：当上面的目标对象销毁时，同时要发生的“事件”。</span></span><br><span class="line"></span><br><span class="line">objc_setAssociatedObject(objectToBeDeallocted,</span><br><span class="line">                     someUniqueKey,</span><br><span class="line">                     objectWeWantToBeReleasedWhenThatHappens,</span><br><span class="line">                     OBJC_ASSO<span class="built_in">CIATION_RETAIN</span>);</span><br></pre></td></tr></table></figure></p>
+<p>下面开始实现这个 cyl_runAtDealloc 方法，实现过程分为两部分：<br><strong>第一部分：</strong>创建一个类，可以理解为一个“事件”：当目标对象销毁时，同时要发生的“事件”。借助 block 执行“事件”<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .h文件</span></span><br><span class="line"><span class="comment">// 这个类，可以理解为一个“事件”：当目标对象销毁时，同时要发生的“事件”。借助block执行“事件”。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (^voidBlock)(<span class="keyword">void</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CYLBlockExecutor</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)initWithBlock:(voidBlock)block;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .m文件</span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"CYLBlockExecutor.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CYLBlockExecutor</span>() </span>&#123;</span><br><span class="line">    voidBlock _block;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CYLBlockExecutor</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>)initWithBlock:(voidBlock)aBlock</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        _block = [aBlock <span class="keyword">copy</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)dealloc</span><br><span class="line">&#123;</span><br><span class="line">    _block ? _block() : <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p><strong>第二部分：*</strong>核心代码：利用 runtime 实现 cyl_runAtDealloc 方法。这里利用了 Category 来实现：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CYLNSObject+RunAtDealloc.h文件</span></span><br><span class="line"><span class="comment">// 利用runtime实现cyl_runAtDealloc方法</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">"CYLBlockExecutor.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">void</span> *runAtDeallocBlockKey = &amp;runAtDeallocBlockKey;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">CYLRunAtDealloc</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)cyl_runAtDealloc:(voidBlock)block;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CYLNSObject+RunAtDealloc.m文件</span></span><br><span class="line"><span class="comment">// 利用runtime实现cyl_runAtDealloc方法</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">"CYLNSObject+RunAtDealloc.h"</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"CYLBlockExecutor.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">CYLRunAtDealloc</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)cyl_runAtDealloc:(voidBlock)block</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (block) &#123;</span><br><span class="line">        CYLBlockExecutor *executor = [[CYLBlockExecutor alloc] initWithBlock:block];</span><br><span class="line"></span><br><span class="line">        objc_setAssociatedObject(<span class="keyword">self</span>,</span><br><span class="line">                                 runAtDeallocBlockKey,</span><br><span class="line">                                 executor,</span><br><span class="line">                                 OBJC_ASSO<span class="built_in">CIATION_RETAIN</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>对上面的原理感兴趣，可移步到<a href="http://blog.slaunchaman.com/2011/04/11/fun-with-the-objective-c-runtime-run-code-at-deallocation-of-any-object/" target="_blank" rel="external">Fun With the Objective-C Runtime: Run Code at Deallocation of Any Object</a></p>
+<h5 id="@property中有哪些属性关键字？/_@property_后面可以有哪些修饰符？">@property中有哪些属性关键字？/ @property 后面可以有哪些修饰符？</h5><ol>
+<li>原子性：nonatomic 特质</li>
+</ol>
+<p>在默认情况下，由编译器合成的方法会通过锁定机制确保其原子性(atomicity)。如果属性具备 nonatomic 特质，则不使用同步锁。请注意，尽管没有名为“atomic”的 attribute (如果某属性不具备 nonatomic 特质，那它就是“原子的” ( atomic) )，但是仍然可以在属性的 attribute 中写上 atomic，编译器不会报错。若是自己定义存取方法，那么就应该遵从与属性 attribute 相符的原子性。</p>
+<ol>
+<li><p>读/写权限：readwrite(读写)、readonly (只读)</p>
+</li>
+<li><p>内存管理语义：assign、strong、 weak、unsafe_unretained、copy</p>
+</li>
+<li><p>方法名：getter=<name> 、setter=<name></name></name></p>
+</li>
+<li><p>不常用的：nonnull,null_resettable,nullable</p>
+</li>
+</ol>
+<h5 id="weak属性需要在dealloc中置nil么？">weak属性需要在dealloc中置nil么？</h5><p>不需要。在ARC环境无论是强指针还是弱指针都无需在 dealloc 设置为 nil ， ARC 会自动帮我们处理。即便是编译器不帮我们做这些，weak也不需要在 dealloc 中置nil。</p>
+<p><br>正如上面一题 <strong><em>runtime 如何实现 weak 属性</em></strong> 中提到的：在属性所指的对象遭到摧毁时，属性值也会清空(nil out)。</p>
+<h5 id="@synthesize和@dynamic分别有什么作用？">@synthesize和@dynamic分别有什么作用？</h5><ol>
+<li><p>@property有两个对应的词，一个是 @synthesize，一个是 @dynamic。如果 @synthesize和 @dynamic都没写，那么默认的就是@syntheszie var = _var;</p>
+</li>
+<li><p>@synthesize 的语义是如果你没有手动实现 setter 方法和 getter 方法，那么编译器会自动为你加上这两个方法。</p>
+</li>
+<li><p>@dynamic 告诉编译器：属性的 setter 与 getter 方法由用户自己实现，不自动生成。（当然对于 readonly 的属性只需提供 getter 即可）。假如一个属性被声明为 @dynamic var，然后你没有提供 @setter方法和 @getter 方法，编译的时候没问题，但是当程序运行到 instance.var = someVar，由于缺 setter 方法会导致程序崩溃；或者当运行到 someVar = var 时，由于缺 getter 方法同样会导致崩溃。编译时没问题，运行时才执行相应的方法，这就是所谓的动态绑定。</p>
+</li>
+</ol>
+<h5 id="ARC下，不显式指定任何属性关键字时，默认的关键字都有哪些？">ARC下，不显式指定任何属性关键字时，默认的关键字都有哪些？</h5><ol>
+<li>对应基本数据类型默认关键字是：atomic,readwrite,assign</li>
+<li>对于普通的 Objective-C 对象：atomic,readwrite,strong</li>
+</ol>
+<p>参考链接：<br><a href="http://stackoverflow.com/questions/8927727/objective-c-arc-strong-vs-retain-and-weak-vs-assign/15541801#15541801" target="_blank" rel="external">Objective-C ARC: strong vs retain and weak vs assign</a><br><a href="http://rdcworld-iphone.blogspot.in/2012/12/variable-property-attributes-or.html" target="_blank" rel="external">Variable property attributes or Modifiers in iOS</a></p>
+<h5 id="用_@property_声明的_NSString（或NSArray，NSDictionary）经常使用_copy_关键字，为什么？如果改用_strong_关键字，可能造成什么问题？">用 @property 声明的 NSString（或NSArray，NSDictionary）经常使用 copy 关键字，为什么？如果改用 strong 关键字，可能造成什么问题？</h5><p><br>1.因为父类指针可以指向子类对象,使用 copy 的目的是为了让本对象的属性不受外界影响,使用 copy 无论给我传入是一个可变对象还是不可对象,我本身持有的就是一个不可变的副本.</p>
+<p><br>2.如果我们使用是 strong ,那么这个属性就有可能指向一个可变对象,如果这个可变对象在外部被修改了,那么会影响该属性.</p>
+<p><br>copy 此特质所表达的 ownership 与 strong 类似。然而 setter 并不保留新值，而是将其“拷贝” (copy)。 当属性类型为 NSString 时，经常用此特质来保护其封装性，因为传递给设置方法的新值有可能指向一个 NSMutableString 类的实例。这个类是 NSString 的子类，表示一种可修改其值的字符串，此时若是不拷贝字符串，那么设置完属性之后，字符串的值就可能会在对象不知情的情况下遭人更改。所以，这时就要拷贝一份“不可变” (immutable)的字符串，确保对象中的字符串值不会无意间变动。只要实现属性所用的对象是“可变的” (mutable)，就应该在设置新属性值时拷贝一份。</p>
+<p><br>另外需要知道两种情况：</p>
+<ol>
+<li>对非集合类对象的 copy 与 mutableCopy 操作；</li>
+<li>对集合类对象的 copy 与 mutableCopy 操作。</li>
+</ol>
+<p><br><strong>1.对非集合类对象的copy操作：</strong></p>
+<p><br>在非集合类对象中：对 immutable 对象进行 copy 操作，是指针复制，mutableCopy 操作时内容复制；对 mutable 对象进行 copy 和 mutableCopy 都是内容复制。用代码简单表示如下：</p>
+<ul>
+<li>[immutableObject copy] // 浅复制</li>
+<li>[immutableObject mutableCopy] //深复制</li>
+<li>[mutableObject copy] //深复制</li>
+<li>[mutableObject mutableCopy] //深复制</li>
+</ul>
+<p><br><strong>2.集合类对象的copy与mutableCopy</strong></p>
+<p><br>集合类对象是指 NSArray、NSDictionary、NSSet … 之类的对象。下面先看集合类 immutable 对象使用 copy 和 mutableCopy 的一个例子：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *array = @[@[<span class="string">@"a"</span>, <span class="string">@"b"</span>], @[<span class="string">@"c"</span>, <span class="string">@"d"</span>]];</span><br><span class="line"><span class="built_in">NSArray</span> *copyArray = [array <span class="keyword">copy</span>];</span><br><span class="line"><span class="built_in">NSMutableArray</span> *mCopyArray = [array mutableCopy];</span><br></pre></td></tr></table></figure></p>
+<p>查看内容，可以看到 copyArray 和 array 的地址是一样的，而 mCopyArray 和 array 的地址是不同的。说明 copy 操作进行了指针拷贝，mutableCopy 进行了内容拷贝。但需要强调的是：此处的内容拷贝，仅仅是拷贝 array 这个对象，array 集合内部的元素仍然是指针拷贝。这和上面的非集合 immutable 对象的拷贝还是挺相似的，那么mutable对象的拷贝会不会类似呢？我们继续往下，看 mutable 对象拷贝的例子：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableArray</span> *array = [<span class="built_in">NSMutableArray</span> arrayWithObjects:[<span class="built_in">NSMutableString</span> stringWithString:<span class="string">@"a"</span>],<span class="string">@"b"</span>,<span class="string">@"c"</span>,<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSArray</span> *copyArray = [array <span class="keyword">copy</span>];</span><br><span class="line"><span class="built_in">NSMutableArray</span> *mCopyArray = [array mutableCopy];</span><br></pre></td></tr></table></figure></p>
+<p>查看内存，如我们所料，copyArray、mCopyArray和 array 的内存地址都不一样，说明 copyArray、mCopyArray 都对 array 进行了内容拷贝。同样，我们可以得出结论：</p>
+<p><br>在集合类对象中，对 immutable 对象进行 copy，是指针复制， mutableCopy 是内容复制；对 mutable 对象进行 copy 和 mutableCopy 都是内容复制。但是：集合对象的内容复制仅限于对象本身，<strong><em>对象元素仍然是指针复制</em></strong>。用代码简单表示如下：</p>
+<ul>
+<li>[immutableObject copy] // 浅复制</li>
+<li>[immutableObject mutableCopy] //单层深复制</li>
+<li>[mutableObject copy] //单层深复制</li>
+<li>[mutableObject mutableCopy] //单层深复制</li>
+</ul>
+<p>这个代码结论和非集合类的非常相似。</p>
+<p><br>参考链接：<a href="https://www.zybuluo.com/MicroCai/note/50592" target="_blank" rel="external">iOS 集合的深复制与浅复制</a></p>
+<h5 id="@synthesize合成实例变量的规则是什么？假如property名为foo，存在一个名为_foo的实例变量，那么还会自动合成新变量么？">@synthesize合成实例变量的规则是什么？假如property名为foo，存在一个名为_foo的实例变量，那么还会自动合成新变量么？</h5><p>在回答之前先说明下一个概念：实例变量 = 成员变量 ＝ ivar。这些说法，笔者下文中，可能都会用到，指的是一个东西。</p>
+<p>正如<a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/EncapsulatingData/EncapsulatingData.html#//apple_ref/doc/uid/TP40011210-CH5-SW6" target="_blank" rel="external">Apple官方文档 You Can Customize Synthesized Instance Variable Names</a>所说：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/reliable_ios/synthesized_doc.png" alt="image"><br>如果使用了属性的话，那么编译器就会自动编写访问属性所需的方法，此过程叫做“自动合成”( auto synthesis)。需要强调的是，这个过程由编译器在编译期执行，所以编辑器里看不到这些“合成方法” (synthesized method)的源代码。除了生成方法代码之外，编译器还要自动向类中添加适当类型的实例变量，并且在属性名前面加下划线，以此作为实例变量的名字。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CYLPerson</span> : <span class="title">NSObject</span> </span></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *firstName; </span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSString</span> *lastName; </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>在上例中，会生成两个实例变量，其名称分别为 _firstName 与 _lastName。也可以在类的实现代码里通过 @synthesize 语法来指定实例变量的名字:<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CYLPerson</span> </span></span><br><span class="line"><span class="keyword">@synthesize</span> firstName = _myFirstName; </span><br><span class="line"><span class="keyword">@synthesize</span> lastName = _myLastName; </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>上述语法会将生成的实例变量命名为 _myFirstName 与 _myLastName ，而不再使用默认的名字。一般情况下无须修改默认的实例变量名，但是如果你不喜欢以下划线来命名实例变量，那么可以用这个办法将其改为自己想要的名字。笔者还是推荐使用默认的命名方案，因为如果所有人都坚持这套方案，那么写出来的代码大家都能看得懂。</p>
+<p>总结下 @synthesize 合成实例变量的规则，有以下几点：</p>
+<ol>
+<li>如果指定了成员变量的名称,会生成一个指定的名称的成员变量,</li>
+<li>如果这个成员已经存在了就不再生成了.</li>
+<li>如果是 @synthesize foo; 还会生成一个名称为foo的成员变量，也就是说：如果没有指定成员变量的名称，便会自动生成一个属性同名的成员变量。</li>
+<li>如果是 @synthesize foo = _foo; 就不会生成成员变量了.</li>
+</ol>
+<p><br>所以，假如 property 名为 foo，存在一个名为 _foo 的实例变量，那么还会自动合成新变量么？ 不会。如下图：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/reliable_ios/synthesize_code.png" alt="image"><br>注意上面 <strong><em>another synthesized property</em></strong>，也就是说编译器认为 property object 已经 synthesized</p>
+<h5 id="在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？">在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？</h5><p>在Xcode4.4之后，编译器会自动帮你完成 @synthesize 操作：XCode4.4 release note：The compiler automatically calls @synthesize by default for unimplemented @properties（default 是 @synthesize propertyName = _propertyName）。这就是所说的自动合成。</p>
+<p><br>回答这个问题前，我们要搞清楚一个问题，什么情况下不会autosynthesis（自动合成）？</p>
+<ol>
+<li>同时重写了 setter 和 getter 时</li>
+<li>重写了只读属性的 getter 时</li>
+<li>使用了 @dynamic 时</li>
+<li>在 @protocol 中定义的所有属性</li>
+<li>在 category 中定义的所有属性</li>
+<li>重载的属性：当你在子类中重载了父类中的属性，你必须 使用 @synthesize 来手动合成 ivar。</li>
+</ol>
+<p><br>除了后三条，对其他几个我们可以总结出一个规律：当你想手动管理 @property 的所有内容时，你就会尝试通过实现 @property 的所有“存取方法”（the accessor methods）或者使用 @dynamic 来达到这个目的，这时编译器就会认为你打算手动管理 @property，于是编译器就禁用了 autosynthesis（自动合成）。</p>
+<p><br>因为有了 autosynthesis（自动合成），大部分开发者已经习惯不去手动定义ivar，而是依赖于 autosynthesis（自动合成），但是一旦你需要使用ivar，而 autosynthesis（自动合成）又失效了，如果不去手动定义ivar，那么你就得借助 @synthesize 来手动合成 ivar。</p>
+<p><br>可以在类的实现代码里通过 @synthesize 语法来指定实例变量的名字:<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CYLPerson</span> </span></span><br><span class="line"><span class="keyword">@synthesize</span> firstName = _myFirstName; </span><br><span class="line"><span class="keyword">@synthesize</span> lastName = _myLastName; </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p><br>上述语法会将生成的实例变量命名为 _myFirstName 与 _myLastName，而不再使用默认的名字。一般情况下无须修改默认的实例变量名，但是如果你不喜欢以下划线来命名实例变量，那么可以用这个办法将其改为自己想要的名字。笔者还是推荐使用默认的命名方案，因为如果所有人都坚持这套方案，那么写出来的代码大家都能看得懂。</p>
+<p><br>举个例子，还是我们的 person 类：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  Person.h</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Person</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">copy</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  Person.m</span></span><br><span class="line"><span class="comment">//  只实现setter</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">"Person.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name</span><br><span class="line">&#123;</span><br><span class="line">    _name = [name <span class="keyword">copy</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>这样没问题。但是如果连同 getter 也一并实现了的话，就会报错：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  Person.m</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">"Person.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Person</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name</span><br><span class="line">&#123;</span><br><span class="line">    _name = [name <span class="keyword">copy</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)name</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> _name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>编译器报错：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/reliable_ios/error.png" alt="image"></p>
+<p><br>这是由于上面所提到过的，这里实现了 @property 的所有 accessor methods，这时编译器就会认为你打算手动管理 @property，于是编译器就禁用了 autosynthesis（自动合成）。</p>
+<p><br><br>以上</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/开发/" rel="tag">#开发</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/13/ios9_3dtouch/" rel="next">iOS9 new feature — 3D Touch 人机交互指南</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2015/10/15/reliable_ios_1/"
+                       data-title="《招聘一个靠谱的iOS》— Part Ⅰ" data-url="http://pandara.xyz/2015/10/15/reliable_ios_1/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author-avatar"></div>
+          <p class="site-author-name" itemprop="name">Pandara</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Hey! man~</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/PandaraWen" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/pandarawen" target="_blank">Weibo</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">基情链接</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://aevit.xyz/" target="_blank">Aevit's Lab</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://helkyle.com/" target="_blank">HelKyle's blog</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://w3ctrain.com" target="_blank">W3cTrain</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么情况使用_weak_关键字，相比_assign_有什么不同？"><span class="nav-number">1.</span> <span class="nav-text">什么情况使用 weak 关键字，相比 assign 有什么不同？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#怎么用_copy_关键字？"><span class="nav-number">2.</span> <span class="nav-text">怎么用 copy 关键字？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#这个写法会出什么问题：@property_(copy)_NSMutableArray_*array;"><span class="nav-number">3.</span> <span class="nav-text">这个写法会出什么问题：@property (copy) NSMutableArray *array;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何让自己的类用_copy_修饰符？如何重写带_copy_关键字的_setter？"><span class="nav-number">4.</span> <span class="nav-text">如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#@property_的本质是什么？ivar、getter、setter_是如何生成并添加到这个类中的"><span class="nav-number">5.</span> <span class="nav-text">@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#@protocol_和_category_中如何使用_@property"><span class="nav-number">6.</span> <span class="nav-text">@protocol 和 category 中如何使用 @property</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#runtime_如何实现_weak_属性"><span class="nav-number">7.</span> <span class="nav-text">runtime 如何实现 weak 属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#@property中有哪些属性关键字？/_@property_后面可以有哪些修饰符？"><span class="nav-number">8.</span> <span class="nav-text">@property中有哪些属性关键字？/ @property 后面可以有哪些修饰符？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#weak属性需要在dealloc中置nil么？"><span class="nav-number">9.</span> <span class="nav-text">weak属性需要在dealloc中置nil么？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#@synthesize和@dynamic分别有什么作用？"><span class="nav-number">10.</span> <span class="nav-text">@synthesize和@dynamic分别有什么作用？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ARC下，不显式指定任何属性关键字时，默认的关键字都有哪些？"><span class="nav-number">11.</span> <span class="nav-text">ARC下，不显式指定任何属性关键字时，默认的关键字都有哪些？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用_@property_声明的_NSString（或NSArray，NSDictionary）经常使用_copy_关键字，为什么？如果改用_strong_关键字，可能造成什么问题？"><span class="nav-number">12.</span> <span class="nav-text">用 @property 声明的 NSString（或NSArray，NSDictionary）经常使用 copy 关键字，为什么？如果改用 strong 关键字，可能造成什么问题？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#@synthesize合成实例变量的规则是什么？假如property名为foo，存在一个名为_foo的实例变量，那么还会自动合成新变量么？"><span class="nav-number">13.</span> <span class="nav-text">@synthesize合成实例变量的规则是什么？假如property名为foo，存在一个名为_foo的实例变量，那么还会自动合成新变量么？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？"><span class="nav-number">14.</span> <span class="nav-text">在有了自动合成属性实例变量之后，@synthesize还有哪些使用场景？</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+      <div class="side-bar-foot-decorate">
+        <div class="side-bar-man motion-element"></div>
+        <div class="side-bar-star motion-element"></div>
+      </div>
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pandara</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"pandara"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>

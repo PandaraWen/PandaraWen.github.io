@@ -44,7 +44,7 @@
 概述3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS9 new feature — 3D Touch 人机交互指南">
-<meta property="og:url" content="http://pandara.xyz/2015/10/12/ios9_3dtouch/index.html">
+<meta property="og:url" content="http://pandara.xyz/2015/10/13/ios9_3dtouch/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
 <meta property="og:description" content="翻译自苹果官方文档
 
@@ -54,7 +54,7 @@
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png?imageView2/2/w/300">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png?imageView2/2/w/300">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/quick_action_layouts_2x.png">
-<meta property="og:updated_time" content="2015-10-13T17:01:58.000Z">
+<meta property="og:updated_time" content="2015-10-14T02:23:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS9 new feature — 3D Touch 人机交互指南">
 <meta name="twitter:description" content="翻译自苹果官方文档
@@ -222,8 +222,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-10-12T00:00:00+08:00" content="2015-10-12">
-            2015-10-12
+          <time itemprop="dateCreated" datetime="2015-10-13T00:00:00+08:00" content="2015-10-13">
+            2015-10-13
           </time>
         </span>
 
@@ -244,8 +244,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/10/12/ios9_3dtouch/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/12/ios9_3dtouch/" itemprop="commentsCount"></span>
+              <a href="/2015/10/13/ios9_3dtouch/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/13/ios9_3dtouch/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -264,7 +264,7 @@
 </blockquote>
 <h4 id="概述">概述</h4><p>3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。</p>
 <a id="more"></a>
-<h5 id="Peek_与_Pop">Peek 与 Pop</h5><p>peek（一瞥）让用户可以在当前页面中预览某个 item，并且进行相关操作。用户轻压该 item 时，将会显示一个小矩形 view。</p>
+<h4 id="Peek_与_Pop">Peek 与 Pop</h4><p>peek（一瞥）让用户可以在当前页面中预览某个 item，并且进行相关操作。用户轻压该 item 时，将会显示一个小矩形 view。</p>
 <center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png" title="A peek preview in Safari" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png?imageView2/2/w/300" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png" title="Quick actions in a Safari peek" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png?imageView2/2/w/300" alt=""></a></center>
 
 <p><br>关于 peek</p>
@@ -280,7 +280,7 @@
 <p><br><strong>在 peek 中，不要使用看起来像 button 的元素</strong>。如果用户放开他们的手指，来试图去点击那个看起来像 button 的元素，peek 就会消失。</p>
 <p><br><strong>为 peek 提供快速操作，如果合适的话</strong>。在peek中，用户可以向上滑动，来显示一些跟 item 相关的操作。例如，在 Mail 应用中的 peek quick action 包括 Reply All， Forward， 还有 Move Message。不是每个 peek 都需要 quick action。但是如果你准备为 item 提供自定义的长按操作，最好能在 peek 中提供相同的操作。注意，web view 中的 peek 自动提供 peek quick aciton。</p>
 <p><br><strong>不要将 peek 作为提供自定义操作的唯一方式</strong>。不是所有的设备都支持 peek 与 pop，并且某些用户可能选择关闭 3D Touch。当你的 app 在一些旧的机器中运行，可以用长按操作来替代 peek quick action。</p>
-<h5 id="主屏幕快速操作">主屏幕快速操作</h5><p>主屏幕快速操作给用户提供了一种方便的途径来执行一些 app 指定的操作，可以在主屏幕中直接执行。</p>
+<h4 id="主屏幕快速操作">主屏幕快速操作</h4><p>主屏幕快速操作给用户提供了一种方便的途径来执行一些 app 指定的操作，可以在主屏幕中直接执行。</p>
 <center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png" title="Camera Home screen quick actions" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png?imageView2/2/w/300" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png" title="Mail Home screen quick actions" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png?imageView2/2/w/300" alt=""></a></center>
 
 <p><br>关于 Home screen quick action：</p>
@@ -320,6 +320,8 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2015/10/15/reliable_ios_1/" rel="prev">《招聘一个靠谱的iOS》— Part Ⅰ</a>
+            
           </div>
 
           <div class="post-nav-next post-nav-item">
@@ -350,8 +352,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/10/12/ios9_3dtouch/"
-                       data-title="iOS9 new feature — 3D Touch 人机交互指南" data-url="http://pandara.xyz/2015/10/12/ios9_3dtouch/">
+                  <div class="ds-thread" data-thread-key="2015/10/13/ios9_3dtouch/"
+                       data-title="iOS9 new feature — 3D Touch 人机交互指南" data-url="http://pandara.xyz/2015/10/13/ios9_3dtouch/">
                   </div>
                 
               </div>
@@ -391,7 +393,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -458,7 +460,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Peek_与_Pop"><span class="nav-number">1.1.</span> <span class="nav-text">Peek 与 Pop</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#主屏幕快速操作"><span class="nav-number">1.2.</span> <span class="nav-text">主屏幕快速操作</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Peek_与_Pop"><span class="nav-number">2.</span> <span class="nav-text">Peek 与 Pop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主屏幕快速操作"><span class="nav-number">3.</span> <span class="nav-text">主屏幕快速操作</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
