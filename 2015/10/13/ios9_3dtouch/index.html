@@ -1,0 +1,718 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="Hey! man~" />
+
+
+
+  <meta name="keywords" content="Objective-C,iOS,开发," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="翻译自苹果官方文档
+
+概述3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS9 new feature — 3D Touch 人机交互指南">
+<meta property="og:url" content="http://pandara.xyz/2015/10/13/ios9_3dtouch/index.html">
+<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:description" content="翻译自苹果官方文档
+
+概述3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png?imageView2/2/w/300">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png?imageView2/2/w/300">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png?imageView2/2/w/300">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png?imageView2/2/w/300">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/quick_action_layouts_2x.png">
+<meta property="og:updated_time" content="2015-10-14T02:23:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS9 new feature — 3D Touch 人机交互指南">
+<meta name="twitter:description" content="翻译自苹果官方文档
+
+概述3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'hide'
+  };
+</script>
+
+    <title> iOS9 new feature — 3D Touch 人机交互指南 // Pandara's Zone </title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c5d0f36c537707dfe01cd190611c07b1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<div class="container one-column page-post-detail">
+    <div id="pandara-brand" class="my-brand">
+      <div id="space-ship" class="pandara-image"></div>
+      <div id="planet0" class="pandara-image"></div>
+      <div id="earth" class="pandara-image"></div>
+      <div id="planet1" class="pandara-image"></div>
+      <div id="planet2" class="pandara-image"></div>
+      <div id="planet3" class="pandara-image"></div>
+      <div id="satellite" class="pandara-image"></div>
+      <div id="planet4" class="pandara-image"></div>
+      <div id="planet5" class="pandara-image"></div>
+      <div id="planet6" class="pandara-image"></div>
+    </div>
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Pandara's Zone</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+            <a href="/" rel="section">
+              <i class="menu-item-icon icon-home"></i> <br />
+              首页
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+            <a href="/categories" rel="section">
+              <i class="menu-item-icon icon-categories"></i> <br />
+              分类
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+            <a href="/about.html" rel="section">
+              <i class="menu-item-icon icon-about"></i> <br />
+              关于
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+            <a href="/archives" rel="section">
+              <i class="menu-item-icon icon-archives"></i> <br />
+              归档
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+            <a href="/tags" rel="section">
+              <i class="menu-item-icon icon-tags"></i> <br />
+              标签
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              iOS9 new feature — 3D Touch 人机交互指南
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-10-13T00:00:00+08:00" content="2015-10-13">
+            2015-10-13
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/10/13/ios9_3dtouch/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/13/ios9_3dtouch/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><blockquote>
+<p>翻译自<a href="https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/3DTouch.html" target="_blank" rel="external">苹果官方文档</a></p>
+</blockquote>
+<h4 id="概述">概述</h4><p>3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。</p>
+<a id="more"></a>
+<h4 id="Peek_与_Pop">Peek 与 Pop</h4><p>peek（一瞥）让用户可以在当前页面中预览某个 item，并且进行相关操作。用户轻压该 item 时，将会显示一个小矩形 view。</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png" title="A peek preview in Safari" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png?imageView2/2/w/300" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png" title="Quick actions in a Safari peek" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png?imageView2/2/w/300" alt=""></a></center>
+
+<p><br>关于 peek</p>
+<ul>
+<li>当用户 press 一个支持 peek 的 item 时出现，当用户手指离开时消失</li>
+<li>当用户在 peek view 上再用点力，它会打开一个关于 item 的详情 view。称这个 view 为 pop</li>
+<li>当用户在 peek view 中向上 swipe，将会出现一些快速操作</li>
+</ul>
+<p><br>当用户轻压屏幕，提供 peek 的 item 通过展示一个矩形 view 来表示它支持更进一步的交互。该矩形 view 应该足够大，好让用户的手指不会遮挡到内容；并且也应该足够详细，好让用户可以判断是否应该更进一步按压来查看 peek。</p>
+<p><br><strong>使用 peek 来提供一个 live，content-rich 的预览</strong>。peek 应该提供足够的信息，来让用户决定下一步操作。例如，用户在将消息中的 URL 分享给朋友，或者在浏览器中打开它之前，可以通过 peek 来预览该 URL 的网页。在 tableview 中，用户可以通过 peek 来查看某一行的详细视图。</p>
+<p><br><strong>为每个 peek 提供一个 pop</strong>。虽然 peek 应该给用户提供他们所需要的大部分信息，但是你也应该允许用户从他们当前的操作切换到该 item 中去，如果他们想的话。pop 应该与用户 tap 该 item 时呈现的 view 相同。</p>
+<p><br><strong>不要允许同一个 item 呈现 peek 和 edit menu</strong>。同时提供这两种特性会让用户迷惑。edit menu 指的是，当我们在输入框长按时，出现的黑色带小箭头的菜单。</p>
+<p><br><strong>在 peek 中，不要使用看起来像 button 的元素</strong>。如果用户放开他们的手指，来试图去点击那个看起来像 button 的元素，peek 就会消失。</p>
+<p><br><strong>为 peek 提供快速操作，如果合适的话</strong>。在peek中，用户可以向上滑动，来显示一些跟 item 相关的操作。例如，在 Mail 应用中的 peek quick action 包括 Reply All， Forward， 还有 Move Message。不是每个 peek 都需要 quick action。但是如果你准备为 item 提供自定义的长按操作，最好能在 peek 中提供相同的操作。注意，web view 中的 peek 自动提供 peek quick aciton。</p>
+<p><br><strong>不要将 peek 作为提供自定义操作的唯一方式</strong>。不是所有的设备都支持 peek 与 pop，并且某些用户可能选择关闭 3D Touch。当你的 app 在一些旧的机器中运行，可以用长按操作来替代 peek quick action。</p>
+<h4 id="主屏幕快速操作">主屏幕快速操作</h4><p>主屏幕快速操作给用户提供了一种方便的途径来执行一些 app 指定的操作，可以在主屏幕中直接执行。</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png" title="Camera Home screen quick actions" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png?imageView2/2/w/300" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png" title="Mail Home screen quick actions" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png?imageView2/2/w/300" alt=""></a></center>
+
+<p><br>关于 Home screen quick action：</p>
+<ul>
+<li>当用户在主屏幕用比 touch 稍大的力按压 app 的 icon 时出现</li>
+<li>显示你提供的短标题，icon，可选的子标题</li>
+<li>不支持其他自定义内容</li>
+<li>当你的 app 升级了可以显示升级信息</li>
+</ul>
+<p><br><strong>通过 HS quick action 来提供一些特定的操作</strong>。例如，Maps 让用户可以在不打开 Maps app 的情况下搜索他们的当前位置，或者获取回家的方向。每个 app 应该在 HS quick action 中提供最少一个操作。你可以提供最多4个操作。</p>
+<p><br><strong>不要使用 HS quick action 来简化 app 的导航</strong>。如果用户在访问你 app 的某些重要区域时感到困难或者耗时，首先你应该调整你 app 的导航。其次，在 HS quick aciton 中你应该提供的是有用的，creative 的操作。</p>
+<p><br><strong>不要以用户难以预测的方式改变 HS quick action</strong>。最好能以一些用户知道的修改来更改 app 的 HS quick action。例如，可以根据用户当前的位置或者最近在 app 中的操作，时间或者用户的设置来改变 qucik action。</p>
+<p><br><strong>不要使用 HS quick aciton 来作为通知用户的方式</strong>。iOS 用户会期望以另外一种方式来接收通知的(微笑)。</p>
+<p><br><strong>为每个 HS quick action 项提供一个简明的 title 或者 subtitle 跟模板 icon</strong>。title 应该清楚指明改 action 的操作结果。例如，“打道回府”，“创建新的联系人”还有“写短信”。你同时也可以提供一个可选的子标题来让用户直到更多信息。例如，Mail 在 VIP 主屏幕中 使用子标题来告诉用户是否有未读信息。不要将 app 的名字或者其他无关的信息包含在 title 或者 subtitle 中，同时也要考虑你的文本的本地化。</p>
+<p><br>你应该让你的标题尽可能的短，来避免它被裁截，同时也可以帮助用户快速明白操作的含义。如果你提供子标题，如果它太长的话，系统会将它裁截，来让它的长度维持在一行之内。如果你不提供子标题，系统会将过长的标题截断换到第二行。</p>
+<p><br>你可以选择使用系统提供的模板 icon。也可以使用自己的创建的自定义 icon。关于 icon 的size，padding 还有 positioning，从<a href="https://developer.apple.com/design/downloads/Quick-Action-Guides.zip" target="_blank" rel="external">这里下载 HS quick aciton icon template</a>。关于自定义 template icon 的信息，<a href="https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/BarIcons.html#//apple_ref/doc/uid/TP40006556-CH21-SW1" target="_blank" rel="external">看这里</a>。</p>
+<p><br>系统自动在 quick action 的左边或者右边显示 icon，这根据你的 app icon 在用户的手机屏幕位置而定。而文本一般为左对齐。例子如下：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/quick_action_layouts_2x.png" alt="image"></p>
+<p><br><br>以上</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/开发/" rel="tag">#开发</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/15/reliable_ios_1/" rel="prev">《招聘一个靠谱的iOS》— Part Ⅰ</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/12/head_to_dali/" rel="next">去大理</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2015/10/13/ios9_3dtouch/"
+                       data-title="iOS9 new feature — 3D Touch 人机交互指南" data-url="http://pandara.xyz/2015/10/13/ios9_3dtouch/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author-avatar"></div>
+          <p class="site-author-name" itemprop="name">Pandara</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Hey! man~</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/PandaraWen" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/pandarawen" target="_blank">Weibo</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">基情链接</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://aevit.xyz/" target="_blank">Aevit's Lab</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://helkyle.com/" target="_blank">HelKyle's blog</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://w3ctrain.com" target="_blank">W3cTrain</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Peek_与_Pop"><span class="nav-number">2.</span> <span class="nav-text">Peek 与 Pop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主屏幕快速操作"><span class="nav-number">3.</span> <span class="nav-text">主屏幕快速操作</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+      <div class="side-bar-foot-decorate">
+        <div class="side-bar-man motion-element"></div>
+        <div class="side-bar-star motion-element"></div>
+      </div>
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pandara</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"pandara"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>
