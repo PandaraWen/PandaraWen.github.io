@@ -1,0 +1,742 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="Hey! man~" />
+
+
+
+  <meta name="keywords" content="Objective-C,iOS,开发," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="UIKit Dynamics 是 iOS7 中新增加的 lib，可能对于没听过没见过的人来说，它有点难用。不过事实上，它并不难。通过这篇教程，你可以知道使用它来为你的 app 增加物理效果是多么的简单，并且你不需要直到深层的物理跟数学知识，也不需要深入了解像 Core Animation 这些框架。用过的人都说好，谁用谁知道。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 UIKit Dynamics 来模拟物理效果">
+<meta property="og:url" content="http://pandara.xyz/2015/10/28/UIDynamic/index.html">
+<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:description" content="UIKit Dynamics 是 iOS7 中新增加的 lib，可能对于没听过没见过的人来说，它有点难用。不过事实上，它并不难。通过这篇教程，你可以知道使用它来为你的 app 增加物理效果是多么的简单，并且你不需要直到深层的物理跟数学知识，也不需要深入了解像 Core Animation 这些框架。用过的人都说好，谁用谁知道。">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/gravity1.gif">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/demo2.gif">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/demo3.gif">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/demo4.gif">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/obstacles.png?imageView2/2/w/375">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/demo5.gif">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/demo6.gif">
+<meta property="og:updated_time" content="2015-10-28T10:23:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 UIKit Dynamics 来模拟物理效果">
+<meta name="twitter:description" content="UIKit Dynamics 是 iOS7 中新增加的 lib，可能对于没听过没见过的人来说，它有点难用。不过事实上，它并不难。通过这篇教程，你可以知道使用它来为你的 app 增加物理效果是多么的简单，并且你不需要直到深层的物理跟数学知识，也不需要深入了解像 Core Animation 这些框架。用过的人都说好，谁用谁知道。">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'hide'
+  };
+</script>
+
+    <title> 使用 UIKit Dynamics 来模拟物理效果 // Pandara's Zone </title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c5d0f36c537707dfe01cd190611c07b1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<div class="container one-column page-post-detail">
+    <div id="pandara-brand" class="my-brand">
+      <div id="space-ship" class="pandara-image"></div>
+      <div id="planet0" class="pandara-image"></div>
+      <div id="earth" class="pandara-image"></div>
+      <div id="planet1" class="pandara-image"></div>
+      <div id="planet2" class="pandara-image"></div>
+      <div id="planet3" class="pandara-image"></div>
+      <div id="satellite" class="pandara-image"></div>
+      <div id="planet4" class="pandara-image"></div>
+      <div id="planet5" class="pandara-image"></div>
+      <div id="planet6" class="pandara-image"></div>
+    </div>
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Pandara's Zone</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+            <a href="/" rel="section">
+              <i class="menu-item-icon icon-home"></i> <br />
+              首页
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+            <a href="/categories" rel="section">
+              <i class="menu-item-icon icon-categories"></i> <br />
+              分类
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+            <a href="/about.html" rel="section">
+              <i class="menu-item-icon icon-about"></i> <br />
+              关于
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+            <a href="/archives" rel="section">
+              <i class="menu-item-icon icon-archives"></i> <br />
+              归档
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+            <a href="/tags" rel="section">
+              <i class="menu-item-icon icon-tags"></i> <br />
+              标签
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              使用 UIKit Dynamics 来模拟物理效果
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-10-28T00:00:00+08:00" content="2015-10-28">
+            2015-10-28
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/10/28/UIDynamic/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/28/UIDynamic/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>UIKit Dynamics 是 iOS7 中新增加的 lib，可能对于没听过没见过的人来说，它有点难用。不过事实上，它并不难。通过这篇教程，你可以知道使用它来为你的 app 增加物理效果是多么的简单，并且你不需要直到深层的物理跟数学知识，也不需要深入了解像 Core Animation 这些框架。<strong>用过的人都说好，谁用谁知道。</strong></p>
+<a id="more"></a>
+<h4 id="概述">概述</h4><p><br>在开始我们的教程之前，先来了解一些 UIKit Dynamics 相关的必要知识，还有一些经常使用的比较重要的类。要使用 UIKit Dynamics，我们没有必要引入其他的 framework，因为它是 <code>UIKit</code> 的一部分。只要你引入了 UIKit，Dynamics 也就可被使用了。它可以被用在任何 UIView 或者其子类的对象中。UIKit Dynamics 的核心是类 <strong>UIDynamicAnimator</strong>，它在 UIKit 中被实现，支撑这个类的是一个隐藏于世人前的物理引擎。它负责提供需要使用的物理效果。不过，就算 UIDynamicAnimator 是 UIKit Dynamics 的核心，但它自己一个人干不成什么事。我们需要将一些对象添加给它，这些对象称为<strong>行为(behaviors)</strong>，或者从代码层面说，称为 <strong>UIDynamicBehaviors</strong>。一个 UIKit Dynamics behavior 实际上在代码世界里扮演一个真实世界中的物理行为，同时它代表 UIKit Dynamics 提供给开发者的物理效果。跟 behavior 相关的类，概括如下：</p>
+<ul>
+<li><strong>UIGravityBehavior：</strong>它的名字已经道破了一切。它代表使用了重力属性的 UIView 对象。</li>
+<li><strong>UICollisionBehavior：</strong>它的存在，让两个或者多个 View 能够产生碰撞的效果，或者是在一个 View 的边界之中产生碰撞。</li>
+<li><strong>UIPushBehavior：</strong>它可以将一个任意方向的力（或者说是加速度）施加在一个或者多个对象上，同时它支持两种不同的模式：一种是持续的作用力，让对象能够持续地增加速度；另一种是瞬间的作用力，让对象瞬时拥有一个最大速度。</li>
+<li><strong>UIAttachmentBehavior：</strong>它被用于将两个对象连接在一起，或者将一个对象跟某个点连接在一起。</li>
+<li><strong>UISnapBehavior：</strong>这个就牛逼了。插汉纸知道吗？X-man知道吗？万磁王知道吗？这个类就是万磁王。有了它，你可以在某个点吸引某个 View 对象。更屌的是，它包含一个 damping 属性，让该对象在最后被吸引到那个点时，在该点周围做弹性运动。</li>
+</ul>
+<p><br>除了上面提到的这些之外，还有一个更加重要的类 —— <strong>UIDynamicItemBehavior</strong>。这个类并不会将特定的行为添加到某个对象中，但是它可以用来根据其他 behavior 来调整一些特定的属性。这些属性是：</p>
+<ul>
+<li><strong>elasticity-弹性：</strong>它的值范围是从0.0到1.0，它用来指定两个对象碰撞的时候的弹性程度。</li>
+<li><strong>density-密度：</strong>这个属性代表着对象的质量。这个值越大，对象的质量就越大。</li>
+<li><strong>resistance-阻力：</strong>用于修改对象的速度的衰减(damping)。</li>
+<li><strong>friction-摩擦力：</strong>可以设置两个对象之间的摩擦力。</li>
+<li><strong>angularResistance-角速度阻力：</strong>用于修改对象的角速度的衰减(damping)。</li>
+<li><strong>allowsRotation-允许旋转：</strong>这是一个布尔型属性，用来指定某个对象是否可以在物理运动中旋转。</li>
+</ul>
+<p><br>UIkit Dynamic 真心容易使用，它简单到只需要寥寥几行代码。不管怎么说，我们对于 UIKit Dynamics 的简介到此结束。我们下一步要深入到我们真正关心的部分了。</p>
+<p><br>现在，擦亮你的双眼，我们要进入一个崭新的世界了。</p>
+<h4 id="构建一个Demo">构建一个Demo</h4><h5 id="重力效果">重力效果</h5><p>这里我用一个圆滚滚的 view 来模拟一个具有重力的球：</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/gravity1.gif" alt="image"></p>
+<p><br>我们需要一个 Animator 以及一个球：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UIDynamicAnimator</span> *animator;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UIView</span> *buleBall;</span><br></pre></td></tr></table></figure></p>
+<p>将小球初始化之后添加到 <code>self.view</code> 上，然后调整它的位置，之后便是我们的核心代码了：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.animator</span> = [[<span class="built_in">UIDynamicAnimator</span> alloc] initWithReferenceView:<span class="keyword">self</span><span class="variable">.view</span>];</span><br><span class="line"><span class="built_in">UIGravityBehavior</span> *gravityBehavior = [[<span class="built_in">UIGravityBehavior</span> alloc] initWithItems:@[<span class="keyword">self</span><span class="variable">.buleBall</span>]];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:gravityBehavior];</span><br></pre></td></tr></table></figure></p>
+<p>初始化 animator 时，我们将 <code>self.view</code> 传入，它作为 animator 起作用的地方。UIGravityBehavior 接受一个数组，来表明所有需要使用重力的 view 对象。</p>
+<p><br>你可以看到，小球一直在坠落，就算我们已经看不到它，就算它已经跌落到了屏幕千里之外。想验证这点很容易：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gravityBehavior<span class="variable">.action</span> = ^&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%f"</span>, <span class="keyword">self</span><span class="variable">.buleBall</span><span class="variable">.center</span><span class="variable">.y</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h5 id="增加碰撞">增加碰撞</h5><p>好了，虽然我们已经成功让小球下落，但总不能让它漫无目的的运动下去吧。上帝说要有地板，于是我们需要给它造一块地板。我们需要使用 <strong>UICollisionBehavior</strong> 类来搞块地板。我们可以自行设置地板的边界，然后将它添加到 animator 上：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)showGravity</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UIGravityBehavior</span> *gravityBehavior = [[<span class="built_in">UIGravityBehavior</span> alloc] initWithItems:@[<span class="keyword">self</span><span class="variable">.buleBall</span>]];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:gravityBehavior];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UICollisionBehavior</span> *collisionBehavior = [[<span class="built_in">UICollisionBehavior</span> alloc] initWithItems:@[<span class="keyword">self</span><span class="variable">.buleBall</span>]];</span><br><span class="line">    [collisionBehavior addBoundaryWithIdentifier:<span class="string">@"floor"</span></span><br><span class="line">                                       fromPoint:<span class="built_in">CGPointMake</span>(<span class="number">0</span>, SCREEN_SIZE<span class="variable">.height</span>) toPoint:<span class="built_in">CGPointMake</span>(SCREEN_SIZE<span class="variable">.width</span>, SCREEN_SIZE<span class="variable">.height</span>)];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:collisionBehavior];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 collisionBehavior 初始化时，我们将 buleBall 作为需要应用碰撞的对象传入。<code>addBoundaryWithIdentifier:fromPoint:toPoint:</code> 方法则让我们声明一条看不见的边界。运行之后：</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/demo2.gif" alt="image"></p>
+<p><br>好了，现在我们能够将我们的 ball 挽留住了。但是 ball 的触底反弹好像不是太Q弹。我们可以通过修改 collisionBehavior 中的 elasticity 属性来达到我们的目的。</p>
+<p><br>如果你还记得的话，我们在前面介绍过一个类，叫做 UIDynamicItemBehavior。我们可以通过它来替换所有 behavior 的属性。下面我们利用它来修改碰撞的反弹程度：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIDynamicItemBehavior</span> *ballBehavior = [[<span class="built_in">UIDynamicItemBehavior</span> alloc] initWithItems:@[<span class="keyword">self</span><span class="variable">.buleBall</span>]];</span><br><span class="line">ballBehavior<span class="variable">.elasticity</span> = <span class="number">0.75</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:ballBehavior];</span><br></pre></td></tr></table></figure></p>
+<p>elasticity 属性取值范围为0.0到1.0，0.0代表完全没有弹性，1.0表示完全弹（反弹速度大小前后一样）。下面看看我们Q弹的 ball：</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/demo3.gif" alt="image"></p>
+<p><br>也可以尝试修改其他的属性，比如 resistance 或者 friction 来看看有什么影响。他们取值同样为0.0到1.0。</p>
+<p><br>有时候我们可能需要在碰撞发生的时候执行一些其他操作，因此，UIKit 给我们提供了一套协议 UICollisionBehaviourDelegate。我们可以监听到两个对象，或者对象与边界之间的碰撞发生或者结束：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> () &lt;<span class="title">UICollisionBehaviorDelegate</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collisionBehavior<span class="variable">.collisionDelegate</span> = <span class="keyword">self</span>;</span><br></pre></td></tr></table></figure>
+<p>下面我们实现这样的功能：在 ball 发生碰撞的时候改变它的颜色：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)collisionBehavior:(<span class="built_in">UICollisionBehavior</span> *)behavior beganContactForItem:(<span class="keyword">id</span>&lt;<span class="built_in">UIDynamicItem</span>&gt;)item withBoundaryIdentifier:(<span class="keyword">id</span>&lt;<span class="built_in">NSCopying</span>&gt;)identifier atPoint:(<span class="built_in">CGPoint</span>)p</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.buleBall</span><span class="variable">.backgroundColor</span> = color(arc4random() % <span class="number">255</span>, arc4random() % <span class="number">255</span>, arc4random() % <span class="number">255</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/demo4.gif" alt="image"></p>
+<h5 id="更复杂的情况">更复杂的情况</h5><p>到目前为止还好。我们了解了重力跟碰撞，还有碰撞的回调。但是仅仅看着一个 ball 做自由落体运动然后反弹最后静止，还是很 boring 的。下面我们添加一些更 nb 的东西。</p>
+<p><br>我们先来添加三个 view，作为 ball 的障碍。其中两个是固定的，一左一右，一上一下。第三个在最下面，并且当 ball 碰到它之后就开始旋转：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)playWithBall</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UIView</span> *obstacle1 = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">50</span>, <span class="number">80</span>, <span class="number">150</span>, <span class="number">20</span>)];</span><br><span class="line">    obstacle1<span class="variable">.layer</span><span class="variable">.cornerRadius</span> = <span class="number">10.0</span>f;</span><br><span class="line">    obstacle1<span class="variable">.clipsToBounds</span> = <span class="literal">YES</span>;</span><br><span class="line">    obstacle1<span class="variable">.backgroundColor</span> = color(<span class="number">46</span>, <span class="number">204</span>, <span class="number">113</span>, <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *obstacle2 = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(SCREEN_SIZE<span class="variable">.width</span> - <span class="number">50</span> - <span class="number">150</span>, <span class="number">250</span>, <span class="number">150</span>, <span class="number">20</span>)];</span><br><span class="line">    obstacle2<span class="variable">.layer</span><span class="variable">.cornerRadius</span> = <span class="number">10.0</span>f;</span><br><span class="line">    obstacle2<span class="variable">.clipsToBounds</span> = <span class="literal">YES</span>;</span><br><span class="line">    obstacle2<span class="variable">.backgroundColor</span> = color(<span class="number">46</span>, <span class="number">204</span>, <span class="number">113</span>, <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIView</span> *obstacle3 = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>((SCREEN_SIZE<span class="variable">.width</span> - <span class="number">150</span>) / <span class="number">2.0</span>f, <span class="number">450</span>, <span class="number">150</span>, <span class="number">20</span>)];</span><br><span class="line">    obstacle3<span class="variable">.layer</span><span class="variable">.cornerRadius</span> = <span class="number">10.0</span>f;</span><br><span class="line">    obstacle3<span class="variable">.clipsToBounds</span> = <span class="literal">YES</span>;</span><br><span class="line">    obstacle3<span class="variable">.backgroundColor</span> = color(<span class="number">52</span>, <span class="number">73</span>, <span class="number">94</span>, <span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:obstacle1];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:obstacle2];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:obstacle3];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/obstacles.png?imageView2/2/w/375" alt="image"></p>
+<p><br>接着我们需要重新设置 ball 的初始位置，让它可以落在最上方障碍物上面：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.buleBall</span><span class="variable">.center</span> = <span class="built_in">CGPointMake</span>(<span class="number">75</span>, <span class="number">25</span>);</span><br></pre></td></tr></table></figure></p>
+<p>在碰撞行为初始化的地方，不要忘了将新增加的障碍物一并添加碰撞：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UICollisionBehavior</span> *collisionBehavior = [[<span class="built_in">UICollisionBehavior</span> alloc] initWithItems:@[<span class="keyword">self</span><span class="variable">.buleBall</span>, obstacle1, obstacle2, obstacle3]];</span><br><span class="line">collisionBehavior<span class="variable">.translatesReferenceBoundsIntoBoundary</span> = <span class="literal">YES</span>;</span><br><span class="line">[collisionBehavior addBoundaryWithIdentifier:<span class="string">@"floor"</span></span><br><span class="line">                                   fromPoint:<span class="built_in">CGPointMake</span>(<span class="number">0</span>, SCREEN_SIZE<span class="variable">.height</span>) </span><br><span class="line">                                     toPoint:<span class="built_in">CGPointMake</span>(SCREEN_SIZE<span class="variable">.width</span>, SCREEN_SIZE<span class="variable">.height</span>)];</span><br><span class="line">collisionBehavior<span class="variable">.collisionMode</span> = <span class="built_in">UICollisionBehaviorModeEverything</span>;</span><br><span class="line">collisionBehavior<span class="variable">.collisionDelegate</span> = <span class="keyword">self</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:collisionBehavior];</span><br></pre></td></tr></table></figure></p>
+<p>大概你会发现我们增加了两行新的代码，第一行是：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collisionBehavior<span class="variable">.translatesReferenceBoundsIntoBoundary</span> = <span class="literal">YES</span>;</span><br></pre></td></tr></table></figure></p>
+<p>表示是否允许 self.view（animator 起作用的 view）的边界作为可被碰撞的边界。这按很重要，如果你不想你的 ball 或者你的其他 view 消失在视野之外的话。第二行新代码：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collisionBehavior<span class="variable">.collisionMode</span> = <span class="built_in">UICollisionBehaviorModeEverything</span>;</span><br></pre></td></tr></table></figure></p>
+<p>表示所有被添加到 collisionBehavior 中的对象都能发生碰撞。</p>
+<p><br>下面设置 ball 的其他属性：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIDynamicItemBehavior</span> *ballBehavior = [[<span class="built_in">UIDynamicItemBehavior</span> alloc] initWithItems:@[<span class="keyword">self</span><span class="variable">.buleBall</span>]];</span><br><span class="line">ballBehavior<span class="variable">.elasticity</span> = <span class="number">0.75</span>;</span><br><span class="line">ballBehavior<span class="variable">.resistance</span> = <span class="number">0</span>;</span><br><span class="line">ballBehavior<span class="variable">.friction</span> = <span class="number">0</span>;</span><br><span class="line">ballBehavior<span class="variable">.allowsRotation</span> = <span class="literal">NO</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:ballBehavior];</span><br></pre></td></tr></table></figure></p>
+<p>下面我们来修改一下前两个障碍物的 property。我们前面提到过，我们需要它们维持在原地不动，所以，我们得将它们俩的 desity 设置得大一些，让它们“重到不行”，好让 ball 的碰撞难以对他们造成影响：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIDynamicItemBehavior</span> *obstacles1AndObstacles2 = [[<span class="built_in">UIDynamicItemBehavior</span> alloc] initWithItems:@[obstacle1, obstacle2]];</span><br><span class="line">obstacles1AndObstacles2<span class="variable">.allowsRotation</span> = <span class="literal">NO</span>;</span><br><span class="line">obstacles1AndObstacles2<span class="variable">.density</span> = <span class="number">1000000</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:obstacles1AndObstacles2];</span><br></pre></td></tr></table></figure></p>
+<p>对于第三个障碍物，我们让它转起来，所以，我们不必增大他的 desity：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIDynamicItemBehavior</span> *obstacle3Behavior = [[<span class="built_in">UIDynamicItemBehavior</span> alloc] initWithItems:@[obstacle3]];</span><br><span class="line">obstacle3Behavior<span class="variable">.allowsRotation</span> = <span class="literal">YES</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:obstacle3Behavior];</span><br></pre></td></tr></table></figure></p>
+<p>最后一步，我们需要在点击屏幕的时候，给 ball 一个推力。我们声明一个私有的属性来表示 ball 目前是否正在滚动：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> () &lt;<span class="title">UICollisionBehaviorDelegate</span>&gt;</span></span><br><span class="line">…</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">BOOL</span> isBallRolling;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>现在我们来实现方法 <code>touchesBegan:withEvent: method:</code>：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span><span class="variable">.isBallRolling</span>) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">UIPushBehavior</span> *pushBehavior = [[<span class="built_in">UIPushBehavior</span> alloc] initWithItems:@[<span class="keyword">self</span><span class="variable">.buleBall</span>] mode:<span class="built_in">UIPushBehaviorModeInstantaneous</span>];</span><br><span class="line">        pushBehavior<span class="variable">.magnitude</span> = <span class="number">1.5</span>;</span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:pushBehavior];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span><span class="variable">.isBallRolling</span> = <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果 ball 没有在滚，我们就让它滚！mode 参数我们传入 <code>UIPushBehaviorModeInstantaneous</code>，表明我们会让 ball 在最开始得到它的最大速度，而不是持续性增加；magnitude 表示力的大小，但实际上定义了 ball 的速度。同时还有一个 angle 属性，用于表示力的方向。</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/demo5.gif" alt="image"></p>
+<h5 id="想玩个球？">想玩个球？</h5><p>我们前面所做的，可以进化成一种碰撞游戏。我们可以在屏幕底部添加一个球拍，让它可以跟随我们的手指移动。我们需要添加的代码不多，let‘s go。</p>
+<p><br>首先，创建一个新的 View 对象，代表我们的球拍。同时声明一个CGPoint 属性来保存球拍的初始中点位置。你会知道这有多么方便的：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> () &lt;<span class="title">UICollisionBehaviorDelegate</span>&gt;</span></span><br><span class="line">…</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">UIView</span> *paddle;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">CGPoint</span> paddleCenterPoint;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>现在，回到 <code>playWithBall</code> 方法去设置我们的球拍，新代码应该添加在下面代码的后面：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span><span class="variable">.view</span> addSubview:obstacle1];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.view</span> addSubview:obstacle2];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.view</span> addSubview:obstacle3];</span><br></pre></td></tr></table></figure></p>
+<p>设置球拍：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.paddle</span> = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>((SCREEN_SIZE<span class="variable">.width</span> - <span class="number">10</span>) / <span class="number">2.0</span>f, SCREEN_SIZE<span class="variable">.height</span> - <span class="number">20.0</span>f, <span class="number">100</span>, <span class="number">30</span>)];</span><br><span class="line"><span class="keyword">self</span><span class="variable">.paddle</span><span class="variable">.backgroundColor</span> = color(<span class="number">231</span>, <span class="number">76</span>, <span class="number">60</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">self</span><span class="variable">.paddle</span><span class="variable">.layer</span><span class="variable">.cornerRadius</span> = <span class="number">15.0</span>f;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.paddle</span><span class="variable">.clipsToBounds</span> = <span class="literal">YES</span>;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.paddleCenterPoint</span> = <span class="keyword">self</span><span class="variable">.paddle</span><span class="variable">.center</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.view</span> addSubview:<span class="keyword">self</span><span class="variable">.paddle</span>];</span><br></pre></td></tr></table></figure></p>
+<p>这里需要注意的是，我们将球拍的初始中心点保存了起来。剩下的代码将变得简单：</p>
+<p><br>下面，在 collision behavior 的初始化方法中做一些小修改：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UICollisionBehavior</span> *collisionBehavior = [[<span class="built_in">UICollisionBehavior</span> alloc] initWithItems:@[<span class="keyword">self</span><span class="variable">.buleBall</span>, <span class="keyword">self</span><span class="variable">.paddle</span>, obstacle1, obstacle2, obstacle3]];</span><br></pre></td></tr></table></figure></p>
+<p>最后，我们设置一些球拍的属性。跟前两个障碍物一样，我们不希望我们的球拍旋转或者被碰离原位。在 <code>playWithBall</code> 方法的最后，增加下面代码：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIDynamicItemBehavior</span> *paddleBehavior = [[<span class="built_in">UIDynamicItemBehavior</span> alloc] initWithItems:@[<span class="keyword">self</span><span class="variable">.paddle</span>]];</span><br><span class="line">paddleBehavior<span class="variable">.allowsRotation</span> = <span class="literal">NO</span>;</span><br><span class="line">paddleBehavior<span class="variable">.density</span> = <span class="number">1000000</span>;</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:paddleBehavior];</span><br></pre></td></tr></table></figure></p>
+<p>球拍有了，但是它现在还不能移动。我们之前说过，我们需要球拍随着手指而移动，所以，我们接下来实现 <code>touchesMoved:withEvent:</code> 方法。另外，我们只允许球拍水平移动：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchesMoved:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UITouch</span> *touch = [touches anyObject];</span><br><span class="line">    <span class="built_in">CGPoint</span> touchLocation = [touch locationInView:<span class="keyword">self</span><span class="variable">.view</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> yPoint = <span class="keyword">self</span><span class="variable">.paddleCenterPoint</span><span class="variable">.y</span>;</span><br><span class="line">    <span class="built_in">CGPoint</span> paddleCenter = <span class="built_in">CGPointMake</span>(touchLocation<span class="variable">.x</span>, yPoint);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.paddle</span><span class="variable">.center</span> = paddleCenter;</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.animator</span> updateItemUsingCurrentState:<span class="keyword">self</span><span class="variable">.paddle</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里你应该可以发觉前面使用 <code>paddleCenterPoint</code> 属性的意图了。如我所说，我们希望在 y 轴方向上的坐标保持不变。最后，重中之重，如果我们不调用 <code>updateItemUsingCurrentState</code> 的话，我们将看不到任何改变发生。</p>
+<p><br>好了，目前我们有了一个能随我们手指运动的球拍。但是如果你现在马上运行 Demo，返现球拍不能让球运动起来。当球拍碰撞到球的时候给球添加一个额外的作用力会怎么样呢？前面我们实现了两个碰撞的 delegate，现在我们实现多一个 delegate。下面的这个 delegate 会在两个 item 碰撞的时候才会被调用(ball 跟球拍之间的碰撞)。每当新的碰撞在两个 View 之间产生的时候，一个新的推力将会添加到 ball 上。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)collisionBehavior:(<span class="built_in">UICollisionBehavior</span> *)behavior beganContactForItem:(<span class="keyword">id</span>&lt;<span class="built_in">UIDynamicItem</span>&gt;)item1 withItem:(<span class="keyword">id</span>&lt;<span class="built_in">UIDynamicItem</span>&gt;)item2 atPoint:(<span class="built_in">CGPoint</span>)p</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (item1 == <span class="keyword">self</span><span class="variable">.buleBall</span> &amp;&amp; item2 == <span class="keyword">self</span><span class="variable">.paddle</span>) &#123;</span><br><span class="line">        <span class="built_in">UIPushBehavior</span> *pushBehavior = [[<span class="built_in">UIPushBehavior</span> alloc] initWithItems:@[<span class="keyword">self</span><span class="variable">.buleBall</span>] mode:<span class="built_in">UIPushBehaviorModeInstantaneous</span>];</span><br><span class="line">        pushBehavior<span class="variable">.angle</span> = <span class="number">0</span>;</span><br><span class="line">        pushBehavior<span class="variable">.magnitude</span> = <span class="number">0.75</span>;</span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.animator</span> addBehavior:pushBehavior];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在运行 Demo，就可以看到我们的球拍是多么的溜到不行：</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/uidynamic/demo6.gif" alt="image"></p>
+<h4 id="总结">总结</h4><p>有了这个用于 UIView 的“物理引擎”，我们可以搞出很多很屌的效果。需要记住，我们可以将很多效果组合起来。但是可能难免会有冲突。还有一些其他的效果没有在这片文章里描述，但是其实也大同小异，试试便知。</p>
+<p><br><br>以上</p>
+<hr>
+<p>参考链接：<a href="http://www.appcoda.com/intro-uikit-dynamics-tutorial/" target="_blank" rel="external">Adding Animated Effects to iOS App Using UIKit Dynamics</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/开发/" rel="tag">#开发</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/27/ios_slime/" rel="next">iOS 下水滴动画之实现</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2015/10/28/UIDynamic/"
+                       data-title="使用 UIKit Dynamics 来模拟物理效果" data-url="http://pandara.xyz/2015/10/28/UIDynamic/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author-avatar"></div>
+          <p class="site-author-name" itemprop="name">Pandara</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Hey! man~</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/PandaraWen" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/pandarawen" target="_blank">Weibo</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">基情链接</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://aevit.xyz/" target="_blank">Aevit's Lab</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://helkyle.com/" target="_blank">HelKyle's blog</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://w3ctrain.com" target="_blank">W3cTrain</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建一个Demo"><span class="nav-number">2.</span> <span class="nav-text">构建一个Demo</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#重力效果"><span class="nav-number">2.1.</span> <span class="nav-text">重力效果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#增加碰撞"><span class="nav-number">2.2.</span> <span class="nav-text">增加碰撞</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更复杂的情况"><span class="nav-number">2.3.</span> <span class="nav-text">更复杂的情况</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#想玩个球？"><span class="nav-number">2.4.</span> <span class="nav-text">想玩个球？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+      <div class="side-bar-foot-decorate">
+        <div class="side-bar-man motion-element"></div>
+        <div class="side-bar-star motion-element"></div>
+      </div>
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pandara</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"pandara"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>
