@@ -30,7 +30,7 @@
 
 
 
-  <meta name="keywords" content="Objective-C,iOS,开发," />
+  <meta name="keywords" content="书," />
 
 
 
@@ -39,27 +39,23 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="受 Kitten 大神的一篇妙文所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用贝塞尔曲线实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。
+<meta name="description" content="道格森一世曾经说过：烧死那个剧透的！烧死那个剧透的！烧死那个剧透的！
 
-
-此为效果图也">
+对于推理小说来说，剧透是不能容忍的。所以，我尽量在不剧透的情况下，记录下我对这部经典之作犹如滔滔江水般连绵不绝的钦敬之情。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS 下水滴动画之实现">
-<meta property="og:url" content="http://pandara.xyz/2015/10/27/ios_slime/index.html">
+<meta property="og:title" content="《东方快车谋杀案》— 凑一车人打麻将">
+<meta property="og:url" content="http://pandara.xyz/2015/11/26/east_train_murder/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="受 Kitten 大神的一篇妙文所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用贝塞尔曲线实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。
+<meta property="og:description" content="道格森一世曾经说过：烧死那个剧透的！烧死那个剧透的！烧死那个剧透的！
 
-
-此为效果图也">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/ios_slime/SBSlime2.gif">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/ios_slime/slime_rule.png">
-<meta property="og:updated_time" content="2015-10-27T10:17:42.000Z">
+对于推理小说来说，剧透是不能容忍的。所以，我尽量在不剧透的情况下，记录下我对这部经典之作犹如滔滔江水般连绵不绝的钦敬之情。">
+<meta property="og:image" content="http://img4.doubanio.com/lpic/s26344659.jpg">
+<meta property="og:updated_time" content="2015-11-25T16:23:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 下水滴动画之实现">
-<meta name="twitter:description" content="受 Kitten 大神的一篇妙文所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用贝塞尔曲线实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。
+<meta name="twitter:title" content="《东方快车谋杀案》— 凑一车人打麻将">
+<meta name="twitter:description" content="道格森一世曾经说过：烧死那个剧透的！烧死那个剧透的！烧死那个剧透的！
 
-
-此为效果图也">
+对于推理小说来说，剧透是不能容忍的。所以，我尽量在不剧透的情况下，记录下我对这部经典之作犹如滔滔江水般连绵不绝的钦敬之情。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -69,7 +65,7 @@
   };
 </script>
 
-    <title> iOS 下水滴动画之实现 // Pandara's Zone </title>
+    <title> 《东方快车谋杀案》— 凑一车人打麻将 // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -213,7 +209,7 @@
           
           
             
-              iOS 下水滴动画之实现
+              《东方快车谋杀案》— 凑一车人打麻将
             
           
         </h1>
@@ -222,8 +218,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-10-27T00:00:00+08:00" content="2015-10-27">
-            2015-10-27
+          <time itemprop="dateCreated" datetime="2015-11-26T00:00:00+08:00" content="2015-11-26">
+            2015-11-26
           </time>
         </span>
 
@@ -231,7 +227,7 @@
           <span class="post-category" >
             &nbsp; | &nbsp; 分类于
             
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/说书人/" itemprop="url" rel="index"><span itemprop="name">说书人</span></a></span>
 
               
               
@@ -244,8 +240,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/10/27/ios_slime/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/27/ios_slime/" itemprop="commentsCount"></span>
+              <a href="/2015/11/26/east_train_murder/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/26/east_train_murder/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -259,32 +255,19 @@
       
 
       
-        <span itemprop="articleBody"><blockquote>
-<p>受 Kitten 大神的<a href="http://kittenyang.com/drawablebubble/" target="_blank" rel="external">一篇妙文</a>所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用<strong>贝塞尔曲线</strong>实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。</p>
-</blockquote>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/ios_slime/SBSlime2.gif" alt="image"></p>
-<center><em>此为效果图也</em></center>
+        <span itemprop="articleBody"><center>道格森一世曾经说过：<br>烧死那个剧透的！<br>烧死那个剧透的！<br>烧死那个剧透的！</center>
 
+<p><br>对于推理小说来说，剧透是不能容忍的。所以，我尽量在不剧透的情况下，记录下我对这部经典之作犹如滔滔江水般连绵不绝的钦敬之情。</p>
+<p><br><img src="http://img4.doubanio.com/lpic/s26344659.jpg" alt="image"></p>
 <a id="more"></a>
-<p><br>看起来似乎相当精妙，实际原理却并不复杂，甚至可算浅显。想来人们所云之人生大道理亦与此有异曲同工之妙。废话就此。</p>
-<p><br>核心流程梳理如下：</p>
-<ul>
-<li>生成二点，一上一下，成双成对，只羡鸳鸯不羡仙;</li>
-<li>拖动上层点，使其分离，棒打鸳鸯，所用之棒乃 <code>UIPanGestureRecognizer</code>;</li>
-<li>神仙无情人有情，二点相隔异地却仍藕断丝连，绘制藕丝需用 <code>UIBezierPath</code>;</li>
-<li>坚如磐石的爱情终究被距离之滴水所穿，斩断情丝重置 UI。</li>
-</ul>
-<p><br>好了，不装逼了✺◟(∗❛ัᴗ❛ั∗)◞✺。</p>
-<p><br>难点为利用<strong>贝塞尔曲线</strong>绘制藕丝。来人啊，把原理图呈上来享用：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/ios_slime/slime_rule.png" alt="image"></p>
-<center><em>Mac 中 Keynote 真乃绘图大神通</em></center>
-
-<p><br></p>
-<blockquote>
-<p>上方红色框所标注的，就是我们需要用贝塞尔曲线来绘制的“水滴黏性效果”的轮廓。如果还不知道贝塞尔曲线是怎么来的，可以观看此篇跪膝之文<a href="http://www.html-js.com/article/1628" target="_blank" rel="external">贝塞尔曲线扫盲</a>。只要计算出红色标注的6个点坐标，贝塞尔曲线也就出来了。</p>
-</blockquote>
-<p><br>关键的计算方法都在上面图中，下面看代码：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)reloadBezierPath</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> r1 = <span class="keyword">self</span><span class="variable">.trailDot</span><span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.width</span> / <span class="number">2.0</span>f;</span><br><span class="line">    <span class="built_in">CGFloat</span> r2 = <span class="keyword">self</span><span class="variable">.headDot</span><span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.width</span> / <span class="number">2.0</span>f;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> x1 = <span class="keyword">self</span><span class="variable">.trailDot</span><span class="variable">.center</span><span class="variable">.x</span>;</span><br><span class="line">    <span class="built_in">CGFloat</span> y1 = <span class="keyword">self</span><span class="variable">.trailDot</span><span class="variable">.center</span><span class="variable">.y</span>;</span><br><span class="line">    <span class="built_in">CGFloat</span> x2 = <span class="keyword">self</span><span class="variable">.headDot</span><span class="variable">.center</span><span class="variable">.x</span>;</span><br><span class="line">    <span class="built_in">CGFloat</span> y2 = <span class="keyword">self</span><span class="variable">.headDot</span><span class="variable">.center</span><span class="variable">.y</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> distance = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> sinDegree = (x2 - x1) / distance;</span><br><span class="line">    <span class="built_in">CGFloat</span> cosDegree = (y2 - y1) / distance;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGPoint</span> pointA = <span class="built_in">CGPointMake</span>(x1 - r1 * cosDegree, y1 + r1 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointB = <span class="built_in">CGPointMake</span>(x1 + r1 * cosDegree, y1 - r1 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointC = <span class="built_in">CGPointMake</span>(x2 + r2 * cosDegree, y2 - r2 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointD = <span class="built_in">CGPointMake</span>(x2 - r2 * cosDegree, y2 + r2 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointN = <span class="built_in">CGPointMake</span>(pointB<span class="variable">.x</span> + (distance / <span class="number">2</span>) * sinDegree, pointB<span class="variable">.y</span> + (distance / <span class="number">2</span>) * cosDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointM = <span class="built_in">CGPointMake</span>(pointA<span class="variable">.x</span> + (distance / <span class="number">2</span>) * sinDegree, pointA<span class="variable">.y</span> + (distance / <span class="number">2</span>) * cosDegree);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIBezierPath</span> *path = [<span class="built_in">UIBezierPath</span> bezierPath];</span><br><span class="line">    [path moveToPoint:pointA];</span><br><span class="line">    [path addLineToPoint:pointB];</span><br><span class="line">    [path addQuadCurveToPoint:pointC controlPoint:pointN];</span><br><span class="line">    [path addLineToPoint:pointD];</span><br><span class="line">    [path addQuadCurveToPoint:pointA controlPoint:pointM];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span><span class="variable">.shapeLayer</span><span class="variable">.path</span> = path<span class="variable">.CGPath</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>就是这么简单。完整的 Demo 已经上传到<a href="https://github.com/PandaraWen/SBSlimeViewDemo" target="_blank" rel="external">这里</a>。当然我知道你肯定喜欢自己实现多于下载别人 Demo。</p>
+<p><br>从前，推理小说只认东野圭吾。最为震惊非他那两本传世名著莫属：宏伟壮观《白夜行》、深沉感人《嫌疑人X的献身》。当年看完，马上把双脚膝盖挖了出来。</p>
+<p><br>后来听说过“阿加莎”这个名字，但是对于只能“人名只能靠音译”的那些外国文学翻译作品，我通常都望而却步。日本的好歹还是汉字。。。前几天终于还是入手了这本传世经典——《东方快车谋杀案》。噢，推理逻辑能力相当过硬。</p>
+<p><br>这本书里面塑造了一位“小个子”，留着“小胡须”的侦探，名字叫做“波洛”。没错，就是这些该死的音译名，毫无含义，晦涩难记。尤其很多外国人不仅仅有 first name，last name，还有“教名”，称呼的时候经常是前面 first name 后面 last name，一个人硬生生变成了三个人，让我只能懵逼。所以请允许我将他亲切地称呼为为“菠萝”。不知道他在阿加莎的其他作品中是否会出现，就像东野圭吾《嫌疑人X》跟《盛夏方程式》还有《神探伽利略》系列中等等的汤川学。说句题外话，在多部作品中看到同一个角色出现，就像遇见一位老朋友一样亲切。</p>
+<p><br>菠萝侦探这个角色并没有强烈的感情色彩，他没有表现过热烈的感情。就像是一杯有温度的清水。他聪明，冷静，清醒，善良。好吧，听上去可能会有那么一点点老套。但是不妨碍我津津有味地看着他怎样一步一步进行他的神逻辑推理。</p>
+<p><br>这部作品的推理，噢，如果要让我说的话，我会说：“我的老天，我的上帝，这难道不正是纯脑力纯智力的推理吗？我敢保证，伙计儿，这值得让我们好好坐下来吃个甜甜圈！”。可能很多人都看过另一套传世经典《福尔摩斯探案集》。大概初中时我买了一本，里面有四个故事，隐约记得里面有个故事叫什么什么猎犬。好了，我想斗胆提出两个概念来给推理故事分分类：<br><strong>1.信息不对称型</strong><br>所谓信息不对称就是，破案所需要了解线索与事实，并没有一开始全部都展现出来。在推理开始时突然这里抛出一个事实那里抛出一个事实（例如，凶手以前是死者的谁谁谁，死者以前做了些啥啥啥勾当，XXX地方有YYY这么个东西），然后突然所有行为都顺理成章的串联了起来。当年我看福尔摩斯，就是被这些不对称信息搞得兴趣索然。这种推理无疑是。。。。。无趣且虚假。<br><strong>2.脑力推测型</strong><br>相对上面那种类型来说，脑力推测型自然就是：所有破案需要的细枝末节以及事实已经全部提供出来。作品里面的侦探与读者所知道的是等量的。这种作品，毫无疑问，读起来最为过瘾，你通常都在一面感叹角色的神机之余狠拍自己的榆木脑袋。在真想揭露的瞬间，之前所有读到过的线索全部串联起来成为一副镶嵌好的图画，噢，爽到鸡皮疙瘩都起来了。</p>
+<p><br>而《东方快车》，属于“脑力推测主导型”。意思是说，大部分推理都是基于书中已经描述过的细节以及事实，读者能不能想得到就看自己本事了。存在有小部分的信息不对称推理，在这本书里面我有印象的就只有一处。所以说，我认为《东方快车》，是一本可以看的爽，看得过瘾，看的佩服的推理小说，推理过程非常硬、扎实、站得住脚。</p>
+<p><br>这本书也揭露了一个挺现实的问题：恶人不一定能被法律制裁，而行私下正义制裁恶人的执行者反被法律制裁。这个话题一直都有争议，《死亡笔记》正是基于这个争议上面展开的。虽然，故事的结局是（前方剧透注意，不想看可直接拉到下方留下您的评论然后关闭本文，&lt;(￣▽￣)&gt; ）菠萝侦探提供了两个备选推理方案来准备呈现给警察，最后大家很默契地，选择了那个完美的，无人受制裁的方案。</p>
+<p><br>好了，只能说这么多了。</p>
 <p><br><br>以上</p>
 </span>
       
@@ -294,11 +277,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
-          
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
-          
-            <a href="/tags/开发/" rel="tag">#开发</a>
+            <a href="/tags/书/" rel="tag">#书</a>
           
         </div>
       
@@ -307,13 +286,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/10/28/UIDynamic/" rel="prev">使用 UIKit Dynamics 来模拟物理效果</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/26/ios_pedometer/" rel="next">iOS 计步</a>
+              <a href="/2015/11/24/ios_water_drop/" rel="next">看，这白白的液体滴了一地</a>
             
           </div>
         </div>
@@ -339,8 +316,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/10/27/ios_slime/"
-                       data-title="iOS 下水滴动画之实现" data-url="http://pandara.xyz/2015/10/27/ios_slime/">
+                  <div class="ds-thread" data-thread-key="2015/11/26/east_train_murder/"
+                       data-title="《东方快车谋杀案》— 凑一车人打麻将" data-url="http://pandara.xyz/2015/11/26/east_train_murder/">
                   </div>
                 
               </div>
