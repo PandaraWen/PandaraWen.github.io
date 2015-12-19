@@ -30,7 +30,7 @@
 
 
 
-  <meta name="keywords" content="Objective-C,iOS," />
+  <meta name="keywords" content="Objective-C,iOS,runLoop," />
 
 
 
@@ -41,22 +41,22 @@
 
 <meta name="description" content="🐴的，经常看见大神们的文章提到 RunLoop，找了一些网上的文章都看得不明不白。无法可施，还是翻译一下苹果的官方文档吧。
 
-另外推荐看 Ibireme 的这篇文章：深入理解RunLoop，比官方文档易懂很多。">
+另外推荐看 Ibireme 的这篇文章：深入理解RunLoop，比官方文档易懂很多。还有 孙源@sunnyxx 的视频：优酷链接">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Run Loops">
 <meta property="og:url" content="http://pandara.xyz/2015/12/17/Run Loops/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
 <meta property="og:description" content="🐴的，经常看见大神们的文章提到 RunLoop，找了一些网上的文章都看得不明不白。无法可施，还是翻译一下苹果的官方文档吧。
 
-另外推荐看 Ibireme 的这篇文章：深入理解RunLoop，比官方文档易懂很多。">
+另外推荐看 Ibireme 的这篇文章：深入理解RunLoop，比官方文档易懂很多。还有 孙源@sunnyxx 的视频：优酷链接">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/12/15/run_loops/runloop.jpg">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/12/15/run_loops/custominputsource.jpg">
-<meta property="og:updated_time" content="2015-12-17T07:50:06.000Z">
+<meta property="og:updated_time" content="2015-12-18T04:17:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Run Loops">
 <meta name="twitter:description" content="🐴的，经常看见大神们的文章提到 RunLoop，找了一些网上的文章都看得不明不白。无法可施，还是翻译一下苹果的官方文档吧。
 
-另外推荐看 Ibireme 的这篇文章：深入理解RunLoop，比官方文档易懂很多。">
+另外推荐看 Ibireme 的这篇文章：深入理解RunLoop，比官方文档易懂很多。还有 孙源@sunnyxx 的视频：优酷链接">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -259,7 +259,7 @@
         <span itemprop="articleBody"><blockquote>
 <p>🐴的，经常看见大神们的文章提到 RunLoop，找了一些网上的文章都看得不明不白。无法可施，还是翻译一下苹果的<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html" target="_blank" rel="external">官方文档</a>吧。</p>
 </blockquote>
-<p>另外推荐看 Ibireme 的这篇文章：<a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">深入理解RunLoop</a>，比官方文档易懂很多。</p>
+<p><br>另外推荐看 Ibireme 的这篇文章：<a href="http://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">深入理解RunLoop</a>，比官方文档易懂很多。<br><br>还有 孙源@sunnyxx 的视频：<a href="http://v.youku.com/v_show/id_XODgxODkzODI0.html" target="_blank" rel="external">优酷链接</a></p>
 <a id="more"></a>
 <p><br>Run loops 是跟线程相关联的底层结构。一个 run loop 是一个<strong>事件处理循环(event processing loop)</strong>，我们可以用它来执行工作，还有处理接收到的事件。Run loop 的目的是为了让你的线程在有任务需要处理时保持 busy，在空闲时进入 sleep 状态以免占用资源。</p>
 <p><br>Run loop 机制并不是完全自动的。你需要设计你线程相关的代码来在合适的时间开始一个 run loop 并且响应到来的事件。Cocoa 跟 Core Foundation 都提供了相应的 run loop 对象来帮助你设置并且管理线程的 run loop。你的程序不需要显式创建他们。每一个线程，包括 app 的主线程，都有一个关联的 run loop 对象。只有<strong>二级线程(secondary thread)</strong>需要显式运行它们的 run loop。作为 app 启动操作的一部分，app framework 会自动在主线程设置并且运行 run loop。</p>
@@ -441,12 +441,16 @@
           
             <a href="/tags/iOS/" rel="tag">#iOS</a>
           
+            <a href="/tags/runLoop/" rel="tag">#runLoop</a>
+          
         </div>
       
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/18/runloop2/" rel="prev">Run Loops II</a>
             
           </div>
 
@@ -519,7 +523,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -533,7 +537,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
