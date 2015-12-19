@@ -59,7 +59,7 @@
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/12/18/run_loops2/RunLoop_1.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/12/18/run_loops2/runloop.026.jpeg">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/12/18/run_loops2/runloop.027.jpeg">
-<meta property="og:updated_time" content="2015-12-19T10:28:40.000Z">
+<meta property="og:updated_time" content="2015-12-19T10:36:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Run Loops II">
 <meta name="twitter:description" content="再来细说一下 RunLoop">
@@ -265,6 +265,7 @@
         <span itemprop="articleBody"><center>再来细说一下 RunLoop</center>
 
 <a id="more"></a>
+<p><br>目录在右边→_→，点右下角三道杠粗现。</p>
 <h4 id="RunLoop_是什么鬼">RunLoop 是什么鬼</h4><p>首先，在一般情况下，代码的执行是线性的，执行完成之后就会退出返回：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[]) &#123;</span><br><span class="line">	<span class="built_in">NSLog</span>(<span class="string">@"hello world"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>通常我们创建线程来处理自己的任务，也是这样的线性执行流程，当我们任务完成之后，便退出然后销毁线程。</p>
 <p><br>但是对于一个 APP 来说，这种线性的执行流程，就不适用了。总不能让 APP 一打开，然后显示一下第一个页面，接着就马上退出了吧。得想一种办法，让 APP 的主线程能够一直驻留。在用户触发事件的时候，对其做出响应；在 APP 空闲的时候进入休眠，停止占用 CPU。这种模型通常被称为 Event Loop，事件循环。Run Loop 实现了这种事件处理机制。事件驱动型代码结构一般形式如下：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">	<span class="keyword">while</span>(AppIsRunning) &#123;</span><br><span class="line">		<span class="keyword">id</span> whoWakesMe = SleepForWakingUp();</span><br><span class="line">		<span class="keyword">id</span> event = GetEvent(whoWakesMe);</span><br><span class="line">		HandleEvent(event);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
