@@ -1,0 +1,767 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="Hey! man~" />
+
+
+
+  <meta name="keywords" content="widget," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="iOS 中的扩展有多种，包括：Today，Share，Action，PhotoEditing，FinderSync，自定义键盘等等。这里要说的类型是 Today，就是在通知中心“今天”里面添加的 widget
+对于 Today 插件，它应该：
+
+
+确保内容永远是最新的
+正确响应用户的操作
+高效运行（特别是iOS插件必须合理使用内存，否则系统可能终止插件的运行）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS8 Today Wiget 开发">
+<meta property="og:url" content="http://pandara.xyz/2015/12/28/widget/index.html">
+<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:description" content="iOS 中的扩展有多种，包括：Today，Share，Action，PhotoEditing，FinderSync，自定义键盘等等。这里要说的类型是 Today，就是在通知中心“今天”里面添加的 widget
+对于 Today 插件，它应该：
+
+
+确保内容永远是最新的
+正确响应用户的操作
+高效运行（特别是iOS插件必须合理使用内存，否则系统可能终止插件的运行）">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget01.png?imageView2/2/w/600">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget02_2.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget03.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget04.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget05.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fvibrant_effect.jpg">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fnotification_center_0.PNG?imageView2/2/w/400">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fbutton.jpg">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fnote.png">
+<meta property="og:updated_time" content="2015-12-28T15:35:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS8 Today Wiget 开发">
+<meta name="twitter:description" content="iOS 中的扩展有多种，包括：Today，Share，Action，PhotoEditing，FinderSync，自定义键盘等等。这里要说的类型是 Today，就是在通知中心“今天”里面添加的 widget
+对于 Today 插件，它应该：
+
+
+确保内容永远是最新的
+正确响应用户的操作
+高效运行（特别是iOS插件必须合理使用内存，否则系统可能终止插件的运行）">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'hide'
+  };
+</script>
+
+    <title> iOS8 Today Wiget 开发 // Pandara's Zone </title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c5d0f36c537707dfe01cd190611c07b1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<div class="container one-column page-post-detail">
+    <div id="pandara-brand" class="my-brand">
+      <div id="space-ship" class="pandara-image"></div>
+      <div id="planet0" class="pandara-image"></div>
+      <div id="earth" class="pandara-image"></div>
+      <div id="planet1" class="pandara-image"></div>
+      <div id="planet2" class="pandara-image"></div>
+      <div id="planet3" class="pandara-image"></div>
+      <div id="satellite" class="pandara-image"></div>
+      <div id="planet4" class="pandara-image"></div>
+      <div id="planet5" class="pandara-image"></div>
+      <div id="planet6" class="pandara-image"></div>
+    </div>
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Pandara's Zone</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+            <a href="/" rel="section">
+              <i class="menu-item-icon icon-home"></i> <br />
+              首页
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+            <a href="/categories" rel="section">
+              <i class="menu-item-icon icon-categories"></i> <br />
+              分类
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+            <a href="/about.html" rel="section">
+              <i class="menu-item-icon icon-about"></i> <br />
+              (๑╹◡╹๑)
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+            <a href="/archives" rel="section">
+              <i class="menu-item-icon icon-archives"></i> <br />
+              归档
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+            <a href="/tags" rel="section">
+              <i class="menu-item-icon icon-tags"></i> <br />
+              标签
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              iOS8 Today Wiget 开发
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-28T00:00:00+08:00" content="2015-12-28">
+            2015-12-28
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/28/widget/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/28/widget/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+
+        
+          <span id="busuanzi_container_page_pv">
+            &nbsp; | &nbsp;
+            访客
+            <span id="busuanzi_value_page_pv">0</span>
+          </span>
+        
+
+       
+
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>iOS 中的扩展有多种，包括：Today，Share，Action，PhotoEditing，FinderSync，自定义键盘等等。这里要说的类型是 Today，就是在通知中心“今天”里面添加的 widget</p>
+<p><br>对于 Today 插件，它应该：</p>
+<blockquote>
+<ul>
+<li>确保内容永远是最新的</li>
+<li>正确响应用户的操作</li>
+<li>高效运行（特别是iOS插件必须合理使用内存，否则系统可能终止插件的运行）</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h4 id="新建_Widget_Target">新建 Widget Target</h4><p>Extesion 都是依附于某个主体应用程序(containing app)中的一个单独的二进制包。所以它必须在现有的工程中来创建。它与主体程序之间可以通过某种方式间接通信，下面会提到。</p>
+<p><br>通过 File-&gt;New-&gt;Target 在弹出菜单中选择 Today Extension 模板</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget01.png?imageView2/2/w/600" alt="image"></p>
+<p><br>新建完成后工程目录中会自动出现一个文件夹，里面有一些默认生成的文件：</p>
+<blockquote>
+<ol>
+<li>TodayViewController: widget 的主视图；</li>
+<li>MainInterface.storyboard: 对应 TodayViewController 的布局文件；</li>
+<li>Info.plist: widget 的配置文件</li>
+</ol>
+</blockquote>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget02_2.png" alt="image"></p>
+<p><br>在 Info.plist 中有一个 key 指定了 Extension 的一些基本信息：</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget03.png" alt="image"></p>
+<p><br>如果不想使用 storyBoard 文件来管理布局，那么就将 <code>NSExtensionMainStoryboard</code> 这个 key 移除，然后添加 key <code>NSExtensionPrincipalClass</code>，并且用 controller 的类名作为 value：</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget04.png" alt="image"></p>
+<p><br>但是我这样做的话程序会报错，至今仍未找到原因。无奈只能将 storyBoard 留下来先</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget05.png" alt="image"></p>
+<h4 id="编写_widget_布局">编写 widget 布局</h4><p>Today 的视图有限，所以我们的 widget 应该越小巧玲珑越好。况且本来 widget 就不应该太过繁重。widget 应该适应 Today 视图的宽度，通过增加高度来显示更多内容。</p>
+<p><br>要控制 widget 的内容高度，可以通过两种方法，第一种是通过 AutoLayout；第二种则是用:<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.preferredContentSize</span> = <span class="built_in">CGSizeMake</span>(SCREEN_SIZE<span class="variable">.width</span>, HEIGHT);</span><br></pre></td></tr></table></figure></p>
+<p>另外，<code>NCWidgetProviding</code> 协议里面的一个方法也会影响内容布局：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIEdgeInsets</span>)widgetMarginInsetsForProposedMarginInsets:(<span class="built_in">UIEdgeInsets</span>)defaultMarginInsets</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">UIEdgeInsetsMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="数据传输">数据传输</h4><p><strong>方式一：自定义 URL Scheme，在 URL 中传递参数</strong></p>
+<ol>
+<li>在项目对应的 Target 中的 Info 页，添加一个 Scheme。Identifier 为自己项目的 Bundle Identifier；在 URLSchemes 一栏里填上自己想要的名称。</li>
+<li>通过 myappscheme://?foo=1&amp;bar=2 这种 URL 方式来唤起自己的 app，并且可以在 AppDelegate 中的回调捕获到这个 URL，然后便可以对 URL 中的参数进行分析处理：<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application handleOpenURL:(<span class="built_in">NSURL</span> *)url   </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="comment">// Do something with the url here  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>方法二：使用 <code>NSUserDefault</code></strong><br>widget 与 containing App 共享一个 NSUserDefault。不过要注意的是，这里指的不是我们通常所用的标准 NSUserDefault。在 widget 中的 UserDefault 与 Containing App 中的 UserDefaul 是不一致的，这是一个坑。我们需要在苹果开发者网站里面新建一个 group，然后用这个 group 的名字组建一个 Suite Name 来初始化一个 NSUserDefault：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSUserDefaults</span> alloc] initWithSuiteName:@”group<span class="variable">.com</span><span class="variable">.mycompany</span><span class="variable">.myapp</span>”]</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://tapadoo.com/2014/sharing-nsuserdefaults-between-your-app-and-a-today-extension-on-ios-8/" target="_blank" rel="external">这篇文章</a>可以让你更加详细地了解这部分。</p>
+<h4 id="UIVbrancyEffect">UIVbrancyEffect</h4><p>它是跟 UIBlurEffect 一起随 iOS8 发布的。通常情况下它都要配合 UIBlurEffect 来一起使用。通常情况下会这样使用：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setEffect </span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//先初始化一个 blur effect view</span></span><br><span class="line">	<span class="built_in">UIBlurEffect</span> * effect = [<span class="built_in">UIBlurEffect</span> effectWithStyle:<span class="built_in">UIBlurEffectStyleLight</span>];</span><br><span class="line">    <span class="built_in">UIVisualEffectView</span> * viewWithBlurredBackground = [[<span class="built_in">UIVisualEffectView</span> alloc] initWithEffect:effect];</span><br><span class="line">    viewWithBlurredBackground<span class="variable">.frame</span> = <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.bounds</span>;</span><br><span class="line">    viewWithBlurredBackground<span class="variable">.autoresizingMask</span> = <span class="built_in">UIViewAutoresizingFlexibleWidth</span> | <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:viewWithBlurredBackground];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//然后再利用上面的 blur effect 初始化 vibrancy effect view</span></span><br><span class="line">    <span class="built_in">UIVibrancyEffect</span> *vibrancyEffect = [<span class="built_in">UIVibrancyEffect</span> effectForBlurEffect:effect];</span><br><span class="line">    <span class="built_in">UIVisualEffectView</span> * viewInducingVibrancy = [[<span class="built_in">UIVisualEffectView</span> alloc] initWithEffect:vibrancyEffect]; <span class="comment">// must be the same effect as the blur view</span></span><br><span class="line">    viewInducingVibrancy<span class="variable">.frame</span> = viewWithBlurredBackground<span class="variable">.frame</span>;</span><br><span class="line">    viewInducingVibrancy<span class="variable">.autoresizingMask</span> = viewWithBlurredBackground<span class="variable">.autoresizingMask</span>;</span><br><span class="line">    [viewWithBlurredBackground<span class="variable">.contentView</span> addSubview:viewInducingVibrancy];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//最后往 effectView.contentView 里面添加内容</span></span><br><span class="line">    <span class="built_in">UILabel</span> * vibrantLabel = [<span class="built_in">UILabel</span> new];</span><br><span class="line">    vibrantLabel<span class="variable">.font</span> = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">120.0</span>f];</span><br><span class="line">    vibrantLabel<span class="variable">.text</span> = <span class="string">@"Vibrant"</span>;</span><br><span class="line">    [vibrantLabel sizeToFit];</span><br><span class="line">    </span><br><span class="line">    [viewInducingVibrancy<span class="variable">.contentView</span> addSubview:vibrantLabel];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fvibrant_effect.jpg" alt="image"></p>
+<p><br></p>
+<blockquote>
+<p>vibrancy effect 依赖于颜色。任何添加到 contentView 的 subView 都需要实现 <code>tintColorDidChange</code> 方法，并且根据需要来更新自己的外观。UIImageView 对象有一种渲染模式 <code>UIImageRenderingModeAlwaysTemplate</code> 来进行自动更新，UILabel 对象也是。</p>
+</blockquote>
+<p><br>而在开发 Today Widget 的时候，想达到下图的中效果该怎么办呢。我们无法获取通知中心背景的 Blur Effect。</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fnotification_center_0.PNG?imageView2/2/w/400" alt="image"></p>
+<p><br>NotificationCenter frameWork 给我们提供了一个 Category，看一眼方法名就懂：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIVibrancyEffect</span> (<span class="title">NotificationCenter</span>)</span></span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">UIVibrancyEffect</span> *)notificationCenterVibrancyEffect;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>于是可以在 widget 的 todayViewController 中这样来添加 effectView<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIVisualEffectView</span> *effectView = [[<span class="built_in">UIVisualEffectView</span> alloc] initWithEffect:[<span class="built_in">UIVibrancyEffect</span> notificationCenterVibrancyEffect]];</span><br><span class="line">    <span class="comment">//<span class="doctag"><span class="keyword">TODO</span></span>: 设置 effectView 的 frame </span></span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:effectView];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//<span class="doctag"><span class="keyword">TODO</span></span>: add subviews to contentView</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里有个小坑：当我直接将一个 button 添加到 contentView 中，button 的 title 会“显示不出来”。这是因为 button.titleLable 中的文字拥有跟 button 一样的 vibrancyEffect，如果给 button 的背景颜色设置一个 alpha 值，就可以看到 title：</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fbutton.jpg" alt="image"></p>
+<p><br>那么问题来了，想要实现上图中 Chrome 浏览器 widget 的 button 一样的效果该怎么办呢。</p>
+<p><br>用 <code>drawInRect:</code> 等函数来自己绘制吧。Github 上已经有人实现了这种风格的 button：<a href="https://github.com/a1anyip/AYVibrantButton" target="_blank" rel="external">AYVibrantButton</a>。里面的 button title 跟 image 都是用方法来绘制的。看来貌似只有这个方法了哦。</p>
+<h4 id="更新插件状态">更新插件状态</h4><p>NCWidgetProviding 协议中有一个方法，会在某些时刻被调用，来给 widget 一个机会来更新自己的 UI，例如截屏的时候。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)widgetPerformUpdateWithCompletionHandler:(<span class="keyword">void</span> (^)(NCUpdateResult))completionHandler &#123;</span><br><span class="line">    <span class="comment">// Perform any setup necessary in order to update the view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// If an error is encountered, use NCUpdateResultFailed</span></span><br><span class="line">    <span class="comment">// If there's no update required, use NCUpdateResultNoData</span></span><br><span class="line">    <span class="comment">// If there's an update, use NCUpdateResultNewData</span></span><br><span class="line"></span><br><span class="line">    completionHandler(NCUpdateResultNewData);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>更新完数据之后要根据数据的更新情况来调用 block 回调。</p>
+<h4 id="widget_的生命周期">widget 的生命周期</h4><p>NSWidgetProviding.h 中有这样的一段文字：<br><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fnote.png" alt="image"></p>
+<p><br></p>
+<blockquote>
+<p>翻译翻译：widget 应该在 <code>viewWillAppear:</code> 中加载缓存起来的数据，好让它能匹配上次在 <code>viewWillDisappear</code> 时的状态，这样在新数据到来的时候就可以丝滑顺畅地过渡。</p>
+</blockquote>
+<p><br>在 widget 中的 controller，当它 dismiss 的时候会被 deallocated，所以不可以用 NSArray 来保存数据，可以选择用 NSUserDefault。</p>
+<h4 id="参考资料">参考资料</h4><ol>
+<li><a href="http://www.cocoachina.com/ios/20141023/10027.html" target="_blank" rel="external">App Extension编程指南</a>, <a href="http://www.cocoachina.com/ios/20141023/10027.html" target="_blank" rel="external">CocoaChina</a></li>
+<li><a href="https://medium.com/ios-os-x-development/learnings-from-building-a-today-view-extension-in-ios-8-710d5f481594#.5eh84nn5k" target="_blank" rel="external">Building a Today View Extension in iOS 8</a></li>
+</ol>
+<p><br><br>以上</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/widget/" rel="tag">#widget</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/25/Xcode _strange_problem/" rel="next">Xcode 奇奇怪怪问题手册</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2015/12/28/widget/"
+                       data-title="iOS8 Today Wiget 开发" data-url="http://pandara.xyz/2015/12/28/widget/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author-avatar"></div>
+          <p class="site-author-name" itemprop="name">Pandara</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Hey! man~</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/PandaraWen" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/pandarawen" target="_blank">Weibo</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">基情链接</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://aevit.xyz/" target="_blank">Aevit's Lab</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://helkyle.com/" target="_blank">HelKyle's blog</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://w3ctrain.com" target="_blank">W3cTrain</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建_Widget_Target"><span class="nav-number">1.</span> <span class="nav-text">新建 Widget Target</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写_widget_布局"><span class="nav-number">2.</span> <span class="nav-text">编写 widget 布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据传输"><span class="nav-number">3.</span> <span class="nav-text">数据传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UIVbrancyEffect"><span class="nav-number">4.</span> <span class="nav-text">UIVbrancyEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新插件状态"><span class="nav-number">5.</span> <span class="nav-text">更新插件状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#widget_的生命周期"><span class="nav-number">6.</span> <span class="nav-text">widget 的生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+      <div class="side-bar-foot-decorate">
+        <div class="side-bar-man motion-element"></div>
+        <div class="side-bar-star motion-element"></div>
+      </div>
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pandara</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"pandara"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>
