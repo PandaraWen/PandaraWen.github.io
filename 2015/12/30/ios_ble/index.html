@@ -49,7 +49,7 @@
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage21.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage31.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage7.png">
-<meta property="og:updated_time" content="2015-12-30T08:20:20.000Z">
+<meta property="og:updated_time" content="2015-12-30T08:21:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS Core Bluetooth - Theoretical Overview">
 <meta name="twitter:description" content="BLE 的重要性相信已经无需多言了。现在可穿戴设备与手机之间的配对连接方式基本都是一色的 BLE。这篇教程会介绍 CoreBluetooth 从 iOS5 到 iOS7 的演变。另外，也会介绍怎么配置 CB central 跟 peripheral，来让他们之间进行通讯，还有一些最佳编程实践。">
@@ -267,7 +267,7 @@
       
         <span itemprop="articleBody"><p>BLE 的重要性相信已经无需多言了。现在可穿戴设备与手机之间的配对连接方式基本都是一色的 BLE。这篇教程会介绍 CoreBluetooth 从 iOS5 到 iOS7 的演变。另外，也会介绍怎么配置 CB central 跟 peripheral，来让他们之间进行通讯，还有一些最佳编程实践。</p>
 <a id="more"></a>
-<h4 id="简介">简介</h4><p>教程会分为章。第一章，也就是本文，会包含 Core Bluetooth 的概念性内容，第二章提供一个实践案例。</p>
+<h4 id="简介">简介</h4><p>教程会分为两章。第一章，也就是本文，会包含 Core Bluetooth 的概念性内容，第二章提供一个实践案例。</p>
 <h5 id="背景">背景</h5><p>BLE 是基于 Bluetooth 4.0 规格的，定义了一系列协议，描述如何跟低功耗设备进行通讯。在 BLE 中有两个角色：</p>
 <ul>
 <li><strong>Central(中心设备)</strong>：它通常会定义通讯的逻辑。可以对外围设备进行扫描，连接，断开。另外，它会接受来自外围设备的信息。</li>
