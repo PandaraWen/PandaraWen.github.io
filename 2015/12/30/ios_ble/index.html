@@ -1,0 +1,746 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="Hey! man~" />
+
+
+
+  <meta name="keywords" content="BLE,蓝牙," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="BLE 的重要性相信已经无需多言了。现在可穿戴设备与手机之间的配对连接方式基本都是一色的 BLE。这篇教程会介绍 CoreBluetooth 从 iOS5 到 iOS7 的演变。另外，也会介绍怎么配置 CB central 跟 peripheral，来让他们之间进行通讯，还有一些最佳编程实践。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Core Bluetooth - Theoretical Overview">
+<meta property="og:url" content="http://pandara.xyz/2015/12/30/ios_ble/index.html">
+<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:description" content="BLE 的重要性相信已经无需多言了。现在可穿戴设备与手机之间的配对连接方式基本都是一色的 BLE。这篇教程会介绍 CoreBluetooth 从 iOS5 到 iOS7 的演变。另外，也会介绍怎么配置 CB central 跟 peripheral，来让他们之间进行通讯，还有一些最佳编程实践。">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage11.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage21.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage31.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage7.png">
+<meta property="og:updated_time" content="2015-12-30T08:20:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Core Bluetooth - Theoretical Overview">
+<meta name="twitter:description" content="BLE 的重要性相信已经无需多言了。现在可穿戴设备与手机之间的配对连接方式基本都是一色的 BLE。这篇教程会介绍 CoreBluetooth 从 iOS5 到 iOS7 的演变。另外，也会介绍怎么配置 CB central 跟 peripheral，来让他们之间进行通讯，还有一些最佳编程实践。">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'hide'
+  };
+</script>
+
+    <title> iOS Core Bluetooth - Theoretical Overview // Pandara's Zone </title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c5d0f36c537707dfe01cd190611c07b1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<div class="container one-column page-post-detail">
+    <div id="pandara-brand" class="my-brand">
+      <div id="space-ship" class="pandara-image"></div>
+      <div id="planet0" class="pandara-image"></div>
+      <div id="earth" class="pandara-image"></div>
+      <div id="planet1" class="pandara-image"></div>
+      <div id="planet2" class="pandara-image"></div>
+      <div id="planet3" class="pandara-image"></div>
+      <div id="satellite" class="pandara-image"></div>
+      <div id="planet4" class="pandara-image"></div>
+      <div id="planet5" class="pandara-image"></div>
+      <div id="planet6" class="pandara-image"></div>
+    </div>
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Pandara's Zone</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+            <a href="/" rel="section">
+              <i class="menu-item-icon icon-home"></i> <br />
+              首页
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+            <a href="/categories" rel="section">
+              <i class="menu-item-icon icon-categories"></i> <br />
+              分类
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+            <a href="/about.html" rel="section">
+              <i class="menu-item-icon icon-about"></i> <br />
+              (๑╹◡╹๑)
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+            <a href="/archives" rel="section">
+              <i class="menu-item-icon icon-archives"></i> <br />
+              归档
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+            <a href="/tags" rel="section">
+              <i class="menu-item-icon icon-tags"></i> <br />
+              标签
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              iOS Core Bluetooth - Theoretical Overview
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2015-12-30T00:00:00+08:00" content="2015-12-30">
+            2015-12-30
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/30/ios_ble/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/30/ios_ble/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+
+        
+          <span id="busuanzi_container_page_pv">
+            &nbsp; | &nbsp;
+            访客
+            <span id="busuanzi_value_page_pv">0</span>
+          </span>
+        
+
+       
+
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>BLE 的重要性相信已经无需多言了。现在可穿戴设备与手机之间的配对连接方式基本都是一色的 BLE。这篇教程会介绍 CoreBluetooth 从 iOS5 到 iOS7 的演变。另外，也会介绍怎么配置 CB central 跟 peripheral，来让他们之间进行通讯，还有一些最佳编程实践。</p>
+<a id="more"></a>
+<h4 id="简介">简介</h4><p>教程会分为章。第一章，也就是本文，会包含 Core Bluetooth 的概念性内容，第二章提供一个实践案例。</p>
+<h5 id="背景">背景</h5><p>BLE 是基于 Bluetooth 4.0 规格的，定义了一系列协议，描述如何跟低功耗设备进行通讯。在 BLE 中有两个角色：</p>
+<ul>
+<li><strong>Central(中心设备)</strong>：它通常会定义通讯的逻辑。可以对外围设备进行扫描，连接，断开。另外，它会接受来自外围设备的信息。</li>
+<li><strong>Peripheral(外围设备)</strong>：一个有信息需要进行共享的设备(心率、温度等等)。这些信息会被推送或者广播出来。</li>
+</ul>
+<p><br>下面这张图展示了一个 central 以及 peripheral</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage11.png" alt="image"></p>
+<p><br>上面的两个角色在 iOS 中各有一个类型与之对应，分别为 <code>CBCentralManager</code> 跟 <code>CBPeripheral</code>。</p>
+<p><br><code>CBCentralManager</code> 管理那些被发现或者连接的 peripheral(<code>CBPeripheral</code>)。只要 <code>CBCentralManager</code> 跟一个 peripheral 连接了，它们之间就可以进行数据交互了。peripheral 中存储的数据，依据 service 跟 characteristic，被组织在一个树形结构中。</p>
+<p><br>这些服务可以使消息提醒，血压，心率等等。官方的 GATT 服务定义列表可以在<a href="https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx" target="_blank" rel="external">这里</a>查找到。</p>
+<p><br>service 中的 characteristic 实际上是 service 对应的某个实际的值。例如，在这个教程中，<code>Blood pressure</code> service 实际上就是在某个时刻中的血压值。下图描述了一个 peripheral，它拥有一个 service 跟两个 characteristic：</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage21.png" alt="image"></p>
+<p><br>在 Core Bluetooth 中，peripheral 的服务用 <code>CBService</code> 对象来表示。同样地，peripheral server 中的 characteristic 在 CB 中使用 <code>CBCharacteristic</code> 对象来表示。下图描述了 <code>CBService</code> 中 peripheral 的层次结构：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage31.png" alt="image"></p>
+<p><br>一个给定的 peripheral 可以有多个 service，每个 service 可以有多个 characteristic。这两者都没有限定最大数量。</p>
+<p><br>注意，你最好阅读一下官方文档<a href="https://developer.apple.com/library/ios/documentation/CoreBluetooth/Reference/CoreBluetooth_Framework/index.html#//apple_ref/doc/uid/TP40011295" target="_blank" rel="external">Core Bluetooth Framework Reference</a>，来通透地了解这部分内容。里面有更加详细的对象层次图以及说明。</p>
+<h5 id="Core_Bluetooth_进化史">Core Bluetooth 进化史</h5><p>Core Bluetooth FrameWork 首次出现在 iOS5，引入了一种新的方式来在设备之间利用蓝牙进行无线通讯。在每一次 iOS 系统的版本升级中，苹果都对 CB 进行提升，并且引入新特性。</p>
+<p><br>在 iOS5，CB 主要的特性是 <code>CBCentralManager</code>，<code>CBPeripheral</code>，Central，Client 跟 Observer。在这个版本中只有两个类存在，<code>CBCentralManager</code> 跟 <code>CBPeripheral</code>。前者负责发现跟连接几个(有限数量)外设。后者负责具象化一个设备，并且创建一种机制允许 Central 访问外设中的可用数据。</p>
+<p><br>在 iOS6，苹果提供了了几个 CB 特性，并且做了一些提升，包括 <code>CBPeripheralManager</code>，外设数据库捕获，广播，Peripheral 跟 Server。另外，<code>CBPeripheralManager</code> 提供了一种自定义的方式来创建 Server，还提供了一种机制定义了信息如何通过网络广播。还有，外设数据库抓取(peripheral database caching)极大地提升了蓝牙性能，特别是在扫描发现外设这个阶段。</p>
+<p><br>在收集了几年的反馈之后，苹果在 iOS7 中提升了 CB FrameWork，主要在以下方面：</p>
+<ul>
+<li>更简单的设备管理</li>
+<li>更智能的外设</li>
+<li>性能提升</li>
+<li>应用的持久性</li>
+<li>内置服务</li>
+<li>状态的保存跟恢复</li>
+<li>数据库抓取进一步提升，并且支持 services，characteristics，还有 descriptors(之前只保存 service 跟 characteristic)</li>
+<li>对数据传输而言，数据传播的容量也改变了。它现在支持 MTU 交换请求，还有改变了每个 PDU 中数据的最大容量</li>
+<li>iBeacon 技术允许用户查询定位，还有检测到特定设备或者用户的 iOS 设备的接近</li>
+<li>苹果通知中心服务(ANCS)是一种苹果定义的 GATT 服务，它暴露了一些 characteristic 来让附加设备可以接收到在 iOS 设备上的通知事件，例如通知到达，通知被修改，或者消失，同时还能获取那些事件的更多信息。通过这些服务，外设开发者可以对 iOS 设备的事件有极大的访问权限。然而，目前的 iOS 版本还只是支持读取通知数据而已(文中写在 iOS7 发布不久之时)</li>
+</ul>
+<p><br>如果你需要开始 BLE 的开发，你需要将一下考虑铭记在心：</p>
+<ul>
+<li>iOS 模拟器几乎不支持 CB，所以，开发的时候请用你的真实机器</li>
+<li>你需要支持 BLE 也就是蓝牙4.0的 iOS 设备。所有 iPhon4S 包括 4S 以后的设备都支持蓝牙4.0</li>
+<li>你的 APP 可以与 BLE 外设通信，这个外设可能是第二胎 iOS 设备或者一台 Mac</li>
+</ul>
+<h5 id="CB_后台处理">CB 后台处理</h5><p>决定一个 APP 如何在后台跟前台工作非常重要。每个 APP 都应该在后台跟前台之前有差异化的表现，因为系统资源有限。默认情况下，大多数普通的 CB 任务(在 central 跟 peripheral 中)在 APP 进入后台的时候会被禁止掉，或者处于被挂起的状态。然而，你可以让你的 APP 支持 CB 后台执行模式，来让它从被挂起的状态中唤醒，处理一些特定事件。</p>
+<p><br>要注意，就算你的 APP 支持 CB 后台执行模式，它也不能一直运行。在给定的时间点，系统可能需要终止你的 APP 来释放内存。尽管如此，CB 支持保存 central 跟 peripheral 的状态信息，好让 APP 在运行的时候恢复这些状态。</p>
+<p><br>如果你的 APP 不支持后台执行，所有在 APP 挂起时发生的蓝牙事件都会被系统放入队里中暂存起来，并且在 APP 进入前台的时候被触发。下面有一些 alert，可以在建立了连接之后，调用 <code>CBCentralManager</code> 的 <code>connectPeripheral:options:</code> 方法时定义。一共有三种：</p>
+<ul>
+<li><code>CBConnectPeripheralOptionNotifyOnConnectionKey</code>：如果 APP 在建立了成功的连接后被挂起，需要系统对某个外设显示一个 alert，可使用这个 key</li>
+<li><code>CBConnectPeripheralOptionNotifyOnDisconnectionKey</code>：在断开连接时 APP 被挂起，可使用这个 key 来让系统显示 alert</li>
+<li><code>CBConnectPeripheralOptionNotifyOnNotificationKey</code>：需要在 APP 被挂起的时候，为某个外设发送的所有通知显示 alert 时，可用这个 key</li>
+</ul>
+<p><br>在另一方面，如果你的 APP 支持后台运行模式，你需要在工程中声明它。可以在 Info.plist 文件中使用 UIBackgroundModes 这个 key，或者在工程的 target 设置中 Capabilities 一栏里设置。当 APP 设置了之后，系统会将它从挂起的状态中唤醒，来处理蓝牙事件。这对需要跟固定时间间隔发送数据的外设通讯的 APP 来说很重要，例如心率监测仪。后台的角色也有两个，一个对应 central 另一个对应 peripheral。</p>
+<h5 id="CBCentralManager_的最佳实践">CBCentralManager 的最佳实践</h5><p>尽管 CB 让 central 的数据传输过程在 APP 中变得透明，但仍有一些事项，在开发蓝牙 APP 的时候需要纳入考虑。由于你在跟低功耗设备通讯，你需要记住，每个操作都会消耗你的蓝牙设备的能源。</p>
+<p><br>因此，你需要考虑如下几个方面：</p>
+<ul>
+<li><strong>设备扫描</strong>：确实需要扫描的时候，你应该只扫描新设备。将无线电的使用最小化，这很重要，因为无线电的使用对 iOS 设备的电池寿命有影响</li>
+<li><strong>来自同个设备的多个广播</strong>：外围设备可能会1秒内发送多个广播包来宣告自己的存在，然后监听 central。因此，当你在调用 <code>scanForPeripheralsWithServices:options:</code> 方法的时候，可以使用 <code>CBCentralManagerScanOptionAllowDuplicatesKey</code> 这个 key 来让多个同样蓝牙包合并为一个来处理</li>
+<li><strong>优化对外设的数据的访问</strong>：只在 APP 中访问外设中有必要被访问的 service 跟 characteristic</li>
+<li><strong>订阅或者检测 characteris 的值</strong>：在 characteristic 改变时，你可以通过用户输入或者自动执行来取得 characteristic。对应地你需要各使用一个方法。</li>
+<li><strong>终止不需要的连接</strong>：由于补货机制，你可以快速地重连。当 central 需要重连一个设备时，苹果提供一个指定的工作流程。如下图：</li>
+</ul>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage7.png" alt="image"></p>
+<h5 id="CBPeripheral_的最佳实践">CBPeripheral 的最佳实践</h5><p>跟 <code>CBCebtralManager</code> 类似，<code>CBPeripheral</code> 有一些同样地实践条则，在创建一个高效率 APP 的时候需要遵从。</p>
+<p><br>考虑到广播，要记住，当你的 APP 处于前台时，在最初的广播数据中，它最多能够使用28个字节来的空间。注意只广播那些确实重要的数据。同样，你需要给用户提供一种方法来根据需要广播，让用户因此得以控制广播的频次。</p>
+<p><br>当你配置你的 characteristic 时，你应该让它们支持通知。因而需要将 <code>CBAttributePermissionsReadable</code> 这个属性添加到 <code>CBMutableCharacteristic</code> 对象的 <code>permissions</code> 中。</p>
+<p><br>注意，由于蓝牙是一种新兴技术，越来越多的设备使用它来嗅探网络意图访问 free data。因此，你应该在访问外设的敏感数据时使用配对连接的方式。</p>
+<h4 id="小结">小结</h4><p>读完这篇文章你应该直到 Core Bluetooth framework 的规格说明。在下一篇教程中，你会学习到如何用 <code>CBCentralManager</code> 跟 <code>CBPeripheral</code> 来编程。</p>
+<p><br>文章主要翻译自 <a href="http://code.tutsplus.com/tutorials/ios-7-sdk-core-bluetooth-theoretical-overview--mobile-20728" target="_blank" rel="external">iOS 7 SDK: Core Bluetooth - Theoretical Overview</a>, <a href="http://tutsplus.com/authors/jorge-costa-and-orlando-pereira" target="_blank" rel="external">Jorge Costa and Orlando Pereira</a>，有个人修改。</p>
+<p><br><br>以上</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BLE/" rel="tag">#BLE</a>
+          
+            <a href="/tags/蓝牙/" rel="tag">#蓝牙</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/28/widget/" rel="next">iOS8 Today Wiget 开发</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2015/12/30/ios_ble/"
+                       data-title="iOS Core Bluetooth - Theoretical Overview" data-url="http://pandara.xyz/2015/12/30/ios_ble/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author-avatar"></div>
+          <p class="site-author-name" itemprop="name">Pandara</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Hey! man~</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/PandaraWen" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/pandarawen" target="_blank">Weibo</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">基情链接</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://aevit.xyz/" target="_blank">Aevit's Lab</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://helkyle.com/" target="_blank">HelKyle's blog</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://w3ctrain.com" target="_blank">W3cTrain</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#背景"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Core_Bluetooth_进化史"><span class="nav-number">1.2.</span> <span class="nav-text">Core Bluetooth 进化史</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CB_后台处理"><span class="nav-number">1.3.</span> <span class="nav-text">CB 后台处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CBCentralManager_的最佳实践"><span class="nav-number">1.4.</span> <span class="nav-text">CBCentralManager 的最佳实践</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CBPeripheral_的最佳实践"><span class="nav-number">1.5.</span> <span class="nav-text">CBPeripheral 的最佳实践</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">2.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+      <div class="side-bar-foot-decorate">
+        <div class="side-bar-man motion-element"></div>
+        <div class="side-bar-star motion-element"></div>
+      </div>
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2015</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pandara</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"pandara"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>
