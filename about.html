@@ -10,13 +10,25 @@
 	<script type="text/javascript" src="./js/about/velocity.min.js"></script>
 	<script type="text/javascript" src="./js/about/about.js"></script>
 	<script type="text/javascript" src="./js/about/typed.js"></script>
+	<script src="https://cdn1.lncld.net/static/js/av-mini-0.6.4.js"></script>
 	<script>
 		var _hmt = _hmt || [];
 		(function() {
-		  var hm = document.createElement("script");
-		  hm.src = "//hm.baidu.com/hm.js?c5d0f36c537707dfe01cd190611c07b1";
-		  var s = document.getElementsByTagName("script")[0]; 
-		  s.parentNode.insertBefore(hm, s);
+		 	var hm = document.createElement("script");
+		 	hm.src = "//hm.baidu.com/hm.js?c5d0f36c537707dfe01cd190611c07b1";
+		 	var s = document.getElementsByTagName("script")[0]; 
+		 	s.parentNode.insertBefore(hm, s);
+
+		  	AV.initialize('NN95nfAEOSe1hRreEk2k8Gt5-gzGzoHsz', 'OnqQBHjwlU4N8ofYTVwtX4LD');
+		  	var TestObject = AV.Object.extend('TestObject');
+			var testObject = new TestObject();
+			testObject.save({
+			  	foo: 'bar'
+			}, {
+			  success: function(object) {
+			    alert('LeanCloud works!');
+			  }
+			});
 		})();
 	</script>
 </head>
