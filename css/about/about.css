@@ -15,8 +15,18 @@ html {
 .image {
   background-size: contain;
 }
+.small-text,
+.center-text,
 .text {
   font-family: Lato, "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+.small-text,
+.center-text {
+  display: block;
+  text-align: center;
+  width: 100%;
+  color: #bfbfbf;
+  bottom: 10px;
 }
 p {
   margin: 0px;
