@@ -43,13 +43,16 @@
 <meta name="description" content="记录遇到的各种 XC 费解问题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Xcode 奇奇怪怪问题手册">
-<meta property="og:url" content="http://pandara.xyz/2015/12/25/Xcode _strange_problem/index.html">
+<meta property="og:url" content="http://pandara.xyz/2016/06/06/Xcode _strange_problem/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
 <meta property="og:description" content="记录遇到的各种 XC 费解问题">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospod_warning.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/06/xcode_strange_problem/01.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/06/xcode_strange_problem/02.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/03.png">
+<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2FcocoaPods_warning.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning02.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning01.png">
-<meta property="og:updated_time" content="2015-12-28T04:20:25.000Z">
+<meta property="og:updated_time" content="2016-06-06T04:29:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode 奇奇怪怪问题手册">
 <meta name="twitter:description" content="记录遇到的各种 XC 费解问题">
@@ -217,8 +220,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-12-25T00:00:00+08:00" content="2015-12-25">
-            2015-12-25
+          <time itemprop="dateCreated" datetime="2016-06-06T00:00:00+08:00" content="2016-06-06">
+            2016-06-06
           </time>
         </span>
 
@@ -239,8 +242,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/25/Xcode _strange_problem/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/25/Xcode _strange_problem/" itemprop="commentsCount"></span>
+              <a href="/2016/06/06/Xcode _strange_problem/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/Xcode _strange_problem/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -268,8 +271,19 @@
         <span itemprop="articleBody"><center>记录遇到的各种 XC 费解问题</center>
 
 <a id="more"></a>
-<h5 id="cocosPod_提示_diff:_/-/Podfile-lock:_No_such_file_or_directory">cocosPod 提示 <code>diff: /../Podfile.lock: No such file or directory</code></h5><p>因为我刚刚将 podfile 修改了，增加了一些 target 指定。重新 pod install 之后会生成新的配置文件，而原来的配置文件会被删除。但是 cocosPod 没有帮忙正确设置回来。pod install 的时候终端也有输出警告信息：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospod_warning.png" alt="image"></p>
+<h5 id="pod_install_时提示报错_Unable_to_find_a_specification">pod install 时提示报错 <code>Unable to find a specification</code></h5><p><img src="http://pandarazone.qiniudn.com/2016/06/06/xcode_strange_problem/01.png" alt="image"></p>
+<p><br>而工程的 <code>podfile</code> 中对这个仓库是这样指定的：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">'WebViewJavascriptBridge'</span>, :git =&gt; <span class="string">'https://github.com/gzkiwiinc/WebViewJavascriptBridge.git'</span>, :branch =&gt; <span class="string">'master'</span></span><br></pre></td></tr></table></figure></p>
+<p><br>于是查了一下公司维护的自有版本仓库根目录下的 <code>podspec</code> 文件。要提一下的是，根据 <a href="https://guides.cocoapods.org/syntax/podfile.html#pod" target="_blank" rel="external">cocoapods 文档</a>，如果采用另外指定 source repo 的方式，那么 repo 的根目录下必须有一个 valid 的 podspec file：</p>
+<p><br><img src="http://pandarazone.qiniudn.com/2016/06/06/xcode_strange_problem/02.png" alt="image"></p>
+<p><br>clone 到本地之后用 <code>pod spec lint</code> 检查一下 <code>podspec</code> 文件是否正确，结果报了一个错:</p>
+<p><br><img src="http://pandarazone.qiniudn.com/03.png" alt="image"></p>
+<p><br>看起来应该是 cocoapods 1.0.0 中废弃了这个旧的语法。修改成下面这样：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.platforms = &#123; <span class="symbol">:ios</span> =&gt; <span class="string">"5.0"</span>, <span class="symbol">:osx</span> =&gt; <span class="string">""</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p><br>修改完成提交之后，发觉仍然报错 <code>Unable to find a specification</code>，仔细瞧了一下 log，指向的 commit 是并不是 master 分支上最新的 commit：<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pre-<span class="attribute">downloading</span>: `<span class="javascript">WebViewJavascriptBridge</span>` from `<span class="javascript">https:<span class="comment">//github.com/gzkiwiinc/WebViewJavascriptBridge.git</span></span>`, commit `<span class="javascript">f5e92dd1d49c67724719491ae0f7696026dff9c1</span>`</span><br></pre></td></tr></table></figure></p>
+<p>而 podfile 中的声明并没有问题。没时间折腾了，只好强行指定一个 commit：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">'WebViewJavascriptBridge'</span>, <span class="symbol">:git</span> =&gt; <span class="string">'https://github.com/gzkiwiinc/WebViewJavascriptBridge.git'</span>, <span class="symbol">:branch</span> =&gt; <span class="string">'master'</span>, <span class="symbol">:commit</span> =&gt; <span class="string">'xxxxx'</span></span><br></pre></td></tr></table></figure></p>
+<p><br>最后再 pod install，就跑通了。</p>
+<p><br>总结：不要忽略官方文档，靠猜不如看文档。另外还有一个问题，为什么指定的 master 分支没有取到最新的提交</p>
+<h5 id="cocoaPods_提示_diff:_/-/Podfile-lock:_No_such_file_or_directory">cocoaPods 提示 <code>diff: /../Podfile.lock: No such file or directory</code></h5><p>因为我刚刚将 podfile 修改了，增加了一些 target 指定。重新 pod install 之后会生成新的配置文件，而原来的配置文件会被删除。但是 cocoaPods 没有帮忙正确设置回来。pod install 的时候终端也有输出警告信息：</p>
+<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2FcocoaPods_warning.png" alt="image"></p>
 <p><br>在工程目录中找到 Pods 文件夹，在 Target Support Files 文件夹中找到为各个 Target 生成的配置文件，将其重新引入工程：</p>
 <p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning02.png" alt="image"></p>
 <p><br>在项目的 info 中将新的设置文件引入</p>
@@ -294,13 +308,13 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/28/widget/" rel="prev">iOS8 Today Wiget 开发</a>
+              <a href="/2016/06/06/raspberrypi_vim_python/" rel="prev">Raspberry Pi 打造 vim + Python 的最佳实践</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/12/21/i_am_dog/" rel="next">我是狗(一)</a>
+              <a href="/2016/06/01/raspberry_pi_1/" rel="next">Raspberry Pi 小车移动监控I —— 摄像头</a>
             
           </div>
         </div>
@@ -326,8 +340,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/12/25/Xcode _strange_problem/"
-                       data-title="Xcode 奇奇怪怪问题手册" data-url="http://pandara.xyz/2015/12/25/Xcode _strange_problem/">
+                  <div class="ds-thread" data-thread-key="2016/06/06/Xcode _strange_problem/"
+                       data-title="Xcode 奇奇怪怪问题手册" data-url="http://pandara.xyz/2016/06/06/Xcode _strange_problem/">
                   </div>
                 
               </div>
@@ -367,7 +381,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">69</span>
+              <span class="site-state-item-count">70</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -434,7 +448,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#cocosPod_提示_diff:_/-/Podfile-lock:_No_such_file_or_directory"><span class="nav-number">1.</span> <span class="nav-text">cocosPod 提示 diff: /../Podfile.lock: No such file or directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提示错误_ld:_library_not_found_for_-lPods"><span class="nav-number">2.</span> <span class="nav-text">提示错误 ld: library not found for -lPods</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#pod_install_时提示报错_Unable_to_find_a_specification"><span class="nav-number">1.</span> <span class="nav-text">pod install 时提示报错 Unable to find a specification</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cocoaPods_提示_diff:_/-/Podfile-lock:_No_such_file_or_directory"><span class="nav-number">2.</span> <span class="nav-text">cocoaPods 提示 diff: /../Podfile.lock: No such file or directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提示错误_ld:_library_not_found_for_-lPods"><span class="nav-number">3.</span> <span class="nav-text">提示错误 ld: library not found for -lPods</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
