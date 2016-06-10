@@ -1,0 +1,768 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="一切皆为年少轻狂之诳语" />
+
+
+
+  <meta name="keywords" content="Raspberry Pi," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动最后利用 Socket 通信达成远程操控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Raspberry Pi 小车移动监控II — 运动控制">
+<meta property="og:url" content="http://pandara.xyz/2016/06/10/raspberry_pi_2/index.html">
+<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动最后利用 Socket 通信达成远程操控">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3278.JPG?imageView2/2/w/450">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/l298n.jpg?imageView2/1/w/200/h/200">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/l298n_line.jpg?imageView2/1/w/200/h/200">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/450">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3277.JPG?imageView2/2/w/450">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3282.JPG?imageView2/1/w/200/h/200">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3281.JPG?imageView2/1/w/200/h/200">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3287.JPG?imageView2/2/w/450">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/450">
+<meta property="og:updated_time" content="2016-06-10T14:34:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Raspberry Pi 小车移动监控II — 运动控制">
+<meta name="twitter:description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动最后利用 Socket 通信达成远程操控">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'hide'
+  };
+</script>
+
+    <title> Raspberry Pi 小车移动监控II — 运动控制 // Pandara's Zone </title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c5d0f36c537707dfe01cd190611c07b1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<div class="container one-column page-post-detail">
+    <div id="pandara-brand" class="my-brand">
+      <div id="space-ship" class="pandara-image"></div>
+      <div id="planet0" class="pandara-image"></div>
+      <div id="earth" class="pandara-image"></div>
+      <div id="planet1" class="pandara-image"></div>
+      <div id="planet2" class="pandara-image"></div>
+      <div id="planet3" class="pandara-image"></div>
+      <div id="satellite" class="pandara-image"></div>
+      <div id="planet4" class="pandara-image"></div>
+      <div id="planet5" class="pandara-image"></div>
+      <div id="planet6" class="pandara-image"></div>
+    </div>
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Pandara's Zone</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+            <a href="/" rel="section">
+              <i class="menu-item-icon icon-home"></i> <br />
+              首页
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+            <a href="/categories" rel="section">
+              <i class="menu-item-icon icon-categories"></i> <br />
+              分类
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+            <a href="/about.html" rel="section">
+              <i class="menu-item-icon icon-about"></i> <br />
+              (๑╹◡╹๑)
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+            <a href="/archives" rel="section">
+              <i class="menu-item-icon icon-archives"></i> <br />
+              归档
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+            <a href="/tags" rel="section">
+              <i class="menu-item-icon icon-tags"></i> <br />
+              标签
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              Raspberry Pi 小车移动监控II — 运动控制
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-06-10T00:00:00+08:00" content="2016-06-10">
+            2016-06-10
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/06/10/raspberry_pi_2/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/10/raspberry_pi_2/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+
+        
+          <span id="busuanzi_container_page_pv">
+            &nbsp; | &nbsp;
+            访客
+            <span id="busuanzi_value_page_pv">0</span>
+          </span>
+        
+
+       
+
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><center>本部分讲解控制树莓派的 GPIO 输出信号<br>以此来控制电机驱动<br>最后利用 Socket 通信达成远程操控</center>
+
+<a id="more"></a>
+<h5 id="硬件准备">硬件准备</h5><p>搭建小车需要下面这些硬件：</p>
+<ul>
+<li>L298N 电机驱动模块，买好一点，便宜的易烧</li>
+<li>小车平台(车身+4个轮子+4个电机，淘)</li>
+<li>12v可充电电池，给电机供电</li>
+<li>移动电源，树莓派供电</li>
+<li>杜邦线若干</li>
+<li>M2 铜质隔离柱若干，M2 螺丝 + 螺母若干(固定原件用)</li>
+<li>电线绑带，固定不规则部件用</li>
+</ul>
+<p>另外有一些可以增加幸福感的可选工具/部件</p>
+<ul>
+<li>树莓派专用风扇 + 外壳，配上散热片，跟温度危机说拜拜</li>
+<li>小型电钻，亚克力板打孔，想钻哪里钻哪里</li>
+<li>万用表，戳一下就知道哪里出问题</li>
+<li>电烙铁，万一把什么元件给掰断了…</li>
+<li>女朋友，在你把 L298N 搞烧了之后给你安慰</li>
+<li>外接显示器，提升敲代码幸福感</li>
+<li>好了，不说废话了…</li>
+</ul>
+<h6 id="硬件连线">硬件连线</h6><p>先来看看 L298N 电机模块：</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3278.JPG?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3278.JPG?imageView2/2/w/450" alt=""></a></center>
+
+<p><br>L298N 就是集成了集成了 L298N 芯片跟一些电子元件的电路板子。输出端口标记 跟 内部原理图 如下，淘宝上盗了两张图：</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/l298n.jpg?imageView2/2/w/2048" title="1/2" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/l298n.jpg?imageView2/1/w/200/h/200" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/l298n_line.jpg?imageView2/2/w/2048" title="2/2" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/l298n_line.jpg?imageView2/1/w/200/h/200" alt=""></a></center>
+
+<p><br>简单说一下这些输入输出端口的作用：</p>
+<ul>
+<li>输出A/B：输出A含端口OUT1/2两个端口，输出B含OUT3/4两个端口，用于电机直接供电，输出A连接左边电机的红线跟黑线；输出B类似</li>
+<li>板载使能：决定 L298N 是否工作，板子上用跳线帽跟高电平输出短接，就是永远有效的意思</li>
+<li>12v供电：板子供电，接 12v 电源的正极</li>
+<li>供电GND：接12v电源的负极，注意这里要跟 Pi GPIO 共地，否则无法识别来自 Pi GPIO 的电平信号</li>
+<li>5v供电：这是一个5v电压输出，可以给其他微控制器供电。貌似连上 Pi 之后能让 Pi 启动，但是不能正常进入系统</li>
+<li>通道A使能：决定输出A是否可用，通道B使能类似，跟板载使能一样，用跳线帽短接了。后面我们需要拔掉，来控制车子转弯</li>
+<li>逻辑输入：IN1为高时OUT1输出12v电压，为低时OUT1为0v。其他类似，IN2对应OUT2，IN3对应OUT3，IN4对应OUT4</li>
+</ul>
+<p>然后将板子跟电机连起来，说说我的连线方案，左边电机红线(正极)连OUT1，黑线(负极)接OUT2；右边电机红线接OUT4，黑线接OUT3。下面说说 Pi GPIO 输出。</p>
+<p><br>GPIO 就是 General Purpose Input Output （通用输入/输出）。 树莓派里代码控制 GPIO 针脚输出有两种方式，用 C 或者用 Python，无疑 Python 是最方便的。之前我配置 vim + python 时安装的 python-dev 貌似已经包含了 gpio 库，如果你的 pi 上没有 gpio 库的话，可以用下面的命令来安装<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#Python2安装GPIO库需要输入命令：</span></span><br><span class="line">sudo apt-<span class="keyword">get</span> install python-rpi.gpio</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#Python3安装GPIO库需要输入命令：</span></span><br><span class="line">sudo apt-<span class="keyword">get</span> install python3-rpi.gpio</span><br></pre></td></tr></table></figure></p>
+<p>安装好之后可以利用命令来输出 gpio 的针脚信息：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">gpio</span> readall</span><br></pre></td></tr></table></figure></p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/450" alt=""></a></center>
+
+<p><br>那么板子上哪个是 Pin1 呢，板子朝上，USB 口对着自己，左上角就是 Pin1。此外反过来看看，Pin1 的焊点是正方形的。简单解释一下 Name 一栏不同种类针脚的含义：</p>
+<ul>
+<li>SDA/SCL：DA 表示 data，数据信号；CL 表示 clock，时钟信号。 如果想要扩展 Pi 的 GPIO 针脚会用到这两个针口，IIC协议通讯用的</li>
+<li>GPIO：就是我们可以用来作为输入输出的针脚</li>
+<li>TxD/RxD：跟其他串行设备连接的时候会用到这两个针脚，t for transmit and r for receive</li>
+<li>MOSI/MISO：MOSI Master Output Slave Input，MISO Master Input Slave Output，用于 SPI(串行外设接口)通信</li>
+<li>SCLK：串行时钟信号</li>
+<li>CE0/CE1：作为接通两路SPI的片选信号。它们跟 MOSI，MISO，SCLK 一起构成跟 SPI 模块通讯的信号组</li>
+</ul>
+<p>接下来，你可以根据你的布线需求选用合适的 GPIO 接口，连接到 L298N 上的这些针脚上：通道A使能，4个逻辑输入，通道B使能，放一个我的连接图。图会比较杂乱，因为我除了连 L298N 还连了摄像头云台的两个舵机的电源跟他们的控制线：</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3277.JPG?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3277.JPG?imageView2/2/w/450" alt=""></a></center>
+
+<p><br>恩，确实是乱到不行。接下来就是安排两个电源的安放位置并且将他们固定好。做的时候在一个旧音响上面翻到一个就开关，所以顺便接上了 L298N 的电源输入线里面，就是顶端那个正方形的白色小方块。板子、树莓派，摄像头云台之间的固定我都用了隔离柱，我敢说比我在网上查资料时看到的所有方案都优雅，毕竟我看到的资料是小数啊哈哈哈。后期有钱，打算入手一台3d打印机，自己做外壳。上我的图：</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3282.JPG?imageView2/2/w/2048" title="1/2" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3282.JPG?imageView2/1/w/200/h/200" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3281.JPG?imageView2/2/w/2048" title="2/2" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3281.JPG?imageView2/1/w/200/h/200" alt=""></a></center>
+
+<p><br>车头那块蓝色的就是 12v 的充电电池组，用来给 L298N 也就是电机供电。车屁股那坨紫色的是从一个旧移动电源里面拆出来的电池组，电路板(USB口跟充电口)固定在了底部。能这么方便地使用铜柱子，还是拜我的工具所赐，没错，就是文首提到的提升幸福感工具之一：电钻</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3287.JPG?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3287.JPG?imageView2/2/w/450" alt=""></a></center>
+
+<p><br>相信我，你会爱上并享受打洞的过程的！连好了线之后，就没有硬件什么事了。</p>
+<h6 id="Python控制小车运动">Python控制小车运动</h6><p>好了，那么到底怎么用 GPIO 这个库来控制 GPIO 信号输出呢，倍儿简单：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> RPi.GPIO <span class="keyword">as</span> gpio</span><br><span class="line"></span><br><span class="line">outPinNum = <span class="number">11</span></span><br><span class="line"></span><br><span class="line">gpio.setmode(gpio.BOARD)</span><br><span class="line">gpio.setup(outPinNum, gpio.OUT)</span><br><span class="line">gpio.output(outPinNum, gpio.LOW)</span><br><span class="line"></span><br><span class="line">gpio.cleanup()</span><br></pre></td></tr></table></figure></p>
+<p>简单到不用解释，不过还是让我解释一下，再放一次这个图：</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/450" alt=""></a></center>
+
+<ul>
+<li><code>gpio.BOARD</code> 指定了使用板子的针脚顺序编号来命名针脚，就是上面针脚输出图里面的 Physical 一栏里面的数字。另外一种命名方式是 BCM(Broadcom SOC channel)，使用这种方式的时候，使用的针脚序号就是上图中 “GPIO” 后面跟着的数字。你的程序里里面只能够指定一种命名方式</li>
+<li><code>gpio.OUT</code> 将针脚的工作模式设置为输出，对应的还有 <code>gpio.IN</code></li>
+<li><code>gpio.cleanup()</code> 注意每次在程序结束执行之前都要进行清理，否则这个针脚将一直被占用，除非你重启</li>
+</ul>
+<p>利用 GPIO 口作为输入也倍儿简单：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import RPi<span class="class">.GPIO</span> as GPIO</span><br><span class="line"></span><br><span class="line">inPinNum = <span class="number">13</span></span><br><span class="line"></span><br><span class="line">pio.<span class="function"><span class="title">setmode</span><span class="params">(gpio.BOARD)</span></span></span><br><span class="line">gpio.<span class="function"><span class="title">setup</span><span class="params">(inPinNum, gpio.IN)</span></span></span><br><span class="line">inValue = GPIO.<span class="function"><span class="title">input</span><span class="params">(inPinNum)</span></span></span><br><span class="line"></span><br><span class="line">gpio.<span class="function"><span class="title">cleanup</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>简单，不解释了。不过值得注意的是，使用针脚输入的时候，需要采取一些防护措施保证输入电压不超过某个阈值，比如5v，否则可能会对 Pi 造成伤害。</p>
+<p><br>具体到控制小车运动，代码就不上了，无非就是一大串的 <code>gpio.out()</code> 代码，下面提供一下代码的设计思路就好：</p>
+<blockquote>
+<p><strong>前提：</strong>OUT1 连接左边电机正极，OUT2 连接左边电机负极；OUT4连接右边电机正极，OUT3连接右边电机负极，并且电机的铁片朝向车外<br><strong>小车前进：</strong>输出A/B使能端均为高电平，IN1高电平 -&gt; OUT1 12v，IN2低电平 -&gt; OUT2 0v，IN4高电平 -&gt; OUT4 12v，IN3低电平 -&gt; OUT3 0v<br><strong>小车后退：</strong>vice versa<br><strong>小车左转：</strong>输出A使能端低电平-&gt;左边电机停止运转，输出B使能端高电平-&gt;右边电机正常运转<br><strong>小车右转：</strong>vice versa</p>
+</blockquote>
+<p><br>思路如此简单。另外小车转弯控制其实还有另外一种更好的办法，利用脉宽调制（PWM）。简单的说，PWM 技术就是不停的通断电路并控制通断持续的时间片段长度来控制用电器在单位时间内实际得到的电能。树莓派1代B型的26个针脚里，有一个特殊的GPIO口是支持硬件PWM的，不过从B+开始不知道什么原因这个很实用的接口被去掉了。</p>
+<p><br>虽然可以用 gpio 库提供的 PWM 方法来达到软件模拟的效果，但是不稳定，特别是需要的 PWM 信号多的时候就更加不稳定了，因为 PWM 是利用线程来实现的。建议可以用 PI 外接一个 Arduino 板子。Arduino 一共提供了6个 PWM 针脚。</p>
+<p><br>下一篇系列文章将研究怎么用捕获键盘输入来控制小车。</p>
+<h5 id="参考资料">参考资料</h5><p>1.<a href="http://www.jianshu.com/p/a6eb296aa1ea" target="_blank" rel="external">iOS开发 Socket网络编程</a><br>2.<a href="http://www.henishuo.com/ios-socket-udp-c-version/" target="_blank" rel="external">iOS Socket UDP编程-C语言版</a><br>3.<a href="http://www.hangge.com/blog/cache/detail_756.html" target="_blank" rel="external">Swift - 使用socket进行通信</a><br>4.<a href="http://blog.mangolovecarrot.net/2015/04/28/raspi-study02/" target="_blank" rel="external">树莓派GPIO入门</a></p>
+<p><br>上一篇：<a href="http://pandara.xyz/2016/06/01/raspberry_pi_1/">Raspberry Pi 小车移动监控I — 摄像头</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Raspberry-Pi/" rel="tag">#Raspberry Pi</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/Xcode _strange_problem/" rel="next">Xcode 奇奇怪怪问题手册</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2016/06/10/raspberry_pi_2/"
+                       data-title="Raspberry Pi 小车移动监控II — 运动控制" data-url="http://pandara.xyz/2016/06/10/raspberry_pi_2/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author-avatar"></div>
+          <p class="site-author-name" itemprop="name">Pandara</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">一切皆为年少轻狂之诳语</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">71</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/PandaraWen" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/pandarawen" target="_blank">Weibo</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">基情链接</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://aevit.xyz/" target="_blank">Aevit's Lab</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://helkyle.com/" target="_blank">HelKyle's blog</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://w3ctrain.com" target="_blank">W3cTrain</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#硬件准备"><span class="nav-number">1.</span> <span class="nav-text">硬件准备</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#硬件连线"><span class="nav-number">1.1.</span> <span class="nav-text">硬件连线</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Python控制小车运动"><span class="nav-number">1.2.</span> <span class="nav-text">Python控制小车运动</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考资料"><span class="nav-number">2.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+      <div class="side-bar-foot-decorate">
+        <div class="side-bar-man motion-element"></div>
+        <div class="side-bar-star motion-element"></div>
+      </div>
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pandara</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"pandara"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+  <script type="text/javascript" src="/js/fancybox-aevit.js"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>

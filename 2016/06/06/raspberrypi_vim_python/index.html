@@ -46,7 +46,7 @@
 <meta property="og:url" content="http://pandara.xyz/2016/06/06/raspberrypi_vim_python/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
 <meta property="og:description" content="我好像爱上了 vim + Python 这对组合了。">
-<meta property="og:updated_time" content="2016-06-06T15:51:19.000Z">
+<meta property="og:updated_time" content="2016-06-07T15:09:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Raspberry Pi 打造 vim + Python 的最佳实践">
 <meta name="twitter:description" content="我好像爱上了 vim + Python 这对组合了。">
@@ -292,6 +292,7 @@
 <p>然后重启你的系统。之后如果使用 <code>free -m</code> 命令，会看到交换空间的大小已经增加到 1G。<br>接着在 <code>~/.vimrc</code> 文件里面引入 YCM 插件：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">Plugin</span> <span class="string">'Valloric/YouCompleteMe'</span></span><br></pre></td></tr></table></figure></p>
 <p>然后 :PluginInstall 一下，YCM 就会从 github 上面 clone 到 <code>~/.vim/bundle/</code> 里面。然后进入 YouCompleteMe 文件夹里面执行 <code>./install.py</code> 执行安装，应该会提示你先执行另一个 git 命令将 thirdParty 所需要的所有库给 clone 下来，按照提示做就是了。clone 完成之后再执行 <code>./install.py</code>。</p>
 <p><br>完成之后可以添加这个配置，来让完成补全之后 preview 窗口自动消失：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> g:<span class="variable">SimpylFold_docstring_preview=</span><span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p><br>另外如果你也不喜欢补全的时候多出一个分割小窗口显示 docstring，可以这样配置：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" 补全内容不以分割子窗口形式出现，只显示补全列表</span><br><span class="line"></span><span class="keyword">set</span> completeopt-=preview</span><br></pre></td></tr></table></figure></p>
 <h5 id="安装插件_NERDTree">安装插件 NERDTree</h5><p>NERDTree 可以提供一个便捷的文件树形结构：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">Plugin</span> <span class="string">'scrooloose/nerdtree'</span></span><br></pre></td></tr></table></figure></p>
 <p>如果你想用 tab 控制 NERDTree，可以利用vim-nerdtree-tabs插件实现：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">Plugin</span> <span class="string">'jistr/vim-nerdtree-tabs'</span></span><br></pre></td></tr></table></figure></p>
 <p>然后添加下面的配置来隐藏 .pyc 文件：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> NERDTreeIgnore=[<span class="string">'\.pyc$'</span>, <span class="string">'\~$'</span>] "ignore <span class="keyword">files</span> in NERDTree</span><br></pre></td></tr></table></figure></p>
@@ -322,7 +323,9 @@
 <p>然后就可以开干了</p>
 </blockquote>
 <p><br><strong>3.配置</strong><br><strong>3.1</strong> vim 中打开某文件时自动启用 NERD tree<br>在 .vimrc 中添加 <code>autocmd vimenter * NERDTree</code></p>
+<p><br><strong>3.2</strong> 用组合键打开 NERDTree<br>在 .vimrc 中添加 <code>map &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt;</code></p>
 <p><br>暂时记录这么多先。</p>
+<h5 id="安装插件_vim-fugitive">安装插件 vim-fugitive</h5><p>vim-fugitive 插件可以让你在 vim 中执行一些简单的 Git 命令。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">Plugin</span> <span class="string">'tpope/vim-fugitive'</span></span><br></pre></td></tr></table></figure></p>
 <h5 id="配置_Vim">配置 Vim</h5><p>安装完成这么多插件之后，接下来配置一下 Vim 让它更加顺手。</p>
 <p><br><strong>1.快速切换 split view</strong><br>在 <code>.vimrc</code> 文件里面加入下面的配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"split navigations</span><br><span class="line">nnoremap <span class="tag">&lt;<span class="title">C-J</span>&gt;</span> <span class="tag">&lt;<span class="title">C-W</span>&gt;</span><span class="tag">&lt;<span class="title">C-J</span>&gt;</span></span><br><span class="line">nnoremap <span class="tag">&lt;<span class="title">C-K</span>&gt;</span> <span class="tag">&lt;<span class="title">C-W</span>&gt;</span><span class="tag">&lt;<span class="title">C-K</span>&gt;</span></span><br><span class="line">nnoremap <span class="tag">&lt;<span class="title">C-L</span>&gt;</span> <span class="tag">&lt;<span class="title">C-W</span>&gt;</span><span class="tag">&lt;<span class="title">C-L</span>&gt;</span></span><br><span class="line">nnoremap <span class="tag">&lt;<span class="title">C-H</span>&gt;</span> <span class="tag">&lt;<span class="title">C-W</span>&gt;</span><span class="tag">&lt;<span class="title">C-H</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>这段配置可以让我们按 <code>Ctrl+Vim</code> 的标准移动键，就可以切换到指定窗口。</p>
@@ -356,11 +359,13 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2016/06/06/Xcode _strange_problem/" rel="prev">Xcode 奇奇怪怪问题手册</a>
+            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/06/Xcode _strange_problem/" rel="next">Xcode 奇奇怪怪问题手册</a>
+              <a href="/2016/06/01/raspberry_pi_1/" rel="next">Raspberry Pi 小车移动监控I — 摄像头</a>
             
           </div>
         </div>
@@ -427,7 +432,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">70</span>
+              <span class="site-state-item-count">71</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -494,7 +499,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装_vim"><span class="nav-number">1.</span> <span class="nav-text">安装 vim</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装_Vundle"><span class="nav-number">2.</span> <span class="nav-text">安装 Vundle</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装插件_YouCompleteMe"><span class="nav-number">3.</span> <span class="nav-text">安装插件 YouCompleteMe</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装插件_NERDTree"><span class="nav-number">4.</span> <span class="nav-text">安装插件 NERDTree</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置_Vim"><span class="nav-number">5.</span> <span class="nav-text">配置 Vim</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装_vim"><span class="nav-number">1.</span> <span class="nav-text">安装 vim</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装_Vundle"><span class="nav-number">2.</span> <span class="nav-text">安装 Vundle</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装插件_YouCompleteMe"><span class="nav-number">3.</span> <span class="nav-text">安装插件 YouCompleteMe</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装插件_NERDTree"><span class="nav-number">4.</span> <span class="nav-text">安装插件 NERDTree</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装插件_vim-fugitive"><span class="nav-number">5.</span> <span class="nav-text">安装插件 vim-fugitive</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置_Vim"><span class="nav-number">6.</span> <span class="nav-text">配置 Vim</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
