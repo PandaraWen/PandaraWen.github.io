@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="UI设计," />
+  <meta name="keywords" content="Raspberry Pi," />
 
 
 
@@ -40,20 +40,18 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="最近APP的新版本上线了，之前@敬爱的产品经理大人 亚维·道格森一世提的新功能的设计稿可以拿出来秀一下了。">
+<meta name="description" content="本部分介绍如何在树莓派中捕获键盘输入配上运动控制，达成无线键盘遥控小车">
 <meta property="og:type" content="article">
-<meta property="og:title" content="又射鸡湿了一把">
-<meta property="og:url" content="http://pandara.xyz/2015/12/10/design_chicken_again/index.html">
+<meta property="og:title" content="Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入">
+<meta property="og:url" content="http://pandara.xyz/2016/06/10/raspberry_pi_3/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="最近APP的新版本上线了，之前@敬爱的产品经理大人 亚维·道格森一世提的新功能的设计稿可以拿出来秀一下了。">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/preview.jpg?imageView2/2/w/700">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/walking_day_day.jpg?imageView2/2/w/700">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/walking_night_day.jpg?imageView2/2/w/700">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/preview2.jpg?imageView2/2/w/700">
-<meta property="og:updated_time" content="2015-12-10T04:15:35.000Z">
+<meta property="og:description" content="本部分介绍如何在树莓派中捕获键盘输入配上运动控制，达成无线键盘遥控小车">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/450">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/evdev.png?imageView2/2/w/450">
+<meta property="og:updated_time" content="2016-06-11T13:05:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="又射鸡湿了一把">
-<meta name="twitter:description" content="最近APP的新版本上线了，之前@敬爱的产品经理大人 亚维·道格森一世提的新功能的设计稿可以拿出来秀一下了。">
+<meta name="twitter:title" content="Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入">
+<meta name="twitter:description" content="本部分介绍如何在树莓派中捕获键盘输入配上运动控制，达成无线键盘遥控小车">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -63,7 +61,7 @@
   };
 </script>
 
-    <title> 又射鸡湿了一把 // Pandara's Zone </title>
+    <title> Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入 // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
@@ -209,7 +207,7 @@
           
           
             
-              又射鸡湿了一把
+              Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入
             
           
         </h1>
@@ -218,8 +216,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2015-12-10T00:00:00+08:00" content="2015-12-10">
-            2015-12-10
+          <time itemprop="dateCreated" datetime="2016-06-10T00:00:00+08:00" content="2016-06-10">
+            2016-06-10
           </time>
         </span>
 
@@ -227,7 +225,7 @@
           <span class="post-category" >
             &nbsp; | &nbsp; 分类于
             
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/小废画儿/" itemprop="url" rel="index"><span itemprop="name">小废画儿</span></a></span>
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
 
               
               
@@ -240,8 +238,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2015/12/10/design_chicken_again/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/10/design_chicken_again/" itemprop="commentsCount"></span>
+              <a href="/2016/06/10/raspberry_pi_3/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/10/raspberry_pi_3/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -266,22 +264,36 @@
       
 
       
-        <span itemprop="articleBody"><center>最近APP的新版本上线了，之前<a href="http://aevit.xyz" target="_blank" rel="external">@敬爱的产品经理大人 亚维·道格森一世</a>提的新功能的设计稿可以拿出来秀一下了。</center><br><center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/preview.jpg" title="你看我屌吗" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/preview.jpg?imageView2/2/w/700" alt=""></a></center>
+        <span itemprop="articleBody"><center>本部分介绍如何在树莓派中捕获键盘输入<br>配上运动控制，达成无线键盘遥控小车</center>
 
 <a id="more"></a>
-<p><br></p>
-<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/walking_day_day.jpg" title="你看我屌吗" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/walking_day_day.jpg?imageView2/2/w/700" alt=""></a></center>
+<h5 id="硬件准备">硬件准备</h5><p>一块无线键盘。当时买了套餐里面的一块非常小巧的无线键盘 + 触摸板：</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/450" alt=""></a></center>
 
-<p><br></p>
-<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/walking_night_day.jpg" title="你看我屌吗" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/walking_night_day.jpg?imageView2/2/w/700" alt=""></a></center>
+<h5 id="获取输入设备">获取输入设备</h5><p>虽然文章的标题是 Raspberry Pi，不过其实这部分内容适用于大多数 Linux 系统。</p>
+<p><br>在 Linux 中，一切皆文件，包括我们的硬件设备。键盘鼠标等作为一种标准输入输出设备，在Linux 系统中也同样是以文件的形式存在的。这些设备文件，就存在于 /dev/ 下，所以我们需要做的就是从这里读取指定的键盘设备文件了。</p>
+<p><br>这里需要使用到linux的驱动–input输入子系统evdev。evdev 输入事件驱动，为输入子系统提供了一个默认的事件处理方法。其接收来自底层驱动的大多数事件，并使用相应的逻辑对其进行处理。evdev 输入事件驱动从底层接收事件信息,将其反映到 sys 文件系统中,用户程序通过对 sys 文件系统的操作,就能够达到处理事件的能力。(from <a href="http://www.s0nnet.com/archives/linux-keylogger-with-python" target="_blank" rel="external">s0nnet.com</a>)</p>
+<p><br>在 Linux 内核中，input 设备用 input_dev 结构体描述，使用 input 子系统实现输入设备驱动的时候，驱动的核心工作就是向系统报告按键、触摸屏、键盘、鼠标等输入事件(event，通过 input_event 结构体描述)，不再需要关心文件操作接口，因为 Input 子系统已经完成了文件操作接口。</p>
+<p><br>在系统的 <code>input.h</code> 这个文件(/usr/include/linux/input.h)里面，定义了 event 事件的结构体，API 跟标准按键的编码：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> input_event &#123;</span><br><span class="line">    <span class="keyword">struct</span> timeval time; <span class="comment">//按键时间</span></span><br><span class="line">    __u16 type; <span class="comment">//事件类型</span></span><br><span class="line">    __u16 code; <span class="comment">//模拟的按键</span></span><br><span class="line">    __s32 <span class="keyword">value</span>; <span class="comment">//是按下还是释放</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>type：</strong>指事件类型。在这里咱们研究的是：按键事件，当然还有其他事件（比如鼠标事件等）</li>
+<li><strong>code：</strong>事件的代码。这里只讨论按键事件，其类型代码code是EV_KEY，该代码为设备键盘代码。在该文头文件中已经定义的0~248种不同的键盘按键代码（详细见linux/input.h文件）</li>
+<li><strong>value：</strong>事件的值。同样，咱们讨论事件的类型代码是EV_KEY,当按键按下时值为1,松开时值为0</li>
+</ul>
+<p><br>接下来需要安装 python 的 evdev 模块来获取设备输入。根据<a href="https://python-evdev.readthedocs.org" target="_blank" rel="external">官方文档</a>说明，evdev模块使用比较简单。最新版本的python-evdev模块可以使用pip安装。pip 是安装各种 python 库的好工具：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip <span class="keyword">install</span> evdev</span><br></pre></td></tr></table></figure></p>
+<p>当然，安装之前需要Linux系统具有gcc/clang，并具有python环境和Linux内核头文件支持，官方文档中有详细介绍。</p>
+<p><br>安装完成之后，可以测试一下。在管理员权限下运行 python 交互式输入程序，列举所有事件驱动设备：</p>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/evdev.png?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/evdev.png?imageView2/2/w/450" alt=""></a></center>
 
-<p><br></p>
-<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/preview2.jpg" title="你看我屌吗" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/20151210/design_chicken_again/preview2.jpg?imageView2/2/w/700" alt=""></a></center>
-
-<p><br>回想起来，整个周末窝在家里，腰板子痛死了。</p>
-<p><br>这是咱们<a href="http://w3ctrain.com/" target="_blank" rel="external">@前端大神<del>陈冠希</del>楷哥</a>实现的<a href="http://test.famillelab.com/Scale/Walk?walk_code=697D10E5ACB6C0463F01BC966D9782A2&amp;UUID=C24A93564F072FD6A1CA9A32790A0F5EED052D6F265F8269AB&amp;device_type=scale&amp;client=iOS&amp;version=2.5&amp;token=B0E21351CB5B79DCD9AF709BBBA4131E71388B6822CFC22F7875DBA5695F5483" target="_blank" rel="external">h5版本链接</a>，内含两个彩蛋。建议在手机上浏览或者调节浏览器大小到手机屏幕比例。当然我知道您不一定会听。</p>
-<p><br>循例我需要讲一下设计理念。没错，这就是我在珠江边跑步的时候看到的建筑。</p>
-<p><br><br>以上</p>
+<p><br>更多详细的使用例子可以参考 <a href="https://python-evdev.readthedocs.org" target="_blank" rel="external">https://python-evdev.readthedocs.org</a> 网站上给的样例教程，很常全面。利用这些设备文件可以做很多硬件调用方面的开发，当然写个远程控制都可以，比如控制摄像头、麦克风、鼠标、键盘等等。</p>
+<h5 id="捕获键盘输入">捕获键盘输入</h5><p>由于我的设备是键盘跟鼠标一体的，所以鼠标输入事件跟键盘输入事件对应的 device name 是一样的，于是我还得写个程序具体测试一下，看读取哪个 event 时会对键盘操作做出响应：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#from s0nnet.com</span></span><br><span class="line"><span class="keyword">from</span> evdev <span class="keyword">import</span> InputDevice</span><br><span class="line"><span class="keyword">from</span> select <span class="keyword">import</span> select</span><br><span class="line"></span><br><span class="line">dev = InputDevice(<span class="string">'/dev/input/event0'</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    select([dev], [], [])</span><br><span class="line">    <span class="keyword">for</span> event <span class="keyword">in</span>  dev.read():</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'code:%s value:%s'</span> % (event.code, event.value)</span><br></pre></td></tr></table></figure></p>
+<p>其中select的作用是等待dev改变后再运行后面的代码，dev.read()返回的是buffer数组，里面存有input_event类型数据。</p>
+<p><br>root权限运行，发现上面代码运行时的结果很难识别出来，因为按一个键会出现6组结果。它的code值就是输入的键值，键盘上的每一个按键都对应了一个键值码。而value就是其对应的状态，当按下一个键时，value为1,松开时value值为0。所以这里我们可以做个简单的处理：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> evdev <span class="keyword">import</span> InputDevice</span><br><span class="line"><span class="keyword">from</span> select <span class="keyword">import</span> select</span><br><span class="line"></span><br><span class="line">dev = InputDevice(<span class="string">'/dev/input/event0'</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    select([dev], [], [])</span><br><span class="line">    <span class="keyword">for</span> event <span class="keyword">in</span>  dev.read():</span><br><span class="line">        <span class="keyword">if</span>  (event.value == <span class="number">1</span> <span class="keyword">or</span> event.value == <span class="number">0</span>) <span class="keyword">and</span> event.code != <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">print</span> <span class="string">"Key:%s Status:%s"</span> % (event.code, <span class="string">"pressed."</span> <span class="keyword">if</span> event.value <span class="keyword">else</span> <span class="string">"release."</span>)</span><br></pre></td></tr></table></figure></p>
+<p>在这个核心代码的基础上做修改，就可以实现键盘记录程序了，原文作者已经编写了一个 smaple，<a href="https://github.com/Lingerhk/py_script/blob/master/keylogger_in_linux.py" target="_blank" rel="external">放在了 Github 上面</a></p>
+<p><br>于是再结合<a href="http://pandara.xyz/2016/06/10/raspberry_pi_2/">上一篇文章</a>介绍的小车运动控制，就可以做出无线键盘遥控小车了。注意这里有个小问题，因为一旦开始键盘监控，程序就会进入循环，退出只能利用 ctrl+c 的方式，那么怎么执行 gpio.cleanup() 来清理 gpio 呢。可以这样：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="comment">#run your code</span></span><br><span class="line">    <span class="keyword">except</span> BaseException, e:</span><br><span class="line">        print(e)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        gpio.cleanup()</span><br></pre></td></tr></table></figure></p>
+<p><br>下一篇介绍利用 Socket 在手机跟 Pi 之间通信，达成远程操控。</p>
+<h5 id="参考资料">参考资料</h5><p>1.<a href="http://www.s0nnet.com/archives/linux-keylogger-with-python" target="_blank" rel="external">Linux下的键盘记录程序</a><br>2.<a href="http://blog.csdn.net/huangxiongbiao/article/details/46983489" target="_blank" rel="external">使用Python获取/dev/input目录下event对应的设备</a><br>3.<a href="https://www.ibm.com/developerworks/cn/linux/l-cn-sysfs/" target="_blank" rel="external">使用 /sys 文件系统访问 Linux 内核</a></p>
+<p><br>系列上一篇：<a href="http://pandara.xyz/2016/06/10/raspberry_pi_2/">Raspberry Pi 小车移动监控II — 运动控制</a><br>工程源代码：<a href="https://github.com/PandaraWen/Pansila/tree/develop" target="_blank" rel="external">Github地址</a></p>
 </span>
       
     </div>
@@ -290,7 +302,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/UI设计/" rel="tag">#UI设计</a>
+            <a href="/tags/Raspberry-Pi/" rel="tag">#Raspberry Pi</a>
           
         </div>
       
@@ -299,13 +311,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/13/pet_panda/" rel="prev">最近养了一只宠物，它叫 胖的</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/11/26/east_train_murder/" rel="next">《东方快车谋杀案》— 凑一车人打麻将</a>
+              <a href="/2016/06/10/raspberry_pi_2/" rel="next">Raspberry Pi 小车移动监控II — 运动控制</a>
             
           </div>
         </div>
@@ -331,8 +341,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/12/10/design_chicken_again/"
-                       data-title="又射鸡湿了一把" data-url="http://pandara.xyz/2015/12/10/design_chicken_again/">
+                  <div class="ds-thread" data-thread-key="2016/06/10/raspberry_pi_3/"
+                       data-title="Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入" data-url="http://pandara.xyz/2016/06/10/raspberry_pi_3/">
                   </div>
                 
               </div>
@@ -439,7 +449,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#硬件准备"><span class="nav-number">1.</span> <span class="nav-text">硬件准备</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取输入设备"><span class="nav-number">2.</span> <span class="nav-text">获取输入设备</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#捕获键盘输入"><span class="nav-number">3.</span> <span class="nav-text">捕获键盘输入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

@@ -40,12 +40,12 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动最后利用 Socket 通信达成远程操控">
+<meta name="description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Raspberry Pi 小车移动监控II — 运动控制">
 <meta property="og:url" content="http://pandara.xyz/2016/06/10/raspberry_pi_2/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动最后利用 Socket 通信达成远程操控">
+<meta property="og:description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3278.JPG?imageView2/2/w/450">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/l298n.jpg?imageView2/1/w/200/h/200">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/l298n_line.jpg?imageView2/1/w/200/h/200">
@@ -55,10 +55,10 @@
 <meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3281.JPG?imageView2/1/w/200/h/200">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3287.JPG?imageView2/2/w/450">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/450">
-<meta property="og:updated_time" content="2016-06-10T14:58:52.000Z">
+<meta property="og:updated_time" content="2016-06-11T13:05:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Raspberry Pi 小车移动监控II — 运动控制">
-<meta name="twitter:description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动最后利用 Socket 通信达成远程操控">
+<meta name="twitter:description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -271,7 +271,7 @@
       
 
       
-        <span itemprop="articleBody"><center>本部分讲解控制树莓派的 GPIO 输出信号<br>以此来控制电机驱动<br>最后利用 Socket 通信达成远程操控</center>
+        <span itemprop="articleBody"><center>本部分讲解控制树莓派的 GPIO 输出信号<br>以此来控制电机驱动</center>
 
 <a id="more"></a>
 <h5 id="硬件准备">硬件准备</h5><p>搭建小车需要下面这些硬件：</p>
@@ -353,7 +353,7 @@
 <p><br>虽然可以用 gpio 库提供的 PWM 方法来达到软件模拟的效果，但是不稳定，特别是需要的 PWM 信号多的时候就更加不稳定了，因为 PWM 是利用线程来实现的。建议可以用 PI 外接一个 Arduino 板子。Arduino 一共提供了6个 PWM 针脚。</p>
 <p><br>下一篇系列文章将研究怎么用捕获键盘输入来控制小车。</p>
 <h5 id="参考资料">参考资料</h5><p>1.<a href="http://www.jianshu.com/p/a6eb296aa1ea" target="_blank" rel="external">iOS开发 Socket网络编程</a><br>2.<a href="http://www.henishuo.com/ios-socket-udp-c-version/" target="_blank" rel="external">iOS Socket UDP编程-C语言版</a><br>3.<a href="http://www.hangge.com/blog/cache/detail_756.html" target="_blank" rel="external">Swift - 使用socket进行通信</a><br>4.<a href="http://blog.mangolovecarrot.net/2015/04/28/raspi-study02/" target="_blank" rel="external">树莓派GPIO入门</a></p>
-<p><br>系列上一篇：<a href="http://pandara.xyz/2016/06/01/raspberry_pi_1/">Raspberry Pi 小车移动监控I — 摄像头</a></p>
+<p><br>系列上一篇：<a href="http://pandara.xyz/2016/06/01/raspberry_pi_1/">Raspberry Pi 小车移动监控I — 摄像头</a><br>工程源代码：<a href="https://github.com/PandaraWen/Pansila/tree/develop" target="_blank" rel="external">Github地址</a></p>
 </span>
       
     </div>
@@ -370,6 +370,8 @@
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/10/raspberry_pi_3/" rel="prev">Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入</a>
             
           </div>
 
@@ -442,7 +444,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">71</span>
+              <span class="site-state-item-count">72</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
