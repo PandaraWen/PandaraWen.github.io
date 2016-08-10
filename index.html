@@ -206,6 +206,97 @@
           
           
             
+              <a class="post-title-link" href="/2016/08/10/install_ios_open_dev/" itemprop="url">
+                Install iOSOpenDev
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-08-10T00:00:00+08:00" content="2016-08-10">
+            2016-08-10
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/08/10/install_ios_open_dev/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/10/install_ios_open_dev/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+
+        
+        
+
+       
+
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody"><h4 id="安装_iOSOpenDev">安装 iOSOpenDev</h4><h5 id="安装依赖包">安装依赖包</h5><p>1.安装 <a href="https://www.macports.org/install.php" target="_blank" rel="external">Macports</a>, 安装过程需要连接VPN,否则无法安装成功<br>2.安装完MacPorts后打开终端，输入 sudo port -v selfupdate 更新MacPorts到最新版本，时间可能比较长<br>(如果你有安装 HomeBrew，也可以用 homebrew 来安装：<code>brew install ldid dpkg</code>)<br>3.更新完MacPorts后安装DPKG文件，在终端输入sudo port -f install dpkg<br>4.下载安装 <a href="http://iosopendev.com/download/" target="_blank" rel="external">iOSOpenDev</a>, 一般情况下都会安装失败的了…<br><img src="http://pandarazone.qiniudn.com/2016/08/10/install_ios_open_dev/install_error.png" alt="image"></p>
+<h5 id="错误解决">错误解决</h5><p>虽然安装失败，但是安装程序已经:<br>1.在我的 <code>~/.zshrc</code> 文件里面已经写入了一些配置项：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> iOSOpenDevPath=<span class="regexp">/opt/i</span>OSOpenDev</span><br><span class="line"><span class="keyword">export</span> iOSOpenDevDevice=</span><br><span class="line"><span class="keyword">export</span> PATH=<span class="regexp">/opt/i</span>OSOpenDev/bin:$PATH</span><br></pre></td></tr></table></figure></p>
+<p>2.在/opt下面创建了三个目录，：<br><code>iOSOpenDevSetup</code>, <code>iOSOpenDev</code>, <code>iOSOpenDevUninstall</code><br>而在 <code>iOSOpenDevSetup/bin</code> 里面已经有一个 shell 脚本：iod-setup.sh，而安装的过程实际上就是执行这个脚本:<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./iod-setup <span class="keyword">base</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="http://pandarazone.qiniudn.com/2016/08/10/install_ios_open_dev/sh_result.png" alt="image"></p>
+<p>没想到就安装成功了，还以为会出现各种奇奇怪怪的 bug<br><img src="http://pandarazone.qiniudn.com/2016/08/10/install_ios_open_dev/ios_open_dev_template.png" alt="image"></p>
+<h4 id="参考资料">参考资料</h4><p>1.<a href="http://www.jianshu.com/p/29580725707a" target="_blank" rel="external">iOSOpenDev安装</a><br>2.<a href="http://kittenyang.com/pokemongocrack/" target="_blank" rel="external">记一次重签名</a><br>3.<a href="http://blog.csdn.net/tuluigi/article/details/8755955" target="_blank" rel="external">用iOSOpenDev在Xcode里配置越狱开发环境</a></p>
+</span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/07/19/designs_en/" itemprop="url">
                 UI Works
               </a>
@@ -386,96 +477,6 @@
           
           
             
-              <a class="post-title-link" href="/2016/06/10/raspberry_pi_3/" itemprop="url">
-                Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-06-10T00:00:00+08:00" content="2016-06-10">
-            2016-06-10
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/06/10/raspberry_pi_3/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/10/raspberry_pi_3/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
-        
-
-       
-
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <center>本部分介绍如何在树莓派中捕获键盘输入<br>配上运动控制，达成无线键盘遥控小车</center>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/10/raspberry_pi_3/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
               <a class="post-title-link" href="/2016/06/10/raspberry_pi_2/" itemprop="url">
                 Raspberry Pi 小车移动监控II — 运动控制
               </a>
@@ -566,8 +567,8 @@
           
           
             
-              <a class="post-title-link" href="/2016/06/06/raspberrypi_vim_python/" itemprop="url">
-                Raspberry Pi 打造 vim + Python 的最佳实践
+              <a class="post-title-link" href="/2016/06/10/raspberry_pi_3/" itemprop="url">
+                Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入
               </a>
             
           
@@ -577,8 +578,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2016-06-06T00:00:00+08:00" content="2016-06-06">
-            2016-06-06
+          <time itemprop="dateCreated" datetime="2016-06-10T00:00:00+08:00" content="2016-06-10">
+            2016-06-10
           </time>
         </span>
 
@@ -599,8 +600,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2016/06/06/raspberrypi_vim_python/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/raspberrypi_vim_python/" itemprop="commentsCount"></span>
+              <a href="/2016/06/10/raspberry_pi_3/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/10/raspberry_pi_3/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -621,9 +622,9 @@
 
       
         
-          <center>我好像爱上了 vim + Python 这对组合了。</center>
+          <center>本部分介绍如何在树莓派中捕获键盘输入<br>配上运动控制，达成无线键盘遥控小车</center>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/06/raspberrypi_vim_python/" rel="contents">
+            <a class="btn" href="/2016/06/10/raspberry_pi_3/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -714,6 +715,96 @@
           <center>记录遇到的各种 XC 费解问题</center>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/06/06/Xcode _strange_problem/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              <a class="post-title-link" href="/2016/06/06/raspberrypi_vim_python/" itemprop="url">
+                Raspberry Pi 打造 vim + Python 的最佳实践
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-06-06T00:00:00+08:00" content="2016-06-06">
+            2016-06-06
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/06/06/raspberrypi_vim_python/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/raspberrypi_vim_python/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+
+        
+        
+
+       
+
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <center>我好像爱上了 vim + Python 这对组合了。</center>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/06/raspberrypi_vim_python/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1006,97 +1097,6 @@
 
 
     
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/04/02/weakify_strongify/" itemprop="url">
-                如何更好地避免 block 循环引用
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-04-02T00:00:00+08:00" content="2016-04-02">
-            2016-04-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/04/02/weakify_strongify/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/02/weakify_strongify/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
-        
-
-       
-
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h5 id="什么是循环引用">什么是循环引用</h5><p>先说循环引用，这个东西大概是大多数程序猿都应该知道的常识，不仅是 Objective-C ，很多其他语言也有这个概念。假设有两个类 A 与 B，A 中存在一个 ivar objB，B 中存在一个 ivar objA。现在各有一个 A 与 B 类型的对象: a 与 b，如果：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a<span class="variable">.objB</span> = b;</span><br><span class="line">b<span class="variable">.objA</span> = a;</span><br></pre></td></tr></table></figure></p>
-<p>这样就会产生循环引用，如下图：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2016%2F04%2F02%2Fcircular_reference%2F1.png?imageView2/2/w/300" alt="image"></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/02/weakify_strongify/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1136,7 +1136,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-count">75</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1150,7 +1150,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
