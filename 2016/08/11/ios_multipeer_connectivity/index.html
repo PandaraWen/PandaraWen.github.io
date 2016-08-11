@@ -1,0 +1,732 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="一切皆为年少轻狂之诳语" />
+
+
+
+  <meta name="keywords" content="iOS逆向工程," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="随着互联网技术以及各种云服务的发展，设备之间的连通变得日益重要。
+在这个移动计算的时代，无论在工作还是娱乐，多人合作的可能性变得空前巨大；也是这个注重隐私却充斥着监控的时代，对安全通信的需求也变得空前巨大；同时也是这个充满连接的时代，即便是随处可见的生活小物件也拥有者大方异彩的前景。
+所以，iOS7 引入的 Multipeer Connectivity API 可能会成为最优秀的连接设备方式。它让">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Multipeer Connectivity">
+<meta property="og:url" content="http://pandara.xyz/2016/08/11/ios_multipeer_connectivity/index.html">
+<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:description" content="随着互联网技术以及各种云服务的发展，设备之间的连通变得日益重要。
+在这个移动计算的时代，无论在工作还是娱乐，多人合作的可能性变得空前巨大；也是这个注重隐私却充斥着监控的时代，对安全通信的需求也变得空前巨大；同时也是这个充满连接的时代，即便是随处可见的生活小物件也拥有者大方异彩的前景。
+所以，iOS7 引入的 Multipeer Connectivity API 可能会成为最优秀的连接设备方式。它让">
+<meta property="og:updated_time" content="2016-08-11T09:34:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Multipeer Connectivity">
+<meta name="twitter:description" content="随着互联网技术以及各种云服务的发展，设备之间的连通变得日益重要。
+在这个移动计算的时代，无论在工作还是娱乐，多人合作的可能性变得空前巨大；也是这个注重隐私却充斥着监控的时代，对安全通信的需求也变得空前巨大；同时也是这个充满连接的时代，即便是随处可见的生活小物件也拥有者大方异彩的前景。
+所以，iOS7 引入的 Multipeer Connectivity API 可能会成为最优秀的连接设备方式。它让">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'hide'
+  };
+</script>
+
+    <title> Multipeer Connectivity // Pandara's Zone </title>
+    <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c5d0f36c537707dfe01cd190611c07b1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<div class="container one-column page-post-detail">
+    <div id="pandara-brand" class="my-brand">
+      <div id="space-ship" class="pandara-image"></div>
+      <div id="planet0" class="pandara-image"></div>
+      <div id="earth" class="pandara-image"></div>
+      <div id="planet1" class="pandara-image"></div>
+      <div id="planet2" class="pandara-image"></div>
+      <div id="planet3" class="pandara-image"></div>
+      <div id="satellite" class="pandara-image"></div>
+      <div id="planet4" class="pandara-image"></div>
+      <div id="planet5" class="pandara-image"></div>
+      <div id="planet6" class="pandara-image"></div>
+    </div>
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Pandara's Zone</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+            <a href="/" rel="section">
+              <i class="menu-item-icon icon-home"></i> <br />
+              首页
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+            <a href="/categories" rel="section">
+              <i class="menu-item-icon icon-categories"></i> <br />
+              分类
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+            <a href="/about.html" rel="section">
+              <i class="menu-item-icon icon-about"></i> <br />
+              (๑╹◡╹๑)
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+            <a href="/archives" rel="section">
+              <i class="menu-item-icon icon-archives"></i> <br />
+              归档
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+            <a href="/tags" rel="section">
+              <i class="menu-item-icon icon-tags"></i> <br />
+              标签
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              Multipeer Connectivity
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-08-11T00:00:00+08:00" content="2016-08-11">
+            2016-08-11
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/08/11/ios_multipeer_connectivity/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/11/ios_multipeer_connectivity/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+
+        
+          <span id="busuanzi_container_page_pv">
+            &nbsp; | &nbsp;
+            访客
+            <span id="busuanzi_value_page_pv">0</span>
+          </span>
+        
+
+       
+
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>随着互联网技术以及各种云服务的发展，设备之间的连通变得日益重要。</p>
+<p><br>在这个移动计算的时代，无论在工作还是娱乐，多人合作的可能性变得空前巨大；也是这个注重隐私却充斥着监控的时代，对安全通信的需求也变得空前巨大；同时也是这个充满连接的时代，即便是随处可见的生活小物件也拥有者大方异彩的前景。</p>
+<p><br>所以，iOS7 引入的 Multipeer Connectivity API 可能会成为最优秀的连接设备方式。它让开发者可以重新考虑移动 APP 的构建，重新定义了连接的可能性。</p>
+<a id="more"></a>
+<p><br>Multipeer Connectivity 允许附近的设备通过基本的 WIFI 网络，peer-to-peer WIFI 和蓝牙个人局域网来通信。连接了的设备之间可以加密地传输信息或者流数据，或者是文件，而没有必要通过中转互联网设备。</p>
+<h4 id="Advertising(广播)_&amp;_Discovering(发现)">Advertising(广播) &amp; Discovering(发现)</h4><p>通信的第一步就是让设备彼此发现对方，而这通过<strong>Advertising</strong>以及<strong>Discovering</strong>这两个服务来实现。</p>
+<p><br>Advertising 使得某个 service(服务) 能被其他设备知道，而 discovery 则是相对的过程，它使得 client 能发现那些被广播出来的服务。<strong>在大多数实际的开发环境下，client 会同时实现对同个服务的 discover 以及 advertise。</strong>可能这会引起一些疑惑，特别是对那些习惯于 c-s 架构的开发者。</p>
+<p><br>每一个服务都用一个字符串来辨别，称为 <strong>ServiceType</strong>。字符串可包含 ASCII 字符，数字以及破折号，最大长度为 15 个字符。按照惯例，service name 应该用 app name 来作为开头，然后是破折号再加上对这个服务的描述：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="type">CONNECTIVITY_SERVICE_TYPE</span> = <span class="string">"kiwi-drone"</span></span><br></pre></td></tr></table></figure></p>
+<p>每个 peer 利用 <code>MCPeerID</code> 对象作为唯一标识。<code>MCPeerID</code> 对象使用一个 name 来初始化，可使用用户自定义的名称，又或者是使用当前设备的名称：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> localPeerID = <span class="type">MCPeerID</span>(displayName: <span class="type">UIDevice</span>.currentDevice().name)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Peers 也可以通过手动使用 <code>NSNetService</code> 或者 Bonjour C APIs 来发现，但是这需要更底层的知识以及经历。关于手动管理 peer 的信息可以在 <code>MCSession</code> 相关的文档里面找到。</p>
+</blockquote>
+<h5 id="Advertising">Advertising</h5><p>Service 是通过 <code>MCNearbyServiceAdvertiser</code> 来广播出去的，它需要通过 peer，service type 还有一些其他可选的附加信息(discovery information)来进行初始化。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> advertiser = <span class="type">MCNearbyServiceAdvertiser</span>(peer: localPeerID, discoveryInfo: <span class="literal">nil</span>, serviceType: <span class="type">CONNECTIVITY_SERVICE_TYPE</span>)</span><br><span class="line">advertiser.delegate = <span class="keyword">self</span></span><br><span class="line">advertiser.startAdvertisingPeer()</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Discovery information is sent as Bonjour TXT records encoded according to <a href="https://tools.ietf.org/html/rfc6763" target="_blank" rel="external">RFC 6763</a>.</p>
+</blockquote>
+<p><br>可在 advertiser 的 delegate 中执行一些事件处理。举个例子: client 收到来自某个 peer 的连接请求，并且同意建立连接:<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">advertiser</span><span class="params">(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: <span class="params">(Bool, MCSession)</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">	<span class="keyword">let</span> session = <span class="type">MCSession</span>(peer: peerID, securityIdentity: <span class="literal">nil</span>, encryptionPreference: .<span class="type">None</span>)</span><br><span class="line">    session.delegate = <span class="keyword">self</span></span><br><span class="line">    invitationHandler(<span class="literal">true</span>, session)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="Creating_a_Session">Creating a Session</h5><p>在上面的例子中，session 由 advertiser 创建，然后在同意连接请求的时候传送到请求连接的 peer 那边。在初始化 session 时：</p>
+<ol>
+<li><strong>securityIdentity</strong> 是一个可选的参数，允许 peer 之间通过 X.509 证书安全地识别对方。如果需要传入这个参数，那么第一个元素应该是 <code>SecIdentityRef</code>, 标识当前 client。后面可以添加一个或者多个 <code>SecCertificateRef</code> 对象，用来验证 peer 的身份。</li>
+<li><strong>encryptionPreference</strong> 参数指定了是否需要加密 peer 之间的通信。</li>
+</ol>
+<blockquote>
+<p>虽然开启加密选项能够提升安全性，但是也会显著降低传输速率。所以，除非应用之间传输的是用户的敏感数据，否则还是推荐使用 <code>MCEncryptionNone</code> 作为选项。</p>
+</blockquote>
+<p><br><code>MCSessionDelegate</code>协议会在后面发送以及接受消息的章节中再详细展开。</p>
+<h5 id="Discovering">Discovering</h5><p>Client 可是使用 <code>MCNearbyServiceBrowser</code> 来发现广播的服务，它通过当前的本地 peerID 以及 service type 来初始化，与前面提到的 <code>MCNearbyServiceAdvertiser</code> 类似：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let browser = <span class="function"><span class="title">MCNearbyServiceBrowser</span><span class="params">(peer: localPeerID, serviceType: CONNECTIVITY_SERVICE_TYPE)</span></span></span><br><span class="line">browser<span class="class">.delegate</span> = self</span><br><span class="line">browser.<span class="function"><span class="title">startBrowsingForPeers</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>周围可能存在多个 peer 在广播特定的服务，为了方便用户以及开发者，苹果提供了 <code>MCBrowserViewController</code> 可以让我们快速地连接正在广播的 peer：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">let</span> <span class="keyword">browser </span>= MCNearbyServiceBrowser(peer: localPeerID, serviceType: CONNECTIVITY_SERVICE_TYPE)</span><br><span class="line"><span class="keyword">browser.delegate </span>= <span class="keyword">self</span><br><span class="line"></span><span class="keyword">browser.startBrowsingForPeers()</span><br><span class="line"></span></span><br><span class="line"><span class="label">let</span> session = MCSession(peer: localPeerID, securityIdentity: nil, encryptionPreference: .None)</span><br><span class="line"><span class="label">let</span> <span class="keyword">browserViewCon </span>= MCBrowserViewController(<span class="keyword">browser: </span><span class="keyword">browser, </span>session: session)</span><br><span class="line"><span class="keyword">browserViewCon.delegate </span>= <span class="keyword">self</span><br><span class="line"></span><span class="keyword">self.presentViewController(browserViewCon, </span>animated: true) &#123; </span><br><span class="line">    <span class="keyword">browser.startBrowsingForPeers()</span><br><span class="line"></span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当 browser 完成对 peer 的连接之后，它会调用 delegate 的 <code>browserViewControllerDidFinish:</code> 方法，然后可以做一些必要的界面或者其他更新操作。</p>
+<h4 id="Sending_&amp;_Receiving_Information">Sending &amp; Receiving Information</h4><p>当 peer 之间建立了连接之后，信息就可在彼此之间传递了。传输的数据种类有三种：</p>
+<ul>
+<li><strong>Messages:</strong> 是具有明确边界的信息，例如短文本或者较小的序列化对象</li>
+<li><strong>Streams:</strong> 是一个打开的信息通道，用于频繁传输的数据，例如音视频或者实时的传感器事件</li>
+<li><strong>Resources:</strong> 为典型文件，例如图片，电影，文档等等</li>
+</ul>
+<h5 id="Messages">Messages</h5><p>Message 的传输样例如下：<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">let</span> message = <span class="string">"Hello, world!"</span></span><br><span class="line"><span class="title">let</span> <span class="typedef"><span class="keyword">data</span> = message.dataUsingEncoding<span class="container">(<span class="type">NSUTF8StringEncoding</span>)</span>!</span></span><br><span class="line"><span class="title">do</span> &#123;</span><br><span class="line">    try session.sendData(<span class="typedef"><span class="keyword">data</span>, toPeers: [connectedPeerID], withMode: .<span class="type">Unreliable</span>)</span></span><br><span class="line">&#125; catch &#123;</span><br><span class="line">    <span class="type">NSLog</span>(<span class="string">"Send data error:\(error)"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Message 的接收是通过 <code>MCSessionDelegate</code> 的方法来实现的。下面这个例子可以看到作为接收方如何获取上面例子中发送出去的 message：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">session</span><span class="params">(session: MCSession, didReceiveData data: NSData, fromPeer peerID: MCPeerID)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> message = <span class="type">String</span>(data: data, encoding: <span class="type">NSUTF8StringEncoding</span>)</span><br><span class="line">    <span class="type">NSLog</span>(<span class="string">"Receive message"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面例子发送的数据使用的是 String，而实际上当然也可可以使用 <code>NSKeyedArchiver</code> 来传输序列化对象数据。</p>
+<blockquote>
+<p>但是，为了防护”对象替换攻击(Object Subsitution Attack)”， 我们需要将 <code>requiresSecureCoding</code> 设置为 true。而因此我们传输的对象需要实现 <code>NSSecureCoding</code> 协议。这里可以获取更多信息<a href="http://nshipster.com/nssecurecoding/" target="_blank" rel="external">NSSecureCoding</a>。</p>
+</blockquote>
+<h5 id="Streams">Streams</h5><p>Stream 的创建如下，使用 <code>startStreamWithName:toPeer</code><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let outputStream = session.<span class="function"><span class="title">startStreamWithName</span><span class="params">(<span class="string">"stream"</span>, toPeer: connectedPeer)</span></span></span><br><span class="line">outputStream<span class="class">.delegate</span> = self</span><br><span class="line">outputStream.<span class="function"><span class="title">scheduleInRunLoop</span><span class="params">(NSRunLoop.mainRunLoop()</span></span>, forMode: NSDefaultRunLoopMode)</span><br><span class="line">outputStream.<span class="function"><span class="title">open</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>在接收方，同样是通过 <code>MCSessionDelegate</code> 的方法<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">session</span><span class="params">(session: MCSession, didReceiveStream stream: NSInputStream, withName streamName: String, fromPeer peerID: MCPeerID)</span></span> &#123;</span><br><span class="line">    stream.delegate = <span class="keyword">self</span></span><br><span class="line">    stream.scheduleInRunLoop(<span class="type">NSRunLoop</span>.mainRunLoop(), forMode: <span class="type">NSDefaultRunLoopMode</span>)</span><br><span class="line">    stream.open()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>发送数据以及接受数据都应该放在 Stream 的 delegate 中：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func stream(<span class="string">aStream:</span> NSStream, handleEvent <span class="string">eventCode:</span> NSStreamEvent) &#123;</span><br><span class="line">    <span class="keyword">switch</span> eventCode &#123;</span><br><span class="line">    <span class="keyword">case</span> NSStreamEvent.<span class="string">OpenCompleted:</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">case</span> NSStreamEvent.<span class="string">HasBytesAvailable:</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">case</span> NSStreamEvent.<span class="string">HasSpaceAvailable:</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">case</span> NSStreamEvent.<span class="string">ErrorOccurred:</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">case</span> NSStreamEvent.<span class="string">EndEncountered:</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">case</span> NSStreamEvent.<span class="string">None:</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="Resources">Resources</h5><p>Resource 的传输方法如下：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">fileURL =</span> NSURL.fileURLWithPath(<span class="string">"path/to/resource"</span>)</span><br><span class="line"><span class="keyword">let</span> <span class="variable">progress =</span> session.sendResourceAtURL(fileURL, withName: fileURL.lastPathComponent!, toPeer: connectedPeer) &#123; (error) <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">error =</span> error &#123;</span><br><span class="line">        NSLog(<span class="string">"error"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>返回的 <code>NSProgress</code> 对象可以使用 KVO 的方式来监控文件的传输进度，同时也提供了取消的方法：<code>cancel</code></p>
+<p><br>Resource 的接受通过 <code>MCSessionDelegate</code> 中的两个方法来实现：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">session</span><span class="params">(session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, withProgress progress: NSProgress)</span></span> &#123;</span><br><span class="line">    <span class="comment">//<span class="doctag"><span class="keyword">TODO</span></span>:</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">session</span><span class="params">(session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> destinationURL = <span class="type">NSURL</span>.fileURLWithPath(<span class="string">"/path/to/destination"</span>)</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        try <span class="type">NSFileManager</span>.defaultManager().moveItemAtURL(localURL, toURL: destinationURL)</span><br><span class="line">    &#125; catch &#123;</span><br><span class="line">        <span class="type">NSLog</span>(<span class="string">"Move Resource error: <span class="subst">\(error)</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同样，接收方 peer 可以通过监听 delegate 中获取到的 progress 来知道文件的传输进程。当接受完成之后，接收方需要将文件从临时目录中转移出来。</p>
+<p><br>Multipeer Connectivity 是一套具有开拓性的 API，而它的价值正在被挖掘。当下能够使用 AirDrop 的设备也越来越多，沟通连接的便捷性变得无比之高。未来的具有无限可能性。</p>
+<h4 id="参考资料">参考资料</h4><p>1.<a href="http://nshipster.com/multipeer-connectivity/" target="_blank" rel="external">Multipeer Connectivity</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS逆向工程/" rel="tag">#iOS逆向工程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/10/install_ios_open_dev/" rel="next">Install iOSOpenDev</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div class="ds-thread" data-thread-key="2016/08/11/ios_multipeer_connectivity/"
+                       data-title="Multipeer Connectivity" data-url="http://pandara.xyz/2016/08/11/ios_multipeer_connectivity/">
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author-avatar"></div>
+          <p class="site-author-name" itemprop="name">Pandara</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">一切皆为年少轻狂之诳语</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">76</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/PandaraWen" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/pandarawen" target="_blank">Weibo</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">基情链接</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://aevit.xyz/" target="_blank">Aevit's Lab</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://helkyle.com/" target="_blank">HelKyle's blog</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://w3ctrain.com" target="_blank">W3cTrain</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Advertising(广播)_&_Discovering(发现)"><span class="nav-number">1.</span> <span class="nav-text">Advertising(广播) & Discovering(发现)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Advertising"><span class="nav-number">1.1.</span> <span class="nav-text">Advertising</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Creating_a_Session"><span class="nav-number">1.2.</span> <span class="nav-text">Creating a Session</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Discovering"><span class="nav-number">1.3.</span> <span class="nav-text">Discovering</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sending_&_Receiving_Information"><span class="nav-number">2.</span> <span class="nav-text">Sending & Receiving Information</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Messages"><span class="nav-number">2.1.</span> <span class="nav-text">Messages</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Streams"><span class="nav-number">2.2.</span> <span class="nav-text">Streams</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Resources"><span class="nav-number">2.3.</span> <span class="nav-text">Resources</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+      <div class="side-bar-foot-decorate">
+        <div class="side-bar-man motion-element"></div>
+        <div class="side-bar-star motion-element"></div>
+      </div>
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pandara</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"pandara"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+  <script type="text/javascript" src="/js/fancybox-aevit.js"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script>
+</body>
+</html>
