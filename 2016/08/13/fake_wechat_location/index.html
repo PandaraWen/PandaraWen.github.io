@@ -42,7 +42,7 @@
 
 <meta name="description" content="作为自己正式接触iOS逆向的第一步希望通过这次实践对 iOS 系统以及 APP 有更深入的了解。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS逆向入门实践 —— 逆向微信，伪装定位(一)">
+<meta property="og:title" content="iOS逆向入门实践 — 逆向微信，伪装定位(一)">
 <meta property="og:url" content="http://pandara.xyz/2016/08/13/fake_wechat_location/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
 <meta property="og:description" content="作为自己正式接触iOS逆向的第一步希望通过这次实践对 iOS 系统以及 APP 有更深入的了解。">
@@ -63,9 +63,9 @@
 <meta property="og:image" content="http://pandarazone.qiniudn.com/8664make_package.png">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/41504install_error.png">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/6855IMG_0003.PNG">
-<meta property="og:updated_time" content="2016-08-14T05:25:59.000Z">
+<meta property="og:updated_time" content="2016-08-17T12:57:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS逆向入门实践 —— 逆向微信，伪装定位(一)">
+<meta name="twitter:title" content="iOS逆向入门实践 — 逆向微信，伪装定位(一)">
 <meta name="twitter:description" content="作为自己正式接触iOS逆向的第一步希望通过这次实践对 iOS 系统以及 APP 有更深入的了解。">
 
 
@@ -76,7 +76,7 @@
   };
 </script>
 
-    <title> iOS逆向入门实践 —— 逆向微信，伪装定位(一) // Pandara's Zone </title>
+    <title> iOS逆向入门实践 — 逆向微信，伪装定位(一) // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
@@ -222,7 +222,7 @@
           
           
             
-              iOS逆向入门实践 —— 逆向微信，伪装定位(一)
+              iOS逆向入门实践 — 逆向微信，伪装定位(一)
             
           
         </h1>
@@ -355,7 +355,7 @@
 <p><br>4) Tweak.xm<br>Theos 创建工程之后，默认生成的模板源文件是 Tweak.xm，源文件中包含了基本的 Logos 语法的说明，具体写法就不展开了，书中很详细。其中有一些预处理命令值得注意：</p>
 <ul>
 <li><strong>%hook: </strong>指定需要 hook 的 class</li>
-<li><strong>%log: </strong>这个指令在 %hook 内部使用，可以将 log 的内容写入 syslog(/var/log/syslog)</li>
+<li><strong>%log: </strong>这个指令在 %hook 内部使用，可以将 log 的内容写入 syslog(/var/log/syslog)。这种是将 log 写入文件的方法。在 iOS9.3 这个文件没有自动生成，如果需要以这种方式查看 log，则需要配置一下，配置方法可以参考 <a href="https://www.theiphonewiki.com/wiki/System_Log" target="_blank" rel="external">wiki 中的 1.3 内容</a>。而我使用的是 1.1 的方法，利用 socat 这个命令行工具，可以在 cydia 中安装，按照 wiki 的方法实时查看 log</li>
 <li><strong>%orig: </strong>在 %hook 内部使用，执行被 hook 的函数的原始代码。还可以利用它以 C++ 函数的调用方式改变原始函数传入的参数</li>
 <li><strong>%group: </strong>用于将 %hook 分组，与 %init 配合使用，在按条件初始化 hook 代码时非常有用</li>
 <li><strong>%ctor: </strong>用于系统自动初始化默认的未分组 hook 代码</li>
@@ -407,7 +407,7 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/14/fake_wechat_location2/" rel="prev">iOS逆向入门实践 —— 逆向微信，伪装定位(二)</a>
+              <a href="/2016/08/14/fake_wechat_location2/" rel="prev">iOS逆向入门实践 — 逆向微信，伪装定位(二)</a>
             
           </div>
 
@@ -440,7 +440,7 @@
               <div class="comments" id="comments">
                 
                   <div class="ds-thread" data-thread-key="2016/08/13/fake_wechat_location/"
-                       data-title="iOS逆向入门实践 —— 逆向微信，伪装定位(一)" data-url="http://pandara.xyz/2016/08/13/fake_wechat_location/">
+                       data-title="iOS逆向入门实践 — 逆向微信，伪装定位(一)" data-url="http://pandara.xyz/2016/08/13/fake_wechat_location/">
                   </div>
                 
               </div>
