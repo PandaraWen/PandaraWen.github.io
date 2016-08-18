@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,next" />
+  <meta name="keywords" content="iOS逆向工程," />
 
 
 
@@ -40,17 +40,20 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="在人类的角度，这个死神非常有趣。而在他的角度，人类认为他有趣反而使他感到郁闷。他(or 她？死神应该没有性别吧)对人世间事情漠不关心，唯独享受人类的音乐。与“工作对象”之间看似无厘头的无心对话，又带出许多哲思。这本书以这位死神为主线，描写了6个人的故事。这本书给我的感觉，跟《解忧杂货铺》很像，都是在几个短篇故事中融入了人情冷暖，引发哲思。当然，还是杂货铺更加“震撼”">
+<meta name="description" content="作为逆向的巩固练习利用后摄像头获取视频流实现微信聊天界面的背景透视">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《死神的精确度》">
-<meta property="og:url" content="http://pandara.xyz/2016/02/08/death_god/index.html">
+<meta property="og:title" content="iOS逆向 — 逆向微信，透视聊天背景">
+<meta property="og:url" content="http://pandara.xyz/2016/08/17/we_transparent_chat/index.html">
 <meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="在人类的角度，这个死神非常有趣。而在他的角度，人类认为他有趣反而使他感到郁闷。他(or 她？死神应该没有性别吧)对人世间事情漠不关心，唯独享受人类的音乐。与“工作对象”之间看似无厘头的无心对话，又带出许多哲思。这本书以这位死神为主线，描写了6个人的故事。这本书给我的感觉，跟《解忧杂货铺》很像，都是在几个短篇故事中融入了人情冷暖，引发哲思。当然，还是杂货铺更加“震撼”">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2016%2F02%2F08%2Fdeath_god%2Fs3828410.jpg">
-<meta property="og:updated_time" content="2016-02-08T07:04:45.000Z">
+<meta property="og:description" content="作为逆向的巩固练习利用后摄像头获取视频流实现微信聊天界面的背景透视">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/18181IMG_0018.PNG">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/18347views.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/43768inspector.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/79113class_name.png">
+<meta property="og:updated_time" content="2016-08-17T13:56:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《死神的精确度》">
-<meta name="twitter:description" content="在人类的角度，这个死神非常有趣。而在他的角度，人类认为他有趣反而使他感到郁闷。他(or 她？死神应该没有性别吧)对人世间事情漠不关心，唯独享受人类的音乐。与“工作对象”之间看似无厘头的无心对话，又带出许多哲思。这本书以这位死神为主线，描写了6个人的故事。这本书给我的感觉，跟《解忧杂货铺》很像，都是在几个短篇故事中融入了人情冷暖，引发哲思。当然，还是杂货铺更加“震撼”">
+<meta name="twitter:title" content="iOS逆向 — 逆向微信，透视聊天背景">
+<meta name="twitter:description" content="作为逆向的巩固练习利用后摄像头获取视频流实现微信聊天界面的背景透视">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -60,7 +63,7 @@
   };
 </script>
 
-    <title> 《死神的精确度》 // Pandara's Zone </title>
+    <title> iOS逆向 — 逆向微信，透视聊天背景 // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="http://7ls0ue.com1.z0.glb.clouddn.com/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
@@ -206,7 +209,7 @@
           
           
             
-              《死神的精确度》
+              iOS逆向 — 逆向微信，透视聊天背景
             
           
         </h1>
@@ -215,8 +218,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2016-02-08T00:00:00+08:00" content="2016-02-08">
-            2016-02-08
+          <time itemprop="dateCreated" datetime="2016-08-17T00:00:00+08:00" content="2016-08-17">
+            2016-08-17
           </time>
         </span>
 
@@ -224,7 +227,7 @@
           <span class="post-category" >
             &nbsp; | &nbsp; 分类于
             
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/说书人/" itemprop="url" rel="index"><span itemprop="name">说书人</span></a></span>
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
 
               
               
@@ -237,8 +240,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2016/02/08/death_god/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/08/death_god/" itemprop="commentsCount"></span>
+              <a href="/2016/08/17/we_transparent_chat/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/we_transparent_chat/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -263,54 +266,61 @@
       
 
       
-        <span itemprop="articleBody"><p>在人类的角度，这个死神非常有趣。而在他的角度，人类认为他有趣反而使他感到郁闷。他(or 她？死神应该没有性别吧)对人世间事情漠不关心，唯独享受人类的音乐。与“工作对象”之间看似无厘头的无心对话，又带出许多哲思。这本书以这位死神为主线，描写了6个人的故事。这本书给我的感觉，跟《解忧杂货铺》很像，都是在几个短篇故事中融入了人情冷暖，引发哲思。当然，还是杂货铺更加“震撼”</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2016%2F02%2F08%2Fdeath_god%2Fs3828410.jpg" alt="image"></p>
+        <span itemprop="articleBody"><center>作为逆向的巩固练习<br>利用后摄像头获取视频流<br>实现微信聊天界面的背景透视</center>
+
 <a id="more"></a>
-<p><br><strong>1.死神的精确度</strong><br>这位死神懂得人类的语言，但不是十分精通，于是有时无意间会创造出一些高级撩妹技能：</p>
-<blockquote>
-<p>她夹了一口鸡蛋料理吃下去后，嘟囔了一句：“我长得太难看了”。“难看？”我一时真的没领会过来，于是眯起眼睛，拉远了距离看着她说，“不会，很容易看到，不是很难看啊。”</p>
-</blockquote>
-<p><br>这是本书6位人物中，死神唯一放行的姑娘。或许是她声音好听，且被音乐制作人看中，有成为歌星的潜力吧。</p>
-<p><br>再摘录一段翻译得不错的文字：</p>
-<blockquote>
-<p>回过神，可能是雨越下越大的缘故，发现雨水落在地面上，如大珠小珠落玉盘般急切，仿佛正在催促我快点下结论。</p>
-</blockquote>
-<p><br><strong>2.死神与藤田</strong><br>藤田所坚守的黑道，等同于游离于法律之外的正义，犹如高谭市的蝙蝠侠。但这无疑是让他成为鹤立鸡群的特异点，就像一般情况下，特立独行的人事物总会收到排斥，难以被融合。</p>
-<p><br>这篇故事后面的小转折挺有趣，虽然藤田最终的报告是“可”，但他的对头还是比他先死一天，因为千叶发现了负责调查藤田的对头的死神，比千叶早开始调查一天。</p>
-<p><br>摘录一点描写千叶心理的有趣文字：</p>
-<blockquote>
-<p>“我不有趣。”又被人说有趣！我明明是在拼命地认真工作，却被说成“很有趣”，这让我情何以堪。</p>
-</blockquote>
-<p><br><strong>3.暴风雪中的死神</strong><br>这个短篇非常像《东方快车谋杀案》——涉及的嫌疑人全都是凶手，只为杀死一个共同的仇人。本来计划应该能够顺利进行，但是因为千叶为了调查工作的出现，让计划节外生枝。可以当做一篇短短的悬疑小说来看。</p>
-<p><br><strong>4.死神与恋爱</strong><br>男主角相当有趣，故意戴着一个脏脏的眼镜，来掩盖自己俊俏的容貌，企图排除掉那些因为他的外貌而接近他的人。摘录一段：</p>
-<blockquote>
-<p>“我是那种想到什么就说什么的人。人生不知道什么时候就结束了，该说的时候就要说出来，管它是不是唐突，你说呢”</p>
-</blockquote>
-<p><br><strong>5.旅途中的死神</strong><br>这篇应该是我最喜欢的故事，转折挺合理，而且早埋下伏笔，互相呼应。男主角一开始企图杀死的，认定他是绑匪一份子的瘸腿老汉，到后来被发现其实是自己的真正救命恩人。而男主角此时已经因为这件事从童年长成了青年，而且形成了畸形的心理，刺伤了自己的母亲以及刺死了一名不相识的路人。摘录一句：</p>
-<blockquote>
-<p>“人活着的大部分时间都算不上在生活，不过是虚度光阴而已。”</p>
-</blockquote>
-<p><br><strong>6.死神与老妇人</strong><br>这个短篇中的女主角也是故事4中的女主角。围绕她身边的不幸事情太多了，不幸到自己的儿子都嫌弃她。最后有机会可以见孙子，但是为了不认出哪一个是孙子，怕其遭到不幸，老妇人让千叶找了几个年龄相仿的年轻人到店里，这样便能跟她的孙子混淆。</p>
-<p><br>就算这位死神不喜欢，我还是要说，他很有趣。他总是一副波澜不惊的样子，内心又总是看透一切，超越生死(这是自然)。心里说的那些调侃话语也非常可爱。每一篇故事，都可以带给读者一些思考。</p>
-<p><br><br>以上</p>
+<p><img src="http://pandarazone.qiniudn.com/18181IMG_0018.PNG" alt="18181IMG_0018.PNG"></p>
+<center><em>后置摄像头对着大广州塔</em></center>
+
+<p><br><center>项目源代码放在了我的<a href="https://github.com/PandaraWen/WeTransparentChat" target="_blank" rel="external">Github仓库</a></center></p>
+<h3 id="1-_概述">1. 概述</h3><p>前两天逆向了微信实现伪装定位，想着想再实现一个好玩的 trick 作为巩固，然后向下一个阶段推进。自动抢红包，不太感兴趣，并且已经有人实现了；文章阅读界面的的新消息预览，这个倒是我的刚需，不过也有人实现了，留着过段时间自己也实践一遍。最后想来想去，干脆就做一个之前手Q曾经有过的功能吧 —— 聊天页面背景透视，走路聊天防摔。</p>
+<p><br>流程还是那样：砸壳 -&gt; class-dump -&gt; Hopper 反编译 -&gt;  定位想要 hook 住的类以及函数 -&gt; 编写 tweak。砸壳跟 class-dump 之前已经实践过了，这里就不再废话，直接从定位 hook 点开始。</p>
+<h3 id="2-_hook_点定位">2. hook 点定位</h3><p>这里有个小建议，可以将系统的语言改成英文，程序员都知道，功能的英文名称一般跟工程中的类名相近，这样可以帮助我们更加快速地定位到相对应的类。例如微信中附近的人对应的英文名称为 People Nearby，而实际上源文件名称也包含了这个关键字。</p>
+<h4 id="2-1_Reveal_分析">2.1 Reveal 分析</h4><p>对于聊天详情页面，没有地方可以看到对应的“功能英文名”，于是我们借助利器“Reveal”，注入 Reveal 之后(注入的方法在上一篇<a href="http://pandara.xyz/2016/08/14/fake_wechat_location2/">伪装微信定位的文章</a>有提到)，来分析一下微信的界面，这个过程如褪去少女轻薄衣裳般让我兴奋：<br><img src="http://pandarazone.qiniudn.com/18347views.png" alt="18347views.png"><br>进入聊天详情页，在视图层级中选中 controller 对应的 view，然后右侧的 Identify Inspector 中可以看到它对应的 controller：<br><img src="http://pandarazone.qiniudn.com/43768inspector.png" alt="43768inspector.png"><br><img src="http://pandarazone.qiniudn.com/79113class_name.png" alt="79113class_name.png"><br>一下子就定位到了我们需要 hook 的类了。</p>
+<h4 id="2-2_hook_方法猜想">2.2 hook 方法猜想</h4><p>先大致分析一下我们需要实现的功能：</p>
+<ol>
+<li>聊天详情页背景替换成后置摄像头的实时图像</li>
+<li>NavigationBar 右方增加一个按钮控制透视的开关</li>
+</ol>
+<p>易证，我们需要在下面这些函数里面做 hook：</p>
+<ul>
+<li><strong>viewWillAppear: </strong>添加控制按钮，在 viewDidLoad 中第二次进入时会失效，原因暂时未想明白</li>
+<li><strong>viewDidAppear: </strong>一个小优化：让进入详情页时透视的开启状况与上一次一致</li>
+<li><strong>viewWillDisappear: </strong>如果是要退出详情页，就把透视关闭，同时释放相关的资源</li>
+<li><strong>willRotateToInterfaceOrientation: </strong>页面旋转会导致 previewer 布局异常，因此当页面即将旋转时需要停止 previewer，旋转完成之后再次开启。这里微信仍然使用的是 desperated 的旧方法，并没有使用苹果的建议，这点可以通过 class-dump 出的头文件或者 hopper 反编译可以知道</li>
+<li><strong>didRotateFromInterfaceOrientation: </strong>同上</li>
+</ul>
+<p>代码就不贴了，没什么意思，要看源码可以到 Github 上查看</p>
+<h3 id="3-_Theos">3. Theos</h3><p>Theos 的工程中我使用了一个 Manager 来为我管理 AVFoundation 相关的操作，需要在 Makefile 中为它指定 arc 特性(更详细的 logos 语法可以在 <a href="http://iphonedevwiki.net/index.php/Logos" target="_blank" rel="external">wiki</a> 中找到)：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AVManager<span class="class">.m_CFLAGS</span> = -fobjc-arc</span><br></pre></td></tr></table></figure></p>
+<p>完整的 Makefile 文件贴一下：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">THEOS_DEVICE_IP = <span class="number">192.168</span>.<span class="number">0.137</span></span><br><span class="line">ARCH = arm64</span><br><span class="line">TARGET = iphone:<span class="number">9.3</span></span><br><span class="line"></span><br><span class="line">include $(THEOS)/makefiles/common<span class="class">.mk</span></span><br><span class="line"></span><br><span class="line">TWEAK_NAME = WeTransparentChat</span><br><span class="line">WeTransparentChat_FILES = Tweak<span class="class">.xm</span> AVManager<span class="class">.m</span></span><br><span class="line">WeTransparentChat_FRAMEWORKS = UIKit AVFoundation</span><br><span class="line">AVManager<span class="class">.m_CFLAGS</span> = -fobjc-arc</span><br><span class="line"></span><br><span class="line">include $(THEOS_MAKE_PATH)/tweak<span class="class">.mk</span></span><br><span class="line"></span><br><span class="line">after-install::</span><br><span class="line">	install<span class="class">.exec</span> <span class="string">"killall -9 WeChat"</span></span><br></pre></td></tr></table></figure></p>
+<p>另外有一点也需要注意下，看了很多文章，对 %log 的使用都是直接抄的原书中的描述，不知道是否因为系统差异，原书中提到的 <code>/var/logs/syslog</code> 默认并不存在，需要自己做一些<a href="https://www.theiphonewiki.com/wiki/Syslog" target="_blank" rel="external">配置</a>，或者直接用另一种的方法来实时获取 syslog。</p>
+<p><br>先到 cydia 中搜索安装 socat 这个插件，socat 也是 linux 上的一个强大的利器，算是 netcat 的替代产品或者加强版，可以在两个流之间机那里一个双向的通道。用下面命令实时获取 syslog：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socat - <span class="constant">UNIX</span>-<span class="constant">CONNECT</span><span class="symbol">:/var/run/lockdown/syslog</span>.sock</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="blockquote">&gt; watch</span></span><br></pre></td></tr></table></figure>
+<p>然后会输出一堆有的没的信息，我们的 %log 数据也会包含在里面，不过目标进程幸好输出的信息在 iTerm 中会高亮。另外我暂时没有找到能够过滤输出的方法，用 * 过滤获取到的貌似是历史数组，并非实时。</p>
+<p><br>最后剩下的事情就是 make package install 的往复循环测试了。</p>
+<p><br><br>完</p>
 </span>
       
     </div>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/iOS逆向工程/" rel="tag">#iOS逆向工程</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/02/13/robber/" rel="prev">《阳光劫匪》</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/02/death_notification/" rel="next">《死亡通知单》</a>
+              <a href="/2016/08/14/fake_wechat_location2/" rel="next">iOS逆向入门实践 — 逆向微信，伪装定位(二)</a>
             
           </div>
         </div>
@@ -336,8 +346,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2016/02/08/death_god/"
-                       data-title="《死神的精确度》" data-url="http://pandara.xyz/2016/02/08/death_god/">
+                  <div class="ds-thread" data-thread-key="2016/08/17/we_transparent_chat/"
+                       data-title="iOS逆向 — 逆向微信，透视聊天背景" data-url="http://pandara.xyz/2016/08/17/we_transparent_chat/">
                   </div>
                 
               </div>
@@ -444,7 +454,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-_概述"><span class="nav-number">1.</span> <span class="nav-text">1. 概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_hook_点定位"><span class="nav-number">2.</span> <span class="nav-text">2. hook 点定位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1_Reveal_分析"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Reveal 分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2_hook_方法猜想"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 hook 方法猜想</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_Theos"><span class="nav-number">3.</span> <span class="nav-text">3. Theos</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
