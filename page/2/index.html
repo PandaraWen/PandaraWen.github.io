@@ -296,8 +296,8 @@
           
           
             
-              <a class="post-title-link" href="/2016/06/06/Xcode _strange_problem/" itemprop="url">
-                Xcode 奇奇怪怪问题手册
+              <a class="post-title-link" href="/2016/06/10/raspberry_pi_2/" itemprop="url">
+                Raspberry Pi 小车移动监控II — 运动控制
               </a>
             
           
@@ -307,8 +307,8 @@
       <div class="post-meta">
         <span class="post-time">
           发表于
-          <time itemprop="dateCreated" datetime="2016-06-06T00:00:00+08:00" content="2016-06-06">
-            2016-06-06
+          <time itemprop="dateCreated" datetime="2016-06-10T00:00:00+08:00" content="2016-06-10">
+            2016-06-10
           </time>
         </span>
 
@@ -329,8 +329,8 @@
           
             <span class="post-comments-count">
               &nbsp; | &nbsp;
-              <a href="/2016/06/06/Xcode _strange_problem/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/Xcode _strange_problem/" itemprop="commentsCount"></span>
+              <a href="/2016/06/10/raspberry_pi_2/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/10/raspberry_pi_2/" itemprop="commentsCount"></span>
               </a>
             </span>
           
@@ -351,9 +351,9 @@
 
       
         
-          <center>记录遇到的各种 XC 费解问题</center>
+          <center>本部分讲解控制树莓派的 GPIO 输出信号<br>以此来控制电机驱动</center>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/06/Xcode _strange_problem/" rel="contents">
+            <a class="btn" href="/2016/06/10/raspberry_pi_2/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -747,6 +747,97 @@
           
           
             
+              <a class="post-title-link" href="/2016/04/02/weakify_strongify/" itemprop="url">
+                如何更好地避免 block 循环引用
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2016-04-02T00:00:00+08:00" content="2016-04-02">
+            2016-04-02
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/04/02/weakify_strongify/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/02/weakify_strongify/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+          
+        
+
+        
+        
+
+       
+
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h5 id="什么是循环引用">什么是循环引用</h5><p>先说循环引用，这个东西大概是大多数程序猿都应该知道的常识，不仅是 Objective-C ，很多其他语言也有这个概念。假设有两个类 A 与 B，A 中存在一个 ivar objB，B 中存在一个 ivar objA。现在各有一个 A 与 B 类型的对象: a 与 b，如果：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a<span class="variable">.objB</span> = b;</span><br><span class="line">b<span class="variable">.objA</span> = a;</span><br></pre></td></tr></table></figure></p>
+<p>这样就会产生循环引用，如下图：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2016%2F04%2F02%2Fcircular_reference%2F1.png?imageView2/2/w/300" alt="image"></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/04/02/weakify_strongify/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
               <a class="post-title-link" href="/2016/04/02/qiandongnan/" itemprop="url">
                 黔东南·以梦为马
               </a>
@@ -807,97 +898,6 @@
 <center>当我背上背包<br>感觉路就在脚下延伸<br>整个世界任我而行</center>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/04/02/qiandongnan/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      
-      
-        <h1 class="post-title" itemprop="name headline">
-          
-          
-            
-              <a class="post-title-link" href="/2016/04/02/weakify_strongify/" itemprop="url">
-                如何更好地避免 block 循环引用
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于
-          <time itemprop="dateCreated" datetime="2016-04-02T00:00:00+08:00" content="2016-04-02">
-            2016-04-02
-          </time>
-        </span>
-
-        
-          <span class="post-category" >
-            &nbsp; | &nbsp; 分类于
-            
-              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/04/02/weakify_strongify/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/02/weakify_strongify/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
-        
-
-       
-
-      </div>
-    </header>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h5 id="什么是循环引用">什么是循环引用</h5><p>先说循环引用，这个东西大概是大多数程序猿都应该知道的常识，不仅是 Objective-C ，很多其他语言也有这个概念。假设有两个类 A 与 B，A 中存在一个 ivar objB，B 中存在一个 ivar objA。现在各有一个 A 与 B 类型的对象: a 与 b，如果：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a<span class="variable">.objB</span> = b;</span><br><span class="line">b<span class="variable">.objA</span> = a;</span><br></pre></td></tr></table></figure></p>
-<p>这样就会产生循环引用，如下图：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2016%2F04%2F02%2Fcircular_reference%2F1.png?imageView2/2/w/300" alt="image"></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/02/weakify_strongify/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
