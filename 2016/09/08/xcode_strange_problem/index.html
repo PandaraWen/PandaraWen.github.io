@@ -53,7 +53,7 @@
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2FcocoaPods_warning.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning02.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning01.png">
-<meta property="og:updated_time" content="2016-09-08T16:23:27.000Z">
+<meta property="og:updated_time" content="2016-10-14T08:44:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOSDev Strange Things">
 <meta name="twitter:description" content="记录 iOS 开发过程中遇到的各种操蛋问题">
@@ -272,6 +272,12 @@
         <span itemprop="articleBody"><center>记录 iOS 开发过程中遇到的各种操蛋问题</center>
 
 <a id="more"></a>
+<h5 id="Undefine_symbols_for_architecture_XXX">Undefine symbols for architecture XXX</h5><p>Update: 20161014</p>
+<ol>
+<li>检查工程文件目录里面是否确实引入了相关的库</li>
+<li>检查工程的 <code>Linked Frameworks and Libraries</code> 是否引入相应的 lib</li>
+<li>检查 Library search path 是否设置正确</li>
+</ol>
 <h5 id="Xcode8-x_安装_XVim_之后闪退，错误提示信息为关于签名">Xcode8.x 安装 XVim 之后闪退，错误提示信息为关于签名</h5><p>Update: 20160908<br>提示的 Exception 类型为:<br><figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Exception</span> <span class="built_in">Type</span>: EXC_BAD_ACCESS (Code Signature Invalid)</span><br></pre></td></tr></table></figure></p>
 <p>Xcode8 安装 XVim 的时候会将签名去除掉，Xcode 无法对自身进行验证。解决方法是用自己的证书为 Xcode 重新签名。在 XVim 的 issues979 下可以看到另一个简便的解决方法, 不过我还没实践过:<br><img src="http://pandarazone.qiniudn.com/89159fix_xcode8.png" alt="89159fix_xcode8.png"><br>如果采用自己证书重签名:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign <span class="operator">-f</span> <span class="operator">-s</span> &lt;证书ID&gt; Xcode.app</span><br></pre></td></tr></table></figure></p>
 <p>运行之后终端可能会假死一段时间，只要等就好了。假如等待之后得到一个错误 <code>unable to find utility &quot;codesign_allocate&quot;</code>, 可以尝试一下<a href="ihttp://stackoverflow.com/questions/29848622/codesign-allocate-error-unable-to-find-utility-codesign-allocate-not-a-deve" target="_blank" rel="external">这里</a>提到的解决方法:<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">locate</span> codesign_allocate</span><br></pre></td></tr></table></figure></p>
@@ -310,6 +316,8 @@
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/16/20161016_autumn/" rel="prev">秋凉</a>
             
           </div>
 
@@ -382,7 +390,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-count">82</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -396,7 +404,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -449,7 +457,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Xcode8-x_安装_XVim_之后闪退，错误提示信息为关于签名"><span class="nav-number">1.</span> <span class="nav-text">Xcode8.x 安装 XVim 之后闪退，错误提示信息为关于签名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iOS10-0_&_Xcode8_beta_6,_工程_demo_无法访问网络"><span class="nav-number">2.</span> <span class="nav-text">iOS10.0 & Xcode8 beta 6, 工程 demo 无法访问网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pod_install_时提示报错_Unable_to_find_a_specification"><span class="nav-number">3.</span> <span class="nav-text">pod install 时提示报错 Unable to find a specification</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cocoaPods_提示_diff:_/-/Podfile-lock:_No_such_file_or_directory"><span class="nav-number">4.</span> <span class="nav-text">cocoaPods 提示 diff: /../Podfile.lock: No such file or directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提示错误_ld:_library_not_found_for_-lPods"><span class="nav-number">5.</span> <span class="nav-text">提示错误 ld: library not found for -lPods</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Undefine_symbols_for_architecture_XXX"><span class="nav-number">1.</span> <span class="nav-text">Undefine symbols for architecture XXX</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Xcode8-x_安装_XVim_之后闪退，错误提示信息为关于签名"><span class="nav-number">2.</span> <span class="nav-text">Xcode8.x 安装 XVim 之后闪退，错误提示信息为关于签名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iOS10-0_&_Xcode8_beta_6,_工程_demo_无法访问网络"><span class="nav-number">3.</span> <span class="nav-text">iOS10.0 & Xcode8 beta 6, 工程 demo 无法访问网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pod_install_时提示报错_Unable_to_find_a_specification"><span class="nav-number">4.</span> <span class="nav-text">pod install 时提示报错 Unable to find a specification</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cocoaPods_提示_diff:_/-/Podfile-lock:_No_such_file_or_directory"><span class="nav-number">5.</span> <span class="nav-text">cocoaPods 提示 diff: /../Podfile.lock: No such file or directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提示错误_ld:_library_not_found_for_-lPods"><span class="nav-number">6.</span> <span class="nav-text">提示错误 ld: library not found for -lPods</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
