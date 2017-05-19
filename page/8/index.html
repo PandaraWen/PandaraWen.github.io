@@ -42,12 +42,12 @@
 
 <meta name="description" content="一切皆为年少轻狂之诳语">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Pandara's Zone">
+<meta property="og:title" content="Pandara&#39;s Zone">
 <meta property="og:url" content="http://pandara.xyz/page/8/index.html">
-<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="一切皆为年少轻狂之诳语">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pandara's Zone">
+<meta name="twitter:title" content="Pandara&#39;s Zone">
 <meta name="twitter:description" content="一切皆为年少轻狂之诳语">
 
 
@@ -236,17 +236,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/10/angle/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/10/angle/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
         
 
        
@@ -326,17 +315,6 @@
 
             
           </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/03/birdman/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/03/birdman/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
         
 
         
@@ -422,17 +400,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/01/Memory_mgmt/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/01/Memory_mgmt/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
         
 
        
@@ -448,7 +415,7 @@
       
         
           <blockquote>
-<p>翻译自<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html">Apple官方文档</a>，是时候表演翻译腔的技术了 </p>
+<p>翻译自<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html" target="_blank" rel="external">Apple官方文档</a>，是时候表演翻译腔的技术了 </p>
 </blockquote>
 <h3 id="介绍">介绍</h3><p>应用内存管理是：在程序运行时，分配内存，使用内存，然后在你使用完成之后释放它。一个编写良好的程序应该尽可能少地使用内存。在Objective-C中，内存管理同样可以被视为：一种在许许多多数据以及代码中，为有限的内存空间分配使用权。当你看完本guide，你就会知道该如何管理app的内存：显式管理对象的生命周期，并且在他们不再被需要的时候释放他们。</p>
 <p>虽然内存管理通常被认为是对单个对象而言的，但是你的目标实际上应该是管理对象图(object graph)。你需要确定在内存中的对象不会超过你实际需要的。</p>
@@ -517,17 +484,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/31/20150828_gcd_dispatch_queue/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/31/20150828_gcd_dispatch_queue/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
         
 
        
@@ -543,9 +499,9 @@
       
         
           <blockquote>
-<p>翻译自<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html">Apple官方文档</a>，是时候表演翻译腔的技术了<br>dispatch queue用得是足够多了，但是从来没有系统深入地了解过</p>
+<p>翻译自<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html" target="_blank" rel="external">Apple官方文档</a>，是时候表演翻译腔的技术了<br>dispatch queue用得是足够多了，但是从来没有系统深入地了解过</p>
 </blockquote>
-<h4 id="概述">概述</h4><p>Grand Central Dispatch(全局集中派遣，简称GCD)，是一个执行任务的强大工具。Dispatch queues(派遣队列)能够让你同步或者异步执行任意的代码块——与调用者之间。你能够使用Dispatch queues来执行几乎所有你在单独的线程中执行的操作。dispatch queues的优点就是，它们能够更加简单地被使用，并且对比起执行相同任务的线程，它们更加高效。<br>本章节将介绍dispatch queues，还有如何使用它们来执行普通的任务。如果你想将现有的使用线程的代码转化为使用dispatch queues，你可以在<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/ThreadMigration/ThreadMigration.html#//apple_ref/doc/uid/TP40008091-CH105-SW1">这里</a>找到额外的帮助。<br>
+<h4 id="概述">概述</h4><p>Grand Central Dispatch(全局集中派遣，简称GCD)，是一个执行任务的强大工具。Dispatch queues(派遣队列)能够让你同步或者异步执行任意的代码块——与调用者之间。你能够使用Dispatch queues来执行几乎所有你在单独的线程中执行的操作。dispatch queues的优点就是，它们能够更加简单地被使用，并且对比起执行相同任务的线程，它们更加高效。<br>本章节将介绍dispatch queues，还有如何使用它们来执行普通的任务。如果你想将现有的使用线程的代码转化为使用dispatch queues，你可以在<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/ThreadMigration/ThreadMigration.html#//apple_ref/doc/uid/TP40008091-CH105-SW1" target="_blank" rel="external">这里</a>找到额外的帮助。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/31/20150828_gcd_dispatch_queue/" rel="contents">
               阅读全文 &raquo;
@@ -610,17 +566,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/30/20150830_the_imitation_game/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/30/20150830_the_imitation_game/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
         
 
        
@@ -638,7 +583,7 @@
           <blockquote>
 <p>向伟大的计算机之父，艾伦·麦席森·图灵，献上我的膝盖</p>
 </blockquote>
-<center><a class="fancybox-thumb fancybox-aevit" rel="fancybox-thumb" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/30/the-imitation-game/the-imitation-game-poster.jpg" title="卷福大法好"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/30/the-imitation-game/the-imitation-game-poster.jpg?imageView2/1/w/300/h/300" alt="" /></a></center>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/30/the-imitation-game/the-imitation-game-poster.jpg" title="卷福大法好" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/30/the-imitation-game/the-imitation-game-poster.jpg?imageView2/1/w/300/h/300" alt=""></a></center>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/30/20150830_the_imitation_game/" rel="contents">
               阅读全文 &raquo;
@@ -703,17 +648,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/29/20150829_perfect_blue/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/29/20150829_perfect_blue/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
         
 
        
@@ -731,7 +665,7 @@
           <blockquote>
 <p>脱离现实的精神嫁接，轻则导致厌恶现实，重则会导致人格分裂</p>
 </blockquote>
-<center><a class="fancybox-thumb fancybox-aevit" rel="fancybox-thumb" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/29/perfect_blue/perfect_blue.jpg" title="perfect_blue"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/29/perfect_blue/perfect_blue.jpg?imageView2/1/w/300/h/300" alt="" /></a></center>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/29/perfect_blue/perfect_blue.jpg" title="perfect_blue" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/29/perfect_blue/perfect_blue.jpg?imageView2/1/w/300/h/300" alt=""></a></center>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/29/20150829_perfect_blue/" rel="contents">
               阅读全文 &raquo;
@@ -796,17 +730,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/27/20150827_gcd_operation_queue/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/27/20150827_gcd_operation_queue/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
         
 
        
@@ -822,7 +745,7 @@
       
         
           <blockquote>
-<p>翻译自<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW1">Apple官方文档</a>，让你见识一下什么叫翻译腔。</p>
+<p>翻译自<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html#//apple_ref/doc/uid/TP40008091-CH101-SW1" target="_blank" rel="external">Apple官方文档</a>，让你见识一下什么叫翻译腔。</p>
 </blockquote>
 <h4 id="概述">概述</h4><p>Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。<br>
           <div class="post-more-link text-center">
@@ -889,17 +812,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/25/about_me/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/25/about_me/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
         
 
        
@@ -914,7 +826,7 @@
 
       
         
-          <p><center><br>有个自己blog<br>有个可以吐槽的地方<br>有个可以记录来时脚印的地方<br>就像有个自己的窝一样舒适温馨<br>走，回家<br><a class="fancybox-thumb fancybox-aevit" rel="fancybox-thumb" href="http://7ls0ue.com1.z0.glb.clouddn.com/about/walking.gif" title="走走走走走啊走，走到九月九"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/about/walking.gif?imageView2/2/w/512" alt="" /></a><br></center><br>
+          <p><center><br>有个自己blog<br>有个可以吐槽的地方<br>有个可以记录来时脚印的地方<br>就像有个自己的窝一样舒适温馨<br>走，回家<br><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/about/walking.gif" title="走走走走走啊走，走到九月九" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/about/walking.gif?imageView2/2/w/512" alt=""></a><br></center><br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/25/about_me/" rel="contents">
               阅读全文 &raquo;
@@ -976,17 +888,6 @@
 
             
           </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/23/guitar/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/23/guitar/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
         
 
         
@@ -1069,17 +970,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/10/new_character/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/new_character/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
         
 
        
@@ -1096,7 +986,7 @@
         
           <p><center>这个周末我把自己重构了一下</center></p>
 <p><center>这次是6个半小时的静坐</center></p>
-<p><center><a class="fancybox-thumb fancybox-aevit" rel="fancybox-thumb" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/10/new_character/walking.jpg" title="肢解哇哈哈哈"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/10/new_character/walking.jpg?imageView2/2/w/300" alt="" /></a></center><br>
+<p><center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/10/new_character/walking.jpg" title="肢解哇哈哈哈" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/08/10/new_character/walking.jpg?imageView2/2/w/300" alt=""></a></center><br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/08/10/new_character/" rel="contents">
               阅读全文 &raquo;
@@ -1267,25 +1157,30 @@
   
   
   
-
-  
-    
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
-
   
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = 'page/8/index.html';
+      var disqus_title = '';
+      var disqus_url = '';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+    </script>
+  
+
+
 
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
@@ -1319,25 +1214,30 @@
 
 
   
-
-  
-    
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
-
   
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = 'page/8/index.html';
+      var disqus_title = '';
+      var disqus_url = '';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+    </script>
+  
+
+
 
 
 

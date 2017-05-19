@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="Objective-C,iOS,开发," />
+  <meta name="keywords" content="iOS,Objective-C,开发," />
 
 
 
@@ -40,27 +40,20 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="受 Kitten 大神的一篇妙文所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用贝塞尔曲线实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。
-
-
-此为效果图也">
+<meta name="description" content="受 Kitten 大神的一篇妙文所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用贝塞尔曲线实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。   此为效果图也">
+<meta name="keywords" content="iOS,Objective-C,开发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 下水滴动画之实现">
 <meta property="og:url" content="http://pandara.xyz/2015/10/27/ios_slime/index.html">
-<meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="受 Kitten 大神的一篇妙文所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用贝塞尔曲线实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。
-
-
-此为效果图也">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
+<meta property="og:description" content="受 Kitten 大神的一篇妙文所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用贝塞尔曲线实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。   此为效果图也">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/ios_slime/SBSlime2.gif">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/ios_slime/slime_rule.png">
 <meta property="og:updated_time" content="2015-10-27T10:17:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 下水滴动画之实现">
-<meta name="twitter:description" content="受 Kitten 大神的一篇妙文所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用贝塞尔曲线实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。
-
-
-此为效果图也">
+<meta name="twitter:description" content="受 Kitten 大神的一篇妙文所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用贝塞尔曲线实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。   此为效果图也">
+<meta name="twitter:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/ios_slime/SBSlime2.gif">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -244,17 +237,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/10/27/ios_slime/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/27/ios_slime/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
           <span id="busuanzi_container_page_pv">
             &nbsp; | &nbsp;
             访客
@@ -297,7 +279,7 @@
 <blockquote>
 <p>上方红色框所标注的，就是我们需要用贝塞尔曲线来绘制的“水滴黏性效果”的轮廓。如果还不知道贝塞尔曲线是怎么来的，可以观看此篇跪膝之文<a href="http://www.html-js.com/article/1628" target="_blank" rel="external">贝塞尔曲线扫盲</a>。只要计算出红色标注的6个点坐标，贝塞尔曲线也就出来了。</p>
 </blockquote>
-<p><br>关键的计算方法都在上面图中，下面看代码：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)reloadBezierPath</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> r1 = <span class="keyword">self</span><span class="variable">.trailDot</span><span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.width</span> / <span class="number">2.0</span>f;</span><br><span class="line">    <span class="built_in">CGFloat</span> r2 = <span class="keyword">self</span><span class="variable">.headDot</span><span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.width</span> / <span class="number">2.0</span>f;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> x1 = <span class="keyword">self</span><span class="variable">.trailDot</span><span class="variable">.center</span><span class="variable">.x</span>;</span><br><span class="line">    <span class="built_in">CGFloat</span> y1 = <span class="keyword">self</span><span class="variable">.trailDot</span><span class="variable">.center</span><span class="variable">.y</span>;</span><br><span class="line">    <span class="built_in">CGFloat</span> x2 = <span class="keyword">self</span><span class="variable">.headDot</span><span class="variable">.center</span><span class="variable">.x</span>;</span><br><span class="line">    <span class="built_in">CGFloat</span> y2 = <span class="keyword">self</span><span class="variable">.headDot</span><span class="variable">.center</span><span class="variable">.y</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> distance = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> sinDegree = (x2 - x1) / distance;</span><br><span class="line">    <span class="built_in">CGFloat</span> cosDegree = (y2 - y1) / distance;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGPoint</span> pointA = <span class="built_in">CGPointMake</span>(x1 - r1 * cosDegree, y1 + r1 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointB = <span class="built_in">CGPointMake</span>(x1 + r1 * cosDegree, y1 - r1 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointC = <span class="built_in">CGPointMake</span>(x2 + r2 * cosDegree, y2 - r2 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointD = <span class="built_in">CGPointMake</span>(x2 - r2 * cosDegree, y2 + r2 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointN = <span class="built_in">CGPointMake</span>(pointB<span class="variable">.x</span> + (distance / <span class="number">2</span>) * sinDegree, pointB<span class="variable">.y</span> + (distance / <span class="number">2</span>) * cosDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointM = <span class="built_in">CGPointMake</span>(pointA<span class="variable">.x</span> + (distance / <span class="number">2</span>) * sinDegree, pointA<span class="variable">.y</span> + (distance / <span class="number">2</span>) * cosDegree);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIBezierPath</span> *path = [<span class="built_in">UIBezierPath</span> bezierPath];</span><br><span class="line">    [path moveToPoint:pointA];</span><br><span class="line">    [path addLineToPoint:pointB];</span><br><span class="line">    [path addQuadCurveToPoint:pointC controlPoint:pointN];</span><br><span class="line">    [path addLineToPoint:pointD];</span><br><span class="line">    [path addQuadCurveToPoint:pointA controlPoint:pointM];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span><span class="variable">.shapeLayer</span><span class="variable">.path</span> = path<span class="variable">.CGPath</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br>关键的计算方法都在上面图中，下面看代码：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)reloadBezierPath</div><div class="line">&#123;</div><div class="line">    <span class="built_in">CGFloat</span> r1 = <span class="keyword">self</span>.trailDot.frame.size.width / <span class="number">2.0</span>f;</div><div class="line">    <span class="built_in">CGFloat</span> r2 = <span class="keyword">self</span>.headDot.frame.size.width / <span class="number">2.0</span>f;</div><div class="line">    </div><div class="line">    <span class="built_in">CGFloat</span> x1 = <span class="keyword">self</span>.trailDot.center.x;</div><div class="line">    <span class="built_in">CGFloat</span> y1 = <span class="keyword">self</span>.trailDot.center.y;</div><div class="line">    <span class="built_in">CGFloat</span> x2 = <span class="keyword">self</span>.headDot.center.x;</div><div class="line">    <span class="built_in">CGFloat</span> y2 = <span class="keyword">self</span>.headDot.center.y;</div><div class="line">    </div><div class="line">    <span class="built_in">CGFloat</span> distance = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));</div><div class="line">    </div><div class="line">    <span class="built_in">CGFloat</span> sinDegree = (x2 - x1) / distance;</div><div class="line">    <span class="built_in">CGFloat</span> cosDegree = (y2 - y1) / distance;</div><div class="line">    </div><div class="line">    <span class="built_in">CGPoint</span> pointA = <span class="built_in">CGPointMake</span>(x1 - r1 * cosDegree, y1 + r1 * sinDegree);</div><div class="line">    <span class="built_in">CGPoint</span> pointB = <span class="built_in">CGPointMake</span>(x1 + r1 * cosDegree, y1 - r1 * sinDegree);</div><div class="line">    <span class="built_in">CGPoint</span> pointC = <span class="built_in">CGPointMake</span>(x2 + r2 * cosDegree, y2 - r2 * sinDegree);</div><div class="line">    <span class="built_in">CGPoint</span> pointD = <span class="built_in">CGPointMake</span>(x2 - r2 * cosDegree, y2 + r2 * sinDegree);</div><div class="line">    <span class="built_in">CGPoint</span> pointN = <span class="built_in">CGPointMake</span>(pointB.x + (distance / <span class="number">2</span>) * sinDegree, pointB.y + (distance / <span class="number">2</span>) * cosDegree);</div><div class="line">    <span class="built_in">CGPoint</span> pointM = <span class="built_in">CGPointMake</span>(pointA.x + (distance / <span class="number">2</span>) * sinDegree, pointA.y + (distance / <span class="number">2</span>) * cosDegree);</div><div class="line">    </div><div class="line">    <span class="built_in">UIBezierPath</span> *path = [<span class="built_in">UIBezierPath</span> bezierPath];</div><div class="line">    [path moveToPoint:pointA];</div><div class="line">    [path addLineToPoint:pointB];</div><div class="line">    [path addQuadCurveToPoint:pointC controlPoint:pointN];</div><div class="line">    [path addLineToPoint:pointD];</div><div class="line">    [path addQuadCurveToPoint:pointA controlPoint:pointM];</div><div class="line">    </div><div class="line">    <span class="keyword">self</span>.shapeLayer.path = path.CGPath;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>就是这么简单。完整的 Demo 已经上传到<a href="https://github.com/PandaraWen/SBSlimeViewDemo" target="_blank" rel="external">这里</a>。当然我知道你肯定喜欢自己实现多于下载别人 Demo。</p>
 <p><br><br>以上</p>
 </span>
@@ -308,9 +290,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
-          
             <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
           
             <a href="/tags/开发/" rel="tag">#开发</a>
           
@@ -353,8 +335,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/10/27/ios_slime/"
-                       data-title="iOS 下水滴动画之实现" data-url="http://pandara.xyz/2015/10/27/ios_slime/">
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                   </div>
                 
               </div>
@@ -513,25 +495,32 @@
   
   
     
+    
 
   
-    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = '2015/10/27/ios_slime/';
+      var disqus_title = 'iOS 下水滴动画之实现';
+      var disqus_url = 'http://pandara.xyz/2015/10/27/ios_slime/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
 
-    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>

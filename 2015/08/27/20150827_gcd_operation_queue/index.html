@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="GCD,Objective-C,iOS,多线程,并发," />
+  <meta name="keywords" content="iOS,Objective-C,GCD,多线程,并发," />
 
 
 
@@ -40,22 +40,17 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="翻译自Apple官方文档，让你见识一下什么叫翻译腔。
-
-概述Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。">
+<meta name="description" content="翻译自Apple官方文档，让你见识一下什么叫翻译腔。  概述Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。">
+<meta name="keywords" content="iOS,Objective-C,GCD,多线程,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS并发编程—Operation Queues">
 <meta property="og:url" content="http://pandara.xyz/2015/08/27/20150827_gcd_operation_queue/index.html">
-<meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="翻译自Apple官方文档，让你见识一下什么叫翻译腔。
-
-概述Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
+<meta property="og:description" content="翻译自Apple官方文档，让你见识一下什么叫翻译腔。  概述Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。">
 <meta property="og:updated_time" content="2015-10-10T08:43:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS并发编程—Operation Queues">
-<meta name="twitter:description" content="翻译自Apple官方文档，让你见识一下什么叫翻译腔。
-
-概述Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。">
+<meta name="twitter:description" content="翻译自Apple官方文档，让你见识一下什么叫翻译腔。  概述Cocoa operations使用一种面向对象的思想，来提供一套执行异步操作的方法。Operations被设计用来结合operation queue或者它们自身来使用。由于Operations是基于Objective-C的，它们普遍用在OS X跟iOS中。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -239,17 +234,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/27/20150827_gcd_operation_queue/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/27/20150827_gcd_operation_queue/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
           <span id="busuanzi_container_page_pv">
             &nbsp; | &nbsp;
             访客
@@ -317,11 +301,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/GCD/" rel="tag">#GCD</a>
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
           
             <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
           
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
+            <a href="/tags/GCD/" rel="tag">#GCD</a>
           
             <a href="/tags/多线程/" rel="tag">#多线程</a>
           
@@ -366,8 +350,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/08/27/20150827_gcd_operation_queue/"
-                       data-title="iOS并发编程—Operation Queues" data-url="http://pandara.xyz/2015/08/27/20150827_gcd_operation_queue/">
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                   </div>
                 
               </div>
@@ -526,25 +510,32 @@
   
   
     
+    
 
   
-    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = '2015/08/27/20150827_gcd_operation_queue/';
+      var disqus_title = 'iOS并发编程—Operation Queues';
+      var disqus_url = 'http://pandara.xyz/2015/08/27/20150827_gcd_operation_queue/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
 
-    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>

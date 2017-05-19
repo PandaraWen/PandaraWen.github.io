@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="GCD,Objective-C,iOS,多线程,并发," />
+  <meta name="keywords" content="iOS,Objective-C,GCD,多线程,并发," />
 
 
 
@@ -40,22 +40,17 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="翻译自Apple官方文档，是时候表演翻译腔的技术了dispatch queue用得是足够多了，但是从来没有系统深入地了解过
-
-概述Grand Central Dispatch(全局集中派遣，简称GCD)，是一个执行任务的强大工具。Dispatch queues(派遣队列)能够让你同步或者异步执行任意的代码块——与调用者之间。你能够使用Dispatch queues来执行几乎所有你在单独的线程中执行">
+<meta name="description" content="翻译自Apple官方文档，是时候表演翻译腔的技术了dispatch queue用得是足够多了，但是从来没有系统深入地了解过  概述Grand Central Dispatch(全局集中派遣，简称GCD)，是一个执行任务的强大工具。Dispatch queues(派遣队列)能够让你同步或者异步执行任意的代码块——与调用者之间。你能够使用Dispatch queues来执行几乎所有你在单独的线程中执">
+<meta name="keywords" content="iOS,Objective-C,GCD,多线程,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS并发编程—Dispatch Queues">
 <meta property="og:url" content="http://pandara.xyz/2015/08/31/20150828_gcd_dispatch_queue/index.html">
-<meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="翻译自Apple官方文档，是时候表演翻译腔的技术了dispatch queue用得是足够多了，但是从来没有系统深入地了解过
-
-概述Grand Central Dispatch(全局集中派遣，简称GCD)，是一个执行任务的强大工具。Dispatch queues(派遣队列)能够让你同步或者异步执行任意的代码块——与调用者之间。你能够使用Dispatch queues来执行几乎所有你在单独的线程中执行">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
+<meta property="og:description" content="翻译自Apple官方文档，是时候表演翻译腔的技术了dispatch queue用得是足够多了，但是从来没有系统深入地了解过  概述Grand Central Dispatch(全局集中派遣，简称GCD)，是一个执行任务的强大工具。Dispatch queues(派遣队列)能够让你同步或者异步执行任意的代码块——与调用者之间。你能够使用Dispatch queues来执行几乎所有你在单独的线程中执">
 <meta property="og:updated_time" content="2015-10-10T08:43:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS并发编程—Dispatch Queues">
-<meta name="twitter:description" content="翻译自Apple官方文档，是时候表演翻译腔的技术了dispatch queue用得是足够多了，但是从来没有系统深入地了解过
-
-概述Grand Central Dispatch(全局集中派遣，简称GCD)，是一个执行任务的强大工具。Dispatch queues(派遣队列)能够让你同步或者异步执行任意的代码块——与调用者之间。你能够使用Dispatch queues来执行几乎所有你在单独的线程中执行">
+<meta name="twitter:description" content="翻译自Apple官方文档，是时候表演翻译腔的技术了dispatch queue用得是足够多了，但是从来没有系统深入地了解过  概述Grand Central Dispatch(全局集中派遣，简称GCD)，是一个执行任务的强大工具。Dispatch queues(派遣队列)能够让你同步或者异步执行任意的代码块——与调用者之间。你能够使用Dispatch queues来执行几乎所有你在单独的线程中执">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -239,17 +234,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/08/31/20150828_gcd_dispatch_queue/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/31/20150828_gcd_dispatch_queue/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
           <span id="busuanzi_container_page_pv">
             &nbsp; | &nbsp;
             访客
@@ -338,7 +322,7 @@
 <li>一个aBlock的类型相匹配的block随后被声明并且分配给aBlock</li>
 <li>最后一行立即执行这个block，打印那个指定的整数。</li>
 </ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">int</span> y = <span class="number">456</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Block declaration and assignment</span></span><br><span class="line"><span class="keyword">void</span> (^aBlcok)(<span class="keyword">int</span>) = ^(<span class="keyword">int</span> z) &#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d %d %d\n"</span>, x, y, z);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Execute the block</span></span><br><span class="line">aBlock(<span class="number">789</span>); <span class="comment">//prints: 123 456 789</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">int x = 123;</div><div class="line">int y = 456;</div><div class="line"></div><div class="line">// Block declaration and assignment</div><div class="line">void (^aBlcok)(int) = ^(int z) &#123;</div><div class="line">	printf(&quot;%d %d %d\n&quot;, x, y, z);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// Execute the block</div><div class="line">aBlock(789); //prints: 123 456 789</div></pre></td></tr></table></figure>
 <p>下面列出了一些你应该在设计block时应该考虑的重点</p>
 <ul>
 <li>对于那些你打算用dispatch queue来异步执行的block，只读取父级代码块中的变量是安全的。然而，你不应该试图读取庞大的结构或者其他在调用上下文中被分配或删除的基于指针的变量。因为当你的block执行时，那些被指针引用的内存可能已经被释放掉了。当然，如果自己手动分配内存(或者一个对象)并且明确地释放block的内存，那便是安全的。</li>
@@ -349,7 +333,7 @@
 </ul>
 <h4 id="创建并管理dispatch_queues">创建并管理dispatch queues</h4><p>在你将任务添加到队列之前，你应该决定需要使用何种队列还有如何使用它。dispatch queue可以按顺序地执行任务或者并发地执行任务。另外，如果你对队列有特殊用途，你可以根据需要设置队列的属性。下面的章节介绍如何创建队列并且设置它们。</p>
 <h5 id="获取全局的concurrent_dispatch_queue">获取全局的concurrent dispatch queue</h5><p>如果你想要多个任务并行运行，那么并发的dispatch queue是你的首选。一个并发的队列仍然会按照先进先出的顺序执行任务，只不过，并发队列可能会在前面的任务执行完成之前就开是下一个新任务的执行。在给定的时间点，并发队列执行的实际任务数量会随app的状态变化。很多因素都会影响并发队列执行任务的数目，包括可用的运算核心，其他进程的运行规模，还有其他dispatch queue的优先级。</p>
-<p>系统为每个app提供了四种并发队列。这些队列都是在app中全局可访问的，并且他们仅仅被根据优先级别来区分。由于他们是全局的，你不显式创建他们。相反，你应该用<code>dispatch_get_global_queue</code>函数来获取它们，如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t aQueue = dispatch_get_global_queue<span class="list">(<span class="keyword">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>系统为每个app提供了四种并发队列。这些队列都是在app中全局可访问的，并且他们仅仅被根据优先级别来区分。由于他们是全局的，你不显式创建他们。相反，你应该用<code>dispatch_get_global_queue</code>函数来获取它们，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t aQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</div></pre></td></tr></table></figure></p>
 <p>除了获取默认并发队列之外，你同样可以通过传入不同的参数获取高优先级或者低优先级的队列：<code>DISPATCH_QUEUE_PRIORITY_HIGH</code> 或者 <code>DISPATCH_QUEUE_PRIORITY_LOW</code>，或者通过常量<code>DISPATCH_QUEUE_PRIORITY_BACKGROUND</code>来获取后台队列。正如你所想，高优先级的队列会比默认优先级以及低优先级的队列先被执行。同样地，默认优先级的队列会比低优先级的队列先被执行。</p>
 <blockquote>
 <p>注意：<code>dispatch_get_global_queue</code>函数里面的第二个参数是保留参数，将来有可能使用。而现在，你传入0就可以了。</p>
@@ -357,7 +341,7 @@
 <p>虽然dispatch queue是引用计数对象，但是你并不用对全局并发队列进行显式的retain或者release。因为他们在你的app中全局存在，对这些队列的retain或者release都会被忽略。因此，你不用存储这些队列的引用。任何时候你需要使用他们，你只需要通过<code>dispatch_get_global_queue</code>函数。</p>
 <h5 id="创建serial_dispatch_queue">创建serial dispatch queue</h5><p>如果你想要你的任务以一个特定的顺序来执行，那么你应该使用serial queue。一个serial queue在同一时间内之运行一个任务，并且通常在队列的头部取出任务。你可以使用serial queue而不是线程锁来保护共享资源或者可被修改的数据结构。跟线程锁不一样，同步的队列确保了所有任务会以一个预先定好的顺序来执行。并且只要你<code>异步地</code>将任务提交到serial queue中，队列永远不会发生死锁。</p>
 <p>跟concurrent queue不同。concurrent queue是已经创建好的，不用你操心。而serial queue需要你手动创建并且管理所有serial queue。你可以创建任意数量的serial queue，但是应该避免创建一个庞大数目的serial queue来为了尽可能多地同时执行任务。如果你想要并发的执行大量任务，应该将他们提交到全局的并发队列。当你创建serial queue，应该尝试区分每个队列的工作意图。例如是为了保护资源或者是让app中的一些关键操作同步执行。</p>
-<p>下表展示创建自定义的serial queue所需要的步骤。<code>dispatch_queue_create</code>函数需要两个参数：queue的名字还有queue的一组属性。调试器跟performace tool会展示队列的名字来帮助你跟踪你的任务是如何被执行的。queue的属性这个参数是为将来保留的，现在应该传入NULL。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dispatch_queue_t</span> <span class="built_in">queue</span>;</span><br><span class="line"><span class="built_in">queue</span> = dispatch_queue_create(<span class="string">"com.example.MyQueue"</span>, NULL);</span><br></pre></td></tr></table></figure></p>
+<p>下表展示创建自定义的serial queue所需要的步骤。<code>dispatch_queue_create</code>函数需要两个参数：queue的名字还有queue的一组属性。调试器跟performace tool会展示队列的名字来帮助你跟踪你的任务是如何被执行的。queue的属性这个参数是为将来保留的，现在应该传入NULL。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t queue;</div><div class="line">queue = dispatch_queue_create(&quot;com.example.MyQueue&quot;, NULL);</div></pre></td></tr></table></figure></p>
 <p>除了你自己手动创建的队列之外，系统自动创建了一个serial queue并将它绑定到主线程中。</p>
 <h5 id="在运行时获取公共的队列(common_queues_at_runtime)">在运行时获取公共的队列(common queues at runtime)</h5><p>GCD提供了一些函数来让你访问一些公共的dispatch queue：</p>
 <ul>
@@ -374,25 +358,25 @@
 <h5 id="在队列中存储自定义上下文信息(custom_context_information)">在队列中存储自定义上下文信息(custom context information)</h5><p>所有dispatch object(包括dispatch queue)允许你通过对象来关联一些custom context data。要设置或者获取在给定对象中的custom context information，你可以使用<code>dispatch_set_context</code>或者<code>dispatch_get_context</code>函数。系统不会通过任何方式使用你的自定义数据，在适当的市价分配或者释放自定义数据完全取决于你。</p>
 <p>对队列来说，你可以使用context data来存储Objective-C对象的指针，或者是其他的用来识别队列的数据结构，又或者是你打算在代码中使用的数据结构。你可以使用队列的析构函数(finalizer)来释放(或者取消关联)你的队列中的context data——在队列被释放之前。下面有个例子，展示如何编写析构函数来清除队列的context data。</p>
 <h5 id="提供队列的清理函数">提供队列的清理函数</h5><p>在你创建了serial dispatch queue之后，你可以将finalizer function附加到队列中，来执行在队列被释放的时候做一些自定义的清理操作。dispatch queue是引用计数对象，你可以使用<code>dispatch_set_finalizer_f</code>函数来制定一个函数，在队列的引用计数到达0的时候被调用。你可以使用这个清理函数来清除队列关联的context data，并且只有当context pointer不为<code>NULL</code>的时候，这个函数才会被调用。</p>
-<p>下面将会向你展示一个自定义的finalizer function，还有一个创建并且设置finalizer的函数。那个队列将使用finalizer function来释放存储在队列的context pointer中的数据。（那个<code>myInitializeDataContextFunction</code> 跟 <code>myCleanUpDataContextFunction</code>函数是自定义的函数，是你用来初始化还有清理那个数据结构的内容的。）传入到finalizer function中的context pointer包含关联到队列中的数据对象。<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">void myFinalizerFunction<span class="list">(<span class="keyword">void</span> <span class="variable">*context) &#123;</span><br><span class="line">	MyDataContext*</span> theData = <span class="list">(<span class="keyword">MyDataContext*</span>)</span>context<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">	// 清理结构中的数据</span><br><span class="line">	myCleanUpDataContextFunction<span class="list">(<span class="keyword">theData</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">	// 现在释放这个结构本身</span><br><span class="line">	free<span class="list">(<span class="keyword">theData</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dispatch_queue_t createMyQueue<span class="list">()</span> &#123;</span><br><span class="line">	MyDataContext* data = <span class="list">(<span class="keyword">MyDataContext*</span>)</span>malloc<span class="list">(<span class="keyword">sizeof</span><span class="list">(<span class="keyword">MyDataContext</span>)</span>)</span><span class="comment">;</span></span><br><span class="line">	myInitializeDataContextFunction<span class="list">(<span class="keyword">data</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">	// 创建队列并且设置context data</span><br><span class="line">	dispatch_queue_t serialQueue = dispatch_queue_create<span class="list">(<span class="string">"com.example.CritialTaskQueue"</span>, NULL)</span><span class="comment">;</span></span><br><span class="line">	if <span class="list">(<span class="keyword">serialQueue</span>)</span> &#123;</span><br><span class="line">		dispatch_set_context<span class="list">(<span class="keyword">serialQueue</span>, data)</span><span class="comment">;</span></span><br><span class="line">		dispatch_set_finalizer_f<span class="list">(<span class="keyword">serialQueue</span>, <span class="keyword">&amp;myFinalizerFunction</span>)</span><span class="comment">;</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return serialQueue<span class="comment">;</span></span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>下面将会向你展示一个自定义的finalizer function，还有一个创建并且设置finalizer的函数。那个队列将使用finalizer function来释放存储在队列的context pointer中的数据。（那个<code>myInitializeDataContextFunction</code> 跟 <code>myCleanUpDataContextFunction</code>函数是自定义的函数，是你用来初始化还有清理那个数据结构的内容的。）传入到finalizer function中的context pointer包含关联到队列中的数据对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">void myFinalizerFunction(void *context) &#123;</div><div class="line">	MyDataContext* theData = (MyDataContext*)context;</div><div class="line"></div><div class="line">	// 清理结构中的数据</div><div class="line">	myCleanUpDataContextFunction(theData);</div><div class="line"></div><div class="line">	// 现在释放这个结构本身</div><div class="line">	free(theData);</div><div class="line">&#125;</div><div class="line"></div><div class="line">dispatch_queue_t createMyQueue() &#123;</div><div class="line">	MyDataContext* data = (MyDataContext*)malloc(sizeof(MyDataContext));</div><div class="line">	myInitializeDataContextFunction(data);</div><div class="line"></div><div class="line">	// 创建队列并且设置context data</div><div class="line">	dispatch_queue_t serialQueue = dispatch_queue_create(&quot;com.example.CritialTaskQueue&quot;, NULL);</div><div class="line">	if (serialQueue) &#123;</div><div class="line">		dispatch_set_context(serialQueue, data);</div><div class="line">		dispatch_set_finalizer_f(serialQueue, &amp;myFinalizerFunction);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	return serialQueue;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h4 id="将任务添加到队列中">将任务添加到队列中</h4><p>要执行任务，你需要将它分配到合适的dispatch queue中。你可以同步地或者异步地分配任务，同时你也可以将他们单个分配或者秤组分配。当队列的限制条件已经给定，并且任务已经被分配到队列中，那么队列就会负责尽可能快地执行你的任务。这个章节会展示几个分配任务的技术，还有阐述每种方法的优势。</p>
 <h5 id="将单个任务添加到队列中">将单个任务添加到队列中</h5><p>将一个任务添加到队列中有两种方法：同步或者异步。可以的话，尽量使用异步的方式（通过<code>dispatch_async</code>跟<code>dispatch_async_f</code>函数）比使用同步的方式更好。当你将一个block或者函数添加到队列中，并没有任何途径可以知道代码什么时候会被执行。因此，以一步的方式将block或者函数添加到队列中让你安排了任务的执行的同时，可以继续进行剩下的其他操作。如果你正在app的主线程执行任务，这将非常重要——例如正在响应用户的某些事件。</p>
 <p>虽然你应该尽可能地异步添加任务，但是你仍然可以在需要的时候同步地添加任务来避免产生竞争状况(race conditions)或者其他的同步错误。在这些情况中，你可以使用<code>dispatch_sync</code>跟<code>dispatch_sync_f</code>函数来将任务添加到队列。这些任务将阻塞当前线程，直到任务完成执行。</p>
 <blockquote>
 <p>重要：如果某个任务正在某个队列中执行，并且你的任务中打算使用<code>dispatch_sync</code>或者<code>dispatch_sync_f</code>函数，那么请永远不要将这个队列传入到前面所说的两个函数中。这对serial来说很重要，因为这肯定会引发死锁。在并发队列中也同样需要避免。</p>
 </blockquote>
-<p>下面的例子展示了如何使用基于block的变体来同步或者异步分配任务：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t myCustomQueue<span class="comment">;</span></span><br><span class="line">myCustomQueue = dispatch_queue_create<span class="list">(<span class="string">"com.example.MyCustomQueue"</span>, NULL)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">dispatch_async<span class="list">(<span class="keyword">myCustomeQueue</span>, ^&#123;</span><br><span class="line">	printf<span class="list">(<span class="string">"Do some work here.\n"</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">printf<span class="list">(<span class="string">"The first block may or may not have run.\n"</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">dispatch_sync<span class="list">(<span class="keyword">myCustomQueue</span>, ^&#123;</span><br><span class="line">	printf<span class="list">(<span class="string">"Do some more work here.\n"</span>)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">printf<span class="list">(<span class="string">"Both blocks have completed.\n"</span>)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>下面的例子展示了如何使用基于block的变体来同步或者异步分配任务：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t myCustomQueue;</div><div class="line">myCustomQueue = dispatch_queue_create(&quot;com.example.MyCustomQueue&quot;, NULL);</div><div class="line"></div><div class="line">dispatch_async(myCustomeQueue, ^&#123;</div><div class="line">	printf(&quot;Do some work here.\n&quot;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">printf(&quot;The first block may or may not have run.\n&quot;);</div><div class="line"></div><div class="line">dispatch_sync(myCustomQueue, ^&#123;</div><div class="line">	printf(&quot;Do some more work here.\n&quot;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">printf(&quot;Both blocks have completed.\n&quot;);</div></pre></td></tr></table></figure></p>
 <h5 id="当任务执行结束，执行一个completion_block">当任务执行结束，执行一个completion block</h5><p>本质上说，被添加到队列中的任务，与创建这些任务的代码之间，是独立运行的。然而，当任务执行完成，可能你的app想要获得相应的通知，因而获取到相应的结果。传统的异步编程中，你可能会通过回调(callback)机制来完成，但在dispatch queue中，你可以通过completion block来实现。</p>
 <p>一个completion block只是另外一片代码，你用来分配到队列中，安排在你原来的任务的结尾。代码在开始那个任务的时候，将completion block当成一个参数传入。</p>
 <p>下表展示了一个averaging function，它用block来实现。剩下的两个参数允许调用者指定一个队列还有block，来返回结果。在averaging函数计算完他的值，他将结果传入到给定的block中，并且将block分配到队列中。为了阻止队列被提前release掉，有一些重要的地方要注意：在开始的地方retain队列，并且在completion block被派遣之后release队列。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">average_async</span><span class="params">(<span class="keyword">int</span> *data, size_t len, dispatch_queue_t <span class="built_in">queue</span>, <span class="keyword">void</span>(^block)</span><span class="params">(<span class="keyword">int</span>)</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">	<span class="comment">// 将用户提供的队列retain</span></span><br><span class="line">	<span class="comment">// 确保他在完成之前不会消失</span></span><br><span class="line">	<span class="comment">// 调用block</span></span><br><span class="line">	dispatch_retain(<span class="built_in">queue</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 在默认的并发队列中执行操作</span></span><br><span class="line">	<span class="comment">// 然后调用用户提供的block，并传入结果</span></span><br><span class="line">	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">		<span class="keyword">int</span> avg = average(data, len);</span><br><span class="line">		dispatch_async(<span class="built_in">queue</span>, ^&#123;block(avg);&#125;);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 当完成了之后释放用户提供的队列</span></span><br><span class="line">		dispatch_release(<span class="built_in">queue</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="并发地运行循环">并发地运行循环</h5><p>concurrent dispatch queues可能可以让你代码中的某些部分提高性能——在你有一个执行固定次数的循环的地方。例如，假设你的一个循环在每次执行都会做一些东西：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">i</span> = <span class="number">0</span>; <span class="built_in">i</span> &lt; count; <span class="built_in">i</span>++) <span class="cell">&#123;</span><br><span class="line">	printf("%u\n", i);</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">void average_async(int *data, size_t len, dispatch_queue_t queue, void(^block)(int))</div><div class="line">&#123;</div><div class="line">	// 将用户提供的队列retain</div><div class="line">	// 确保他在完成之前不会消失</div><div class="line">	// 调用block</div><div class="line">	dispatch_retain(queue);</div><div class="line"></div><div class="line">	// 在默认的并发队列中执行操作</div><div class="line">	// 然后调用用户提供的block，并传入结果</div><div class="line">	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</div><div class="line">		int avg = average(data, len);</div><div class="line">		dispatch_async(queue, ^&#123;block(avg);&#125;);</div><div class="line"></div><div class="line">		// 当完成了之后释放用户提供的队列</div><div class="line">		dispatch_release(queue);</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="并发地运行循环">并发地运行循环</h5><p>concurrent dispatch queues可能可以让你代码中的某些部分提高性能——在你有一个执行固定次数的循环的地方。例如，假设你的一个循环在每次执行都会做一些东西：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">for (i = 0; i &lt; count; i++) &#123;</div><div class="line">	printf(&quot;%u\n&quot;, i);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>如果每次循环之内做的事情跟其他循环之间都不一样，并且每个循环完成的先后顺序没有关系，那么你可以将循环替换成<code>dispatch_apply</code>或者<code>dispatch_apply_f</code>函数。这些函数将给定的block或者函数提交到队列中，并且是每次循环提交一次。当被提交到并发的队列，一个循环内的多个不同次数的循环就可以同时被执行。</p>
 <p>当调用<code>dispatch_apply</code>或者<code>dispatch_apply_f</code>的时候，你可以指定用serial queue 或者concurrent queue。使用concurrent queue允许你同时执行多个不同次数的循环，并且这也是最常用的方法。虽然使用serial queue也是允许的，并且在代码上也是正确的，但是使用这样的队列对比起原来的普通循环代码并没有实际的性能提升。</p>
 <blockquote>
 <p>重要：正如普通的循环一样，<code>dispatch_apply</code>和<code>dispatch_apply_f</code>函数直到所有循环都完成之后才会返回。所以你应该注意，当在代码中调用他们的时候，调用的代码是否已经被安放在一个队列中运行着。如果你传入到<code>dispatch_apply</code>或者<code>dispatch_apply_f</code>函数中的队列是serial queue，并且跟当前代码所在的队列是同一个，那么调用这两个函数就会发生死锁。<br>因为他们实际上会阻塞当前线程，当在主线程调用这些函数的时候，同样要小心，因为他们有可能会让你没有办法及时地处理你的事件(event)。如果你的循环代码需要显著的运行时间，那么你应当在其他线程调用这些函数。</p>
 </blockquote>
-<p>下面的代码将展示如何将之前的循环结构替换成<code>dispatch_apply</code>函数。传入到<code>dispatch_apply</code>中的block必须包含一个单独的参数，来标识当前的循环迭代。当block被执行，这个参数的值为0代表第一次迭代，1表示第二次等等。最后一次迭代的参数值是count - 1，其中count是整个循环的次数。<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_get_global_queue<span class="list">(<span class="keyword">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>, <span class="number">0</span>)</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">dispatch_apply<span class="list">(<span class="keyword">count</span>, queue, ^<span class="list">(<span class="keyword">size_t</span> i)</span>&#123;</span><br><span class="line">	printf<span class="list">(<span class="string">"%u\n"</span>, i)</span><span class="comment">;</span></span><br><span class="line">&#125;)</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>下面的代码将展示如何将之前的循环结构替换成<code>dispatch_apply</code>函数。传入到<code>dispatch_apply</code>中的block必须包含一个单独的参数，来标识当前的循环迭代。当block被执行，这个参数的值为0代表第一次迭代，1表示第二次等等。最后一次迭代的参数值是count - 1，其中count是整个循环的次数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</div><div class="line"></div><div class="line">dispatch_apply(count, queue, ^(size_t i)&#123;</div><div class="line">	printf(&quot;%u\n&quot;, i);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <p>你应该确保你的业务代码在每次循环迭代中执行合理规模的操作。因为每个你提交到队列中的block或者函数，都会有一些固有的额外开销，来安排那些代码的执行。如果在循环的每个迭代中执行仅仅是小规模的操作，那些固有的用于安排代码执行的开销可能会比你用这个结构得到的好处要大，得不偿失。如果你在测试的时候发现前面所说的情况出现了，那么你可以使用striding来增大每次循环中要执行的操作的规模。使用了striding之后，你可以将原始循环中的多个迭代编成一个组，并且将这个组放到一个block中，来相应地降低迭代的次数。例如，如果你最开始要执行100次迭代，但是打算使用4个stride，那么你现在就会在每个block执行4个循环迭代并且你的总迭代次数是25。<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/ThreadMigration/ThreadMigration.html#//apple_ref/doc/uid/TP40008091-CH105-SW2" target="_blank" rel="external">戳这里看例子</a>。</p>
 <h5 id="在主线程中执行任务">在主线程中执行任务</h5><p>GCD提供了一个特殊的dispatch queue，你可以用来在你的app主线程中执行任务。这个队列在所有app中都会自动生成，并且会被那些在主线程建立了运行循环(被CFRunLoopRef或者NSRunLoop对象管理)的app自动排空(指的是执行队列中的任务)。如果你创建的不是cocoaapp，并且不想显式建立run loop，你需要调用<code>dispatch_main</code>函数来显式排空main dispatch queue。你可以将任务添加到队列中，但是如果你不调用这个函数(dispatch_main)，那么里面的任务将永远不会被执行。</p>
 <p>你可以通过<code>dispatch_get_main_queue</code>函数来获取app中主线程相关联的dispatch queue。被添加到队列中的任务将会在主线程中被顺序执行。因此，你可以使用这个队列，来当做是你app中其他正在被执行的任务的同步点。</p>
@@ -411,9 +395,9 @@
 <li>当上述的等待函数返回之后，获取资源并执行你的任务。</li>
 <li>当你使用资源结束之后，释放资源并且发出semaphore，通过调用<code>dispatch_semaphore_signal</code>函数。</li>
 </ol>
-<p>举个例子，考虑使用系统的文件描述符(file descriptor)的情况。每个app被给定了固定数量的file descriptor。如果你有一个任务，需要访问大量的文件，你并不想要同一时间之内打开非常多的文件，来让你将所有文件描述符用完。那么，你可以是使用semaphore来显示file descriptor的同时使用数量。代码的基本部分如下：<br><figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建semaphore，指定最初的pool size</span></span><br><span class="line">dispatch_semaphore_t fd_sema = dispatch_semaphore_create<span class="params">(getdtablesize<span class="params">()</span> / <span class="number">2</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等待可用的file descriptor</span></span><br><span class="line">dispatch_semaphore_wait<span class="params">(fd_sema, DISPATCH_TIME_FOREVER)</span>;</span><br><span class="line">fd = open<span class="params">(<span class="string">"/etc/services"</span>, O_RDONLY)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 业务完成之后释放文件描述符</span></span><br><span class="line">close<span class="params">(fd)</span>;</span><br><span class="line">dispatch_semaphore_signal<span class="params">(fd_sema)</span>;</span><br></pre></td></tr></table></figure></p>
+<p>举个例子，考虑使用系统的文件描述符(file descriptor)的情况。每个app被给定了固定数量的file descriptor。如果你有一个任务，需要访问大量的文件，你并不想要同一时间之内打开非常多的文件，来让你将所有文件描述符用完。那么，你可以是使用semaphore来显示file descriptor的同时使用数量。代码的基本部分如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// 创建semaphore，指定最初的pool size</div><div class="line">dispatch_semaphore_t fd_sema = dispatch_semaphore_create(getdtablesize() / 2);</div><div class="line"></div><div class="line">// 等待可用的file descriptor</div><div class="line">dispatch_semaphore_wait(fd_sema, DISPATCH_TIME_FOREVER);</div><div class="line">fd = open(&quot;/etc/services&quot;, O_RDONLY);</div><div class="line"></div><div class="line">// 业务完成之后释放文件描述符</div><div class="line">close(fd);</div><div class="line">dispatch_semaphore_signal(fd_sema);</div></pre></td></tr></table></figure></p>
 <p>当你创建了semaphore，你要指定可用的资源的数量。这个值将会是初始semaphore的可用数量。每一次你等待semaphore，<code>dispatch_semaphore_wait</code>函数会将可用数量减1。如果减1之后的结果是负数，那么函数就会告诉kernel来讲你的线程阻塞。另一方面<code>dispatch_semaphore_signal</code>函数会将可用数量增加1，来表明有一个资源被释放。如果有好几个任务被阻塞了，在等待资源，那么其中一个将会随后被取消阻塞，并被允许执行它的操作。</p>
-<h4 id="等待好几组在队列中的任务">等待好几组在队列中的任务</h4><p>dispatch goup是一种将线程阻塞直到一个或者多个任务结束执行的手段。你可以将这个操作用于：需要等待所有特定的任务都执行完成之后，才能继续进行任务的情况。例如，在分配了几个任务来计算一些数据之后，你可能需要使用一个组来等待那些任务，然后在它们全都执行完成之后，再使用计算的结果来进行下一步操作。另外一种使用dispatch group的情况就是，作为thread join的替代。不同于新开几个子线程再将他们并在一组，你可以将相关的任务添加到一个dispatch group并且等待整个组。<br>下表列出了建立一个组的基本步骤，还有如何将任务分配给它，并且等待结果。不同于使用<code>dispatch_async</code>函数来分配任务到队列中，你应该使用<code>dispatch_group_async</code>函数。这个函数将任务与组关联起来，并且将它放入队列中。还要等待一组任务完成，你需要使用<code>dispatch_group_wait</code>函数，向它传入响应的组。<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t <span class="built_in">queue</span> <span class="subst">=</span> dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</span><br><span class="line">dispatch_group_t <span class="keyword">group</span> <span class="subst">=</span> dispatch_group_create();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将任务添加到组中</span></span><br><span class="line">dispatch_group_async(<span class="keyword">group</span>, <span class="built_in">queue</span>, ^&#123;</span><br><span class="line">	<span class="comment">// 一些异步的操作</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当任务正在运行的时候做一些其他的操作</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 当你不能继续执行操作</span></span><br><span class="line"><span class="comment">// 等待group那个group，并阻塞当前线程</span></span><br><span class="line">dispatch_group_wait(<span class="keyword">group</span>, DISPATCH_TIME_FOREVER);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当不再需要的时候，释放这个group</span></span><br><span class="line">dispatch_release(<span class="keyword">group</span>);</span><br></pre></td></tr></table></figure></p>
+<h4 id="等待好几组在队列中的任务">等待好几组在队列中的任务</h4><p>dispatch goup是一种将线程阻塞直到一个或者多个任务结束执行的手段。你可以将这个操作用于：需要等待所有特定的任务都执行完成之后，才能继续进行任务的情况。例如，在分配了几个任务来计算一些数据之后，你可能需要使用一个组来等待那些任务，然后在它们全都执行完成之后，再使用计算的结果来进行下一步操作。另外一种使用dispatch group的情况就是，作为thread join的替代。不同于新开几个子线程再将他们并在一组，你可以将相关的任务添加到一个dispatch group并且等待整个组。<br>下表列出了建立一个组的基本步骤，还有如何将任务分配给它，并且等待结果。不同于使用<code>dispatch_async</code>函数来分配任务到队列中，你应该使用<code>dispatch_group_async</code>函数。这个函数将任务与组关联起来，并且将它放入队列中。还要等待一组任务完成，你需要使用<code>dispatch_group_wait</code>函数，向它传入响应的组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</div><div class="line">dispatch_group_t group = dispatch_group_create();</div><div class="line"></div><div class="line">// 将任务添加到组中</div><div class="line">dispatch_group_async(group, queue, ^&#123;</div><div class="line">	// 一些异步的操作</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// 当任务正在运行的时候做一些其他的操作</div><div class="line"></div><div class="line">// 当你不能继续执行操作</div><div class="line">// 等待group那个group，并阻塞当前线程</div><div class="line">dispatch_group_wait(group, DISPATCH_TIME_FOREVER);</div><div class="line"></div><div class="line">// 当不再需要的时候，释放这个group</div><div class="line">dispatch_release(group);</div></pre></td></tr></table></figure></p>
 <h4 id="dispatch_queue安全以及线程安全">dispatch queue安全以及线程安全</h4><p>这能在dispatch queue的环境下谈论线程安全有点奇怪，但是线程安全仍然是一个相关的话题。任何时候，你在程序中实现并发，都有几件事是你应该知道的：</p>
 <ul>
 <li>dispatch queue他们本身是线程安全的。换句话说，你可以在任意线程提交任务到dispatch queue而不用实现使用线程锁或者对队列进行同步访问。</li>
@@ -432,11 +416,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/GCD/" rel="tag">#GCD</a>
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
           
             <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
           
-            <a href="/tags/iOS/" rel="tag">#iOS</a>
+            <a href="/tags/GCD/" rel="tag">#GCD</a>
           
             <a href="/tags/多线程/" rel="tag">#多线程</a>
           
@@ -481,8 +465,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/08/31/20150828_gcd_dispatch_queue/"
-                       data-title="iOS并发编程—Dispatch Queues" data-url="http://pandara.xyz/2015/08/31/20150828_gcd_dispatch_queue/">
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                   </div>
                 
               </div>
@@ -641,25 +625,32 @@
   
   
     
+    
 
   
-    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = '2015/08/31/20150828_gcd_dispatch_queue/';
+      var disqus_title = 'iOS并发编程—Dispatch Queues';
+      var disqus_url = 'http://pandara.xyz/2015/08/31/20150828_gcd_dispatch_queue/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
 
-    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>

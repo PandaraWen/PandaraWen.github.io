@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="Objective-C,iOS,开发," />
+  <meta name="keywords" content="iOS,Objective-C,开发," />
 
 
 
@@ -40,19 +40,17 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="iPhone5s 或者更新的机型，有协处理器，可以在消耗很低的电量的情况下，记录手机上传感器获得的数据。而 iPhone4、iPhone4s、iPone5 等，如果要实现记步功能，只能利用加速传感器跟算法配合来实现了。
-下面仅讨论在机器有协处理器的情况下，如何利用系统提供的记步 API。">
+<meta name="description" content="iPhone5s 或者更新的机型，有协处理器，可以在消耗很低的电量的情况下，记录手机上传感器获得的数据。而 iPhone4、iPhone4s、iPone5 等，如果要实现记步功能，只能利用加速传感器跟算法配合来实现了。 下面仅讨论在机器有协处理器的情况下，如何利用系统提供的记步 API。">
+<meta name="keywords" content="iOS,Objective-C,开发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 计步">
 <meta property="og:url" content="http://pandara.xyz/2015/10/26/ios_pedometer/index.html">
-<meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="iPhone5s 或者更新的机型，有协处理器，可以在消耗很低的电量的情况下，记录手机上传感器获得的数据。而 iPhone4、iPhone4s、iPone5 等，如果要实现记步功能，只能利用加速传感器跟算法配合来实现了。
-下面仅讨论在机器有协处理器的情况下，如何利用系统提供的记步 API。">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
+<meta property="og:description" content="iPhone5s 或者更新的机型，有协处理器，可以在消耗很低的电量的情况下，记录手机上传感器获得的数据。而 iPhone4、iPhone4s、iPone5 等，如果要实现记步功能，只能利用加速传感器跟算法配合来实现了。 下面仅讨论在机器有协处理器的情况下，如何利用系统提供的记步 API。">
 <meta property="og:updated_time" content="2015-10-26T16:14:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 计步">
-<meta name="twitter:description" content="iPhone5s 或者更新的机型，有协处理器，可以在消耗很低的电量的情况下，记录手机上传感器获得的数据。而 iPhone4、iPhone4s、iPone5 等，如果要实现记步功能，只能利用加速传感器跟算法配合来实现了。
-下面仅讨论在机器有协处理器的情况下，如何利用系统提供的记步 API。">
+<meta name="twitter:description" content="iPhone5s 或者更新的机型，有协处理器，可以在消耗很低的电量的情况下，记录手机上传感器获得的数据。而 iPhone4、iPhone4s、iPone5 等，如果要实现记步功能，只能利用加速传感器跟算法配合来实现了。 下面仅讨论在机器有协处理器的情况下，如何利用系统提供的记步 API。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -236,17 +234,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/10/26/ios_pedometer/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/26/ios_pedometer/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
           <span id="busuanzi_container_page_pv">
             &nbsp; | &nbsp;
             访客
@@ -268,10 +255,10 @@
         <span itemprop="articleBody"><p>iPhone5s 或者更新的机型，有协处理器，可以在消耗很低的电量的情况下，记录手机上传感器获得的数据。而 iPhone4、iPhone4s、iPone5 等，如果要实现记步功能，只能利用<strong>加速传感器</strong>跟算法配合来实现了。</p>
 <p><br>下面仅讨论在机器有协处理器的情况下，如何利用系统提供的记步 API。</p>
 <a id="more"></a>
-<h5 id="iOS7">iOS7</h5><p>在 iOS7 中，可以利用 <code>CMStepCounter</code> (deprecated in iOS8)。初始化：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (CMStepCounter *)stepCounter</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (![CMStepCounter isStepCountingAvailable]) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"计步器 CMStepCounter 不可用"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!_stepCounter) &#123;</span><br><span class="line">        _stepCounter = [[CMStepCounter alloc] init];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _stepCounter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>开始记步：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)startStepCounting</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSOperationQueue</span> *queue = [[<span class="built_in">NSOperationQueue</span> alloc] init];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.stepCounter</span> startStepCountingUpdatesToQueue:queue updateOn:<span class="number">1</span> withHandler:^(<span class="built_in">NSInteger</span> numberOfSteps, <span class="built_in">NSDate</span> * _Nonnull timestamp, <span class="built_in">NSError</span> * _Nullable error) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"计步 CMStepCounter 错误：%@"</span>, error);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            <span class="keyword">self</span><span class="variable">.countLabel</span><span class="variable">.text</span> = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%ld"</span>, (<span class="keyword">long</span>)numberOfSteps];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="iOS8">iOS8</h5><p>在 iOS8 中，使用类 <code>CMPedometer</code>。初始化：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (C<span class="built_in">MPedometer</span> *)pedometer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (![C<span class="built_in">MPedometer</span> isStepCountingAvailable]) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"计步器 CMPedometer 不可用"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!_pedometer) &#123;</span><br><span class="line">        _pedometer = [[C<span class="built_in">MPedometer</span> alloc] init];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _pedometer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>开始记步：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)startStepCounting</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.pedometer</span> startPedometerUpdatesFromDate:[<span class="built_in">NSDate</span> dateWithTimeIntervalSinceNow:<span class="number">0</span>] withHandler:^(C<span class="built_in">MPedometerData</span> * _Nullable pedometerData, <span class="built_in">NSError</span> * _Nullable error) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"计步 CMPedometer 错误：%@"</span>, error);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            <span class="keyword">self</span><span class="variable">.countLabel</span><span class="variable">.text</span> = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>, pedometerData<span class="variable">.numberOfSteps</span>];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="iOS7">iOS7</h5><p>在 iOS7 中，可以利用 <code>CMStepCounter</code> (deprecated in iOS8)。初始化：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">CMStepCounter</span> *)stepCounter</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (![<span class="built_in">CMStepCounter</span> isStepCountingAvailable]) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"计步器 CMStepCounter 不可用"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (!_stepCounter) &#123;</div><div class="line">        _stepCounter = [[<span class="built_in">CMStepCounter</span> alloc] init];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> _stepCounter;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>开始记步：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)startStepCounting</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSOperationQueue</span> *queue = [[<span class="built_in">NSOperationQueue</span> alloc] init];</div><div class="line">    [<span class="keyword">self</span>.stepCounter startStepCountingUpdatesToQueue:queue updateOn:<span class="number">1</span> withHandler:^(<span class="built_in">NSInteger</span> numberOfSteps, <span class="built_in">NSDate</span> * _Nonnull timestamp, <span class="built_in">NSError</span> * _Nullable error) &#123;</div><div class="line">        <span class="keyword">if</span> (error) &#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"计步 CMStepCounter 错误：%@"</span>, error);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">            <span class="keyword">self</span>.countLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%ld"</span>, (<span class="keyword">long</span>)numberOfSteps];</div><div class="line">        &#125;);</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="iOS8">iOS8</h5><p>在 iOS8 中，使用类 <code>CMPedometer</code>。初始化：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">CMPedometer</span> *)pedometer</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (![<span class="built_in">CMPedometer</span> isStepCountingAvailable]) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"计步器 CMPedometer 不可用"</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (!_pedometer) &#123;</div><div class="line">        _pedometer = [[<span class="built_in">CMPedometer</span> alloc] init];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> _pedometer;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>开始记步：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)startStepCounting</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span>.pedometer startPedometerUpdatesFromDate:[<span class="built_in">NSDate</span> dateWithTimeIntervalSinceNow:<span class="number">0</span>] withHandler:^(<span class="built_in">CMPedometerData</span> * _Nullable pedometerData, <span class="built_in">NSError</span> * _Nullable error) &#123;</div><div class="line">        <span class="keyword">if</span> (error) &#123;</div><div class="line">            <span class="built_in">NSLog</span>(<span class="string">@"计步 CMPedometer 错误：%@"</span>, error);</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">            <span class="keyword">self</span>.countLabel.text = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@"</span>, pedometerData.numberOfSteps];</div><div class="line">        &#125;);</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><br><br>以上</p>
 </span>
       
@@ -281,9 +268,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
-          
             <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/Objective-C/" rel="tag">#Objective-C</a>
           
             <a href="/tags/开发/" rel="tag">#开发</a>
           
@@ -326,8 +313,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/10/26/ios_pedometer/"
-                       data-title="iOS 计步" data-url="http://pandara.xyz/2015/10/26/ios_pedometer/">
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                   </div>
                 
               </div>
@@ -486,25 +473,32 @@
   
   
     
+    
 
   
-    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = '2015/10/26/ios_pedometer/';
+      var disqus_title = 'iOS 计步';
+      var disqus_url = 'http://pandara.xyz/2015/10/26/ios_pedometer/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
 
-    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>

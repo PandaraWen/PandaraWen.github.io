@@ -40,24 +40,13 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
 
 
-<meta name="description" content="iOS 中的扩展有多种，包括：Today，Share，Action，PhotoEditing，FinderSync，自定义键盘等等。这里要说的类型是 Today，就是在通知中心“今天”里面添加的 widget
-对于 Today 插件，它应该：
-
-
-确保内容永远是最新的
-正确响应用户的操作
-高效运行（特别是iOS插件必须合理使用内存，否则系统可能终止插件的运行）">
+<meta name="description" content="iOS 中的扩展有多种，包括：Today，Share，Action，PhotoEditing，FinderSync，自定义键盘等等。这里要说的类型是 Today，就是在通知中心“今天”里面添加的 widget 对于 Today 插件，它应该：   确保内容永远是最新的 正确响应用户的操作 高效运行（特别是iOS插件必须合理使用内存，否则系统可能终止插件的运行）">
+<meta name="keywords" content="widget">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS8 Today Wiget 开发">
 <meta property="og:url" content="http://pandara.xyz/2015/12/28/widget/index.html">
-<meta property="og:site_name" content="Pandara's Zone">
-<meta property="og:description" content="iOS 中的扩展有多种，包括：Today，Share，Action，PhotoEditing，FinderSync，自定义键盘等等。这里要说的类型是 Today，就是在通知中心“今天”里面添加的 widget
-对于 Today 插件，它应该：
-
-
-确保内容永远是最新的
-正确响应用户的操作
-高效运行（特别是iOS插件必须合理使用内存，否则系统可能终止插件的运行）">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
+<meta property="og:description" content="iOS 中的扩展有多种，包括：Today，Share，Action，PhotoEditing，FinderSync，自定义键盘等等。这里要说的类型是 Today，就是在通知中心“今天”里面添加的 widget 对于 Today 插件，它应该：   确保内容永远是最新的 正确响应用户的操作 高效运行（特别是iOS插件必须合理使用内存，否则系统可能终止插件的运行）">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget01.png?imageView2/2/w/600">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget02_2.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget03.png">
@@ -70,13 +59,8 @@
 <meta property="og:updated_time" content="2015-12-28T15:35:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS8 Today Wiget 开发">
-<meta name="twitter:description" content="iOS 中的扩展有多种，包括：Today，Share，Action，PhotoEditing，FinderSync，自定义键盘等等。这里要说的类型是 Today，就是在通知中心“今天”里面添加的 widget
-对于 Today 插件，它应该：
-
-
-确保内容永远是最新的
-正确响应用户的操作
-高效运行（特别是iOS插件必须合理使用内存，否则系统可能终止插件的运行）">
+<meta name="twitter:description" content="iOS 中的扩展有多种，包括：Today，Share，Action，PhotoEditing，FinderSync，自定义键盘等等。这里要说的类型是 Today，就是在通知中心“今天”里面添加的 widget 对于 Today 插件，它应该：   确保内容永远是最新的 正确响应用户的操作 高效运行（特别是iOS插件必须合理使用内存，否则系统可能终止插件的运行）">
+<meta name="twitter:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget01.png?imageView2/2/w/600">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -260,17 +244,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/12/28/widget/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/28/widget/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
           <span id="busuanzi_container_page_pv">
             &nbsp; | &nbsp;
             访客
@@ -318,17 +291,17 @@
 <p><br>但是我这样做的话程序会报错，至今仍未找到原因。无奈只能将 storyBoard 留下来先</p>
 <p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fwidget05.png" alt="image"></p>
 <h4 id="编写_widget_布局">编写 widget 布局</h4><p>Today 的视图有限，所以我们的 widget 应该越小巧玲珑越好。况且本来 widget 就不应该太过繁重。widget 应该适应 Today 视图的宽度，通过增加高度来显示更多内容。</p>
-<p><br>要控制 widget 的内容高度，可以通过两种方法，第一种是通过 AutoLayout；第二种则是用:<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.preferredContentSize</span> = <span class="built_in">CGSizeMake</span>(SCREEN_SIZE<span class="variable">.width</span>, HEIGHT);</span><br></pre></td></tr></table></figure></p>
-<p>另外，<code>NCWidgetProviding</code> 协议里面的一个方法也会影响内容布局：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIEdgeInsets</span>)widgetMarginInsetsForProposedMarginInsets:(<span class="built_in">UIEdgeInsets</span>)defaultMarginInsets</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">UIEdgeInsetsMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br>要控制 widget 的内容高度，可以通过两种方法，第一种是通过 AutoLayout；第二种则是用:<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.preferredContentSize = <span class="built_in">CGSizeMake</span>(SCREEN_SIZE.width, HEIGHT);</div></pre></td></tr></table></figure></p>
+<p>另外，<code>NCWidgetProviding</code> 协议里面的一个方法也会影响内容布局：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UIEdgeInsets</span>)widgetMarginInsetsForProposedMarginInsets:(<span class="built_in">UIEdgeInsets</span>)defaultMarginInsets</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">UIEdgeInsetsMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h4 id="数据传输">数据传输</h4><p><strong>方式一：自定义 URL Scheme，在 URL 中传递参数</strong></p>
 <ol>
 <li>在项目对应的 Target 中的 Info 页，添加一个 Scheme。Identifier 为自己项目的 Bundle Identifier；在 URLSchemes 一栏里填上自己想要的名称。</li>
-<li>通过 myappscheme://?foo=1&amp;bar=2 这种 URL 方式来唤起自己的 app，并且可以在 AppDelegate 中的回调捕获到这个 URL，然后便可以对 URL 中的参数进行分析处理：<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application handleOpenURL:(<span class="built_in">NSURL</span> *)url   </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="comment">// Do something with the url here  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>通过 myappscheme://?foo=1&amp;bar=2 这种 URL 方式来唤起自己的 app，并且可以在 AppDelegate 中的回调捕获到这个 URL，然后便可以对 URL 中的参数进行分析处理：<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application handleOpenURL:(<span class="built_in">NSURL</span> *)url   </div><div class="line">&#123;  </div><div class="line">    <span class="comment">// Do something with the url here  </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p><strong>方法二：使用 <code>NSUserDefault</code></strong><br>widget 与 containing App 共享一个 NSUserDefault。不过要注意的是，这里指的不是我们通常所用的标准 NSUserDefault。在 widget 中的 UserDefault 与 Containing App 中的 UserDefaul 是不一致的，这是一个坑。我们需要在苹果开发者网站里面新建一个 group，然后用这个 group 的名字组建一个 Suite Name 来初始化一个 NSUserDefault：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">NSUserDefaults</span> alloc] initWithSuiteName:@”group<span class="variable">.com</span><span class="variable">.mycompany</span><span class="variable">.myapp</span>”]</span><br></pre></td></tr></table></figure></p>
+<p><strong>方法二：使用 <code>NSUserDefault</code></strong><br>widget 与 containing App 共享一个 NSUserDefault。不过要注意的是，这里指的不是我们通常所用的标准 NSUserDefault。在 widget 中的 UserDefault 与 Containing App 中的 UserDefaul 是不一致的，这是一个坑。我们需要在苹果开发者网站里面新建一个 group，然后用这个 group 的名字组建一个 Suite Name 来初始化一个 NSUserDefault：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[[<span class="built_in">NSUserDefaults</span> alloc] initWithSuiteName:@”group.com.mycompany.myapp”]</div></pre></td></tr></table></figure></p>
 <p><a href="http://tapadoo.com/2014/sharing-nsuserdefaults-between-your-app-and-a-today-extension-on-ios-8/" target="_blank" rel="external">这篇文章</a>可以让你更加详细地了解这部分。</p>
-<h4 id="UIVbrancyEffect">UIVbrancyEffect</h4><p>它是跟 UIBlurEffect 一起随 iOS8 发布的。通常情况下它都要配合 UIBlurEffect 来一起使用。通常情况下会这样使用：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setEffect </span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//先初始化一个 blur effect view</span></span><br><span class="line">	<span class="built_in">UIBlurEffect</span> * effect = [<span class="built_in">UIBlurEffect</span> effectWithStyle:<span class="built_in">UIBlurEffectStyleLight</span>];</span><br><span class="line">    <span class="built_in">UIVisualEffectView</span> * viewWithBlurredBackground = [[<span class="built_in">UIVisualEffectView</span> alloc] initWithEffect:effect];</span><br><span class="line">    viewWithBlurredBackground<span class="variable">.frame</span> = <span class="keyword">self</span><span class="variable">.view</span><span class="variable">.bounds</span>;</span><br><span class="line">    viewWithBlurredBackground<span class="variable">.autoresizingMask</span> = <span class="built_in">UIViewAutoresizingFlexibleWidth</span> | <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:viewWithBlurredBackground];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//然后再利用上面的 blur effect 初始化 vibrancy effect view</span></span><br><span class="line">    <span class="built_in">UIVibrancyEffect</span> *vibrancyEffect = [<span class="built_in">UIVibrancyEffect</span> effectForBlurEffect:effect];</span><br><span class="line">    <span class="built_in">UIVisualEffectView</span> * viewInducingVibrancy = [[<span class="built_in">UIVisualEffectView</span> alloc] initWithEffect:vibrancyEffect]; <span class="comment">// must be the same effect as the blur view</span></span><br><span class="line">    viewInducingVibrancy<span class="variable">.frame</span> = viewWithBlurredBackground<span class="variable">.frame</span>;</span><br><span class="line">    viewInducingVibrancy<span class="variable">.autoresizingMask</span> = viewWithBlurredBackground<span class="variable">.autoresizingMask</span>;</span><br><span class="line">    [viewWithBlurredBackground<span class="variable">.contentView</span> addSubview:viewInducingVibrancy];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//最后往 effectView.contentView 里面添加内容</span></span><br><span class="line">    <span class="built_in">UILabel</span> * vibrantLabel = [<span class="built_in">UILabel</span> new];</span><br><span class="line">    vibrantLabel<span class="variable">.font</span> = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">120.0</span>f];</span><br><span class="line">    vibrantLabel<span class="variable">.text</span> = <span class="string">@"Vibrant"</span>;</span><br><span class="line">    [vibrantLabel sizeToFit];</span><br><span class="line">    </span><br><span class="line">    [viewInducingVibrancy<span class="variable">.contentView</span> addSubview:vibrantLabel];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="UIVbrancyEffect">UIVbrancyEffect</h4><p>它是跟 UIBlurEffect 一起随 iOS8 发布的。通常情况下它都要配合 UIBlurEffect 来一起使用。通常情况下会这样使用：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setEffect </div><div class="line">&#123;</div><div class="line">	<span class="comment">//先初始化一个 blur effect view</span></div><div class="line">	<span class="built_in">UIBlurEffect</span> * effect = [<span class="built_in">UIBlurEffect</span> effectWithStyle:<span class="built_in">UIBlurEffectStyleLight</span>];</div><div class="line">    <span class="built_in">UIVisualEffectView</span> * viewWithBlurredBackground = [[<span class="built_in">UIVisualEffectView</span> alloc] initWithEffect:effect];</div><div class="line">    viewWithBlurredBackground.frame = <span class="keyword">self</span>.view.bounds;</div><div class="line">    viewWithBlurredBackground.autoresizingMask = <span class="built_in">UIViewAutoresizingFlexibleWidth</span> | <span class="built_in">UIViewAutoresizingFlexibleHeight</span>;</div><div class="line">    [<span class="keyword">self</span>.view addSubview:viewWithBlurredBackground];</div><div class="line">    </div><div class="line">    <span class="comment">//然后再利用上面的 blur effect 初始化 vibrancy effect view</span></div><div class="line">    <span class="built_in">UIVibrancyEffect</span> *vibrancyEffect = [<span class="built_in">UIVibrancyEffect</span> effectForBlurEffect:effect];</div><div class="line">    <span class="built_in">UIVisualEffectView</span> * viewInducingVibrancy = [[<span class="built_in">UIVisualEffectView</span> alloc] initWithEffect:vibrancyEffect]; <span class="comment">// must be the same effect as the blur view</span></div><div class="line">    viewInducingVibrancy.frame = viewWithBlurredBackground.frame;</div><div class="line">    viewInducingVibrancy.autoresizingMask = viewWithBlurredBackground.autoresizingMask;</div><div class="line">    [viewWithBlurredBackground.contentView addSubview:viewInducingVibrancy];</div><div class="line">    </div><div class="line">    <span class="comment">//最后往 effectView.contentView 里面添加内容</span></div><div class="line">    <span class="built_in">UILabel</span> * vibrantLabel = [<span class="built_in">UILabel</span> new];</div><div class="line">    vibrantLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">120.0</span>f];</div><div class="line">    vibrantLabel.text = <span class="string">@"Vibrant"</span>;</div><div class="line">    [vibrantLabel sizeToFit];</div><div class="line">    </div><div class="line">    [viewInducingVibrancy.contentView addSubview:vibrantLabel];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fvibrant_effect.jpg" alt="image"></p>
 <p><br></p>
 <blockquote>
@@ -336,13 +309,13 @@
 </blockquote>
 <p><br>而在开发 Today Widget 的时候，想达到下图的中效果该怎么办呢。我们无法获取通知中心背景的 Blur Effect。</p>
 <p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fnotification_center_0.PNG?imageView2/2/w/400" alt="image"></p>
-<p><br>NotificationCenter frameWork 给我们提供了一个 Category，看一眼方法名就懂：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIVibrancyEffect</span> (<span class="title">NotificationCenter</span>)</span></span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">UIVibrancyEffect</span> *)notificationCenterVibrancyEffect;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-<p>于是可以在 widget 的 todayViewController 中这样来添加 effectView<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIVisualEffectView</span> *effectView = [[<span class="built_in">UIVisualEffectView</span> alloc] initWithEffect:[<span class="built_in">UIVibrancyEffect</span> notificationCenterVibrancyEffect]];</span><br><span class="line">    <span class="comment">//<span class="doctag"><span class="keyword">TODO</span></span>: 设置 effectView 的 frame </span></span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:effectView];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//<span class="doctag"><span class="keyword">TODO</span></span>: add subviews to contentView</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br>NotificationCenter frameWork 给我们提供了一个 Category，看一眼方法名就懂：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIVibrancyEffect</span> (<span class="title">NotificationCenter</span>)</span></div><div class="line"></div><div class="line">+ (<span class="built_in">UIVibrancyEffect</span> *)notificationCenterVibrancyEffect;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<p>于是可以在 widget 的 todayViewController 中这样来添加 effectView<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line"></div><div class="line">    <span class="built_in">UIVisualEffectView</span> *effectView = [[<span class="built_in">UIVisualEffectView</span> alloc] initWithEffect:[<span class="built_in">UIVibrancyEffect</span> notificationCenterVibrancyEffect]];</div><div class="line">    <span class="comment">//<span class="doctag">TODO:</span> 设置 effectView 的 frame </span></div><div class="line">    [<span class="keyword">self</span>.view addSubview:effectView];</div><div class="line">    </div><div class="line">    <span class="comment">//<span class="doctag">TODO:</span> add subviews to contentView</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>这里有个小坑：当我直接将一个 button 添加到 contentView 中，button 的 title 会“显示不出来”。这是因为 button.titleLable 中的文字拥有跟 button 一样的 vibrancyEffect，如果给 button 的背景颜色设置一个 alpha 值，就可以看到 title：</p>
 <p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fbutton.jpg" alt="image"></p>
 <p><br>那么问题来了，想要实现上图中 Chrome 浏览器 widget 的 button 一样的效果该怎么办呢。</p>
 <p><br>用 <code>drawInRect:</code> 等函数来自己绘制吧。Github 上已经有人实现了这种风格的 button：<a href="https://github.com/a1anyip/AYVibrantButton" target="_blank" rel="external">AYVibrantButton</a>。里面的 button title 跟 image 都是用方法来绘制的。看来貌似只有这个方法了哦。</p>
-<h4 id="更新插件状态">更新插件状态</h4><p>NCWidgetProviding 协议中有一个方法，会在某些时刻被调用，来给 widget 一个机会来更新自己的 UI，例如截屏的时候。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)widgetPerformUpdateWithCompletionHandler:(<span class="keyword">void</span> (^)(NCUpdateResult))completionHandler &#123;</span><br><span class="line">    <span class="comment">// Perform any setup necessary in order to update the view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// If an error is encountered, use NCUpdateResultFailed</span></span><br><span class="line">    <span class="comment">// If there's no update required, use NCUpdateResultNoData</span></span><br><span class="line">    <span class="comment">// If there's an update, use NCUpdateResultNewData</span></span><br><span class="line"></span><br><span class="line">    completionHandler(NCUpdateResultNewData);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="更新插件状态">更新插件状态</h4><p>NCWidgetProviding 协议中有一个方法，会在某些时刻被调用，来给 widget 一个机会来更新自己的 UI，例如截屏的时候。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)widgetPerformUpdateWithCompletionHandler:(<span class="keyword">void</span> (^)(NCUpdateResult))completionHandler &#123;</div><div class="line">    <span class="comment">// Perform any setup necessary in order to update the view.</span></div><div class="line">    </div><div class="line">    <span class="comment">// If an error is encountered, use NCUpdateResultFailed</span></div><div class="line">    <span class="comment">// If there's no update required, use NCUpdateResultNoData</span></div><div class="line">    <span class="comment">// If there's an update, use NCUpdateResultNewData</span></div><div class="line"></div><div class="line">    completionHandler(NCUpdateResultNewData);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>更新完数据之后要根据数据的更新情况来调用 block 回调。</p>
 <h4 id="widget_的生命周期">widget 的生命周期</h4><p>NSWidgetProviding.h 中有这样的一段文字：<br><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fnote.png" alt="image"></p>
 <p><br></p>
@@ -404,8 +377,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/12/28/widget/"
-                       data-title="iOS8 Today Wiget 开发" data-url="http://pandara.xyz/2015/12/28/widget/">
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                   </div>
                 
               </div>
@@ -564,25 +537,32 @@
   
   
     
+    
 
   
-    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = '2015/12/28/widget/';
+      var disqus_title = 'iOS8 Today Wiget 开发';
+      var disqus_url = 'http://pandara.xyz/2015/12/28/widget/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
 
-    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>

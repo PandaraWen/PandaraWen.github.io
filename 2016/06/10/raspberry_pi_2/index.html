@@ -41,10 +41,11 @@
 
 
 <meta name="description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动">
+<meta name="keywords" content="Raspberry Pi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Raspberry Pi 小车移动监控II — 运动控制">
 <meta property="og:url" content="http://pandara.xyz/2016/06/10/raspberry_pi_2/index.html">
-<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3278.JPG?imageView2/2/w/450">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/l298n.jpg?imageView2/1/w/200/h/200">
@@ -59,6 +60,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Raspberry Pi 小车移动监控II — 运动控制">
 <meta name="twitter:description" content="本部分讲解控制树莓派的 GPIO 输出信号以此来控制电机驱动">
+<meta name="twitter:image" content="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3278.JPG?imageView2/2/w/450">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -242,17 +244,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/06/10/raspberry_pi_2/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/10/raspberry_pi_2/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
           <span id="busuanzi_container_page_pv">
             &nbsp; | &nbsp;
             访客
@@ -311,8 +302,8 @@
 <li>逻辑输入：IN1为高时OUT1输出12v电压，为低时OUT1为0v。其他类似，IN2对应OUT2，IN3对应OUT3，IN4对应OUT4</li>
 </ul>
 <p>然后将板子跟电机连起来，说说我的连线方案，左边电机红线(正极)连OUT1，黑线(负极)接OUT2；右边电机红线接OUT4，黑线接OUT3。下面说说 Pi GPIO 输出。</p>
-<p><br>GPIO 就是 General Purpose Input Output （通用输入/输出）。 树莓派里代码控制 GPIO 针脚输出有两种方式，用 C 或者用 Python，无疑 Python 是最方便的。之前我配置 vim + python 时安装的 python-dev 貌似已经包含了 gpio 库，如果你的 pi 上没有 gpio 库的话，可以用下面的命令来安装<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#Python2安装GPIO库需要输入命令：</span></span><br><span class="line">sudo apt-<span class="keyword">get</span> install python-rpi.gpio</span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#Python3安装GPIO库需要输入命令：</span></span><br><span class="line">sudo apt-<span class="keyword">get</span> install python3-rpi.gpio</span><br></pre></td></tr></table></figure></p>
-<p>安装好之后可以利用命令来输出 gpio 的针脚信息：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">gpio</span> readall</span><br></pre></td></tr></table></figure></p>
+<p><br>GPIO 就是 General Purpose Input Output （通用输入/输出）。 树莓派里代码控制 GPIO 针脚输出有两种方式，用 C 或者用 Python，无疑 Python 是最方便的。之前我配置 vim + python 时安装的 python-dev 貌似已经包含了 gpio 库，如果你的 pi 上没有 gpio 库的话，可以用下面的命令来安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#Python2安装GPIO库需要输入命令：</div><div class="line">sudo apt-get install python-rpi.gpio</div><div class="line"></div><div class="line">#Python3安装GPIO库需要输入命令：</div><div class="line">sudo apt-get install python3-rpi.gpio</div></pre></td></tr></table></figure></p>
+<p>安装好之后可以利用命令来输出 gpio 的针脚信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gpio readall</div></pre></td></tr></table></figure></p>
 <center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/450" alt=""></a></center>
 
 <p><br>那么板子上哪个是 Pin1 呢，板子朝上，USB 口对着自己，左上角就是 Pin1。此外反过来看看，Pin1 的焊点是正方形的。简单解释一下 Name 一栏不同种类针脚的含义：</p>
@@ -334,7 +325,7 @@
 <center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3287.JPG?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/IMG_3287.JPG?imageView2/2/w/450" alt=""></a></center>
 
 <p><br>相信我，你会爱上并享受打洞的过程的！连好了线之后，就没有硬件什么事了。</p>
-<h6 id="Python控制小车运动">Python控制小车运动</h6><p>好了，那么到底怎么用 GPIO 这个库来控制 GPIO 信号输出呢，倍儿简单：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> RPi.GPIO <span class="keyword">as</span> gpio</span><br><span class="line"></span><br><span class="line">outPinNum = <span class="number">11</span></span><br><span class="line"></span><br><span class="line">gpio.setmode(gpio.BOARD)</span><br><span class="line">gpio.setup(outPinNum, gpio.OUT)</span><br><span class="line">gpio.output(outPinNum, gpio.LOW)</span><br><span class="line"></span><br><span class="line">gpio.cleanup()</span><br></pre></td></tr></table></figure></p>
+<h6 id="Python控制小车运动">Python控制小车运动</h6><p>好了，那么到底怎么用 GPIO 这个库来控制 GPIO 信号输出呢，倍儿简单：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> RPi.GPIO <span class="keyword">as</span> gpio</div><div class="line"></div><div class="line">outPinNum = <span class="number">11</span></div><div class="line"></div><div class="line">gpio.setmode(gpio.BOARD)</div><div class="line">gpio.setup(outPinNum, gpio.OUT)</div><div class="line">gpio.output(outPinNum, gpio.LOW)</div><div class="line"></div><div class="line">gpio.cleanup()</div></pre></td></tr></table></figure></p>
 <p>简单到不用解释，不过还是让我解释一下，再放一次这个图：</p>
 <center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/10/raspberry_pi_2/gpio.png?imageView2/2/w/450" alt=""></a></center>
 
@@ -343,7 +334,7 @@
 <li><code>gpio.OUT</code> 将针脚的工作模式设置为输出，对应的还有 <code>gpio.IN</code></li>
 <li><code>gpio.cleanup()</code> 注意每次在程序结束执行之前都要进行清理，否则这个针脚将一直被占用，除非你重启</li>
 </ul>
-<p>利用 GPIO 口作为输入也倍儿简单：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import RPi<span class="class">.GPIO</span> as GPIO</span><br><span class="line"></span><br><span class="line">inPinNum = <span class="number">13</span></span><br><span class="line"></span><br><span class="line">pio.<span class="function"><span class="title">setmode</span><span class="params">(gpio.BOARD)</span></span></span><br><span class="line">gpio.<span class="function"><span class="title">setup</span><span class="params">(inPinNum, gpio.IN)</span></span></span><br><span class="line">inValue = GPIO.<span class="function"><span class="title">input</span><span class="params">(inPinNum)</span></span></span><br><span class="line"></span><br><span class="line">gpio.<span class="function"><span class="title">cleanup</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
+<p>利用 GPIO 口作为输入也倍儿简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import RPi.GPIO as GPIO</div><div class="line"></div><div class="line">inPinNum = 13</div><div class="line"></div><div class="line">pio.setmode(gpio.BOARD)</div><div class="line">gpio.setup(inPinNum, gpio.IN)</div><div class="line">inValue = GPIO.input(inPinNum)</div><div class="line"></div><div class="line">gpio.cleanup()</div></pre></td></tr></table></figure></p>
 <p>简单，不解释了。不过值得注意的是，使用针脚输入的时候，需要采取一些防护措施保证输入电压不超过某个阈值，比如5v，否则可能会对 Pi 造成伤害。</p>
 <p><br>具体到控制小车运动，代码就不上了，无非就是一大串的 <code>gpio.out()</code> 代码，下面提供一下代码的设计思路就好：</p>
 <blockquote>
@@ -371,13 +362,13 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/10/raspberry_pi_3/" rel="prev">Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入</a>
+              <a href="/2016/07/17/yangjiang_zhapo/" rel="prev">阳江海陵岛·露营</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/06/raspberrypi_vim_python/" rel="next">Raspberry Pi 打造 vim + Python 的最佳实践</a>
+              <a href="/2016/06/10/raspberry_pi_3/" rel="next">Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入</a>
             
           </div>
         </div>
@@ -403,8 +394,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2016/06/10/raspberry_pi_2/"
-                       data-title="Raspberry Pi 小车移动监控II — 运动控制" data-url="http://pandara.xyz/2016/06/10/raspberry_pi_2/">
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                   </div>
                 
               </div>
@@ -563,25 +554,32 @@
   
   
     
+    
 
   
-    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = '2016/06/10/raspberry_pi_2/';
+      var disqus_title = 'Raspberry Pi 小车移动监控II — 运动控制';
+      var disqus_url = 'http://pandara.xyz/2016/06/10/raspberry_pi_2/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
 
-    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>

@@ -31,7 +31,7 @@
 
 
 
-  <meta name="keywords" content="macbook,杂谈,生活," />
+  <meta name="keywords" content="杂谈,生活,macbook," />
 
 
 
@@ -41,16 +41,18 @@
 
 
 <meta name="description" content="不能掌控自己macbook的硬盘的人谈何扩展生命宽度。说的就是我">
+<meta name="keywords" content="杂谈,生活,macbook">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Clean my mac">
 <meta property="og:url" content="http://pandara.xyz/2015/09/21/clean_my_mac/index.html">
-<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="不能掌控自己macbook的硬盘的人谈何扩展生命宽度。说的就是我">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/09/21/clean_my_macssd.png">
 <meta property="og:updated_time" content="2015-09-21T08:57:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Clean my mac">
 <meta name="twitter:description" content="不能掌控自己macbook的硬盘的人谈何扩展生命宽度。说的就是我">
+<meta name="twitter:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/09/21/clean_my_macssd.png">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -234,17 +236,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2015/09/21/clean_my_mac/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/21/clean_my_mac/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
           <span id="busuanzi_container_page_pv">
             &nbsp; | &nbsp;
             访客
@@ -289,10 +280,10 @@
 <ol>
 <li>hexo提交代码的时候提示我需要先同意xcode的许可协议</li>
 <li><p>用cocoaPods导入的库不能用了，要重新安装cocoaPods(我顺便更新了一下)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem <span class="operator"><span class="keyword">install</span> cocoapods <span class="comment">--pre</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gem install cocoapods --pre</div></pre></td></tr></table></figure>
 </li>
 <li><p>然后安装(更新)依赖</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">pod</span> update</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod update</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p><br><br>以上</p>
@@ -304,11 +295,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/macbook/" rel="tag">#macbook</a>
-          
             <a href="/tags/杂谈/" rel="tag">#杂谈</a>
           
             <a href="/tags/生活/" rel="tag">#生活</a>
+          
+            <a href="/tags/macbook/" rel="tag">#macbook</a>
           
         </div>
       
@@ -317,7 +308,7 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/09/26/monster_hunt/" rel="prev">捉妖记</a>
+              <a href="/2015/09/26/jianbing_man/" rel="prev">煎饼侠</a>
             
           </div>
 
@@ -349,8 +340,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2015/09/21/clean_my_mac/"
-                       data-title="Clean my mac" data-url="http://pandara.xyz/2015/09/21/clean_my_mac/">
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                   </div>
                 
               </div>
@@ -509,25 +500,32 @@
   
   
     
+    
 
   
-    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = '2015/09/21/clean_my_mac/';
+      var disqus_title = 'Clean my mac';
+      var disqus_url = 'http://pandara.xyz/2015/09/21/clean_my_mac/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
 
-    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>

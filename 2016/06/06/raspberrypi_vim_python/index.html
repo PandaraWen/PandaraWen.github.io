@@ -41,10 +41,11 @@
 
 
 <meta name="description" content="我好像爱上了 vim + Python 这对组合了。">
+<meta name="keywords" content="Raspberry Pi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Raspberry Pi 打造 vim + Python 的最佳实践">
 <meta property="og:url" content="http://pandara.xyz/2016/06/06/raspberrypi_vim_python/index.html">
-<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="我好像爱上了 vim + Python 这对组合了。">
 <meta property="og:updated_time" content="2016-06-07T15:09:41.000Z">
 <meta name="twitter:card" content="summary">
@@ -233,17 +234,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/06/06/raspberrypi_vim_python/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/raspberrypi_vim_python/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
           <span id="busuanzi_container_page_pv">
             &nbsp; | &nbsp;
             访客
@@ -271,31 +261,31 @@
 <li>支持 Python</li>
 </ul>
 <p><br>输入命令 ‘vim —version’ 会出来一堆信息，包括版本号跟支持的特性，检查一下里面有没有 <code>+python</code> 字样。</p>
-<p><br>如果预安装的 vim 并不满足需求，那么你就需要将已经安装的 vim remove 掉:<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">get</span>-install <span class="built_in">remove</span> <span class="keyword">vim</span></span><br></pre></td></tr></table></figure></p>
-<p>接着安装 vim，并<strong>不能</strong>使用下面这个命令<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install <span class="keyword">vim</span></span><br></pre></td></tr></table></figure></p>
-<p>这样安装之后得到的 vim 是默认的 version，缺少 Python 支持，所以很多用 Python 编写的插件都无法使用，比如说 YouCompleteMe(大量的补全插件集合)。所以你可以选择用<a href="https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source" target="_blank" rel="external">源码编译安装 vim</a>，而我之前就是死在了这里。于是我选择了另一个方法，亲测可用：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install <span class="keyword">vim</span>-nox</span><br></pre></td></tr></table></figure></p>
-<p>如果你已经将默认的软件源注释掉，更换为国内源的话，可能在装的时候会遇到一些麻烦：一些依赖没有办法满足：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The following packages have unmet dependencies:</span><br><span class="line"> vim-nox : Depends: vim-common (= <span class="number">2</span>:<span class="number">7.3</span>.547-<span class="number">7</span>) <span class="keyword">but</span> <span class="number">2</span>:<span class="number">7.4</span>.488-<span class="number">7</span> <span class="keyword">is</span> <span class="keyword">to</span> be installed</span><br><span class="line">           Depends: libperl5.14 (&gt;= <span class="number">5.14</span>.2) <span class="keyword">but</span> <span class="keyword">it</span> <span class="keyword">is</span> <span class="keyword">not</span> going <span class="keyword">to</span> be installed</span><br><span class="line">E: Unable <span class="keyword">to</span> correct problems, you have held broken packages.</span><br></pre></td></tr></table></figure></p>
-<p>所以这时候保证默认的源在你的 <code>/etc/apt/source.list</code> 文件里面是可用的：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb <span class="string">http:</span><span class="comment">//mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi</span></span><br></pre></td></tr></table></figure></p>
+<p><br>如果预安装的 vim 并不满足需求，那么你就需要将已经安装的 vim remove 掉:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo get-install remove vim</div></pre></td></tr></table></figure></p>
+<p>接着安装 vim，并<strong>不能</strong>使用下面这个命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install vim</div></pre></td></tr></table></figure></p>
+<p>这样安装之后得到的 vim 是默认的 version，缺少 Python 支持，所以很多用 Python 编写的插件都无法使用，比如说 YouCompleteMe(大量的补全插件集合)。所以你可以选择用<a href="https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source" target="_blank" rel="external">源码编译安装 vim</a>，而我之前就是死在了这里。于是我选择了另一个方法，亲测可用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install vim-nox</div></pre></td></tr></table></figure></p>
+<p>如果你已经将默认的软件源注释掉，更换为国内源的话，可能在装的时候会遇到一些麻烦：一些依赖没有办法满足：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">The following packages have unmet dependencies:</div><div class="line"> vim-nox : Depends: vim-common (= 2:7.3.547-7) but 2:7.4.488-7 is to be installed</div><div class="line">           Depends: libperl5.14 (&gt;= 5.14.2) but it is not going to be installed</div><div class="line">E: Unable to correct problems, you have held broken packages.</div></pre></td></tr></table></figure></p>
+<p>所以这时候保证默认的源在你的 <code>/etc/apt/source.list</code> 文件里面是可用的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi</div></pre></td></tr></table></figure></p>
 <p>顺利的话会安装完成。</p>
-<h5 id="安装_Vundle">安装 Vundle</h5><p>Vundle 是 vim 的众多插件管理器之一，也算是使用最为广泛的一个。安装 Vundle：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/gmarik/Vundle.<span class="keyword">vim</span>.git ~/.<span class="keyword">vim</span>/bundle/Vundle.<span class="keyword">vim</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="安装_Vundle">安装 Vundle</h5><p>Vundle 是 vim 的众多插件管理器之一，也算是使用最为广泛的一个。安装 Vundle：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim</div></pre></td></tr></table></figure></p>
 <p>该命令将下载Vundle插件管理器，并将它放置在 Vim 编辑器 bundles 文件夹中，接着，就可以通过 .vimrc 配置文件来管理所有插件了。</p>
-<p><br>在用户文件夹里面创建 vim 的配置文件：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">touch</span> ~/.vimrc</span><br></pre></td></tr></table></figure></p>
-<p>将下面的 Vundle 配置项目添加到配置文件的顶部：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> nocompatible              <span class="string">" required</span><br><span class="line"></span><span class="keyword">filetype</span> off                  <span class="string">" required</span><br><span class="line"></span></span><br><span class="line"><span class="string">" set the runtime path to include Vundle and initialize</span><br><span class="line"></span><span class="keyword">set</span> rtp+=~/.<span class="keyword">vim</span>/bundle/Vundle.<span class="keyword">vim</span></span><br><span class="line"><span class="built_in">call</span> vundle#begin()</span><br><span class="line"></span><br><span class="line"><span class="string">" alternatively, pass a path where Vundle should install plugins</span><br><span class="line"></span><span class="string">"call vundle#begin('~/some/path/here')</span><br><span class="line"></span></span><br><span class="line"><span class="string">" let Vundle manage Vundle, required</span><br><span class="line"></span>Plugin <span class="string">'gmarik/Vundle.vim'</span></span><br><span class="line"></span><br><span class="line"><span class="string">" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)</span><br><span class="line"></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">" All of your Plugins must be added before the following line</span><br><span class="line"></span><span class="built_in">call</span> vundle#end()            <span class="string">" required</span><br><span class="line"></span><span class="keyword">filetype</span> plugin <span class="built_in">indent</span> <span class="keyword">on</span>    " required</span><br></pre></td></tr></table></figure></p>
+<p><br>在用户文件夹里面创建 vim 的配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch ~/.vimrc</div></pre></td></tr></table></figure></p>
+<p>将下面的 Vundle 配置项目添加到配置文件的顶部：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">set nocompatible              &quot; required</div><div class="line">filetype off                  &quot; required</div><div class="line"></div><div class="line">&quot; set the runtime path to include Vundle and initialize</div><div class="line">set rtp+=~/.vim/bundle/Vundle.vim</div><div class="line">call vundle#begin()</div><div class="line"></div><div class="line">&quot; alternatively, pass a path where Vundle should install plugins</div><div class="line">&quot;call vundle#begin(&apos;~/some/path/here&apos;)</div><div class="line"></div><div class="line">&quot; let Vundle manage Vundle, required</div><div class="line">Plugin &apos;gmarik/Vundle.vim&apos;</div><div class="line"></div><div class="line">&quot; Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&quot; All of your Plugins must be added before the following line</div><div class="line">call vundle#end()            &quot; required</div><div class="line">filetype plugin indent on    &quot; required</div></pre></td></tr></table></figure></p>
 <p>上面中间空白的地方就是用来引入你的插件。具体格式应该怎么编写，可以参照 Vundle 的 <a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="external">github 地址</a>。引入插件之后，使用下面两种任一种方法来安装：</p>
 <ul>
 <li>运行 vim 然后执行 :PluginInstall 命令</li>
 <li>直接在命令行执行 <code>vim +PluginInstall +qall</code></li>
 </ul>
 <h5 id="安装插件_YouCompleteMe">安装插件 YouCompleteMe</h5><p>YouCompleteMe 是非常强大的代码补全工具，它可以理解代码的上下文然后做出补全提示。由于我们的派是32位系统，所以我们在安装的时候不能像普通 linux 系统一样添加 <code>clang-completer</code> 支持。</p>
-<p><br>在安装 YCM 之前，我们需要先安装一些工具：<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install python-<span class="built_in">dev</span> cmake</span><br></pre></td></tr></table></figure></p>
-<p>注意，如果这里没有激活默认的软件源地址的话，可能会出现依赖无法满足而导致无法安装。<br>安装完成之后，增加一下交换内存来避免 error: <code>virtual memory exhausted</code>，因为待会编译 YCM 之前需要下载一堆工具。<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/dphys-swapfile  </span><br><span class="line"><span class="preprocessor">#edit this line</span></span><br><span class="line"><span class="preprocessor">#CONF_SWAPFILE=100</span></span><br><span class="line">CONF_SWAPFILE=<span class="number">1000</span></span><br></pre></td></tr></table></figure></p>
-<p>然后重启你的系统。之后如果使用 <code>free -m</code> 命令，会看到交换空间的大小已经增加到 1G。<br>接着在 <code>~/.vimrc</code> 文件里面引入 YCM 插件：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">Plugin</span> <span class="string">'Valloric/YouCompleteMe'</span></span><br></pre></td></tr></table></figure></p>
+<p><br>在安装 YCM 之前，我们需要先安装一些工具：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install python-dev cmake</div></pre></td></tr></table></figure></p>
+<p>注意，如果这里没有激活默认的软件源地址的话，可能会出现依赖无法满足而导致无法安装。<br>安装完成之后，增加一下交换内存来避免 error: <code>virtual memory exhausted</code>，因为待会编译 YCM 之前需要下载一堆工具。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/dphys-swapfile  </div><div class="line">#edit this line</div><div class="line">#CONF_SWAPFILE=100</div><div class="line">CONF_SWAPFILE=1000</div></pre></td></tr></table></figure></p>
+<p>然后重启你的系统。之后如果使用 <code>free -m</code> 命令，会看到交换空间的大小已经增加到 1G。<br>接着在 <code>~/.vimrc</code> 文件里面引入 YCM 插件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Plugin &apos;Valloric/YouCompleteMe&apos;</div></pre></td></tr></table></figure></p>
 <p>然后 :PluginInstall 一下，YCM 就会从 github 上面 clone 到 <code>~/.vim/bundle/</code> 里面。然后进入 YouCompleteMe 文件夹里面执行 <code>./install.py</code> 执行安装，应该会提示你先执行另一个 git 命令将 thirdParty 所需要的所有库给 clone 下来，按照提示做就是了。clone 完成之后再执行 <code>./install.py</code>。</p>
-<p><br>完成之后可以添加这个配置，来让完成补全之后 preview 窗口自动消失：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> g:<span class="variable">SimpylFold_docstring_preview=</span><span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p><br>另外如果你也不喜欢补全的时候多出一个分割小窗口显示 docstring，可以这样配置：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" 补全内容不以分割子窗口形式出现，只显示补全列表</span><br><span class="line"></span><span class="keyword">set</span> completeopt-=preview</span><br></pre></td></tr></table></figure></p>
-<h5 id="安装插件_NERDTree">安装插件 NERDTree</h5><p>NERDTree 可以提供一个便捷的文件树形结构：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">Plugin</span> <span class="string">'scrooloose/nerdtree'</span></span><br></pre></td></tr></table></figure></p>
-<p>如果你想用 tab 控制 NERDTree，可以利用vim-nerdtree-tabs插件实现：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">Plugin</span> <span class="string">'jistr/vim-nerdtree-tabs'</span></span><br></pre></td></tr></table></figure></p>
-<p>然后添加下面的配置来隐藏 .pyc 文件：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> NERDTreeIgnore=[<span class="string">'\.pyc$'</span>, <span class="string">'\~$'</span>] "ignore <span class="keyword">files</span> in NERDTree</span><br></pre></td></tr></table></figure></p>
+<p><br>完成之后可以添加这个配置，来让完成补全之后 preview 窗口自动消失：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let g:SimpylFold_docstring_preview=1</div></pre></td></tr></table></figure></p>
+<p><br>另外如果你也不喜欢补全的时候多出一个分割小窗口显示 docstring，可以这样配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&quot; 补全内容不以分割子窗口形式出现，只显示补全列表</div><div class="line">set completeopt-=preview</div></pre></td></tr></table></figure></p>
+<h5 id="安装插件_NERDTree">安装插件 NERDTree</h5><p>NERDTree 可以提供一个便捷的文件树形结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Plugin &apos;scrooloose/nerdtree&apos;</div></pre></td></tr></table></figure></p>
+<p>如果你想用 tab 控制 NERDTree，可以利用vim-nerdtree-tabs插件实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Plugin &apos;jistr/vim-nerdtree-tabs&apos;</div></pre></td></tr></table></figure></p>
+<p>然后添加下面的配置来隐藏 .pyc 文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let NERDTreeIgnore=[&apos;\.pyc$&apos;, &apos;\~$&apos;] &quot;ignore files in NERDTree</div></pre></td></tr></table></figure></p>
 <p>之后进入 vim，使用命令 <code>:help NERD_tree.txt</code> 可以查看使用手册。下面列举部分用法：</p>
 <p><br><strong>1.全局命令</strong><br><strong>1.1</strong> <code>:NERDTree [&lt;start-directory&gt; | &lt;bookmark&gt;]</code><br>这个命令会打开一个新的 NERD tree，tree 的根节点可由参数来指定，一共有三种情况：</p>
 <ol>
@@ -303,7 +293,7 @@
 <li>指定了某个目录，那么该目录就会被使用</li>
 <li>如果给定了一个 bookmark ，那么书签相应的目录就会被使用</li>
 </ol>
-<p>例如：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:NERDTree /home/marty/vim7/src</span><br><span class="line">:NERDTree foo   (foo <span class="keyword">is</span> <span class="keyword">the</span> <span class="property">name</span> <span class="keyword">of</span> a bookmark)</span><br></pre></td></tr></table></figure></p>
+<p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">:NERDTree /home/marty/vim7/src</div><div class="line">:NERDTree foo   (foo is the name of a bookmark)</div></pre></td></tr></table></figure></p>
 <p><br><strong>1.2</strong> <code>:NERDTreeFromBookmark &lt;bookmark&gt;</code><br>从给定的 bookmark 打开 NERD tree</p>
 <p><br><strong>1.3</strong> <code>:NERDTreeToggle [&lt;start-directory&gt; | &lt;bookmark&gt;]</code><br>如果某个 NERD tree 已经存在了，那么这个命令会将 tree 重新打开并且渲染；如果没有 tree 存在，那么这个命令就等同于 <code>:NERDTree</code></p>
 <p><br><strong>1.4</strong> <code>:NERDTreeMirror</code><br>在当前 tab 共享其他 tab 的 tree。tree 中发生的变化会同时反映在两个 tab 中，就像它们是同一个 buffer 一样。<br>如果只有一个 tree 存在，那么该 tree 会被自动共用，否则将会询问需要共用哪个 tree。</p>
@@ -319,28 +309,28 @@
 <p><br><strong>2.2.4</strong> <code>:OpenBookmark &lt;bookmark&gt;</code><br>bookmark 必须指向一个文件。该文件将会被打开，就正如使用 <code>NERDTree-o</code> 命令一样。如果文件已经存在于当前 tree 中，那么它将会被 revealed。</p>
 <p><br><strong>2.2.5</strong> <code>:ClearBookmarks [&lt;bookmarks&gt;]</code><br>移除所有给定的 bookmark。如果没有指定 bookmark，那么当前节点的所有 bookmark 都会被清除。</p>
 <blockquote>
-<p>bookmark 还是蛮便捷的。我给项目工程根目录设置了一个 bookmark，需要编码时只需要随时随地：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">vim</span><br><span class="line"></span>:<span class="value">NERDTree Pansila</span></span></span><br></pre></td></tr></table></figure></p>
+<p>bookmark 还是蛮便捷的。我给项目工程根目录设置了一个 bookmark，需要编码时只需要随时随地：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vim</div><div class="line">:NERDTree Pansila</div></pre></td></tr></table></figure></p>
 <p>然后就可以开干了</p>
 </blockquote>
 <p><br><strong>3.配置</strong><br><strong>3.1</strong> vim 中打开某文件时自动启用 NERD tree<br>在 .vimrc 中添加 <code>autocmd vimenter * NERDTree</code></p>
 <p><br><strong>3.2</strong> 用组合键打开 NERDTree<br>在 .vimrc 中添加 <code>map &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt;</code></p>
 <p><br>暂时记录这么多先。</p>
-<h5 id="安装插件_vim-fugitive">安装插件 vim-fugitive</h5><p>vim-fugitive 插件可以让你在 vim 中执行一些简单的 Git 命令。<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">Plugin</span> <span class="string">'tpope/vim-fugitive'</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="安装插件_vim-fugitive">安装插件 vim-fugitive</h5><p>vim-fugitive 插件可以让你在 vim 中执行一些简单的 Git 命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Plugin &apos;tpope/vim-fugitive&apos;</div></pre></td></tr></table></figure></p>
 <h5 id="配置_Vim">配置 Vim</h5><p>安装完成这么多插件之后，接下来配置一下 Vim 让它更加顺手。</p>
-<p><br><strong>1.快速切换 split view</strong><br>在 <code>.vimrc</code> 文件里面加入下面的配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"split navigations</span><br><span class="line">nnoremap <span class="tag">&lt;<span class="title">C-J</span>&gt;</span> <span class="tag">&lt;<span class="title">C-W</span>&gt;</span><span class="tag">&lt;<span class="title">C-J</span>&gt;</span></span><br><span class="line">nnoremap <span class="tag">&lt;<span class="title">C-K</span>&gt;</span> <span class="tag">&lt;<span class="title">C-W</span>&gt;</span><span class="tag">&lt;<span class="title">C-K</span>&gt;</span></span><br><span class="line">nnoremap <span class="tag">&lt;<span class="title">C-L</span>&gt;</span> <span class="tag">&lt;<span class="title">C-W</span>&gt;</span><span class="tag">&lt;<span class="title">C-L</span>&gt;</span></span><br><span class="line">nnoremap <span class="tag">&lt;<span class="title">C-H</span>&gt;</span> <span class="tag">&lt;<span class="title">C-W</span>&gt;</span><span class="tag">&lt;<span class="title">C-H</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><br><strong>1.快速切换 split view</strong><br>在 <code>.vimrc</code> 文件里面加入下面的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&quot;split navigations</div><div class="line">nnoremap &lt;C-J&gt; &lt;C-W&gt;&lt;C-J&gt;</div><div class="line">nnoremap &lt;C-K&gt; &lt;C-W&gt;&lt;C-K&gt;</div><div class="line">nnoremap &lt;C-L&gt; &lt;C-W&gt;&lt;C-L&gt;</div><div class="line">nnoremap &lt;C-H&gt; &lt;C-W&gt;&lt;C-H&gt;</div></pre></td></tr></table></figure></p>
 <p>这段配置可以让我们按 <code>Ctrl+Vim</code> 的标准移动键，就可以切换到指定窗口。</p>
 <blockquote>
 <p>简单来说，nnoremap将一个组合快捷键映射为另一个快捷键。</p>
 </blockquote>
-<p><br><strong>2.代码折叠</strong><br>在 .vimrc 中添加下面的配置来开启代码折叠功能：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" Enable folding</span><br><span class="line"></span><span class="keyword">set</span> foldmethod=<span class="built_in">indent</span></span><br><span class="line"><span class="keyword">set</span> <span class="built_in">foldlevel</span>=<span class="number">99</span></span><br></pre></td></tr></table></figure></p>
-<p>使用空格来代替 <code>za</code> 来实现折叠跟取消折叠：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" Enable folding with the spacebar</span><br><span class="line"></span><span class="keyword">nnoremap</span> &lt;space&gt; za</span><br></pre></td></tr></table></figure></p>
-<p>第一个命令，<code>set foldmethod=ident</code> 会根据每行的缩进开启折叠。但是这样做会出现超过你所希望的折叠数目。插件 SimplyFold 可以解决这个问题。在.vimrc中加入下面这行代码，通过Vundle进行安装：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">Plugin</span> <span class="string">'tmhedberg/SimpylFold'</span></span><br></pre></td></tr></table></figure></p>
-<p>如果希望看到折叠代码的文档字符串，就加入下面的配置：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> g:<span class="variable">SimpylFold_docstring_preview=</span><span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p><br><strong>3.Python 代码缩进</strong><br>参考资料3对这部分讲得比较全面详细，我采用自己的配置方法：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> expandtab</span><br><span class="line"><span class="keyword">set</span> tabstop=<span class="number">8</span></span><br><span class="line"><span class="keyword">set</span> <span class="built_in">shiftwidth</span>=<span class="number">4</span></span><br><span class="line"><span class="keyword">set</span> softtabstop=<span class="number">4</span></span><br><span class="line"><span class="keyword">set</span> autoindent</span><br></pre></td></tr></table></figure></p>
-<p>自动缩进有用，但是在某些情况下（比如函数定义有多行的时候），并不总是会达到你想要的效果。我们可以利用indentpython.vim插件，来解决这个问题：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">Plugin</span> <span class="string">'vim-scripts/indentpython.vim'</span></span><br></pre></td></tr></table></figure></p>
-<p><br><strong>4.标示不必要的空白字符</strong><br>避免出现多余的空白字符，可以让 Vim 帮忙标记出来，容易删除：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" mark bad white space as red</span><br><span class="line"></span> <span class="keyword">highlight</span> BadWhitespace ctermbg=<span class="keyword">red</span> guibg=<span class="keyword">red</span></span><br><span class="line"> <span class="keyword">au</span> BufRead,BufNewFile *.<span class="keyword">py</span>,*.pyw,*.<span class="keyword">c</span>,*.<span class="keyword">h</span> <span class="built_in">match</span> BadWhitespace /\<span class="keyword">s</span>\+$/</span><br></pre></td></tr></table></figure></p>
-<p><br><strong>5.支持 UTF-8 编码</strong><br>大部分情况下，进行Python开发时你应该使用UTF-8编码：<br><figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">encoding</span>=utf-<span class="number">8</span></span><br></pre></td></tr></table></figure></p>
-<p><br><strong>6.代码着色</strong><br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">colo</span> default <span class="string">" 可替换 Vim 自带的配色方案，也可以使用网上提供的配色</span><br><span class="line"></span><span class="keyword">syntax</span> <span class="keyword">on</span></span><br><span class="line"><span class="keyword">set</span> <span class="keyword">number</span> " 显示行号</span><br></pre></td></tr></table></figure></p>
+<p><br><strong>2.代码折叠</strong><br>在 .vimrc 中添加下面的配置来开启代码折叠功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot; Enable folding</div><div class="line">set foldmethod=indent</div><div class="line">set foldlevel=99</div></pre></td></tr></table></figure></p>
+<p>使用空格来代替 <code>za</code> 来实现折叠跟取消折叠：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&quot; Enable folding with the spacebar</div><div class="line">nnoremap &lt;space&gt; za</div></pre></td></tr></table></figure></p>
+<p>第一个命令，<code>set foldmethod=ident</code> 会根据每行的缩进开启折叠。但是这样做会出现超过你所希望的折叠数目。插件 SimplyFold 可以解决这个问题。在.vimrc中加入下面这行代码，通过Vundle进行安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Plugin &apos;tmhedberg/SimpylFold&apos;</div></pre></td></tr></table></figure></p>
+<p>如果希望看到折叠代码的文档字符串，就加入下面的配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let g:SimpylFold_docstring_preview=1</div></pre></td></tr></table></figure></p>
+<p><br><strong>3.Python 代码缩进</strong><br>参考资料3对这部分讲得比较全面详细，我采用自己的配置方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">set expandtab</div><div class="line">set tabstop=8</div><div class="line">set shiftwidth=4</div><div class="line">set softtabstop=4</div><div class="line">set autoindent</div></pre></td></tr></table></figure></p>
+<p>自动缩进有用，但是在某些情况下（比如函数定义有多行的时候），并不总是会达到你想要的效果。我们可以利用indentpython.vim插件，来解决这个问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Plugin &apos;vim-scripts/indentpython.vim&apos;</div></pre></td></tr></table></figure></p>
+<p><br><strong>4.标示不必要的空白字符</strong><br>避免出现多余的空白字符，可以让 Vim 帮忙标记出来，容易删除：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot; mark bad white space as red</div><div class="line"> highlight BadWhitespace ctermbg=red guibg=red</div><div class="line"> au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/</div></pre></td></tr></table></figure></p>
+<p><br><strong>5.支持 UTF-8 编码</strong><br>大部分情况下，进行Python开发时你应该使用UTF-8编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">set encoding=utf-8</div></pre></td></tr></table></figure></p>
+<p><br><strong>6.代码着色</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">colo default &quot; 可替换 Vim 自带的配色方案，也可以使用网上提供的配色</div><div class="line">syntax on</div><div class="line">set number &quot; 显示行号</div></pre></td></tr></table></figure></p>
 <h5 id="参考资料">参考资料</h5><p>1.<a href="https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source" target="_blank" rel="external">Building Vim from source</a><br>2.<a href="http://aibitos.com/raspberry-pi-install-vim-and-youcompleteme/" target="_blank" rel="external">Raspberry Pi install Vim and YouCompleteMe</a><br>3.<a href="http://codingpy.com/article/vim-and-python-match-in-heaven/" target="_blank" rel="external">Vim与Python真乃天作之合</a></p>
 </span>
       
@@ -359,7 +349,7 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/10/raspberry_pi_2/" rel="prev">Raspberry Pi 小车移动监控II — 运动控制</a>
+              <a href="/2016/06/10/raspberry_pi_3/" rel="prev">Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入</a>
             
           </div>
 
@@ -391,8 +381,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2016/06/06/raspberrypi_vim_python/"
-                       data-title="Raspberry Pi 打造 vim + Python 的最佳实践" data-url="http://pandara.xyz/2016/06/06/raspberrypi_vim_python/">
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                   </div>
                 
               </div>
@@ -551,25 +541,32 @@
   
   
     
+    
 
   
-    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = '2016/06/06/raspberrypi_vim_python/';
+      var disqus_title = 'Raspberry Pi 打造 vim + Python 的最佳实践';
+      var disqus_url = 'http://pandara.xyz/2016/06/06/raspberrypi_vim_python/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
 
-    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>

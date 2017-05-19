@@ -41,10 +41,11 @@
 
 
 <meta name="description" content="作为逆向的巩固练习利用后摄像头获取视频流实现微信聊天界面的背景透视">
+<meta name="keywords" content="iOS逆向工程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS逆向 — 逆向微信，透视聊天背景">
 <meta property="og:url" content="http://pandara.xyz/2016/08/17/we_transparent_chat/index.html">
-<meta property="og:site_name" content="Pandara's Zone">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="作为逆向的巩固练习利用后摄像头获取视频流实现微信聊天界面的背景透视">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/18181IMG_0018.PNG">
 <meta property="og:image" content="http://pandarazone.qiniudn.com/18347views.png">
@@ -54,6 +55,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS逆向 — 逆向微信，透视聊天背景">
 <meta name="twitter:description" content="作为逆向的巩固练习利用后摄像头获取视频流实现微信聊天界面的背景透视">
+<meta name="twitter:image" content="http://pandarazone.qiniudn.com/18181IMG_0018.PNG">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -237,17 +239,6 @@
         
 
         
-          
-            <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/08/17/we_transparent_chat/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/we_transparent_chat/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-          
-        
-
-        
           <span id="busuanzi_container_page_pv">
             &nbsp; | &nbsp;
             访客
@@ -291,11 +282,11 @@
 <li><strong>didRotateFromInterfaceOrientation: </strong>同上</li>
 </ul>
 <p>代码就不贴了，没什么意思，要看源码可以到 Github 上查看</p>
-<h3 id="3-_Theos">3. Theos</h3><p>Theos 的工程中我使用了一个 Manager 来为我管理 AVFoundation 相关的操作，需要在 Makefile 中为它指定 arc 特性(更详细的 logos 语法可以在 <a href="http://iphonedevwiki.net/index.php/Logos" target="_blank" rel="external">wiki</a> 中找到)：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AVManager<span class="class">.m_CFLAGS</span> = -fobjc-arc</span><br></pre></td></tr></table></figure></p>
-<p>完整的 Makefile 文件贴一下：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">THEOS_DEVICE_IP = <span class="number">192.168</span>.<span class="number">0.137</span></span><br><span class="line">ARCH = arm64</span><br><span class="line">TARGET = iphone:<span class="number">9.3</span></span><br><span class="line"></span><br><span class="line">include $(THEOS)/makefiles/common<span class="class">.mk</span></span><br><span class="line"></span><br><span class="line">TWEAK_NAME = WeTransparentChat</span><br><span class="line">WeTransparentChat_FILES = Tweak<span class="class">.xm</span> AVManager<span class="class">.m</span></span><br><span class="line">WeTransparentChat_FRAMEWORKS = UIKit AVFoundation</span><br><span class="line">AVManager<span class="class">.m_CFLAGS</span> = -fobjc-arc</span><br><span class="line"></span><br><span class="line">include $(THEOS_MAKE_PATH)/tweak<span class="class">.mk</span></span><br><span class="line"></span><br><span class="line">after-install::</span><br><span class="line">	install<span class="class">.exec</span> <span class="string">"killall -9 WeChat"</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="3-_Theos">3. Theos</h3><p>Theos 的工程中我使用了一个 Manager 来为我管理 AVFoundation 相关的操作，需要在 Makefile 中为它指定 arc 特性(更详细的 logos 语法可以在 <a href="http://iphonedevwiki.net/index.php/Logos" target="_blank" rel="external">wiki</a> 中找到)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AVManager.m_CFLAGS = -fobjc-arc</div></pre></td></tr></table></figure></p>
+<p>完整的 Makefile 文件贴一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">THEOS_DEVICE_IP = 192.168.0.137</div><div class="line">ARCH = arm64</div><div class="line">TARGET = iphone:9.3</div><div class="line"></div><div class="line">include $(THEOS)/makefiles/common.mk</div><div class="line"></div><div class="line">TWEAK_NAME = WeTransparentChat</div><div class="line">WeTransparentChat_FILES = Tweak.xm AVManager.m</div><div class="line">WeTransparentChat_FRAMEWORKS = UIKit AVFoundation</div><div class="line">AVManager.m_CFLAGS = -fobjc-arc</div><div class="line"></div><div class="line">include $(THEOS_MAKE_PATH)/tweak.mk</div><div class="line"></div><div class="line">after-install::</div><div class="line">	install.exec &quot;killall -9 WeChat&quot;</div></pre></td></tr></table></figure></p>
 <p>另外有一点也需要注意下，看了很多文章，对 %log 的使用都是直接抄的原书中的描述，不知道是否因为系统差异，原书中提到的 <code>/var/logs/syslog</code> 默认并不存在，需要自己做一些<a href="https://www.theiphonewiki.com/wiki/Syslog" target="_blank" rel="external">配置</a>，或者直接用另一种的方法来实时获取 syslog。</p>
-<p><br>先到 cydia 中搜索安装 socat 这个插件，socat 也是 linux 上的一个强大的利器，算是 netcat 的替代产品或者加强版，可以在两个流之间机那里一个双向的通道。用下面命令实时获取 syslog：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socat - <span class="constant">UNIX</span>-<span class="constant">CONNECT</span><span class="symbol">:/var/run/lockdown/syslog</span>.sock</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="blockquote">&gt; watch</span></span><br></pre></td></tr></table></figure>
+<p><br>先到 cydia 中搜索安装 socat 这个插件，socat 也是 linux 上的一个强大的利器，算是 netcat 的替代产品或者加强版，可以在两个流之间机那里一个双向的通道。用下面命令实时获取 syslog：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">socat - UNIX-CONNECT:/var/run/lockdown/syslog.sock</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; watch</div></pre></td></tr></table></figure>
 <p>然后会输出一堆有的没的信息，我们的 %log 数据也会包含在里面，不过目标进程幸好输出的信息在 iTerm 中会高亮。另外我暂时没有找到能够过滤输出的方法，用 * 过滤获取到的貌似是历史数组，并非实时。</p>
 <p><br>最后剩下的事情就是 make package install 的往复循环测试了。</p>
 <p><br><br>完</p>
@@ -348,8 +339,8 @@
             
               <div class="comments" id="comments">
                 
-                  <div class="ds-thread" data-thread-key="2016/08/17/we_transparent_chat/"
-                       data-title="iOS逆向 — 逆向微信，透视聊天背景" data-url="http://pandara.xyz/2016/08/17/we_transparent_chat/">
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                   </div>
                 
               </div>
@@ -508,25 +499,32 @@
   
   
     
+    
 
   
-    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = '2016/08/17/we_transparent_chat/';
+      var disqus_title = 'iOS逆向 — 逆向微信，透视聊天背景';
+      var disqus_url = 'http://pandara.xyz/2016/08/17/we_transparent_chat/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
   
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"pandara"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-    
 
-    
   
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
