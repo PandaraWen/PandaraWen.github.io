@@ -47,13 +47,16 @@
 <meta property="og:url" content="http://pandara.xyz/2016/06/10/raspberry_pi_3/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="本部分介绍如何在树莓派中捕获键盘输入配上运动控制，达成无线键盘遥控小车">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/450">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/evdev.png?imageView2/2/w/450">
-<meta property="og:updated_time" content="2016-06-11T13:05:45.000Z">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/450">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/06/11/raspberry_pi_3/evdev.png?imageView2/2/w/450">
+<meta property="og:updated_time" content="2017-12-13T02:16:34.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Raspberry Pi 小车移动监控Ⅲ — 捕获键盘输入">
 <meta name="twitter:description" content="本部分介绍如何在树莓派中捕获键盘输入配上运动控制，达成无线键盘遥控小车">
-<meta name="twitter:image" content="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/450">
+<meta name="twitter:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/450">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -259,7 +262,9 @@
 
 <a id="more"></a>
 <h5 id="硬件准备">硬件准备</h5><p>一块无线键盘。当时买了套餐里面的一块非常小巧的无线键盘 + 触摸板：</p>
-<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/450" alt=""></a></center>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/2048" title="" target="_blank"><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/06/11/raspberry_pi_3/IMG_3296.JPG?imageView2/2/w/450" alt=""></a></center>
 
 <h5 id="获取输入设备">获取输入设备</h5><p>虽然文章的标题是 Raspberry Pi，不过其实这部分内容适用于大多数 Linux 系统。</p>
 <p><br>在 Linux 中，一切皆文件，包括我们的硬件设备。键盘鼠标等作为一种标准输入输出设备，在Linux 系统中也同样是以文件的形式存在的。这些设备文件，就存在于 /dev/ 下，所以我们需要做的就是从这里读取指定的键盘设备文件了。</p>
@@ -274,7 +279,9 @@
 <p><br>接下来需要安装 python 的 evdev 模块来获取设备输入。根据<a href="https://python-evdev.readthedocs.org" target="_blank" rel="external">官方文档</a>说明，evdev模块使用比较简单。最新版本的python-evdev模块可以使用pip安装。pip 是安装各种 python 库的好工具：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install evdev</div></pre></td></tr></table></figure></p>
 <p>当然，安装之前需要Linux系统具有gcc/clang，并具有python环境和Linux内核头文件支持，官方文档中有详细介绍。</p>
 <p><br>安装完成之后，可以测试一下。在管理员权限下运行 python 交互式输入程序，列举所有事件驱动设备：</p>
-<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/evdev.png?imageView2/2/w/2048" title="" target="_blank"><img src="http://pandarazone.qiniudn.com/2016/06/11/raspberry_pi_3/evdev.png?imageView2/2/w/450" alt=""></a></center>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/06/11/raspberry_pi_3/evdev.png?imageView2/2/w/2048" title="" target="_blank"><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/06/11/raspberry_pi_3/evdev.png?imageView2/2/w/450" alt=""></a></center>
 
 <p><br>更多详细的使用例子可以参考 <a href="https://python-evdev.readthedocs.org" target="_blank" rel="external">https://python-evdev.readthedocs.org</a> 网站上给的样例教程，很常全面。利用这些设备文件可以做很多硬件调用方面的开发，当然写个远程控制都可以，比如控制摄像头、麦克风、鼠标、键盘等等。</p>
 <h5 id="捕获键盘输入">捕获键盘输入</h5><p>由于我的设备是键盘跟鼠标一体的，所以鼠标输入事件跟键盘输入事件对应的 device name 是一样的，于是我还得写个程序具体测试一下，看读取哪个 event 时会对键盘操作做出响应：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#from s0nnet.com</span></div><div class="line"><span class="keyword">from</span> evdev <span class="keyword">import</span> InputDevice</div><div class="line"><span class="keyword">from</span> select <span class="keyword">import</span> select</div><div class="line"></div><div class="line">dev = InputDevice(<span class="string">'/dev/input/event0'</span>)</div><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">    select([dev], [], [])</div><div class="line">    <span class="keyword">for</span> event <span class="keyword">in</span>  dev.read():</div><div class="line">        <span class="keyword">print</span> <span class="string">'code:%s value:%s'</span> % (event.code, event.value)</div></pre></td></tr></table></figure></p>

@@ -47,15 +47,20 @@
 <meta property="og:url" content="http://pandara.xyz/2016/08/17/we_transparent_chat/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="作为逆向的巩固练习利用后摄像头获取视频流实现微信聊天界面的背景透视">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/18181IMG_0018.PNG">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/18347views.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/43768inspector.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/79113class_name.png">
-<meta property="og:updated_time" content="2016-08-17T13:56:37.000Z">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/18181IMG_0018.PNG">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/18347views.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/43768inspector.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/79113class_name.png">
+<meta property="og:updated_time" content="2017-12-13T02:16:34.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS逆向 — 逆向微信，透视聊天背景">
 <meta name="twitter:description" content="作为逆向的巩固练习利用后摄像头获取视频流实现微信聊天界面的背景透视">
-<meta name="twitter:image" content="http://pandarazone.qiniudn.com/18181IMG_0018.PNG">
+<meta name="twitter:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/18181IMG_0018.PNG">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -260,14 +265,18 @@
         <span itemprop="articleBody"><center>作为逆向的巩固练习<br>利用后摄像头获取视频流<br>实现微信聊天界面的背景透视</center>
 
 <a id="more"></a>
-<p><img src="http://pandarazone.qiniudn.com/18181IMG_0018.PNG" alt="18181IMG_0018.PNG"></p>
+<p><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/18181IMG_0018.PNG" alt="18181IMG_0018.PNG"></p>
 <center><em>后置摄像头对着大广州塔</em></center>
 
 <p><br><center>项目源代码放在了我的<a href="https://github.com/PandaraWen/WeTransparentChat" target="_blank" rel="external">Github仓库</a></center></p>
 <h3 id="1-_概述">1. 概述</h3><p>前两天逆向了微信实现伪装定位，想着想再实现一个好玩的 trick 作为巩固，然后向下一个阶段推进。自动抢红包，不太感兴趣，并且已经有人实现了；文章阅读界面的的新消息预览，这个倒是我的刚需，不过也有人实现了，留着过段时间自己也实践一遍。最后想来想去，干脆就做一个之前手Q曾经有过的功能吧 —— 聊天页面背景透视，走路聊天防摔。</p>
 <p><br>流程还是那样：砸壳 -&gt; class-dump -&gt; Hopper 反编译 -&gt;  定位想要 hook 住的类以及函数 -&gt; 编写 tweak。砸壳跟 class-dump 之前已经实践过了，这里就不再废话，直接从定位 hook 点开始。</p>
 <h3 id="2-_hook_点定位">2. hook 点定位</h3><p>这里有个小建议，可以将系统的语言改成英文，程序员都知道，功能的英文名称一般跟工程中的类名相近，这样可以帮助我们更加快速地定位到相对应的类。例如微信中附近的人对应的英文名称为 People Nearby，而实际上源文件名称也包含了这个关键字。</p>
-<h4 id="2-1_Reveal_分析">2.1 Reveal 分析</h4><p>对于聊天详情页面，没有地方可以看到对应的“功能英文名”，于是我们借助利器“Reveal”，注入 Reveal 之后(注入的方法在上一篇<a href="http://pandara.xyz/2016/08/14/fake_wechat_location2/">伪装微信定位的文章</a>有提到)，来分析一下微信的界面，这个过程如褪去少女轻薄衣裳般让我兴奋：<br><img src="http://pandarazone.qiniudn.com/18347views.png" alt="18347views.png"><br>进入聊天详情页，在视图层级中选中 controller 对应的 view，然后右侧的 Identify Inspector 中可以看到它对应的 controller：<br><img src="http://pandarazone.qiniudn.com/43768inspector.png" alt="43768inspector.png"><br><img src="http://pandarazone.qiniudn.com/79113class_name.png" alt="79113class_name.png"><br>一下子就定位到了我们需要 hook 的类了。</p>
+<h4 id="2-1_Reveal_分析">2.1 Reveal 分析</h4><p>对于聊天详情页面，没有地方可以看到对应的“功能英文名”，于是我们借助利器“Reveal”，注入 Reveal 之后(注入的方法在上一篇<a href="http://pandara.xyz/2016/08/14/fake_wechat_location2/">伪装微信定位的文章</a>有提到)，来分析一下微信的界面，这个过程如褪去少女轻薄衣裳般让我兴奋：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/18347views.png" alt="18347views.png"><br>进入聊天详情页，在视图层级中选中 controller 对应的 view，然后右侧的 Identify Inspector 中可以看到它对应的 controller：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/43768inspector.png" alt="43768inspector.png"><br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/79113class_name.png" alt="79113class_name.png"><br>一下子就定位到了我们需要 hook 的类了。</p>
 <h4 id="2-2_hook_方法猜想">2.2 hook 方法猜想</h4><p>先大致分析一下我们需要实现的功能：</p>
 <ol>
 <li>聊天详情页背景替换成后置摄像头的实时图像</li>

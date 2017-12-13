@@ -47,28 +47,46 @@
 <meta property="og:url" content="http://pandara.xyz/2016/08/13/fake_wechat_location/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="作为自己正式接触iOS逆向的第一步希望通过这次实践对 iOS 系统以及 APP 有更深入的了解。">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/08/11/wechat_fake_location/class_dump.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/08/11/wechat_fake_location/hopper.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/64464theos_template.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/32149project_package_name.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/14652author_bundle_id.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/97994restartid.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/62033files.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/2016/08/11/wechat_fake_location/plist.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/93682makefile.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/5187xm.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/40438make_file.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/22554make_cme.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/59928dylibs.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/76696make_package_error.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/8664make_package.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/41504install_error.png">
-<meta property="og:image" content="http://pandarazone.qiniudn.com/6855IMG_0003.PNG">
-<meta property="og:updated_time" content="2016-08-17T12:57:06.000Z">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/08/11/wechat_fake_location/class_dump.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/08/11/wechat_fake_location/hopper.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/64464theos_template.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/32149project_package_name.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/14652author_bundle_id.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/97994restartid.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/62033files.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/08/11/wechat_fake_location/plist.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/93682makefile.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/5187xm.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/40438make_file.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/22554make_cme.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/59928dylibs.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/76696make_package_error.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/8664make_package.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/41504install_error.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/6855IMG_0003.PNG">
+<meta property="og:updated_time" content="2017-12-13T02:16:30.044Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS逆向入门实践 — 逆向微信，伪装定位(一)">
 <meta name="twitter:description" content="作为自己正式接触iOS逆向的第一步希望通过这次实践对 iOS 系统以及 APP 有更深入的了解。">
-<meta name="twitter:image" content="http://pandarazone.qiniudn.com/2016/08/11/wechat_fake_location/class_dump.png">
+<meta name="twitter:image" content="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/08/11/wechat_fake_location/class_dump.png">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -317,32 +335,41 @@
 <p>另外，其实操作完成之后发现，<code>dumpdecrypted.dylib</code> 放在哪里都行，不知道为何参考资料的作者一定要将它放在 WeChat 的 Documents 目录。</p>
 </blockquote>
 <h3 id="3-_Class_Dump">3. Class Dump</h3><p>Class Dump 是为了导出微信的头文件，能够让我们得以浏览感兴趣的类中暴露出来哪些方法，找到需要 hook 的方法名，后面编写 tweak 会需要使用到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class-dump -H WeChat.decrypted --arch arm64  -o output/</div></pre></td></tr></table></figure></p>
-<p>命令执行完成之后，会在当前目录下生成一个 output 文件夹，里面有导出来的所有微信头文件，包括使用到的第三方 sdk。可以将所有这些头文件放到一个空工程里面方便查看。一共 7000+ 个头文件，导入需要一定时间…<br><img src="http://pandarazone.qiniudn.com/2016/08/11/wechat_fake_location/class_dump.png" alt="image"><br>凭借参考文章中作者的提示，<code>MicroMessengerAppDelegate.h</code> 就是微信的 AppDelegate，可以大概看到微信的项目结构。</p>
+<p>命令执行完成之后，会在当前目录下生成一个 output 文件夹，里面有导出来的所有微信头文件，包括使用到的第三方 sdk。可以将所有这些头文件放到一个空工程里面方便查看。一共 7000+ 个头文件，导入需要一定时间…<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/08/11/wechat_fake_location/class_dump.png" alt="image"><br>凭借参考文章中作者的提示，<code>MicroMessengerAppDelegate.h</code> 就是微信的 AppDelegate，可以大概看到微信的项目结构。</p>
 <p><br>之所以可以使用 class-dump 来还原类的 @interface 部分，还是多亏了 iOS 采用的文件格式 Mach-O 中包含了足够多的 metadata。</p>
 <p><br>再来看看我们需要实现的功能，是改变我们的位置从而改变附近的人，但是手动猜测类名关键字搜索始终是很低效的行为。其实除了排除法和一个一个推测之外，还可以使用 Reveal 这个工具来帮助我们定位。</p>
 <h3 id="4-_反编译静态分析">4. 反编译静态分析</h3><p>class-dump 帮助我们列出了所有 header 文件，让我们对项目结构大体有个认识。不过，我们更加好奇的，始终是 .m 文件里面的实现。这里使用了 Hopper Disassembler 这个工具。注意，导入的文件应该是砸壳之后的文件。否则你看到的是一堆乱码，犹如一开始那傻逼的我…</p>
 <p><br>保险起见，可以先确认一下 .decrypted 是否已经解密了。首先查看一下对应的二进制文件包含哪些架构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; file WeChat.decrypted</div><div class="line">WeChat.decrypted: Mach-O 64-bit executable</div></pre></td></tr></table></figure></p>
 <p>可以看到，砸壳后的二进制文件只包含砸壳时使用的机器的架构，可能是由于使用了 bitCode？接下来使用 otool 来输出 app 的 load commands，查看 cryptid 这个标志位来判断 app 是否被加密了，1代表加密了，0代表被解密了。otool 是 Xcode tool chain 的一部分，所以并不需要额外安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">otool -l WeChat.decrypted | grep -B 2 crypt</div></pre></td></tr></table></figure></p>
 <p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">WeChat.decrypted:</div><div class="line">--</div><div class="line">          cmd LC_ENCRYPTION_INFO_64</div><div class="line">      cmdsize 24</div><div class="line">     cryptoff 16384</div><div class="line">    cryptsize 45383680</div><div class="line">      cryptid 0</div></pre></td></tr></table></figure></p>
-<p>可以看到确实是被解密了。丢进去 hopper 之后，可以看到美丽的画面：<br><img src="http://pandarazone.qiniudn.com/2016/08/11/wechat_fake_location/hopper.png" alt="image"></p>
+<p>可以看到确实是被解密了。丢进去 hopper 之后，可以看到美丽的画面：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/08/11/wechat_fake_location/hopper.png" alt="image"></p>
 <p>由于 IDA 暂时不能支持64位架构的包，而 hopper 试图在生成伪代码的时候也提示不能支持包对应的 cpu，所以这里建议，其实可以在 iTools 或者 pp助手 之类的第三方分发渠道下载微信，一般都是已经脱壳了的。然后就可以直接反编译包里面的 armv7s 架构。</p>
 <h3 id="5-_tweak_小试">5. tweak 小试</h3><p>这里暂时先不进行我们的目标 tweak 开始，先来一个小样练练手：实现微信一打开就弹出 Hello World 对话框的功能。</p>
 <h4 id="5-1_创建_Theos_工程">5.1 创建 Theos 工程</h4><p>创建 Theos 工程在 Terminal 中完成：</p>
 <p><br>1) 更改工作目录到常用的 iOS 工程目录，然后使用下面命令启动 NIC(New Instance Creator):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$THEOS/bin/nic.pl</div></pre></td></tr></table></figure></p>
-<p><img src="http://pandarazone.qiniudn.com/64464theos_template.png" alt="64464theos_template.png"><br>上图中第11种模板就是我们需要使用的</p>
-<p><br>2) 这时候 Theos 需要我们输入工程的名字，以及 deb 包的名字，类似于 bundle identifier:<br><img src="http://pandarazone.qiniudn.com/32149project_package_name.png" alt="32149project_package_name.png"></p>
-<p><br>3) 输入作者名称之后，Theos 要求我们输入 MobileSubstrate Bundle filter，也就是 tweak 作用对象的 bundle identifier，这里我们填上微信的 id，可以在解压后的 ipa 包中的 plist 文件中找到：<br><img src="http://pandarazone.qiniudn.com/14652author_bundle_id.png" alt="14652author_bundle_id.png"></p>
-<p><br>4) 最后我们需要输入指定 tweak 安装完成之后需要重启的应用，以 bundle identifier 来表示，这里还是填上微信：<br><img src="http://pandarazone.qiniudn.com/97994restartid.png" alt="97994restartid.png"><br>到这里工程便创建完成了，会在当前目录下生成工程文件夹。</p>
-<h4 id="5-2_定制工程文件">5.2 定制工程文件</h4><p>工程目录中只有4个文件，但是这4个文件是构成我们的 tweak 的4根顶梁柱<br><img src="http://pandarazone.qiniudn.com/62033files.png" alt="62033files.png"></p>
+<p><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/64464theos_template.png" alt="64464theos_template.png"><br>上图中第11种模板就是我们需要使用的</p>
+<p><br>2) 这时候 Theos 需要我们输入工程的名字，以及 deb 包的名字，类似于 bundle identifier:<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/32149project_package_name.png" alt="32149project_package_name.png"></p>
+<p><br>3) 输入作者名称之后，Theos 要求我们输入 MobileSubstrate Bundle filter，也就是 tweak 作用对象的 bundle identifier，这里我们填上微信的 id，可以在解压后的 ipa 包中的 plist 文件中找到：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/14652author_bundle_id.png" alt="14652author_bundle_id.png"></p>
+<p><br>4) 最后我们需要输入指定 tweak 安装完成之后需要重启的应用，以 bundle identifier 来表示，这里还是填上微信：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/97994restartid.png" alt="97994restartid.png"><br>到这里工程便创建完成了，会在当前目录下生成工程文件夹。</p>
+<h4 id="5-2_定制工程文件">5.2 定制工程文件</h4><p>工程目录中只有4个文件，但是这4个文件是构成我们的 tweak 的4根顶梁柱<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/62033files.png" alt="62033files.png"></p>
 <p><br>1) control<br>control 文件记录了 deb 包管理系统所需要的基本信息，会被打包到最后生成的 deb 包中。一般无需修改里面的内容。</p>
-<p><br>2) Project_Name.plist<br>这个跟工程名同名的 plist 文件跟 APP 中的 Info.plist 左右类似，记录一些配置信息，描述了 tweak 的作用范围。<br><img src="http://pandarazone.qiniudn.com/2016/08/11/wechat_fake_location/plist.png" alt="image"><br>其中 Bundles 字段下的数组指定了若干个 bundle identifier 作为 twewak 的作用对象。默认是 spring board，这里我们替换成微信的 bundle identifier：com.tencent.xin。可以在解压后的 ipa 包中的 plist 文件里找到。</p>
+<p><br>2) Project_Name.plist<br>这个跟工程名同名的 plist 文件跟 APP 中的 Info.plist 左右类似，记录一些配置信息，描述了 tweak 的作用范围。<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/2016/08/11/wechat_fake_location/plist.png" alt="image"><br>其中 Bundles 字段下的数组指定了若干个 bundle identifier 作为 twewak 的作用对象。默认是 spring board，这里我们替换成微信的 bundle identifier：com.tencent.xin。可以在解压后的 ipa 包中的 plist 文件里找到。</p>
 <p><br>除了使用 Bundle 指定，也支持使用另外两种指定方式：</p>
 <ul>
 <li><strong>Class:</strong> 对列表中指定的类起作用</li>
 <li><strong>Executables:</strong> 对指定的可执行文件名起作用</li>
 </ul>
 <p>这三种配置方式可以同时指定，但是这里有个小问题。在同时指定的时候，一个文件只有满足每种 Filter 中的 array 里的至少一个条件，tweak 才能生效。如果想要满足任意一种 Filter 下的任意一个条件就能生效的话，就必须添加一个键值对：Mode: Any</p>
-<p><br>3) Makefile<br>Makefile 文件制定编译和链接所涉及的文件、框架、库等信息，将整个过程自动化。需要 Makefile 文件，是因为 theos 就是一个跨铭泰的 Makefile 系统。工程中的 Makefile 内容如下：<br><img src="http://pandarazone.qiniudn.com/93682makefile.png" alt="93682makefile.png"><br>自动生成的内容一般无需更改，除非引入了其他第三方库，或者添加了其他的源码文件，则需要增加引入的新文件。</p>
+<p><br>3) Makefile<br>Makefile 文件制定编译和链接所涉及的文件、框架、库等信息，将整个过程自动化。需要 Makefile 文件，是因为 theos 就是一个跨铭泰的 Makefile 系统。工程中的 Makefile 内容如下：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/93682makefile.png" alt="93682makefile.png"><br>自动生成的内容一般无需更改，除非引入了其他第三方库，或者添加了其他的源码文件，则需要增加引入的新文件。</p>
 <p><br>4) Tweak.xm<br>Theos 创建工程之后，默认生成的模板源文件是 Tweak.xm，源文件中包含了基本的 Logos 语法的说明，具体写法就不展开了，书中很详细。其中有一些预处理命令值得注意：</p>
 <ul>
 <li><strong>%hook: </strong>指定需要 hook 的 class</li>
@@ -354,9 +381,11 @@
 <li><strong>%c: </strong>%hook内部使用，动态获取一个类的定义</li>
 </ul>
 <p>关于详细的 logo 语法，可以到<a href="http://iphonedevwiki.net/index.php/Logos" target="_blank" rel="external">这里</a>一探究竟</p>
-<h4 id="5-3_编写_tweak_源码">5.3 编写 tweak 源码</h4><p>要在微信运行之后弹出一个对话框，hook 点应该是 Appdelegate 的 didFinishLaunch 方法。前面在 class-dump 的时候已经猜测到了微信的 Appdelegate 对应类名为 <code>MicroMessengerAppDelegate</code>，头文件中也暴露了这个方法出来，因此可以推断出 hook point，编写 .xm 文件如下：<br><img src="http://pandarazone.qiniudn.com/5187xm.png" alt="5187xm.png"></p>
+<h4 id="5-3_编写_tweak_源码">5.3 编写 tweak 源码</h4><p>要在微信运行之后弹出一个对话框，hook 点应该是 Appdelegate 的 didFinishLaunch 方法。前面在 class-dump 的时候已经猜测到了微信的 Appdelegate 对应类名为 <code>MicroMessengerAppDelegate</code>，头文件中也暴露了这个方法出来，因此可以推断出 hook point，编写 .xm 文件如下：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/5187xm.png" alt="5187xm.png"></p>
 <p><br><code>%hook</code> 指定了需要 hook 的 class，然后编写弹窗代码，在最后 return %orig 调用原始代码。代码中使用了消除警告的宏，这是因为如果出现警告的话，后面 make 编译的时候将无法通过。</p>
-<h4 id="5-4_编辑_MakeFile">5.4 编辑 MakeFile</h4><p><img src="http://pandarazone.qiniudn.com/40438make_file.png" alt="40438make_file.png"></p>
+<h4 id="5-4_编辑_MakeFile">5.4 编辑 MakeFile</h4><p><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/40438make_file.png" alt="40438make_file.png"></p>
 <ul>
 <li><strong>THEOS_DEVICE_IP: </strong>指定了目标机器的 ip 地址，因为我接下来采用命令行的方法将包安装到机器上。这需要用到简单的 ssh 命令，所以需要越狱的机器安装 OpenSSH。</li>
 <li><strong>ARCHS: </strong>指定了开发的架构，也就是这个包需要支持的架构。因为我的机器是 iPad Mini 4，所以只需要指定它使用的架构的就可以了。</li>
@@ -364,20 +393,26 @@
 <li><strong>wechat_hook_test_FRAMEWORKS: </strong>指定需要导入的 framework，由于使用到了 AlertView，所以这里需要导入 UIKit。另外值得一提，如果需要导入 private framework 的话可以使用 <code>XXX_PRIVATE_FRAMEWORK</code>，但是 iOS SDK 9.3 已经去除了 private frameworks，最后具有 private frameworks 的 sdk 版本是 9.2，使用 sdk9.2 编译打包的 tweak 不知道能否工作在 iOS 9.3 中，待验证。</li>
 </ul>
 <h4 id="5-5_编译">5.5 编译</h4><p>走到这步，就说明我们已经看到摸着逆向之路的门框了。想想都有点小激动。</p>
-<p><br>Theos 采用与 debian 相同的 make 命令来编译。执行 make 命令：<br><img src="http://pandarazone.qiniudn.com/22554make_cme.png" alt="22554make_cme.png"></p>
-<p><br>从输出来的信息可以看到，Theos 完成了预处理，编译，链接，签名等一系列动作。编译完成之后会发现当前目录的 .theos 目录中多出了若干个 .dylib 文件，这就是 tweak 的核心部分。<br><img src="http://pandarazone.qiniudn.com/59928dylibs.png" alt="59928dylibs.png"></p>
-<h4 id="5-6_打包">5.6 打包</h4><p>打包使用的 make package 命令来自 Theos 本身，其实就是先 make 然后再 dpkg-deb，运行时报了一个错误跟一个警告：<br><img src="http://pandarazone.qiniudn.com/76696make_package_error.png" alt="76696make_package_error.png"></p>
+<p><br>Theos 采用与 debian 相同的 make 命令来编译。执行 make 命令：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/22554make_cme.png" alt="22554make_cme.png"></p>
+<p><br>从输出来的信息可以看到，Theos 完成了预处理，编译，链接，签名等一系列动作。编译完成之后会发现当前目录的 .theos 目录中多出了若干个 .dylib 文件，这就是 tweak 的核心部分。<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/59928dylibs.png" alt="59928dylibs.png"></p>
+<h4 id="5-6_打包">5.6 打包</h4><p>打包使用的 make package 命令来自 Theos 本身，其实就是先 make 然后再 dpkg-deb，运行时报了一个错误跟一个警告：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/76696make_package_error.png" alt="76696make_package_error.png"></p>
 <ul>
 <li>错误指的是，package name 只能包含小写的字母还有数字…于是只好将所有 wechat_hook_test 都替换成 wechathooktest…包括 control, Makefile 还有 plist 文件名</li>
 <li>关于警告，在 github 看到解释，大意上是说可以不用管这个 warning，看得不太懂，希望看懂的朋友告诉一声，<a href="https://github.com/theos/theos/commit/bb5626b03dceda0a364914ed20fdf8f0118b1f1f" target="_blank" rel="external">链接在此</a></li>
 </ul>
-<p>再次 make package，得到：<br><img src="http://pandarazone.qiniudn.com/8664make_package.png" alt="8664make_package.png"></p>
+<p>再次 make package，得到：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/8664make_package.png" alt="8664make_package.png"></p>
 <p><br>可以看到在 packages 文件夹中生成了我们需要的包。我这里有两个，是因为我打包了两次。</p>
 <h5 id="5-7_安装">5.7 安装</h5><p>最后，要将这个 deb 文件安装到 iOS 中去。可以用图形化的方法，将 deb 包丢到机器里面，然后用 iFile 来安装。我这里采用了命令行的安装方法。为了简化步骤，让进程使用 ssh 时无需输入密码，这里先做一些操作，就是将我们的 rsa 公钥拷贝到越狱机器上：</p>
 <p><br>1) 先 ssh 到设备上，以 root 身份登录 iOS 设备，输入 <code>ssh-key gen</code>，会生成 <code>/var/root/.ssh</code> 目录，并且里面有一对秘钥<br>2) exit 回本机，将本机的公钥 cp 到用户目录中，并且更名为 authorized_keys，然后将它 scp 到 <code>/var/root/.ssh</code> 中<br>3) 再尝试 ssh 登录到 iOS 设备，应该不用输密码了</p>
-<p><br>接着调用 <code>make package install</code> 命令完成编译打包安装一条龙服务，报了一个错误，说找不到进程：<br><img src="http://pandarazone.qiniudn.com/41504install_error.png" alt="41504install_error.png"></p>
+<p><br>接着调用 <code>make package install</code> 命令完成编译打包安装一条龙服务，报了一个错误，说找不到进程：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/41504install_error.png" alt="41504install_error.png"></p>
 <p><br>这个错误是因为我误将 Makefile 中需要 kill 的进程名称填成了 bundle identifier，将它改成 WeChat 就好了：<code>killall -9 WeChat</code></p>
-<p><br>再次运行，跑通！效果图：<br><img src="http://pandarazone.qiniudn.com/6855IMG_0003.PNG" alt="6855IMG_0003.PNG"></p>
+<p><br>再次运行，跑通！效果图：<br><img src="https://images.pandara.xyz/03.png
+https://images.pandara.xyz/6855IMG_0003.PNG" alt="6855IMG_0003.PNG"></p>
 <h3 id="6-_Fake_Location_功能实现">6. Fake Location 功能实现</h3><p>文章已经好长了，这部分内容放在下一篇文章吧。</p>
 <p><br><br>To Be Continute</p>
 <h3 id="参考资料">参考资料</h3><p>1.<a href="https://github.com/jackrex/FakeWeChatLoc" target="_blank" rel="external">手把手教你制作一款iOS越狱App</a><br>2.<a href="http://blog.csdn.net/jymn_chen/article/details/38361161" target="_blank" rel="external">《iOS逆向工程学习笔记》</a><br>3.《iOS应用逆向工程》，机械工业出版社</p>
