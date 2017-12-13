@@ -64,7 +64,7 @@ p {
   left: 50%;
   margin-left: -51px;
   margin-top: -51px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/loading_earth.png");
+  background-image: url("https://images.pandara.xyz/about/loading_earth.png");
 }
 .afstar {
   position: absolute;
@@ -74,7 +74,7 @@ p {
   height: 180px;
   margin-left: -95px;
   margin-top: -90px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/loading_aistar.png");
+  background-image: url("https://images.pandara.xyz/about/loading_aistar.png");
 }
 /*--------------------------------------------*/
 /*walking*/
@@ -88,14 +88,14 @@ p {
   left: -70px;
   width: 539px;
   height: 510px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/sun.png");
+  background-image: url("https://images.pandara.xyz/about/sun.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
 .sky {
   width: 100%;
   height: 100%;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/sky.png");
+  background-image: url("https://images.pandara.xyz/about/sky.png");
   background-size: 100% 100%;
 }
 .mountain-long {
@@ -103,7 +103,7 @@ p {
   bottom: 47px;
   width: 100%;
   height: 312px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/moutain_long.png");
+  background-image: url("https://images.pandara.xyz/about/moutain_long.png");
   background-size: cover;
 }
 .mountain-close {
@@ -111,7 +111,7 @@ p {
   bottom: 47px;
   width: 100%;
   height: 201px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/moutain_close.png");
+  background-image: url("https://images.pandara.xyz/about/moutain_close.png");
   background-size: cover;
 }
 .walking-man {
@@ -124,7 +124,7 @@ p {
   background-size: auto 276px;
   left: 5%;
   bottom: 43px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/walking_original_colored_shadowed.png?imageView2/2/h/552");
+  background-image: url("https://images.pandara.xyz/about/walking_original_colored_shadowed.png?imageView2/2/h/552");
   background-position: 0px 0px;
   cursor: pointer;
 }
@@ -133,7 +133,7 @@ p {
   bottom: 45px;
   width: 100%;
   height: 471px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/tree_close.png");
+  background-image: url("https://images.pandara.xyz/about/tree_close.png");
   background-size: cover;
   pointer-events: none;
 }
@@ -142,7 +142,7 @@ p {
   bottom: 45px;
   width: 100%;
   height: 31px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/tree_long.png");
+  background-image: url("https://images.pandara.xyz/about/tree_long.png");
   background-size: cover;
 }
 .ground {
@@ -150,14 +150,14 @@ p {
   bottom: 0;
   width: 100%;
   height: 47px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/ground.png");
+  background-image: url("https://images.pandara.xyz/about/ground.png");
   background-size: 100% 100%;
 }
 @media screen and (max-width: 700px) {
   .mountain-long {
     width: 100%;
     height: 312px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/moutain_long.png");
+    background-image: url("https://images.pandara.xyz/about/moutain_long.png");
     background-position: 10% 0px;
     background-size: cover;
   }
@@ -193,7 +193,7 @@ p {
   height: 47px;
   margin-left: auto;
   margin-right: auto;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/myname.png");
+  background-image: url("https://images.pandara.xyz/about/myname.png");
   background-size: contain;
 }
 .job {
@@ -201,7 +201,7 @@ p {
   top: -15px;
   width: 100%;
   height: 38px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/jobb.png");
+  background-image: url("https://images.pandara.xyz/about/jobb.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -222,7 +222,7 @@ p {
   width: 49px;
   height: 49px;
   background-size: contain;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/title_button.png");
+  background-image: url("https://images.pandara.xyz/about/title_button.png");
 }
 .title-button:hover {
   cursor: pointer;
@@ -251,7 +251,7 @@ p {
   height: 35px;
   width: 100%;
   background-size: contain;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/border_top-01.png");
+  background-image: url("https://images.pandara.xyz/about/border_top-01.png");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -291,19 +291,19 @@ p {
   -webkit-transform: scale(1, 1);
 }
 .operation-icon-world {
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/icon_world.png");
+  background-image: url("https://images.pandara.xyz/about/icon_world.png");
 }
 .operation-icon-code {
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/icon_code.png");
+  background-image: url("https://images.pandara.xyz/about/icon_code.png");
 }
 .operation-icon-draw {
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/icon_draw.png");
+  background-image: url("https://images.pandara.xyz/about/icon_draw.png");
 }
 .operation-icon-music {
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/icon_music.png");
+  background-image: url("https://images.pandara.xyz/about/icon_music.png");
 }
 .operation-icon-pen {
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/icon_pen.png");
+  background-image: url("https://images.pandara.xyz/about/icon_pen.png");
   margin-right: 0px;
 }
 .border-bottom {
@@ -312,7 +312,7 @@ p {
   position: absolute;
   bottom: 0;
   background-size: contain;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/border_bottom-01.png");
+  background-image: url("https://images.pandara.xyz/about/border_bottom-01.png");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -336,7 +336,7 @@ p {
   margin-left: -55px;
 }
 .detail-man-body-normal {
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/man_normal.png");
+  background-image: url("https://images.pandara.xyz/about/man_normal.png");
 }
 .detail-man-code {
   width: 210px;
@@ -344,7 +344,7 @@ p {
   margin-left: -55px;
 }
 .detail-man-body-code {
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/man_macbook.png");
+  background-image: url("https://images.pandara.xyz/about/man_macbook.png");
 }
 .detail-man-macbook {
   width: 87px;
@@ -354,7 +354,7 @@ p {
   right: 0;
   background-repeat: no-repeat;
   background-size: contain;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/macbook.png");
+  background-image: url("https://images.pandara.xyz/about/macbook.png");
   animation: macbook-float 2s ease-in-out 0s infinite alternate;
   -webkit-animation: macbook-float 2s ease-in-out 0s infinite alternate;
 }
@@ -364,7 +364,7 @@ p {
   margin-left: -55px;
 }
 .detail-man-body-draw {
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/man_draw.png");
+  background-image: url("https://images.pandara.xyz/about/man_draw.png");
 }
 .detail-man-guitar {
   width: 280px;
@@ -372,7 +372,7 @@ p {
   margin-left: -140px;
 }
 .detail-man-body-guitar {
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/man_guitar.png");
+  background-image: url("https://images.pandara.xyz/about/man_guitar.png");
 }
 .detail-man-guitar-wood {
   width: 41px;
@@ -380,7 +380,7 @@ p {
   position: absolute;
   top: 15;
   left: 0;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/guitar_wood.png");
+  background-image: url("https://images.pandara.xyz/about/guitar_wood.png");
   background-size: contain;
   animation: guitar-wood-float 2s ease-in-out 0s infinite alternate;
   -webkit-animation: guitar-wood-float 2s ease-in-out 0s infinite alternate;
@@ -391,7 +391,7 @@ p {
   position: absolute;
   top: 0;
   right: 0;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/guitar_electric.png");
+  background-image: url("https://images.pandara.xyz/about/guitar_electric.png");
   background-size: contain;
   animation: guitar-electric-float 2s ease-in-out 0s infinite alternate;
   -webkit-animation: guitar-electric-float 2s ease-in-out 0s infinite alternate;
@@ -402,7 +402,7 @@ p {
   margin-left: -55px;
 }
 .detail-man-body-write {
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/man_write.png");
+  background-image: url("https://images.pandara.xyz/about/man_write.png");
 }
 .detail-man-write-notebook {
   width: 29px;
@@ -410,7 +410,7 @@ p {
   position: absolute;
   top: -40px;
   right: -2px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/notebook.png");
+  background-image: url("https://images.pandara.xyz/about/notebook.png");
   background-size: contain;
   background-repeat: no-repeat;
   animation: notebook-float 2s ease-in-out 0s infinite alternate;
@@ -423,7 +423,7 @@ p {
   left: 50%;
   margin-left: -70px;
   bottom: 107px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/shadow.png");
+  background-image: url("https://images.pandara.xyz/about/shadow.png");
   background-size: contain;
   background-repeat: no-repeat;
   z-index: 1;
@@ -654,7 +654,7 @@ p {
   bottom: 0px;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/me_bw.png?imageView2/2/w/400");
+  background-image: url("https://images.pandara.xyz/about/me_bw.png?imageView2/2/w/400");
 }
 .photo-note {
   position: absolute;
@@ -680,13 +680,13 @@ p {
   height: 330px;
   bottom: 340px;
   left: 120px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/wing.png");
+  background-image: url("https://images.pandara.xyz/about/wing.png");
   opacity: 0;
 }
 .photo-horn-right {
   width: 85px;
   height: 75px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/devil_horn_right.png");
+  background-image: url("https://images.pandara.xyz/about/devil_horn_right.png");
   left: 80px;
   bottom: 488px;
   opacity: 0;
@@ -694,7 +694,7 @@ p {
 .photo-horn-left {
   width: 66px;
   height: 94px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/devil_horn_left.png");
+  background-image: url("https://images.pandara.xyz/about/devil_horn_left.png");
   left: -18px;
   bottom: 451px;
   opacity: 0;
@@ -702,7 +702,7 @@ p {
 .photo-trail {
   width: 200px;
   height: 250px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/devil_trail.png");
+  background-image: url("https://images.pandara.xyz/about/devil_trail.png");
   left: 70px;
   bottom: 190px;
   opacity: 0;
@@ -712,7 +712,7 @@ p {
   height: 148;
   left: -4;
   bottom: 480;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/saiya_head.png");
+  background-image: url("https://images.pandara.xyz/about/saiya_head.png");
   opacity: 0;
 }
 .photo-saiya-head-show-animation {
@@ -730,7 +730,7 @@ p {
 .photo-saiya-power {
   width: 345px;
   height: 707px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/saiya_power.png");
+  background-image: url("https://images.pandara.xyz/about/saiya_power.png");
   left: 0px;
   bottom: 0px;
   opacity: 0;
@@ -752,7 +752,7 @@ p {
   height: 56px;
   left: 48px;
   bottom: 360px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/superman_logo.png");
+  background-image: url("https://images.pandara.xyz/about/superman_logo.png");
   opacity: 0;
 }
 .photo-sb-cloth {
@@ -760,7 +760,7 @@ p {
   height: 372px;
   left: 135px;
   bottom: 70px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/superman_cloth.png");
+  background-image: url("https://images.pandara.xyz/about/superman_cloth.png");
   opacity: 0;
 }
 .photo-bullet {
@@ -768,7 +768,7 @@ p {
   height: 9px;
   left: 0px;
   bottom: 495px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/bullet.png");
+  background-image: url("https://images.pandara.xyz/about/bullet.png");
   opacity: 0;
 }
 .photo-blood {
@@ -776,7 +776,7 @@ p {
   height: 26px;
   left: 28px;
   bottom: 495px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/blood.png");
+  background-image: url("https://images.pandara.xyz/about/blood.png");
   opacity: 0;
 }
 .photo-blood-show-animation {
@@ -796,7 +796,7 @@ p {
   height: 222px;
   left: 98px;
   bottom: 445px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/planets.png");
+  background-image: url("https://images.pandara.xyz/about/planets.png");
   opacity: 0;
 }
 .photo-rocket {
@@ -804,7 +804,7 @@ p {
   height: 92px;
   left: 260px;
   bottom: 550px;
-  background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/rocket.png");
+  background-image: url("https://images.pandara.xyz/about/rocket.png");
   opacity: 0;
 }
 @media screen and (max-width: 600px) {
@@ -815,20 +815,20 @@ p {
   .photo-me-bw {
     width: 130px;
     height: 398px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/me_bw.png?imageView2/2/w/260");
+    background-image: url("https://images.pandara.xyz/about/me_bw.png?imageView2/2/w/260");
   }
   .photo-wing {
     width: 264px;
     height: 236px;
     bottom: 253px;
     left: 80px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/wing.png?imageView2/2/w/528");
+    background-image: url("https://images.pandara.xyz/about/wing.png?imageView2/2/w/528");
     opacity: 0;
   }
   .photo-horn-right {
     width: 60px;
     height: 53px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/devil_horn_right.png?imageView2/2/w/120");
+    background-image: url("https://images.pandara.xyz/about/devil_horn_right.png?imageView2/2/w/120");
     left: 58px;
     bottom: 355px;
     opacity: 0;
@@ -836,7 +836,7 @@ p {
   .photo-horn-left {
     width: 45px;
     height: 67px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/devil_horn_left.png?imageView2/2/w/90");
+    background-image: url("https://images.pandara.xyz/about/devil_horn_left.png?imageView2/2/w/90");
     left: -11px;
     bottom: 325px;
     opacity: 0;
@@ -844,7 +844,7 @@ p {
   .photo-trail {
     width: 145px;
     height: 180px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/devil_trail.png?imageView2/2/w/290");
+    background-image: url("https://images.pandara.xyz/about/devil_trail.png?imageView2/2/w/290");
     left: 62px;
     bottom: 135px;
     opacity: 0;
@@ -854,7 +854,7 @@ p {
     height: 105;
     left: -1;
     bottom: 349;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/saiya_head.png?imageView2/2/w/186");
+    background-image: url("https://images.pandara.xyz/about/saiya_head.png?imageView2/2/w/186");
     opacity: 0;
   }
   .photo-saiya-head-hide-animation {
@@ -866,7 +866,7 @@ p {
   .photo-saiya-power {
     width: 245px;
     height: 508px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/saiya_power.png?imageView2/2/w/490");
+    background-image: url("https://images.pandara.xyz/about/saiya_power.png?imageView2/2/w/490");
     left: 0px;
     bottom: 0px;
     opacity: 0;
@@ -876,7 +876,7 @@ p {
     height: 39px;
     left: 37px;
     bottom: 261px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/superman_logo.png?imageView2/2/w/108");
+    background-image: url("https://images.pandara.xyz/about/superman_logo.png?imageView2/2/w/108");
     opacity: 0;
   }
   .photo-sb-cloth {
@@ -884,7 +884,7 @@ p {
     height: 267px;
     left: 95px;
     bottom: 55px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/superman_cloth.png?imageView2/2/w/430");
+    background-image: url("https://images.pandara.xyz/about/superman_cloth.png?imageView2/2/w/430");
     opacity: 0;
   }
   .photo-bullet {
@@ -892,7 +892,7 @@ p {
     height: 6px;
     left: 0px;
     bottom: 360px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/bullet.png?imageView2/2/w/22");
+    background-image: url("https://images.pandara.xyz/about/bullet.png?imageView2/2/w/22");
     opacity: 0;
   }
   .photo-blood {
@@ -900,7 +900,7 @@ p {
     height: 20px;
     left: 20px;
     bottom: 360px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/blood.png?imageView2/2/w/30");
+    background-image: url("https://images.pandara.xyz/about/blood.png?imageView2/2/w/30");
     opacity: 0;
   }
   .photo-planet {
@@ -908,7 +908,7 @@ p {
     height: 160px;
     left: 71px;
     bottom: 344px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/planets.png?imageView2/2/w/360");
+    background-image: url("https://images.pandara.xyz/about/planets.png?imageView2/2/w/360");
     opacity: 0;
   }
   .photo-rocket {
@@ -916,7 +916,7 @@ p {
     height: 65px;
     left: 204px;
     bottom: 401px;
-    background-image: url("http://7ls0ue.com1.z0.glb.clouddn.com/about/rocket.png?imageView2/2/w/166");
+    background-image: url("https://images.pandara.xyz/about/rocket.png?imageView2/2/w/166");
     opacity: 0;
   }
 }
