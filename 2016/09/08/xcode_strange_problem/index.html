@@ -46,23 +46,18 @@
 <meta property="og:url" content="http://pandara.xyz/2016/09/08/xcode_strange_problem/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="记录 iOS 开发过程中遇到的各种操蛋问题">
-<meta property="og:image" content="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/89159fix_xcode8.png">
-<meta property="og:image" content="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/06/xcode_strange_problem/01.png">
-<meta property="og:image" content="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/06/xcode_strange_problem/02.png">
-<meta property="og:image" content="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/03.png">
+<meta property="og:image" content="https://images.pandara.xyz/89159fix_xcode8.png">
+<meta property="og:image" content="https://images.pandara.xyz/2016/06/06/xcode_strange_problem/01.png">
+<meta property="og:image" content="https://images.pandara.xyz/2016/06/06/xcode_strange_problem/02.png">
+<meta property="og:image" content="https://images.pandara.xyz/03.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2FcocoaPods_warning.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning02.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning01.png">
-<meta property="og:updated_time" content="2017-12-13T02:16:35.263Z">
+<meta property="og:updated_time" content="2017-12-13T05:13:18.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOSDev Strange Things">
 <meta name="twitter:description" content="记录 iOS 开发过程中遇到的各种操蛋问题">
-<meta name="twitter:image" content="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/89159fix_xcode8.png">
+<meta name="twitter:image" content="https://images.pandara.xyz/89159fix_xcode8.png">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -274,23 +269,19 @@ https://images.pandara.xyz/89159fix_xcode8.png">
 <li>检查 Library search path 是否设置正确</li>
 </ol>
 <h5 id="Xcode8-x_安装_XVim_之后闪退，错误提示信息为关于签名">Xcode8.x 安装 XVim 之后闪退，错误提示信息为关于签名</h5><p>Update: 20160908<br>提示的 Exception 类型为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Exception Type: EXC_BAD_ACCESS (Code Signature Invalid)</div></pre></td></tr></table></figure></p>
-<p>Xcode8 安装 XVim 的时候会将签名去除掉，Xcode 无法对自身进行验证。解决方法是用自己的证书为 Xcode 重新签名。在 XVim 的 issues979 下可以看到另一个简便的解决方法, 不过我还没实践过:<br><img src="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/89159fix_xcode8.png" alt="89159fix_xcode8.png"><br>如果采用自己证书重签名:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">codesign -f -s &lt;证书ID&gt; Xcode.app</div></pre></td></tr></table></figure></p>
+<p>Xcode8 安装 XVim 的时候会将签名去除掉，Xcode 无法对自身进行验证。解决方法是用自己的证书为 Xcode 重新签名。在 XVim 的 issues979 下可以看到另一个简便的解决方法, 不过我还没实践过:<br><img src="https://images.pandara.xyz/89159fix_xcode8.png" alt="89159fix_xcode8.png"><br>如果采用自己证书重签名:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">codesign -f -s &lt;证书ID&gt; Xcode.app</div></pre></td></tr></table></figure></p>
 <p>运行之后终端可能会假死一段时间，只要等就好了。假如等待之后得到一个错误 <code>unable to find utility &quot;codesign_allocate&quot;</code>, 可以尝试一下<a href="ihttp://stackoverflow.com/questions/29848622/codesign-allocate-error-unable-to-find-utility-codesign-allocate-not-a-deve" target="_blank" rel="external">这里</a>提到的解决方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">locate codesign_allocate</div></pre></td></tr></table></figure></p>
 <p>如果你没有生成相应的数据库，就按照提示去生成。完成之后再次运行上面的命令，会输出一堆路径。其中应该也会包含下面这个路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Library/Developer/CommandLineTools/usr/bin/codesign_allocate</div></pre></td></tr></table></figure></p>
 <p>将它添加到 PATH 变量中。当然这里应该是任一个路径都可以。在 ~/.zshrc(如果你没有使用 zsh，那就是 ~/.bashrc) 中添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=$PATH:/Library/Developer/CommandLineTools/usr/bin/codesign_allocate</div></pre></td></tr></table></figure></p>
 <p>然后创建一个软链到 /usr/bin/ 中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /Library/Developer/CommandLineTools/usr/bin/* /usr/bin/</div></pre></td></tr></table></figure></p>
 <p>之后再签名应该就没问题了。</p>
 <h5 id="iOS10-0_&amp;_Xcode8_beta_6,_工程_demo_无法访问网络">iOS10.0 &amp; Xcode8 beta 6, 工程 demo 无法访问网络</h5><p>一开始工程使用的签名配置是团队名称 + 自动选择，后来手动指定了 provisioning 文件，就可以了。原因暂时有待查明。</p>
-<h5 id="pod_install_时提示报错_Unable_to_find_a_specification">pod install 时提示报错 <code>Unable to find a specification</code></h5><p><img src="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/06/xcode_strange_problem/01.png" alt="image"></p>
+<h5 id="pod_install_时提示报错_Unable_to_find_a_specification">pod install 时提示报错 <code>Unable to find a specification</code></h5><p><img src="https://images.pandara.xyz/2016/06/06/xcode_strange_problem/01.png" alt="image"></p>
 <p><br>而工程的 <code>podfile</code> 中对这个仓库是这样指定的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod &apos;WebViewJavascriptBridge&apos;, :git =&gt; &apos;https://github.com/gzkiwiinc/WebViewJavascriptBridge.git&apos;, :branch =&gt; &apos;master&apos;</div></pre></td></tr></table></figure></p>
 <p><br>于是查了一下公司维护的自有版本仓库根目录下的 <code>podspec</code> 文件。要提一下的是，根据 <a href="https://guides.cocoapods.org/syntax/podfile.html#pod" target="_blank" rel="external">cocoapods 文档</a>，如果采用另外指定 source repo 的方式，那么 repo 的根目录下必须有一个 valid 的 podspec file：</p>
-<p><br><img src="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/06/xcode_strange_problem/02.png" alt="image"></p>
+<p><br><img src="https://images.pandara.xyz/2016/06/06/xcode_strange_problem/02.png" alt="image"></p>
 <p><br>clone 到本地之后用 <code>pod spec lint</code> 检查一下 <code>podspec</code> 文件是否正确，结果报了一个错:</p>
-<p><br><img src="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/03.png" alt="image"></p>
+<p><br><img src="https://images.pandara.xyz/03.png" alt="image"></p>
 <p><br>看起来应该是 cocoapods 1.0.0 中废弃了这个旧的语法。修改成下面这样：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s.platforms = &#123; <span class="symbol">:ios</span> =&gt; <span class="string">"5.0"</span>, <span class="symbol">:osx</span> =&gt; <span class="string">""</span> &#125;</div></pre></td></tr></table></figure></p>
 <p><br>修改完成提交之后，发觉仍然报错 <code>Unable to find a specification</code>，仔细瞧了一下 log，指向的 commit 是并不是 master 分支上最新的 commit：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Pre-downloading: `WebViewJavascriptBridge` from `https://github.com/gzkiwiinc/WebViewJavascriptBridge.git`, commit `f5e92dd1d49c67724719491ae0f7696026dff9c1`</div></pre></td></tr></table></figure></p>
 <p>而 podfile 中的声明并没有问题。没时间折腾了，只好强行指定一个 commit：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod <span class="string">'WebViewJavascriptBridge'</span>, <span class="symbol">:git</span> =&gt; <span class="string">'https://github.com/gzkiwiinc/WebViewJavascriptBridge.git'</span>, <span class="symbol">:branch</span> =&gt; <span class="string">'master'</span>, <span class="symbol">:commit</span> =&gt; <span class="string">'xxxxx'</span></div></pre></td></tr></table></figure></p>

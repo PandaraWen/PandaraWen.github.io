@@ -47,18 +47,14 @@
 <meta property="og:url" content="http://pandara.xyz/2016/06/01/raspberry_pi_1/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="本部分讲解将 CSI 摄像头配置成丝滑顺畅的监控器">
-<meta property="og:image" content="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/01/raspberry_pi_2/FullSizeRender.jpg?imageView2/2/w/450">
-<meta property="og:image" content="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/01/raspberry_pi_2/01.png?imageView2/2/w/450">
-<meta property="og:image" content="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/01/raspberry_pi_2/02.png?imageView2/2/w/450">
-<meta property="og:updated_time" content="2017-12-13T02:16:33.190Z">
+<meta property="og:image" content="https://images.pandara.xyz/2016/06/01/raspberry_pi_2/FullSizeRender.jpg?imageView2/2/w/450">
+<meta property="og:image" content="https://images.pandara.xyz/2016/06/01/raspberry_pi_2/01.png?imageView2/2/w/450">
+<meta property="og:image" content="https://images.pandara.xyz/2016/06/01/raspberry_pi_2/02.png?imageView2/2/w/450">
+<meta property="og:updated_time" content="2017-12-13T05:13:23.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Raspberry Pi 小车移动监控I — 摄像头">
 <meta name="twitter:description" content="本部分讲解将 CSI 摄像头配置成丝滑顺畅的监控器">
-<meta name="twitter:image" content="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/01/raspberry_pi_2/FullSizeRender.jpg?imageView2/2/w/450">
+<meta name="twitter:image" content="https://images.pandara.xyz/2016/06/01/raspberry_pi_2/FullSizeRender.jpg?imageView2/2/w/450">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -260,9 +256,7 @@ https://images.pandara.xyz/2016/06/01/raspberry_pi_2/FullSizeRender.jpg?imageVie
       
 
       
-        <span itemprop="articleBody"><center><a class="fancybox-thumb fancybox-aevit" rel="external" href="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/01/raspberry_pi_2/FullSizeRender.jpg?imageView2/2/w/2048" title="" target="_blank"><img src="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/01/raspberry_pi_2/FullSizeRender.jpg?imageView2/2/w/450" alt=""></a></center><br><center>本部分讲解将 CSI 摄像头配置成<br>丝滑顺畅的监控器</center>
+        <span itemprop="articleBody"><center><a class="fancybox-thumb fancybox-aevit" rel="external" href="https://images.pandara.xyz/2016/06/01/raspberry_pi_2/FullSizeRender.jpg?imageView2/2/w/2048" title="" target="_blank"><img src="https://images.pandara.xyz/2016/06/01/raspberry_pi_2/FullSizeRender.jpg?imageView2/2/w/450" alt=""></a></center><br><center>本部分讲解将 CSI 摄像头配置成<br>丝滑顺畅的监控器</center>
 
 <a id="more"></a>
 <h5 id="硬件准备">硬件准备</h5><p>去淘宝淘一个 csi 接口的摄像头，当然你想用 usb 也不是不可以。要注意书没陪并不是支持所有的 csi 摄像头，不过淘宝有专卖树莓派能支持的摄像头，500W 像素 + 夜视 也就是 90 来块，效果让我很满意。<br><br>摄像头接上之后，先要在派里面启动摄像头功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo raspi-config</div></pre></td></tr></table></figure></p>
@@ -273,17 +267,13 @@ https://images.pandara.xyz/2016/06/01/raspberry_pi_2/FullSizeRender.jpg?imageVie
 <h5 id="修改源文件并编译">修改源文件并编译</h5><p>下载 mjpg 源码到树莓派里面，<a href="https://github.com/jacksonliam/mjpg-streamer/archive/master.zip" target="_blank" rel="external">下载地址戳这里</a>，然后解压：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">unzip mjpg-streamer-master.zip</div></pre></td></tr></table></figure></p>
 <p>接着跳转到下面目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd mjpg-streamer-master/mjpg-streamer-experimental/plugins/input_raspicam</div></pre></td></tr></table></figure></p>
 <p>编辑 input_raspicam.c，按照你的需求修改 fps, width, height:</p>
-<p><br><center><a class="fancybox-thumb fancybox-aevit" rel="external" href="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/01/raspberry_pi_2/01.png?imageView2/2/w/2048" title="" target="_blank"><img src="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/01/raspberry_pi_2/01.png?imageView2/2/w/450" alt=""></a></center><br>接着切回目录 mjpg-streamer-experimental 编译源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ..</div><div class="line">cd ..</div><div class="line">make clean all</div></pre></td></tr></table></figure></p>
+<p><br><center><a class="fancybox-thumb fancybox-aevit" rel="external" href="https://images.pandara.xyz/2016/06/01/raspberry_pi_2/01.png?imageView2/2/w/2048" title="" target="_blank"><img src="https://images.pandara.xyz/2016/06/01/raspberry_pi_2/01.png?imageView2/2/w/450" alt=""></a></center><br>接着切回目录 mjpg-streamer-experimental 编译源码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ..</div><div class="line">cd ..</div><div class="line">make clean all</div></pre></td></tr></table></figure></p>
 <h5 id="编写启动脚本">编写启动脚本</h5><p>在 <code>mjpg-streamer-master</code> 的同级目录下编写启动脚本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim start_cctv.sh</div></pre></td></tr></table></figure></p>
 <p>然后将下面两条命令复制进去：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd mjpg-streamer-master/mjpg-streamer-experimental</div><div class="line">./mjpg_streamer -i &quot;./input_raspicam.so&quot; -o &quot;./output_http.so -w ./www&quot;</div></pre></td></tr></table></figure></p>
 <p>保存并修改可执行权限：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod 744 start_cctv.sh</div></pre></td></tr></table></figure></p>
 <h5 id="大功告成">大功告成</h5><p>启动你的脚本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh start_cctv.sh</div></pre></td></tr></table></figure></p>
 <p>然后在浏览器上面输入 <code>http://你树莓派的ip:8080</code> 或者 <code>http://你树莓派的ip:8080?action=stream</code>。前者展示出来的页面比较仿佛，而后者展示出来的比较简约，如下所示：</p>
-<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/01/raspberry_pi_2/02.png?imageView2/2/w/2048" title="" target="_blank"><img src="https://images.pandara.xyz/03.png
-https://images.pandara.xyz/2016/06/01/raspberry_pi_2/02.png?imageView2/2/w/450" alt=""></a></center>
+<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="https://images.pandara.xyz/2016/06/01/raspberry_pi_2/02.png?imageView2/2/w/2048" title="" target="_blank"><img src="https://images.pandara.xyz/2016/06/01/raspberry_pi_2/02.png?imageView2/2/w/450" alt=""></a></center>
 
 <h5 id="参考资料">参考资料</h5><p>1.<a href="http://tieba.baidu.com/p/3981484977" target="_blank" rel="external">用树莓派官方摄像头做丝滑般流畅的监控</a></p>
 </span>
