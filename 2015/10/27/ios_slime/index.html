@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="theme-next use-motion ">
 <head>
-	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
 	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
     
@@ -47,6 +47,7 @@
 <meta property="og:url" content="http://pandara.xyz/2015/10/27/ios_slime/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="受 Kitten 大神的一篇妙文所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用贝塞尔曲线实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。   此为效果图也">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/ios_slime/SBSlime2.gif">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/ios_slime/slime_rule.png">
 <meta property="og:updated_time" content="2015-10-27T10:17:42.000Z">
@@ -66,10 +67,10 @@
     <title> iOS 下水滴动画之实现 // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<!--[if lte IE 8]>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
   <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
       <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
@@ -256,7 +257,7 @@
 
       
         <span itemprop="articleBody"><blockquote>
-<p>受 Kitten 大神的<a href="http://kittenyang.com/drawablebubble/" target="_blank" rel="external">一篇妙文</a>所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用<strong>贝塞尔曲线</strong>实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。</p>
+<p>受 Kitten 大神的<a href="http://kittenyang.com/drawablebubble/" target="_blank" rel="noopener">一篇妙文</a>所启发，惊觉原来风靡良久之“水滴下拉刷新”效果，可用<strong>贝塞尔曲线</strong>实现。实乃当头一棒，顿悟之清爽，妙哉妙哉。遂根据原文，加以自己所理解，调配出此文，以飨读者。</p>
 </blockquote>
 <p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/27/ios_slime/SBSlime2.gif" alt="image"></p>
 <center><em>此为效果图也</em></center>
@@ -277,10 +278,10 @@
 
 <p><br></p>
 <blockquote>
-<p>上方红色框所标注的，就是我们需要用贝塞尔曲线来绘制的“水滴黏性效果”的轮廓。如果还不知道贝塞尔曲线是怎么来的，可以观看此篇跪膝之文<a href="http://www.html-js.com/article/1628" target="_blank" rel="external">贝塞尔曲线扫盲</a>。只要计算出红色标注的6个点坐标，贝塞尔曲线也就出来了。</p>
+<p>上方红色框所标注的，就是我们需要用贝塞尔曲线来绘制的“水滴黏性效果”的轮廓。如果还不知道贝塞尔曲线是怎么来的，可以观看此篇跪膝之文<a href="http://www.html-js.com/article/1628" target="_blank" rel="noopener">贝塞尔曲线扫盲</a>。只要计算出红色标注的6个点坐标，贝塞尔曲线也就出来了。</p>
 </blockquote>
-<p><br>关键的计算方法都在上面图中，下面看代码：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)reloadBezierPath</div><div class="line">&#123;</div><div class="line">    <span class="built_in">CGFloat</span> r1 = <span class="keyword">self</span>.trailDot.frame.size.width / <span class="number">2.0</span>f;</div><div class="line">    <span class="built_in">CGFloat</span> r2 = <span class="keyword">self</span>.headDot.frame.size.width / <span class="number">2.0</span>f;</div><div class="line">    </div><div class="line">    <span class="built_in">CGFloat</span> x1 = <span class="keyword">self</span>.trailDot.center.x;</div><div class="line">    <span class="built_in">CGFloat</span> y1 = <span class="keyword">self</span>.trailDot.center.y;</div><div class="line">    <span class="built_in">CGFloat</span> x2 = <span class="keyword">self</span>.headDot.center.x;</div><div class="line">    <span class="built_in">CGFloat</span> y2 = <span class="keyword">self</span>.headDot.center.y;</div><div class="line">    </div><div class="line">    <span class="built_in">CGFloat</span> distance = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));</div><div class="line">    </div><div class="line">    <span class="built_in">CGFloat</span> sinDegree = (x2 - x1) / distance;</div><div class="line">    <span class="built_in">CGFloat</span> cosDegree = (y2 - y1) / distance;</div><div class="line">    </div><div class="line">    <span class="built_in">CGPoint</span> pointA = <span class="built_in">CGPointMake</span>(x1 - r1 * cosDegree, y1 + r1 * sinDegree);</div><div class="line">    <span class="built_in">CGPoint</span> pointB = <span class="built_in">CGPointMake</span>(x1 + r1 * cosDegree, y1 - r1 * sinDegree);</div><div class="line">    <span class="built_in">CGPoint</span> pointC = <span class="built_in">CGPointMake</span>(x2 + r2 * cosDegree, y2 - r2 * sinDegree);</div><div class="line">    <span class="built_in">CGPoint</span> pointD = <span class="built_in">CGPointMake</span>(x2 - r2 * cosDegree, y2 + r2 * sinDegree);</div><div class="line">    <span class="built_in">CGPoint</span> pointN = <span class="built_in">CGPointMake</span>(pointB.x + (distance / <span class="number">2</span>) * sinDegree, pointB.y + (distance / <span class="number">2</span>) * cosDegree);</div><div class="line">    <span class="built_in">CGPoint</span> pointM = <span class="built_in">CGPointMake</span>(pointA.x + (distance / <span class="number">2</span>) * sinDegree, pointA.y + (distance / <span class="number">2</span>) * cosDegree);</div><div class="line">    </div><div class="line">    <span class="built_in">UIBezierPath</span> *path = [<span class="built_in">UIBezierPath</span> bezierPath];</div><div class="line">    [path moveToPoint:pointA];</div><div class="line">    [path addLineToPoint:pointB];</div><div class="line">    [path addQuadCurveToPoint:pointC controlPoint:pointN];</div><div class="line">    [path addLineToPoint:pointD];</div><div class="line">    [path addQuadCurveToPoint:pointA controlPoint:pointM];</div><div class="line">    </div><div class="line">    <span class="keyword">self</span>.shapeLayer.path = path.CGPath;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>就是这么简单。完整的 Demo 已经上传到<a href="https://github.com/PandaraWen/SBSlimeViewDemo" target="_blank" rel="external">这里</a>。当然我知道你肯定喜欢自己实现多于下载别人 Demo。</p>
+<p><br>关键的计算方法都在上面图中，下面看代码：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)reloadBezierPath</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> r1 = <span class="keyword">self</span>.trailDot.frame.size.width / <span class="number">2.0</span>f;</span><br><span class="line">    <span class="built_in">CGFloat</span> r2 = <span class="keyword">self</span>.headDot.frame.size.width / <span class="number">2.0</span>f;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> x1 = <span class="keyword">self</span>.trailDot.center.x;</span><br><span class="line">    <span class="built_in">CGFloat</span> y1 = <span class="keyword">self</span>.trailDot.center.y;</span><br><span class="line">    <span class="built_in">CGFloat</span> x2 = <span class="keyword">self</span>.headDot.center.x;</span><br><span class="line">    <span class="built_in">CGFloat</span> y2 = <span class="keyword">self</span>.headDot.center.y;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> distance = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGFloat</span> sinDegree = (x2 - x1) / distance;</span><br><span class="line">    <span class="built_in">CGFloat</span> cosDegree = (y2 - y1) / distance;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGPoint</span> pointA = <span class="built_in">CGPointMake</span>(x1 - r1 * cosDegree, y1 + r1 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointB = <span class="built_in">CGPointMake</span>(x1 + r1 * cosDegree, y1 - r1 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointC = <span class="built_in">CGPointMake</span>(x2 + r2 * cosDegree, y2 - r2 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointD = <span class="built_in">CGPointMake</span>(x2 - r2 * cosDegree, y2 + r2 * sinDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointN = <span class="built_in">CGPointMake</span>(pointB.x + (distance / <span class="number">2</span>) * sinDegree, pointB.y + (distance / <span class="number">2</span>) * cosDegree);</span><br><span class="line">    <span class="built_in">CGPoint</span> pointM = <span class="built_in">CGPointMake</span>(pointA.x + (distance / <span class="number">2</span>) * sinDegree, pointA.y + (distance / <span class="number">2</span>) * cosDegree);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIBezierPath</span> *path = [<span class="built_in">UIBezierPath</span> bezierPath];</span><br><span class="line">    [path moveToPoint:pointA];</span><br><span class="line">    [path addLineToPoint:pointB];</span><br><span class="line">    [path addQuadCurveToPoint:pointC controlPoint:pointN];</span><br><span class="line">    [path addLineToPoint:pointD];</span><br><span class="line">    [path addQuadCurveToPoint:pointA controlPoint:pointM];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.shapeLayer.path = path.CGPath;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>就是这么简单。完整的 Demo 已经上传到<a href="https://github.com/PandaraWen/SBSlimeViewDemo" target="_blank" rel="noopener">这里</a>。当然我知道你肯定喜欢自己实现多于下载别人 Demo。</p>
 <p><br><br>以上</p>
 </span>
       
@@ -390,7 +391,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -469,7 +470,7 @@
             <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -697,6 +698,27 @@
 </script>
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 
 
@@ -712,6 +734,6 @@
             effect: "fadeIn"
         });
     });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

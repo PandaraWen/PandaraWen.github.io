@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="theme-next use-motion ">
 <head>
-	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
 	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
     
@@ -47,6 +47,7 @@
 <meta property="og:url" content="http://pandara.xyz/2015/10/13/ios9_3dtouch/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="翻译自苹果官方文档  概述3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png?imageView2/2/w/300">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png?imageView2/2/w/300">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png?imageView2/2/w/300">
@@ -69,10 +70,10 @@
     <title> iOS9 new feature — 3D Touch 人机交互指南 // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<!--[if lte IE 8]>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
   <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
       <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
@@ -259,12 +260,12 @@
 
       
         <span itemprop="articleBody"><blockquote>
-<p>翻译自<a href="https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/3DTouch.html" target="_blank" rel="external">苹果官方文档</a></p>
+<p>翻译自<a href="https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/3DTouch.html" target="_blank" rel="noopener">苹果官方文档</a></p>
 </blockquote>
 <h4 id="概述">概述</h4><p>3D Touch 是 iOS9 的新特性，给用户提供了一个格外的交互维度。在支持的设备中，用户可以在主屏幕 press app 的 icon，来选择一些 app 指定的操作。在 app 内部，用户可以使用按压来获取某个 item 的预览，在一个独立的 view 中打开该 item，并且可以进行相应的操作。</p>
 <a id="more"></a>
 <h4 id="Peek_与_Pop">Peek 与 Pop</h4><p>peek（一瞥）让用户可以在当前页面中预览某个 item，并且进行相关操作。用户轻压该 item 时，将会显示一个小矩形 view。</p>
-<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png" title="A peek preview in Safari" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png?imageView2/2/w/300" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png" title="Quick actions in a Safari peek" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png?imageView2/2/w/300" alt=""></a></center>
+<center><a class="fancybox-thumb fancybox-aevit" rel="noopener" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png" title="A peek preview in Safari" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_2x.png?imageView2/2/w/300" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="noopener" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png" title="Quick actions in a Safari peek" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/webview_peek_quick_actions_2x.png?imageView2/2/w/300" alt=""></a></center>
 
 <p><br>关于 peek</p>
 <ul>
@@ -280,7 +281,7 @@
 <p><br><strong>为 peek 提供快速操作，如果合适的话</strong>。在peek中，用户可以向上滑动，来显示一些跟 item 相关的操作。例如，在 Mail 应用中的 peek quick action 包括 Reply All， Forward， 还有 Move Message。不是每个 peek 都需要 quick action。但是如果你准备为 item 提供自定义的长按操作，最好能在 peek 中提供相同的操作。注意，web view 中的 peek 自动提供 peek quick aciton。</p>
 <p><br><strong>不要将 peek 作为提供自定义操作的唯一方式</strong>。不是所有的设备都支持 peek 与 pop，并且某些用户可能选择关闭 3D Touch。当你的 app 在一些旧的机器中运行，可以用长按操作来替代 peek quick action。</p>
 <h4 id="主屏幕快速操作">主屏幕快速操作</h4><p>主屏幕快速操作给用户提供了一种方便的途径来执行一些 app 指定的操作，可以在主屏幕中直接执行。</p>
-<center><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png" title="Camera Home screen quick actions" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png?imageView2/2/w/300" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="external" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png" title="Mail Home screen quick actions" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png?imageView2/2/w/300" alt=""></a></center>
+<center><a class="fancybox-thumb fancybox-aevit" rel="noopener" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png" title="Camera Home screen quick actions" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions1-65_2x.png?imageView2/2/w/300" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="noopener" href="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png" title="Mail Home screen quick actions" target="_blank"><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/home_screen_quick_actions2-65_2x.png?imageView2/2/w/300" alt=""></a></center>
 
 <p><br>关于 Home screen quick action：</p>
 <ul>
@@ -295,7 +296,7 @@
 <p><br><strong>不要使用 HS quick aciton 来作为通知用户的方式</strong>。iOS 用户会期望以另外一种方式来接收通知的(微笑)。</p>
 <p><br><strong>为每个 HS quick action 项提供一个简明的 title 或者 subtitle 跟模板 icon</strong>。title 应该清楚指明改 action 的操作结果。例如，“打道回府”，“创建新的联系人”还有“写短信”。你同时也可以提供一个可选的子标题来让用户直到更多信息。例如，Mail 在 VIP 主屏幕中 使用子标题来告诉用户是否有未读信息。不要将 app 的名字或者其他无关的信息包含在 title 或者 subtitle 中，同时也要考虑你的文本的本地化。</p>
 <p><br>你应该让你的标题尽可能的短，来避免它被裁截，同时也可以帮助用户快速明白操作的含义。如果你提供子标题，如果它太长的话，系统会将它裁截，来让它的长度维持在一行之内。如果你不提供子标题，系统会将过长的标题截断换到第二行。</p>
-<p><br>你可以选择使用系统提供的模板 icon。也可以使用自己的创建的自定义 icon。关于 icon 的size，padding 还有 positioning，从<a href="https://developer.apple.com/design/downloads/Quick-Action-Guides.zip" target="_blank" rel="external">这里下载 HS quick aciton icon template</a>。关于自定义 template icon 的信息，<a href="https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/BarIcons.html#//apple_ref/doc/uid/TP40006556-CH21-SW1" target="_blank" rel="external">看这里</a>。</p>
+<p><br>你可以选择使用系统提供的模板 icon。也可以使用自己的创建的自定义 icon。关于 icon 的size，padding 还有 positioning，从<a href="https://developer.apple.com/design/downloads/Quick-Action-Guides.zip" target="_blank" rel="noopener">这里下载 HS quick aciton icon template</a>。关于自定义 template icon 的信息，<a href="https://developer.apple.com/library/prerelease/ios/documentation/UserExperience/Conceptual/MobileHIG/BarIcons.html#//apple_ref/doc/uid/TP40006556-CH21-SW1" target="_blank" rel="noopener">看这里</a>。</p>
 <p><br>系统自动在 quick action 的左边或者右边显示 icon，这根据你的 app icon 在用户的手机屏幕位置而定。而文本一般为左对齐。例子如下：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/13/ios9_3dtouch/quick_action_layouts_2x.png" alt="image"></p>
 <p><br><br>以上</p>
 </span>
@@ -406,7 +407,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -485,7 +486,7 @@
             <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -713,6 +714,27 @@
 </script>
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 
 
@@ -728,6 +750,6 @@
             effect: "fadeIn"
         });
     });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

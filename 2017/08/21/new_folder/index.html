@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="theme-next use-motion ">
 <head>
-	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
 	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
     
@@ -46,6 +46,7 @@
 <meta property="og:url" content="http://pandara.xyz/2017/08/21/new_folder/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="猝不及防地，我成为了一名爸爸。明明我自己都还只是一个孩子，我该怎么去教育另外一个孩子呢。回想起曾经在友人面前丢下的誓言：“我还没有弄清楚自己，是不会结婚生子的”，只闻脸上啪啪清脆响。孩子呀，我该怎么样当好你的爸爸呢？孩子呀，你慢慢长大，好让我不会被你飞速的成长给抛离，我们一起学习跟这个世界的相处方式。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-08-24T05:00:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="孩子呀孩子">
@@ -62,10 +63,10 @@
     <title> 孩子呀孩子 // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<!--[if lte IE 8]>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
   <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
       <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
@@ -354,7 +355,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -433,7 +434,7 @@
             <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -661,6 +662,27 @@
 </script>
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 
 
@@ -676,6 +698,6 @@
             effect: "fadeIn"
         });
     });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

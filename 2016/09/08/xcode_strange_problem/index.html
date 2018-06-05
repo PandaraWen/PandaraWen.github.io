@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="theme-next use-motion ">
 <head>
-	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
 	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
     
@@ -46,6 +46,7 @@
 <meta property="og:url" content="http://pandara.xyz/2016/09/08/xcode_strange_problem/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="记录 iOS 开发过程中遇到的各种操蛋问题">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images.pandara.xyz/89159fix_xcode8.png">
 <meta property="og:image" content="https://images.pandara.xyz/2016/06/06/xcode_strange_problem/01.png">
 <meta property="og:image" content="https://images.pandara.xyz/2016/06/06/xcode_strange_problem/02.png">
@@ -70,10 +71,10 @@
     <title> iOSDev Strange Things // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<!--[if lte IE 8]>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
   <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
       <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
@@ -268,23 +269,23 @@
 <li>检查工程的 <code>Linked Frameworks and Libraries</code> 是否引入相应的 lib</li>
 <li>检查 Library search path 是否设置正确</li>
 </ol>
-<h5 id="Xcode8-x_安装_XVim_之后闪退，错误提示信息为关于签名">Xcode8.x 安装 XVim 之后闪退，错误提示信息为关于签名</h5><p>Update: 20160908<br>提示的 Exception 类型为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Exception Type: EXC_BAD_ACCESS (Code Signature Invalid)</div></pre></td></tr></table></figure></p>
-<p>Xcode8 安装 XVim 的时候会将签名去除掉，Xcode 无法对自身进行验证。解决方法是用自己的证书为 Xcode 重新签名。在 XVim 的 issues979 下可以看到另一个简便的解决方法, 不过我还没实践过:<br><img src="https://images.pandara.xyz/89159fix_xcode8.png" alt="89159fix_xcode8.png"><br>如果采用自己证书重签名:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">codesign -f -s &lt;证书ID&gt; Xcode.app</div></pre></td></tr></table></figure></p>
-<p>运行之后终端可能会假死一段时间，只要等就好了。假如等待之后得到一个错误 <code>unable to find utility &quot;codesign_allocate&quot;</code>, 可以尝试一下<a href="ihttp://stackoverflow.com/questions/29848622/codesign-allocate-error-unable-to-find-utility-codesign-allocate-not-a-deve" target="_blank" rel="external">这里</a>提到的解决方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">locate codesign_allocate</div></pre></td></tr></table></figure></p>
-<p>如果你没有生成相应的数据库，就按照提示去生成。完成之后再次运行上面的命令，会输出一堆路径。其中应该也会包含下面这个路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Library/Developer/CommandLineTools/usr/bin/codesign_allocate</div></pre></td></tr></table></figure></p>
-<p>将它添加到 PATH 变量中。当然这里应该是任一个路径都可以。在 ~/.zshrc(如果你没有使用 zsh，那就是 ~/.bashrc) 中添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=$PATH:/Library/Developer/CommandLineTools/usr/bin/codesign_allocate</div></pre></td></tr></table></figure></p>
-<p>然后创建一个软链到 /usr/bin/ 中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /Library/Developer/CommandLineTools/usr/bin/* /usr/bin/</div></pre></td></tr></table></figure></p>
+<h5 id="Xcode8-x_安装_XVim_之后闪退，错误提示信息为关于签名">Xcode8.x 安装 XVim 之后闪退，错误提示信息为关于签名</h5><p>Update: 20160908<br>提示的 Exception 类型为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception Type: EXC_BAD_ACCESS (Code Signature Invalid)</span><br></pre></td></tr></table></figure></p>
+<p>Xcode8 安装 XVim 的时候会将签名去除掉，Xcode 无法对自身进行验证。解决方法是用自己的证书为 Xcode 重新签名。在 XVim 的 issues979 下可以看到另一个简便的解决方法, 不过我还没实践过:<br><img src="https://images.pandara.xyz/89159fix_xcode8.png" alt="89159fix_xcode8.png"><br>如果采用自己证书重签名:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign -f -s &lt;证书ID&gt; Xcode.app</span><br></pre></td></tr></table></figure></p>
+<p>运行之后终端可能会假死一段时间，只要等就好了。假如等待之后得到一个错误 <code>unable to find utility &quot;codesign_allocate&quot;</code>, 可以尝试一下<a href="ihttp://stackoverflow.com/questions/29848622/codesign-allocate-error-unable-to-find-utility-codesign-allocate-not-a-deve" target="_blank" rel="noopener">这里</a>提到的解决方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate codesign_allocate</span><br></pre></td></tr></table></figure></p>
+<p>如果你没有生成相应的数据库，就按照提示去生成。完成之后再次运行上面的命令，会输出一堆路径。其中应该也会包含下面这个路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Library/Developer/CommandLineTools/usr/bin/codesign_allocate</span><br></pre></td></tr></table></figure></p>
+<p>将它添加到 PATH 变量中。当然这里应该是任一个路径都可以。在 ~/.zshrc(如果你没有使用 zsh，那就是 ~/.bashrc) 中添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/Library/Developer/CommandLineTools/usr/bin/codesign_allocate</span><br></pre></td></tr></table></figure></p>
+<p>然后创建一个软链到 /usr/bin/ 中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /Library/Developer/CommandLineTools/usr/bin/* /usr/bin/</span><br></pre></td></tr></table></figure></p>
 <p>之后再签名应该就没问题了。</p>
 <h5 id="iOS10-0_&amp;_Xcode8_beta_6,_工程_demo_无法访问网络">iOS10.0 &amp; Xcode8 beta 6, 工程 demo 无法访问网络</h5><p>一开始工程使用的签名配置是团队名称 + 自动选择，后来手动指定了 provisioning 文件，就可以了。原因暂时有待查明。</p>
 <h5 id="pod_install_时提示报错_Unable_to_find_a_specification">pod install 时提示报错 <code>Unable to find a specification</code></h5><p><img src="https://images.pandara.xyz/2016/06/06/xcode_strange_problem/01.png" alt="image"></p>
-<p><br>而工程的 <code>podfile</code> 中对这个仓库是这样指定的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod &apos;WebViewJavascriptBridge&apos;, :git =&gt; &apos;https://github.com/gzkiwiinc/WebViewJavascriptBridge.git&apos;, :branch =&gt; &apos;master&apos;</div></pre></td></tr></table></figure></p>
-<p><br>于是查了一下公司维护的自有版本仓库根目录下的 <code>podspec</code> 文件。要提一下的是，根据 <a href="https://guides.cocoapods.org/syntax/podfile.html#pod" target="_blank" rel="external">cocoapods 文档</a>，如果采用另外指定 source repo 的方式，那么 repo 的根目录下必须有一个 valid 的 podspec file：</p>
+<p><br>而工程的 <code>podfile</code> 中对这个仓库是这样指定的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &apos;WebViewJavascriptBridge&apos;, :git =&gt; &apos;https://github.com/gzkiwiinc/WebViewJavascriptBridge.git&apos;, :branch =&gt; &apos;master&apos;</span><br></pre></td></tr></table></figure></p>
+<p><br>于是查了一下公司维护的自有版本仓库根目录下的 <code>podspec</code> 文件。要提一下的是，根据 <a href="https://guides.cocoapods.org/syntax/podfile.html#pod" target="_blank" rel="noopener">cocoapods 文档</a>，如果采用另外指定 source repo 的方式，那么 repo 的根目录下必须有一个 valid 的 podspec file：</p>
 <p><br><img src="https://images.pandara.xyz/2016/06/06/xcode_strange_problem/02.png" alt="image"></p>
 <p><br>clone 到本地之后用 <code>pod spec lint</code> 检查一下 <code>podspec</code> 文件是否正确，结果报了一个错:</p>
 <p><br><img src="https://images.pandara.xyz/03.png" alt="image"></p>
-<p><br>看起来应该是 cocoapods 1.0.0 中废弃了这个旧的语法。修改成下面这样：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s.platforms = &#123; <span class="symbol">:ios</span> =&gt; <span class="string">"5.0"</span>, <span class="symbol">:osx</span> =&gt; <span class="string">""</span> &#125;</div></pre></td></tr></table></figure></p>
-<p><br>修改完成提交之后，发觉仍然报错 <code>Unable to find a specification</code>，仔细瞧了一下 log，指向的 commit 是并不是 master 分支上最新的 commit：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Pre-downloading: `WebViewJavascriptBridge` from `https://github.com/gzkiwiinc/WebViewJavascriptBridge.git`, commit `f5e92dd1d49c67724719491ae0f7696026dff9c1`</div></pre></td></tr></table></figure></p>
-<p>而 podfile 中的声明并没有问题。没时间折腾了，只好强行指定一个 commit：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod <span class="string">'WebViewJavascriptBridge'</span>, <span class="symbol">:git</span> =&gt; <span class="string">'https://github.com/gzkiwiinc/WebViewJavascriptBridge.git'</span>, <span class="symbol">:branch</span> =&gt; <span class="string">'master'</span>, <span class="symbol">:commit</span> =&gt; <span class="string">'xxxxx'</span></div></pre></td></tr></table></figure></p>
+<p><br>看起来应该是 cocoapods 1.0.0 中废弃了这个旧的语法。修改成下面这样：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.platforms = &#123; <span class="symbol">:ios</span> =&gt; <span class="string">"5.0"</span>, <span class="symbol">:osx</span> =&gt; <span class="string">""</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<p><br>修改完成提交之后，发觉仍然报错 <code>Unable to find a specification</code>，仔细瞧了一下 log，指向的 commit 是并不是 master 分支上最新的 commit：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pre-downloading: `WebViewJavascriptBridge` from `https://github.com/gzkiwiinc/WebViewJavascriptBridge.git`, commit `f5e92dd1d49c67724719491ae0f7696026dff9c1`</span><br></pre></td></tr></table></figure></p>
+<p>而 podfile 中的声明并没有问题。没时间折腾了，只好强行指定一个 commit：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">'WebViewJavascriptBridge'</span>, <span class="symbol">:git</span> =&gt; <span class="string">'https://github.com/gzkiwiinc/WebViewJavascriptBridge.git'</span>, <span class="symbol">:branch</span> =&gt; <span class="string">'master'</span>, <span class="symbol">:commit</span> =&gt; <span class="string">'xxxxx'</span></span><br></pre></td></tr></table></figure></p>
 <p><br>最后再 pod install，就跑通了。</p>
 <p><br>总结：不要忽略官方文档，靠猜不如看文档。另外还有一个问题，为什么指定的 master 分支没有取到最新的提交</p>
 <h5 id="cocoaPods_提示_diff:_/-/Podfile-lock:_No_such_file_or_directory">cocoaPods 提示 <code>diff: /../Podfile.lock: No such file or directory</code></h5><p>因为我刚刚将 podfile 修改了，增加了一些 target 指定。重新 pod install 之后会生成新的配置文件，而原来的配置文件会被删除。但是 cocoaPods 没有帮忙正确设置回来。pod install 的时候终端也有输出警告信息：</p>
@@ -295,7 +296,7 @@
 <p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning01.png" alt="image"></p>
 <p><br>问题就消失了</p>
 <h5 id="提示错误_ld:_library_not_found_for_-lPods">提示错误 ld: library not found for -lPods</h5><p>同上，原因是：项目中增加了一个 Target，重新对 pod 增加了一些 pod target 的指定。重新 build 之后原来的库 libPods.a 会被删除。<br>解决方法说来也简单，直接在 Xcode 里将项目中对被删除的 .a 文件的引用删掉即可(红色)。说起来真是羞愧，一直没有注意到这点，Xcode 会对项目中引用的文件进行引入。如果缺失的图片资源那还好办，只会报一个警告；如果缺失的是库文件，直接编译不通过。</p>
-<p><br>顺便一提，libPods-XXX.a 文件目录是在：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/Users/用户名/Library/Developer/Xcode/DerivedData/项目名/Build/Products/Debug-iphonesimulator/libPods-XXX.a</div></pre></td></tr></table></figure></p>
+<p><br>顺便一提，libPods-XXX.a 文件目录是在：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/Library/Developer/Xcode/DerivedData/项目名/Build/Products/Debug-iphonesimulator/libPods-XXX.a</span><br></pre></td></tr></table></figure></p>
 </span>
       
     </div>
@@ -394,7 +395,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -451,7 +452,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Undefine_symbols_for_architecture_XXX"><span class="nav-number">1.</span> <span class="nav-text">Undefine symbols for architecture XXX</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Xcode8-x_安装_XVim_之后闪退，错误提示信息为关于签名"><span class="nav-number">2.</span> <span class="nav-text">Xcode8.x 安装 XVim 之后闪退，错误提示信息为关于签名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iOS10-0_&_Xcode8_beta_6,_工程_demo_无法访问网络"><span class="nav-number">3.</span> <span class="nav-text">iOS10.0 & Xcode8 beta 6, 工程 demo 无法访问网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pod_install_时提示报错_Unable_to_find_a_specification"><span class="nav-number">4.</span> <span class="nav-text">pod install 时提示报错 Unable to find a specification</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cocoaPods_提示_diff:_/-/Podfile-lock:_No_such_file_or_directory"><span class="nav-number">5.</span> <span class="nav-text">cocoaPods 提示 diff: /../Podfile.lock: No such file or directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提示错误_ld:_library_not_found_for_-lPods"><span class="nav-number">6.</span> <span class="nav-text">提示错误 ld: library not found for -lPods</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Undefine_symbols_for_architecture_XXX"><span class="nav-number">1.</span> <span class="nav-text">Undefine symbols for architecture XXX</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Xcode8-x_安装_XVim_之后闪退，错误提示信息为关于签名"><span class="nav-number">2.</span> <span class="nav-text">Xcode8.x 安装 XVim 之后闪退，错误提示信息为关于签名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iOS10-0_&_Xcode8_beta_6,_工程_demo_无法访问网络"><span class="nav-number">3.</span> <span class="nav-text">iOS10.0 &amp; Xcode8 beta 6, 工程 demo 无法访问网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#pod_install_时提示报错_Unable_to_find_a_specification"><span class="nav-number">4.</span> <span class="nav-text">pod install 时提示报错 Unable to find a specification</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#cocoaPods_提示_diff:_/-/Podfile-lock:_No_such_file_or_directory"><span class="nav-number">5.</span> <span class="nav-text">cocoaPods 提示 diff: /../Podfile.lock: No such file or directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#提示错误_ld:_library_not_found_for_-lPods"><span class="nav-number">6.</span> <span class="nav-text">提示错误 ld: library not found for -lPods</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -473,7 +474,7 @@
             <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -701,6 +702,27 @@
 </script>
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 
 
@@ -716,6 +738,6 @@
             effect: "fadeIn"
         });
     });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

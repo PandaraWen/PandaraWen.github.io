@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="theme-next use-motion ">
 <head>
-	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
 	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
     
@@ -47,6 +47,7 @@
 <meta property="og:url" content="http://pandara.xyz/2015/12/30/ios_ble/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="BLE 的重要性相信已经无需多言了。现在可穿戴设备与手机之间的配对连接方式基本都是一色的 BLE。这篇教程会介绍 CoreBluetooth 从 iOS5 到 iOS7 的演变。另外，也会介绍怎么配置 CB central 跟 peripheral，来让他们之间进行通讯，还有一些最佳编程实践。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage11.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage21.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage31.png">
@@ -68,10 +69,10 @@
     <title> iOS Core Bluetooth - Theoretical Overview // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<!--[if lte IE 8]>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
   <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
       <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
@@ -269,12 +270,12 @@
 <p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage11.png" alt="image"></p>
 <p><br>上面的两个角色在 iOS 中各有一个类型与之对应，分别为 <code>CBCentralManager</code> 跟 <code>CBPeripheral</code>。</p>
 <p><br><code>CBCentralManager</code> 管理那些被发现或者连接的 peripheral(<code>CBPeripheral</code>)。只要 <code>CBCentralManager</code> 跟一个 peripheral 连接了，它们之间就可以进行数据交互了。peripheral 中存储的数据，依据 service 跟 characteristic，被组织在一个树形结构中。</p>
-<p><br>这些服务可以使消息提醒，血压，心率等等。官方的 GATT 服务定义列表可以在<a href="https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx" target="_blank" rel="external">这里</a>查找到。</p>
+<p><br>这些服务可以使消息提醒，血压，心率等等。官方的 GATT 服务定义列表可以在<a href="https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx" target="_blank" rel="noopener">这里</a>查找到。</p>
 <p><br>service 中的 characteristic 实际上是 service 对应的某个实际的值。例如，在这个教程中，<code>Blood pressure</code> service 实际上就是在某个时刻中的血压值。下图描述了一个 peripheral，它拥有一个 service 跟两个 characteristic：</p>
 <p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage21.png" alt="image"></p>
 <p><br>在 Core Bluetooth 中，peripheral 的服务用 <code>CBService</code> 对象来表示。同样地，peripheral server 中的 characteristic 在 CB 中使用 <code>CBCharacteristic</code> 对象来表示。下图描述了 <code>CBService</code> 中 peripheral 的层次结构：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage31.png" alt="image"></p>
 <p><br>一个给定的 peripheral 可以有多个 service，每个 service 可以有多个 characteristic。这两者都没有限定最大数量。</p>
-<p><br>注意，你最好阅读一下官方文档<a href="https://developer.apple.com/library/ios/documentation/CoreBluetooth/Reference/CoreBluetooth_Framework/index.html#//apple_ref/doc/uid/TP40011295" target="_blank" rel="external">Core Bluetooth Framework Reference</a>，来通透地了解这部分内容。里面有更加详细的对象层次图以及说明。</p>
+<p><br>注意，你最好阅读一下官方文档<a href="https://developer.apple.com/library/ios/documentation/CoreBluetooth/Reference/CoreBluetooth_Framework/index.html#//apple_ref/doc/uid/TP40011295" target="_blank" rel="noopener">Core Bluetooth Framework Reference</a>，来通透地了解这部分内容。里面有更加详细的对象层次图以及说明。</p>
 <h5 id="Core_Bluetooth_进化史">Core Bluetooth 进化史</h5><p>Core Bluetooth FrameWork 首次出现在 iOS5，引入了一种新的方式来在设备之间利用蓝牙进行无线通讯。在每一次 iOS 系统的版本升级中，苹果都对 CB 进行提升，并且引入新特性。</p>
 <p><br>在 iOS5，CB 主要的特性是 <code>CBCentralManager</code>，<code>CBPeripheral</code>，Central，Client 跟 Observer。在这个版本中只有两个类存在，<code>CBCentralManager</code> 跟 <code>CBPeripheral</code>。前者负责发现跟连接几个(有限数量)外设。后者负责具象化一个设备，并且创建一种机制允许 Central 访问外设中的可用数据。</p>
 <p><br>在 iOS6，苹果提供了了几个 CB 特性，并且做了一些提升，包括 <code>CBPeripheralManager</code>，外设数据库捕获，广播，Peripheral 跟 Server。另外，<code>CBPeripheralManager</code> 提供了一种自定义的方式来创建 Server，还提供了一种机制定义了信息如何通过网络广播。还有，外设数据库抓取(peripheral database caching)极大地提升了蓝牙性能，特别是在扫描发现外设这个阶段。</p>
@@ -321,7 +322,7 @@
 <p><br>当你配置你的 characteristic 时，你应该让它们支持通知。因而需要将 <code>CBAttributePermissionsReadable</code> 这个属性添加到 <code>CBMutableCharacteristic</code> 对象的 <code>permissions</code> 中。</p>
 <p><br>注意，由于蓝牙是一种新兴技术，越来越多的设备使用它来嗅探网络意图访问 free data。因此，你应该在访问外设的敏感数据时使用配对连接的方式。</p>
 <h4 id="小结">小结</h4><p>读完这篇文章你应该直到 Core Bluetooth framework 的规格说明。在下一篇教程中，你会学习到如何用 <code>CBCentralManager</code> 跟 <code>CBPeripheral</code> 来编程。</p>
-<p><br>文章主要翻译自 <a href="http://code.tutsplus.com/tutorials/ios-7-sdk-core-bluetooth-theoretical-overview--mobile-20728" target="_blank" rel="external">iOS 7 SDK: Core Bluetooth - Theoretical Overview</a>, <a href="http://tutsplus.com/authors/jorge-costa-and-orlando-pereira" target="_blank" rel="external">Jorge Costa and Orlando Pereira</a>，有个人修改。</p>
+<p><br>文章主要翻译自 <a href="http://code.tutsplus.com/tutorials/ios-7-sdk-core-bluetooth-theoretical-overview--mobile-20728" target="_blank" rel="noopener">iOS 7 SDK: Core Bluetooth - Theoretical Overview</a>, <a href="http://tutsplus.com/authors/jorge-costa-and-orlando-pereira" target="_blank" rel="noopener">Jorge Costa and Orlando Pereira</a>，有个人修改。</p>
 <p><br><br>以上</p>
 </span>
       
@@ -429,7 +430,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -508,7 +509,7 @@
             <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -736,6 +737,27 @@
 </script>
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 
 
@@ -751,6 +773,6 @@
             effect: "fadeIn"
         });
     });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

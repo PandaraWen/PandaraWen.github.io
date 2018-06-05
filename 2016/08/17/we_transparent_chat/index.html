@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="theme-next use-motion ">
 <head>
-	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
 	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
     
@@ -47,6 +47,7 @@
 <meta property="og:url" content="http://pandara.xyz/2016/08/17/we_transparent_chat/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="作为逆向的巩固练习利用后摄像头获取视频流实现微信聊天界面的背景透视">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images.pandara.xyz/18181IMG_0018.PNG">
 <meta property="og:image" content="https://images.pandara.xyz/18347views.png">
 <meta property="og:image" content="https://images.pandara.xyz/43768inspector.png">
@@ -68,10 +69,10 @@
     <title> iOS逆向 — 逆向微信，透视聊天背景 // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<!--[if lte IE 8]>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
   <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
       <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
@@ -263,7 +264,7 @@
 <p><img src="https://images.pandara.xyz/18181IMG_0018.PNG" alt="18181IMG_0018.PNG"></p>
 <center><em>后置摄像头对着大广州塔</em></center>
 
-<p><br><center>项目源代码放在了我的<a href="https://github.com/PandaraWen/WeTransparentChat" target="_blank" rel="external">Github仓库</a></center></p>
+<p><br><center>项目源代码放在了我的<a href="https://github.com/PandaraWen/WeTransparentChat" target="_blank" rel="noopener">Github仓库</a></center></p>
 <h3 id="1-_概述">1. 概述</h3><p>前两天逆向了微信实现伪装定位，想着想再实现一个好玩的 trick 作为巩固，然后向下一个阶段推进。自动抢红包，不太感兴趣，并且已经有人实现了；文章阅读界面的的新消息预览，这个倒是我的刚需，不过也有人实现了，留着过段时间自己也实践一遍。最后想来想去，干脆就做一个之前手Q曾经有过的功能吧 —— 聊天页面背景透视，走路聊天防摔。</p>
 <p><br>流程还是那样：砸壳 -&gt; class-dump -&gt; Hopper 反编译 -&gt;  定位想要 hook 住的类以及函数 -&gt; 编写 tweak。砸壳跟 class-dump 之前已经实践过了，这里就不再废话，直接从定位 hook 点开始。</p>
 <h3 id="2-_hook_点定位">2. hook 点定位</h3><p>这里有个小建议，可以将系统的语言改成英文，程序员都知道，功能的英文名称一般跟工程中的类名相近，这样可以帮助我们更加快速地定位到相对应的类。例如微信中附近的人对应的英文名称为 People Nearby，而实际上源文件名称也包含了这个关键字。</p>
@@ -282,11 +283,11 @@
 <li><strong>didRotateFromInterfaceOrientation: </strong>同上</li>
 </ul>
 <p>代码就不贴了，没什么意思，要看源码可以到 Github 上查看</p>
-<h3 id="3-_Theos">3. Theos</h3><p>Theos 的工程中我使用了一个 Manager 来为我管理 AVFoundation 相关的操作，需要在 Makefile 中为它指定 arc 特性(更详细的 logos 语法可以在 <a href="http://iphonedevwiki.net/index.php/Logos" target="_blank" rel="external">wiki</a> 中找到)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">AVManager.m_CFLAGS = -fobjc-arc</div></pre></td></tr></table></figure></p>
-<p>完整的 Makefile 文件贴一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">THEOS_DEVICE_IP = 192.168.0.137</div><div class="line">ARCH = arm64</div><div class="line">TARGET = iphone:9.3</div><div class="line"></div><div class="line">include $(THEOS)/makefiles/common.mk</div><div class="line"></div><div class="line">TWEAK_NAME = WeTransparentChat</div><div class="line">WeTransparentChat_FILES = Tweak.xm AVManager.m</div><div class="line">WeTransparentChat_FRAMEWORKS = UIKit AVFoundation</div><div class="line">AVManager.m_CFLAGS = -fobjc-arc</div><div class="line"></div><div class="line">include $(THEOS_MAKE_PATH)/tweak.mk</div><div class="line"></div><div class="line">after-install::</div><div class="line">	install.exec &quot;killall -9 WeChat&quot;</div></pre></td></tr></table></figure></p>
-<p>另外有一点也需要注意下，看了很多文章，对 %log 的使用都是直接抄的原书中的描述，不知道是否因为系统差异，原书中提到的 <code>/var/logs/syslog</code> 默认并不存在，需要自己做一些<a href="https://www.theiphonewiki.com/wiki/Syslog" target="_blank" rel="external">配置</a>，或者直接用另一种的方法来实时获取 syslog。</p>
-<p><br>先到 cydia 中搜索安装 socat 这个插件，socat 也是 linux 上的一个强大的利器，算是 netcat 的替代产品或者加强版，可以在两个流之间机那里一个双向的通道。用下面命令实时获取 syslog：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">socat - UNIX-CONNECT:/var/run/lockdown/syslog.sock</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; watch</div></pre></td></tr></table></figure>
+<h3 id="3-_Theos">3. Theos</h3><p>Theos 的工程中我使用了一个 Manager 来为我管理 AVFoundation 相关的操作，需要在 Makefile 中为它指定 arc 特性(更详细的 logos 语法可以在 <a href="http://iphonedevwiki.net/index.php/Logos" target="_blank" rel="noopener">wiki</a> 中找到)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AVManager.m_CFLAGS = -fobjc-arc</span><br></pre></td></tr></table></figure></p>
+<p>完整的 Makefile 文件贴一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">THEOS_DEVICE_IP = 192.168.0.137</span><br><span class="line">ARCH = arm64</span><br><span class="line">TARGET = iphone:9.3</span><br><span class="line"></span><br><span class="line">include $(THEOS)/makefiles/common.mk</span><br><span class="line"></span><br><span class="line">TWEAK_NAME = WeTransparentChat</span><br><span class="line">WeTransparentChat_FILES = Tweak.xm AVManager.m</span><br><span class="line">WeTransparentChat_FRAMEWORKS = UIKit AVFoundation</span><br><span class="line">AVManager.m_CFLAGS = -fobjc-arc</span><br><span class="line"></span><br><span class="line">include $(THEOS_MAKE_PATH)/tweak.mk</span><br><span class="line"></span><br><span class="line">after-install::</span><br><span class="line">	install.exec &quot;killall -9 WeChat&quot;</span><br></pre></td></tr></table></figure></p>
+<p>另外有一点也需要注意下，看了很多文章，对 %log 的使用都是直接抄的原书中的描述，不知道是否因为系统差异，原书中提到的 <code>/var/logs/syslog</code> 默认并不存在，需要自己做一些<a href="https://www.theiphonewiki.com/wiki/Syslog" target="_blank" rel="noopener">配置</a>，或者直接用另一种的方法来实时获取 syslog。</p>
+<p><br>先到 cydia 中搜索安装 socat 这个插件，socat 也是 linux 上的一个强大的利器，算是 netcat 的替代产品或者加强版，可以在两个流之间机那里一个双向的通道。用下面命令实时获取 syslog：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socat - UNIX-CONNECT:/var/run/lockdown/syslog.sock</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; watch</span><br></pre></td></tr></table></figure>
 <p>然后会输出一堆有的没的信息，我们的 %log 数据也会包含在里面，不过目标进程幸好输出的信息在 iTerm 中会高亮。另外我暂时没有找到能够过滤输出的方法，用 * 过滤获取到的貌似是历史数组，并非实时。</p>
 <p><br>最后剩下的事情就是 make package install 的往复循环测试了。</p>
 <p><br><br>完</p>
@@ -394,7 +395,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -473,7 +474,7 @@
             <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -701,6 +702,27 @@
 </script>
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 
 
@@ -716,6 +738,6 @@
             effect: "fadeIn"
         });
     });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

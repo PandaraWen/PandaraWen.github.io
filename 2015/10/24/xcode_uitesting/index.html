@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="theme-next use-motion ">
 <head>
-	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
 	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
     
@@ -47,6 +47,7 @@
 <meta property="og:url" content="http://pandara.xyz/2015/10/24/xcode_uitesting/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="新版本的 IDE Xcode7 带来了一个新的测试功能 — UITesting，利用它我们可以跑一些自动化的 UI 测试。 Xcode7 除了带来新功能之外，以前那个寂寂无名的 UIAutomation 也被剔除了，虽然它现在在 Instrument 里面仍然可用。但我们现在基本上可以完全抛弃它了，因为我们有新欢—UITesting，一套全新的API。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/new_project.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/new_target.png">
 <meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/recording.gif">
@@ -70,10 +71,10 @@
     <title> Xcode7 UITesting // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<!--[if lte IE 8]>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
   <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
       <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
@@ -279,8 +280,8 @@
 <center><em>这是 Bug 吗</em></center>
 
 <p><br>将字符串里面的 <code>\U</code> 替换成 <code>\u</code> 就好了。</p>
-<p><br>上面的例子中，测试通过的原则是：<em>当我点击“戳我”按钮，弹出一个对话框</em>。自动生成的代码如下：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)testExample &#123;</div><div class="line">    <span class="built_in">XCUIApplication</span> *app = [[<span class="built_in">XCUIApplication</span> alloc] init];</div><div class="line">    [app.buttons[<span class="string">@"\u6233\u6211"</span>] tap];</div><div class="line">    [app.alerts.collectionViews.buttons[<span class="string">@"\u662f\u6211\u7684\u6233"</span>] tap];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>看起来非常直白，就是代码字面上的意思。点击函数左边的小按钮，我们可以看见类似下面终端输出：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">Test Case '-[UITestDemoUITests testExample]' started.</div><div class="line">    t =     0.00s     Start Test</div><div class="line">    t =     0.00s     Set Up</div><div class="line">    t =     0.00s         Launch pandara.UITestDemo</div><div class="line">2015-10-23 18:11:42.685 XCTRunner[31796:964610] Continuing to run tests in the background with task ID 1</div><div class="line">    t =     1.00s             Waiting for accessibility to load</div><div class="line">    t =     2.85s             Wait for app to idle</div><div class="line">    t =     3.09s     Tap "戳我" Button</div><div class="line">    t =     3.09s         Wait for app to idle</div><div class="line">    t =     3.14s         Find the "戳我" Button</div><div class="line">    t =     3.14s             Snapshot accessibility hierarchy for pandara.UITestDemo</div><div class="line">    t =     3.18s             Find: Descendants matching type Button</div><div class="line">    t =     3.19s             Find: Elements matching predicate '"戳我" IN identifiers'</div><div class="line">    t =     3.19s             Wait for app to idle</div><div class="line">    t =     3.25s         Synthesize event</div><div class="line">    t =     3.54s         Wait for app to idle</div><div class="line">    t =     4.02s     Tap "是我的戳" Button</div><div class="line">    t =     4.02s         Wait for app to idle</div><div class="line">    t =     4.07s         Find the "是我的戳" Button</div><div class="line">    t =     4.07s             Snapshot accessibility hierarchy for pandara.UITestDemo</div><div class="line">    t =     4.10s             Find: Descendants matching type Alert</div><div class="line">    t =     4.11s             Find: Descendants matching type CollectionView</div><div class="line">    t =     4.11s             Find: Descendants matching type Button</div><div class="line">    t =     4.11s             Find: Elements matching predicate '"是我的戳" IN identifiers'</div><div class="line">    t =     4.12s             Wait for app to idle</div><div class="line">    t =     4.15s             Check for UI interruption: Descendants matching type Alert</div><div class="line">    t =     4.16s                 Snapshot accessibility hierarchy for pandara.UITestDemo</div><div class="line">    t =     4.18s                 Find: Descendants matching type Alert</div><div class="line">    t =     4.19s         Synthesize event</div><div class="line">    t =     4.45s         Wait for app to idle</div></pre></td></tr></table></figure></p>
+<p><br>上面的例子中，测试通过的原则是：<em>当我点击“戳我”按钮，弹出一个对话框</em>。自动生成的代码如下：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)testExample &#123;</span><br><span class="line">    <span class="built_in">XCUIApplication</span> *app = [[<span class="built_in">XCUIApplication</span> alloc] init];</span><br><span class="line">    [app.buttons[<span class="string">@"\u6233\u6211"</span>] tap];</span><br><span class="line">    [app.alerts.collectionViews.buttons[<span class="string">@"\u662f\u6211\u7684\u6233"</span>] tap];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看起来非常直白，就是代码字面上的意思。点击函数左边的小按钮，我们可以看见类似下面终端输出：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Test Case '-[UITestDemoUITests testExample]' started.</span><br><span class="line">    t =     <span class="number">0.00</span>s     Start Test</span><br><span class="line">    t =     <span class="number">0.00</span>s     Set Up</span><br><span class="line">    t =     <span class="number">0.00</span>s         Launch pandara.UITestDemo</span><br><span class="line"><span class="number">2015</span><span class="number">-10</span><span class="number">-23</span> <span class="number">18</span>:<span class="number">11</span>:<span class="number">42.685</span> <span class="built_in">XCTRunner</span>[<span class="number">31796</span>:<span class="number">964610</span>] Continuing to run tests <span class="keyword">in</span> the background with task ID <span class="number">1</span></span><br><span class="line">    t =     <span class="number">1.00</span>s             Waiting <span class="keyword">for</span> accessibility to load</span><br><span class="line">    t =     <span class="number">2.85</span>s             Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">3.09</span>s     Tap <span class="string">"戳我"</span> Button</span><br><span class="line">    t =     <span class="number">3.09</span>s         Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">3.14</span>s         Find the <span class="string">"戳我"</span> Button</span><br><span class="line">    t =     <span class="number">3.14</span>s             Snapshot accessibility hierarchy <span class="keyword">for</span> pandara.UITestDemo</span><br><span class="line">    t =     <span class="number">3.18</span>s             Find: Descendants matching type Button</span><br><span class="line">    t =     3.19s             Find: Elements matching predicate '"戳我" IN identifiers'</span><br><span class="line">    t =     <span class="number">3.19</span>s             Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">3.25</span>s         Synthesize event</span><br><span class="line">    t =     <span class="number">3.54</span>s         Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">4.02</span>s     Tap <span class="string">"是我的戳"</span> Button</span><br><span class="line">    t =     <span class="number">4.02</span>s         Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">4.07</span>s         Find the <span class="string">"是我的戳"</span> Button</span><br><span class="line">    t =     <span class="number">4.07</span>s             Snapshot accessibility hierarchy <span class="keyword">for</span> pandara.UITestDemo</span><br><span class="line">    t =     <span class="number">4.10</span>s             Find: Descendants matching type Alert</span><br><span class="line">    t =     <span class="number">4.11</span>s             Find: Descendants matching type CollectionView</span><br><span class="line">    t =     <span class="number">4.11</span>s             Find: Descendants matching type Button</span><br><span class="line">    t =     4.11s             Find: Elements matching predicate '"是我的戳" IN identifiers'</span><br><span class="line">    t =     <span class="number">4.12</span>s             Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">4.15</span>s             Check <span class="keyword">for</span> UI interruption: Descendants matching type Alert</span><br><span class="line">    t =     <span class="number">4.16</span>s                 Snapshot accessibility hierarchy <span class="keyword">for</span> pandara.UITestDemo</span><br><span class="line">    t =     <span class="number">4.18</span>s                 Find: Descendants matching type Alert</span><br><span class="line">    t =     <span class="number">4.19</span>s         Synthesize event</span><br><span class="line">    t =     <span class="number">4.45</span>s         Wait <span class="keyword">for</span> app to idle</span><br></pre></td></tr></table></figure></p>
 <p>终端的输出显示了发生在 UI 上的操作，还有它们距离测试开始时的时间间隔。</p>
 <p><br>在 Xcode 的 test reporter 中同样可以看到这些输出：</p>
 <p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/test_report.png" alt="image"></p>
@@ -289,15 +290,15 @@
 <p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/table_record.png" alt="image"></p>
 <p><br>看起来好像还是没什么用。并且跟 Cell 的具体内容耦合得比较高。</p>
 <p><br>我们可以简单地修改一下，来确保当按钮按下的时候，屏幕中有且仅有一个 table，并且 table 中确实有 30 个元素，除非你的屏幕坏了而导致一些元素不见了。相信这个新的测试会比产品经历跟设计师的信息稳定精准得多了去了。</p>
-<p><br>下面，就让我们一步一步地来重写这个 test。test 的开始部分是一样，就是简单地点击屏幕上一开始显示的 show element 按钮。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">XCUIApplication</span> *app = [[<span class="built_in">XCUIApplication</span> alloc] init];</div></pre></td></tr></table></figure></p>
-<p><code>XCUIApplication</code> 是当前这个正在运行的 app 的代理，我们用它来跟 app 进行交互。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[app.buttons[<span class="string">@"show element"</span>] tap];</div></pre></td></tr></table></figure></p>
+<p><br>下面，就让我们一步一步地来重写这个 test。test 的开始部分是一样，就是简单地点击屏幕上一开始显示的 show element 按钮。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">XCUIApplication</span> *app = [[<span class="built_in">XCUIApplication</span> alloc] init];</span><br></pre></td></tr></table></figure></p>
+<p><code>XCUIApplication</code> 是当前这个正在运行的 app 的代理，我们用它来跟 app 进行交互。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[app.buttons[<span class="string">@"show element"</span>] tap];</span><br></pre></td></tr></table></figure></p>
 <p><code>.buttons[@&quot;show element&quot;]</code> 是一个 <code>XCUIElementQuery</code> 对象，由<code>XCUIApplication</code> 生成。它代表一个名为 show elements 的按钮，当有且仅有一个匹配的 button，这条测试才会通过。当有一个按钮被匹配，这个查询就会返回该按钮的一个代理，一个<code>XCUIElement</code> 对象。通过这个代理的 <code>tap</code> 方法，我们可以点击这个 button。</p>
 <p><br><code>XCUIApplication</code>, <code>XCUIElementQuery</code> 和 <code>XCUIElement</code> 是组成 UITesting 的三个重要的类。在它们的头文件中你可以查看更多信息。</p>
-<p><br>然后，我们的下一步，就是要确保屏幕上显示的，有且仅有一个table：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">XCTAssertEqual</span>([app.tables count], <span class="number">1</span>);</div></pre></td></tr></table></figure></p>
+<p><br>然后，我们的下一步，就是要确保屏幕上显示的，有且仅有一个table：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">XCTAssertEqual</span>([app.tables count], <span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
 <p>当然用 <code>XCTAssert</code> 也是可以的。</p>
-<p><br>在确保了我们有且仅有一个 table 之后，我们下一步就是要判断 table 里面的 cell 总数是否匹配我们的预期数目。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">XCUIElement</span> *table = [app.tables elementBoundByIndex:<span class="number">0</span>];</div><div class="line"><span class="built_in">XCTAssertEqual</span>(table.cells.count, <span class="number">30</span>);</div></pre></td></tr></table></figure></p>
+<p><br>在确保了我们有且仅有一个 table 之后，我们下一步就是要判断 table 里面的 cell 总数是否匹配我们的预期数目。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">XCUIElement</span> *table = [app.tables elementBoundByIndex:<span class="number">0</span>];</span><br><span class="line"><span class="built_in">XCTAssertEqual</span>(table.cells.count, <span class="number">30</span>);</span><br></pre></td></tr></table></figure></p>
 <p>这就是我们的编写的第一个 UITest 啦~</p>
-<p><br>最后整个测试看起来如下：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)testExample &#123;</div><div class="line">    <span class="built_in">XCUIApplication</span> *app = [[<span class="built_in">XCUIApplication</span> alloc] init];</div><div class="line">    [app.buttons[<span class="string">@"show element"</span>] tap];</div><div class="line"></div><div class="line">    <span class="built_in">XCTAssertEqual</span>([app.tables count], <span class="number">1</span>);</div><div class="line"></div><div class="line">    <span class="built_in">XCUIElement</span> *table = [app.tables elementBoundByIndex:<span class="number">0</span>];</div><div class="line">    <span class="built_in">XCTAssertEqual</span>(table.cells.count, <span class="number">30</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><br>最后整个测试看起来如下：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)testExample &#123;</span><br><span class="line">    <span class="built_in">XCUIApplication</span> *app = [[<span class="built_in">XCUIApplication</span> alloc] init];</span><br><span class="line">    [app.buttons[<span class="string">@"show element"</span>] tap];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">XCTAssertEqual</span>([app.tables count], <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">XCUIElement</span> *table = [app.tables elementBoundByIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">XCTAssertEqual</span>(table.cells.count, <span class="number">30</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h5 id="施主，你要到哪里去呀">施主，你要到哪里去呀</h5><p>虽然这个框架好像在很多情况下都不适用，例如难以确保页面内元素的布局是否正确，以及动态改变的 tableView 元素个数难以确定等等。但是这可以看做是苹果在 UITesting 迈出的第一步，期待以后会有发展。至少目前，把它当做一个玩具来玩也未曾不可。</p>
 <blockquote>
 <p>以上大部分内容来自<a href="Xcode 7 UI testing, a first look">mokacoding — Xcode 7 UI testing, a first look</a>，有修改</p>
@@ -411,7 +412,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -490,7 +491,7 @@
             <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -718,6 +719,27 @@
 </script>
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 
 
@@ -733,6 +755,6 @@
             effect: "fadeIn"
         });
     });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

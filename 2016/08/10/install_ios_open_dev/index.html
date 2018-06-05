@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="theme-next use-motion ">
 <head>
-	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
 	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
     
@@ -47,6 +47,7 @@
 <meta property="og:url" content="http://pandara.xyz/2016/08/10/install_ios_open_dev/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="仅作备忘">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images.pandara.xyz/2016/08/10/install_ios_open_dev/install_error.png">
 <meta property="og:image" content="https://images.pandara.xyz/2016/08/10/install_ios_open_dev/sh_result.png">
 <meta property="og:image" content="https://images.pandara.xyz/2016/08/10/install_ios_open_dev/ios_open_dev_template.png">
@@ -67,10 +68,10 @@
     <title> Install iOSOpenDev // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<!--[if lte IE 8]>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
   <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
       <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
@@ -257,12 +258,12 @@
 
       
         <span itemprop="articleBody"><p><center>仅作备忘</center><br><a id="more"></a></p>
-<h4 id="安装依赖包">安装依赖包</h4><p>1.安装 <a href="https://www.macports.org/install.php" target="_blank" rel="external">Macports</a>, 安装过程需要连接VPN,否则无法安装成功<br>2.安装完MacPorts后打开终端，输入 sudo port -v selfupdate 更新MacPorts到最新版本，时间可能比较长<br>(如果你有安装 HomeBrew，也可以用 homebrew 来安装：<code>brew install ldid dpkg</code>)<br>3.更新完MacPorts后安装DPKG文件，在终端输入sudo port -f install dpkg<br>4.下载安装 <a href="http://iosopendev.com/download/" target="_blank" rel="external">iOSOpenDev</a>, 一般情况下都会安装失败的了…<br><img src="https://images.pandara.xyz/2016/08/10/install_ios_open_dev/install_error.png" alt="image"></p>
-<h4 id="错误解决">错误解决</h4><p>虽然安装失败，但是安装程序已经:<br>1.在我的 <code>~/.zshrc</code> 文件里面已经写入了一些配置项：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export iOSOpenDevPath=/opt/iOSOpenDev</div><div class="line">export iOSOpenDevDevice=</div><div class="line">export PATH=/opt/iOSOpenDev/bin:$PATH</div></pre></td></tr></table></figure></p>
-<p>2.在/opt下面创建了三个目录，：<br><code>iOSOpenDevSetup</code>, <code>iOSOpenDev</code>, <code>iOSOpenDevUninstall</code><br>而在 <code>iOSOpenDevSetup/bin</code> 里面已经有一个 shell 脚本：iod-setup.sh，而安装的过程实际上就是执行这个脚本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ./iod-setup base</div></pre></td></tr></table></figure></p>
+<h4 id="安装依赖包">安装依赖包</h4><p>1.安装 <a href="https://www.macports.org/install.php" target="_blank" rel="noopener">Macports</a>, 安装过程需要连接VPN,否则无法安装成功<br>2.安装完MacPorts后打开终端，输入 sudo port -v selfupdate 更新MacPorts到最新版本，时间可能比较长<br>(如果你有安装 HomeBrew，也可以用 homebrew 来安装：<code>brew install ldid dpkg</code>)<br>3.更新完MacPorts后安装DPKG文件，在终端输入sudo port -f install dpkg<br>4.下载安装 <a href="http://iosopendev.com/download/" target="_blank" rel="noopener">iOSOpenDev</a>, 一般情况下都会安装失败的了…<br><img src="https://images.pandara.xyz/2016/08/10/install_ios_open_dev/install_error.png" alt="image"></p>
+<h4 id="错误解决">错误解决</h4><p>虽然安装失败，但是安装程序已经:<br>1.在我的 <code>~/.zshrc</code> 文件里面已经写入了一些配置项：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export iOSOpenDevPath=/opt/iOSOpenDev</span><br><span class="line">export iOSOpenDevDevice=</span><br><span class="line">export PATH=/opt/iOSOpenDev/bin:$PATH</span><br></pre></td></tr></table></figure></p>
+<p>2.在/opt下面创建了三个目录，：<br><code>iOSOpenDevSetup</code>, <code>iOSOpenDev</code>, <code>iOSOpenDevUninstall</code><br>而在 <code>iOSOpenDevSetup/bin</code> 里面已经有一个 shell 脚本：iod-setup.sh，而安装的过程实际上就是执行这个脚本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./iod-setup base</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://images.pandara.xyz/2016/08/10/install_ios_open_dev/sh_result.png" alt="image"></p>
 <p>没想到就安装成功了，还以为会出现各种奇奇怪怪的 bug<br><img src="https://images.pandara.xyz/2016/08/10/install_ios_open_dev/ios_open_dev_template.png" alt="image"></p>
-<h4 id="参考资料">参考资料</h4><p>1.<a href="http://www.jianshu.com/p/29580725707a" target="_blank" rel="external">iOSOpenDev安装</a><br>2.<a href="http://kittenyang.com/pokemongocrack/" target="_blank" rel="external">记一次重签名</a><br>3.<a href="http://blog.csdn.net/tuluigi/article/details/8755955" target="_blank" rel="external">用iOSOpenDev在Xcode里配置越狱开发环境</a></p>
+<h4 id="参考资料">参考资料</h4><p>1.<a href="http://www.jianshu.com/p/29580725707a" target="_blank" rel="noopener">iOSOpenDev安装</a><br>2.<a href="http://kittenyang.com/pokemongocrack/" target="_blank" rel="noopener">记一次重签名</a><br>3.<a href="http://blog.csdn.net/tuluigi/article/details/8755955" target="_blank" rel="noopener">用iOSOpenDev在Xcode里配置越狱开发环境</a></p>
 </span>
       
     </div>
@@ -367,7 +368,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -446,7 +447,7 @@
             <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -674,6 +675,27 @@
 </script>
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 
 
@@ -689,6 +711,6 @@
             effect: "fadeIn"
         });
     });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

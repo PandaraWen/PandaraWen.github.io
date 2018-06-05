@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="theme-next use-motion ">
 <head>
-	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
 	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
     
@@ -46,6 +46,7 @@
 <meta property="og:url" content="http://pandara.xyz/2016/11/26/why_to_be_designer/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="Because of love and passion">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-26T11:00:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Why to be a designer">
@@ -62,10 +63,10 @@
     <title> Why to be a designer // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<!--[if lte IE 8]>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
   <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
       <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
@@ -263,7 +264,7 @@
 <li>作品风格不符合招聘方要求</li>
 </ol>
 </blockquote>
-<p>以上的若干点叠加让我没能得到面试的机会。于是只好作罢，后来还是以 iOS 工程师的身份进入了现在的公司：一家靠谱有理想有热情有追求的创业公司——<a href="http://kiwiinc.net/" target="_blank" rel="external">KIWI</a>。</p>
+<p>以上的若干点叠加让我没能得到面试的机会。于是只好作罢，后来还是以 iOS 工程师的身份进入了现在的公司：一家靠谱有理想有热情有追求的创业公司——<a href="http://kiwiinc.net/" target="_blank" rel="noopener">KIWI</a>。</p>
 <p><br>其实我早就明白我的心之所向，只是当时因为受挫折了，于是跟自己说“我大概还是不够本事吧”，“这大概不是光凭着一腔热情就够了吧，还需要硬性条件吧”，“我还是本本分分安安定定吧”。类似的念头萦绕着我，于是我就娶了一个我不爱的人。</p>
 <p><br>心里有一个躁动苏醒了，感觉很熟悉，相当熟悉，跟今年三月份的烧心之火是一样的，跟窝在家里画简历的那三天的躁动是一样的，它终于又苏醒了，在熄灭了大半年之后，沉睡在我本本分分安安定定的这段时间里。于是昨晚思前想后，终于跟 Cash 说出了这个想法，而热情小王子 Cash 自然很支持我的想法，只是我需要满足他对设计师的要求，一些硬性条件。这是理所当然的，这也是对设计师这个岗位的一份认可。</p>
 <h3 id="设计是什么">设计是什么</h3><p>对我个人来说，设计是我我的生命。我的的意思是，<strong>我所做出来的设计反映着我所做过的每一件事，所产生过的每一个对这个世界的感悟，所喝过的每一杯咖啡，抽过的每一根烟。它是我生命的微缩的视觉呈现</strong>。而细分到我所喜爱的 UI 设计，它是一个缓冲，在人类面对某种陌生事物时提供一种熟悉的中间层来过渡。也正如它的字面意思：User Interface，它就是人类在需要使用某种事物提供的功能时，用于调用这些功能的“接口”。UI 设计就是一座桥梁。</p>
@@ -371,7 +372,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -450,7 +451,7 @@
             <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -678,6 +679,27 @@
 </script>
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 
 
@@ -693,6 +715,6 @@
             effect: "fadeIn"
         });
     });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="theme-next use-motion ">
 <head>
-	<!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
 	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
   <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
     
@@ -47,6 +47,7 @@
 <meta property="og:url" content="http://pandara.xyz/2016/08/13/fake_wechat_location/index.html">
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="作为自己正式接触iOS逆向的第一步希望通过这次实践对 iOS 系统以及 APP 有更深入的了解。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images.pandara.xyz/2016/08/11/wechat_fake_location/class_dump.png">
 <meta property="og:image" content="https://images.pandara.xyz/2016/08/11/wechat_fake_location/hopper.png">
 <meta property="og:image" content="https://images.pandara.xyz/64464theos_template.png">
@@ -81,10 +82,10 @@
     <title> iOS逆向入门实践 — 逆向微信，伪装定位(一) // Pandara's Zone </title>
     <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
     <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-<!--[if lte IE 8]>
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
   <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
     <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
       <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
@@ -289,46 +290,46 @@
 <p><br><strong>Safe Mode</strong><br>bug 是不可避免的，如果寄生的 tweak 出现了 bug 导致 APP 崩溃，那么我们就需要一种机制，将 tweak 禁用掉，跟我们一个机会来 debug。而 Safe Mode 会捕获 SIGTRAP, SIGABRT, SIGILL, SIGBUS, SIGSEGV, SIGSYS 这6种信号，然后进入安全模式。</p>
 <p>在 iOS9.3 越狱时 MobieSubstrate 已经自动安装上了。目前在 Cydia 中也更名为了 Cydia Substrate。</p>
 <h3 id="2-_砸壳">2. 砸壳</h3><p>所谓砸壳，就是对 ipa 文件进行解密。因为在上传到 AppStore 之后，AppStore自动给所有的 ipa 进行了加密处理。而对于加密后的文件，直接使用 class-dump 是得不到什么东西的，或者是空文件，或者是一堆加密后的方法/类名。</p>
-<h4 id="2-1_使用_Clutch">2.1 使用 Clutch</h4><p>砸壳可以使用工具<a href="https://github.com/KJCracks/Clutch" target="_blank" rel="external">Clutch</a><br>曾经在 Cydia 中可以直接下载安装 Clutch， 现在已经不行了，需要自己编译然后 scp 到真机上。下面开始来一步一步配置 Clutch：<br>在安装了 Xcode 之后(都看到这篇文章了没理由没安装吧)，安装另外的 Command line tools：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcode-select --install</div></pre></td></tr></table></figure></p>
-<p>接着将 Clutch clone 到本地：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git clone git@github.com:KJCracks/Clutch.git</div><div class="line">cd Clutch</div></pre></td></tr></table></figure></p>
-<p>Build：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcodebuild -project Clutch.xcodeproj -configuration Release ARCHS=&quot;armv7 armv7s arm64&quot; build</div></pre></td></tr></table></figure></p>
-<p>Build 完之后会在 <code>./Clutch</code> 目录下生成可执行文件 <code>Clutch</code>，查看一下文件的权限，其他用户是否可执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls -l -h -p ./Clutch/clutch</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-rwxr-xr-x  1 Pandara  staff   1.1M  8 10 21:45 clutch</div></pre></td></tr></table></figure>
+<h4 id="2-1_使用_Clutch">2.1 使用 Clutch</h4><p>砸壳可以使用工具<a href="https://github.com/KJCracks/Clutch" target="_blank" rel="noopener">Clutch</a><br>曾经在 Cydia 中可以直接下载安装 Clutch， 现在已经不行了，需要自己编译然后 scp 到真机上。下面开始来一步一步配置 Clutch：<br>在安装了 Xcode 之后(都看到这篇文章了没理由没安装吧)，安装另外的 Command line tools：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure></p>
+<p>接着将 Clutch clone 到本地：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:KJCracks/Clutch.git</span><br><span class="line">cd Clutch</span><br></pre></td></tr></table></figure></p>
+<p>Build：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -project Clutch.xcodeproj -configuration Release ARCHS=&quot;armv7 armv7s arm64&quot; build</span><br></pre></td></tr></table></figure></p>
+<p>Build 完之后会在 <code>./Clutch</code> 目录下生成可执行文件 <code>Clutch</code>，查看一下文件的权限，其他用户是否可执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l -h -p ./Clutch/clutch</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rwxr-xr-x  1 Pandara  staff   1.1M  8 10 21:45 clutch</span><br></pre></td></tr></table></figure>
 <p>将它 scp 到越狱机器上。这里需要越狱机器已经安装了 openSSh，并且建议同时安装 Mobile Terminal，更改你的默认密码：</p>
 <ol>
 <li>输入命令<code>su root</code></li>
 <li>输入默认密码 alpine</li>
-<li>输入<code>passwd root</code>来更换你的 root 密码<br>拷贝文件到你的机器上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp clutch root@&lt;DeviceIP&gt;:/usr/bin/</div></pre></td></tr></table></figure>
+<li>输入<code>passwd root</code>来更换你的 root 密码<br>拷贝文件到你的机器上：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp clutch root@&lt;DeviceIP&gt;:/usr/bin/</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>接着 ssh 到你的机器上，然后使用 clutch 列出所有已安装的 APP：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clutch -i</div></pre></td></tr></table></figure></p>
-<p>根据编号或者 bundleID 来执行 dump<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">clutch -d com.tencent.xin</div></pre></td></tr></table></figure></p>
+<p>接着 ssh 到你的机器上，然后使用 clutch 列出所有已安装的 APP：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clutch -i</span><br></pre></td></tr></table></figure></p>
+<p>根据编号或者 bundleID 来执行 dump<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clutch -d com.tencent.xin</span><br></pre></td></tr></table></figure></p>
 <p>结果得到了错误信息，说当前版本的 clutch 不支持 dump watchOS2 的 APP…</p>
 <blockquote>
 <p>com.tencent.xin contains watchOS 2 compatible application. It’s not possible to dump watchOS 2 apps with Clutch 2.0.3 at this moment.</p>
 </blockquote>
 <p>只好尝试用 dumpdecrypted.dylib 来砸壳：</p>
-<h4 id="2-2_使用_Dumpdecrypted">2.2 使用 Dumpdecrypted</h4><p>在 make dumpdecrypted 时收到几个 warning，都是说找不到 <code>XXX/PrivateFrameworks</code> 这个目录。直觉告诉我不解决这几个 warning 会导致以后一些奇奇怪怪的问题。<br>Google 之后发现，出现这个问题是因为 Xcode 7.3(ios sdk 9.3) 移除了所有 private framework。但是我们可以下载 ios sdk 9.2 然后解压到相应目录，并且将 Makefile 里面的 SDK 路径修改为下载下来的 9.2sdk。<br>9.2sdk可以在<a href="https://sdks.website" target="_blank" rel="external">这里</a>下载到，修改 Makefile 中的 SDK 为实际的 9.2sdk 路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#SDK=`xcrun --sdk iphoneos --show-sdk-path`</div><div class="line">SDK=/Users/Pandara/Downloads/iPhoneOS9.2.sdk</div></pre></td></tr></table></figure></p>
-<p>之后再 make 便可以成功生成 .dylib 文件了。接下来的步骤就是要将这个 <code>dumpdecrypted.dylib</code> 文件 copy 到 APP 的沙盒目录的 Documents 目录下。我们知道所有 APP 的沙盒路径都在 <code>/var/mobile/Container/Data/Application/XXXXX/</code> 里面，但是我们不知道 XXXXX 到底是哪一个 APP。尝试过多种方法失败之后(可惜 Cycript 不支持 iOS9.3.X 啊！)，推荐使用 iTools 之类的工具拷贝，比较直观，需要先安装 afc2add 补丁。接着开始砸壳：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DYLD_INSERT_LIBRARIES=/path/to/dumpdecrypted.dylib /path/to/executable</div></pre></td></tr></table></figure></p>
-<p>executalbe 的路径可以用下面的命令来查找：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ps aux | grep WeChat</div></pre></td></tr></table></figure></p>
+<h4 id="2-2_使用_Dumpdecrypted">2.2 使用 Dumpdecrypted</h4><p>在 make dumpdecrypted 时收到几个 warning，都是说找不到 <code>XXX/PrivateFrameworks</code> 这个目录。直觉告诉我不解决这几个 warning 会导致以后一些奇奇怪怪的问题。<br>Google 之后发现，出现这个问题是因为 Xcode 7.3(ios sdk 9.3) 移除了所有 private framework。但是我们可以下载 ios sdk 9.2 然后解压到相应目录，并且将 Makefile 里面的 SDK 路径修改为下载下来的 9.2sdk。<br>9.2sdk可以在<a href="https://sdks.website" target="_blank" rel="noopener">这里</a>下载到，修改 Makefile 中的 SDK 为实际的 9.2sdk 路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#SDK=`xcrun --sdk iphoneos --show-sdk-path`</span><br><span class="line">SDK=/Users/Pandara/Downloads/iPhoneOS9.2.sdk</span><br></pre></td></tr></table></figure></p>
+<p>之后再 make 便可以成功生成 .dylib 文件了。接下来的步骤就是要将这个 <code>dumpdecrypted.dylib</code> 文件 copy 到 APP 的沙盒目录的 Documents 目录下。我们知道所有 APP 的沙盒路径都在 <code>/var/mobile/Container/Data/Application/XXXXX/</code> 里面，但是我们不知道 XXXXX 到底是哪一个 APP。尝试过多种方法失败之后(可惜 Cycript 不支持 iOS9.3.X 啊！)，推荐使用 iTools 之类的工具拷贝，比较直观，需要先安装 afc2add 补丁。接着开始砸壳：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DYLD_INSERT_LIBRARIES=/path/to/dumpdecrypted.dylib /path/to/executable</span><br></pre></td></tr></table></figure></p>
+<p>executalbe 的路径可以用下面的命令来查找：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep WeChat</span><br></pre></td></tr></table></figure></p>
 <p>在当前目录下就会生成 WeChat.decrypted, 这个就是砸过壳的微信了。把它 scp 回来本地之后，就可以开始接下来的操作了。</p>
 <blockquote>
 <p><code>DYLD_INSERT_LIBRARIES</code> 是 Mac 中的环境变量(Linux 上对应的是 LD_PRELOAD)。在这个宏中写入动态库完整路径，就可以在执行文件加载时将该动态库插入。</p>
 <p>另外，其实操作完成之后发现，<code>dumpdecrypted.dylib</code> 放在哪里都行，不知道为何参考资料的作者一定要将它放在 WeChat 的 Documents 目录。</p>
 </blockquote>
-<h3 id="3-_Class_Dump">3. Class Dump</h3><p>Class Dump 是为了导出微信的头文件，能够让我们得以浏览感兴趣的类中暴露出来哪些方法，找到需要 hook 的方法名，后面编写 tweak 会需要使用到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">class-dump -H WeChat.decrypted --arch arm64  -o output/</div></pre></td></tr></table></figure></p>
+<h3 id="3-_Class_Dump">3. Class Dump</h3><p>Class Dump 是为了导出微信的头文件，能够让我们得以浏览感兴趣的类中暴露出来哪些方法，找到需要 hook 的方法名，后面编写 tweak 会需要使用到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class-dump -H WeChat.decrypted --arch arm64  -o output/</span><br></pre></td></tr></table></figure></p>
 <p>命令执行完成之后，会在当前目录下生成一个 output 文件夹，里面有导出来的所有微信头文件，包括使用到的第三方 sdk。可以将所有这些头文件放到一个空工程里面方便查看。一共 7000+ 个头文件，导入需要一定时间…<br><img src="https://images.pandara.xyz/2016/08/11/wechat_fake_location/class_dump.png" alt="image"><br>凭借参考文章中作者的提示，<code>MicroMessengerAppDelegate.h</code> 就是微信的 AppDelegate，可以大概看到微信的项目结构。</p>
 <p><br>之所以可以使用 class-dump 来还原类的 @interface 部分，还是多亏了 iOS 采用的文件格式 Mach-O 中包含了足够多的 metadata。</p>
 <p><br>再来看看我们需要实现的功能，是改变我们的位置从而改变附近的人，但是手动猜测类名关键字搜索始终是很低效的行为。其实除了排除法和一个一个推测之外，还可以使用 Reveal 这个工具来帮助我们定位。</p>
 <h3 id="4-_反编译静态分析">4. 反编译静态分析</h3><p>class-dump 帮助我们列出了所有 header 文件，让我们对项目结构大体有个认识。不过，我们更加好奇的，始终是 .m 文件里面的实现。这里使用了 Hopper Disassembler 这个工具。注意，导入的文件应该是砸壳之后的文件。否则你看到的是一堆乱码，犹如一开始那傻逼的我…</p>
-<p><br>保险起见，可以先确认一下 .decrypted 是否已经解密了。首先查看一下对应的二进制文件包含哪些架构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; file WeChat.decrypted</div><div class="line">WeChat.decrypted: Mach-O 64-bit executable</div></pre></td></tr></table></figure></p>
-<p>可以看到，砸壳后的二进制文件只包含砸壳时使用的机器的架构，可能是由于使用了 bitCode？接下来使用 otool 来输出 app 的 load commands，查看 cryptid 这个标志位来判断 app 是否被加密了，1代表加密了，0代表被解密了。otool 是 Xcode tool chain 的一部分，所以并不需要额外安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">otool -l WeChat.decrypted | grep -B 2 crypt</div></pre></td></tr></table></figure></p>
-<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">WeChat.decrypted:</div><div class="line">--</div><div class="line">          cmd LC_ENCRYPTION_INFO_64</div><div class="line">      cmdsize 24</div><div class="line">     cryptoff 16384</div><div class="line">    cryptsize 45383680</div><div class="line">      cryptid 0</div></pre></td></tr></table></figure></p>
+<p><br>保险起见，可以先确认一下 .decrypted 是否已经解密了。首先查看一下对应的二进制文件包含哪些架构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; file WeChat.decrypted</span><br><span class="line">WeChat.decrypted: Mach-O 64-bit executable</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，砸壳后的二进制文件只包含砸壳时使用的机器的架构，可能是由于使用了 bitCode？接下来使用 otool 来输出 app 的 load commands，查看 cryptid 这个标志位来判断 app 是否被加密了，1代表加密了，0代表被解密了。otool 是 Xcode tool chain 的一部分，所以并不需要额外安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -l WeChat.decrypted | grep -B 2 crypt</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">WeChat.decrypted:</span><br><span class="line">--</span><br><span class="line">          cmd LC_ENCRYPTION_INFO_64</span><br><span class="line">      cmdsize 24</span><br><span class="line">     cryptoff 16384</span><br><span class="line">    cryptsize 45383680</span><br><span class="line">      cryptid 0</span><br></pre></td></tr></table></figure></p>
 <p>可以看到确实是被解密了。丢进去 hopper 之后，可以看到美丽的画面：<br><img src="https://images.pandara.xyz/2016/08/11/wechat_fake_location/hopper.png" alt="image"></p>
 <p>由于 IDA 暂时不能支持64位架构的包，而 hopper 试图在生成伪代码的时候也提示不能支持包对应的 cpu，所以这里建议，其实可以在 iTools 或者 pp助手 之类的第三方分发渠道下载微信，一般都是已经脱壳了的。然后就可以直接反编译包里面的 armv7s 架构。</p>
 <h3 id="5-_tweak_小试">5. tweak 小试</h3><p>这里暂时先不进行我们的目标 tweak 开始，先来一个小样练练手：实现微信一打开就弹出 Hello World 对话框的功能。</p>
 <h4 id="5-1_创建_Theos_工程">5.1 创建 Theos 工程</h4><p>创建 Theos 工程在 Terminal 中完成：</p>
-<p><br>1) 更改工作目录到常用的 iOS 工程目录，然后使用下面命令启动 NIC(New Instance Creator):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$THEOS/bin/nic.pl</div></pre></td></tr></table></figure></p>
+<p><br>1) 更改工作目录到常用的 iOS 工程目录，然后使用下面命令启动 NIC(New Instance Creator):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$THEOS/bin/nic.pl</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://images.pandara.xyz/64464theos_template.png" alt="64464theos_template.png"><br>上图中第11种模板就是我们需要使用的</p>
 <p><br>2) 这时候 Theos 需要我们输入工程的名字，以及 deb 包的名字，类似于 bundle identifier:<br><img src="https://images.pandara.xyz/32149project_package_name.png" alt="32149project_package_name.png"></p>
 <p><br>3) 输入作者名称之后，Theos 要求我们输入 MobileSubstrate Bundle filter，也就是 tweak 作用对象的 bundle identifier，这里我们填上微信的 id，可以在解压后的 ipa 包中的 plist 文件中找到：<br><img src="https://images.pandara.xyz/14652author_bundle_id.png" alt="14652author_bundle_id.png"></p>
@@ -346,14 +347,14 @@
 <p><br>4) Tweak.xm<br>Theos 创建工程之后，默认生成的模板源文件是 Tweak.xm，源文件中包含了基本的 Logos 语法的说明，具体写法就不展开了，书中很详细。其中有一些预处理命令值得注意：</p>
 <ul>
 <li><strong>%hook: </strong>指定需要 hook 的 class</li>
-<li><strong>%log: </strong>这个指令在 %hook 内部使用，可以将 log 的内容写入 syslog(/var/log/syslog)。这种是将 log 写入文件的方法。在 iOS9.3 这个文件没有自动生成，如果需要以这种方式查看 log，则需要配置一下，配置方法可以参考 <a href="https://www.theiphonewiki.com/wiki/System_Log" target="_blank" rel="external">wiki 中的 1.3 内容</a>。而我使用的是 1.1 的方法，利用 socat 这个命令行工具，可以在 cydia 中安装，按照 wiki 的方法实时查看 log</li>
+<li><strong>%log: </strong>这个指令在 %hook 内部使用，可以将 log 的内容写入 syslog(/var/log/syslog)。这种是将 log 写入文件的方法。在 iOS9.3 这个文件没有自动生成，如果需要以这种方式查看 log，则需要配置一下，配置方法可以参考 <a href="https://www.theiphonewiki.com/wiki/System_Log" target="_blank" rel="noopener">wiki 中的 1.3 内容</a>。而我使用的是 1.1 的方法，利用 socat 这个命令行工具，可以在 cydia 中安装，按照 wiki 的方法实时查看 log</li>
 <li><strong>%orig: </strong>在 %hook 内部使用，执行被 hook 的函数的原始代码。还可以利用它以 C++ 函数的调用方式改变原始函数传入的参数</li>
 <li><strong>%group: </strong>用于将 %hook 分组，与 %init 配合使用，在按条件初始化 hook 代码时非常有用</li>
 <li><strong>%ctor: </strong>用于系统自动初始化默认的未分组 hook 代码</li>
 <li><strong>%new: </strong>%hook内部使用，用于给现有的 class 添加新的方法</li>
 <li><strong>%c: </strong>%hook内部使用，动态获取一个类的定义</li>
 </ul>
-<p>关于详细的 logo 语法，可以到<a href="http://iphonedevwiki.net/index.php/Logos" target="_blank" rel="external">这里</a>一探究竟</p>
+<p>关于详细的 logo 语法，可以到<a href="http://iphonedevwiki.net/index.php/Logos" target="_blank" rel="noopener">这里</a>一探究竟</p>
 <h4 id="5-3_编写_tweak_源码">5.3 编写 tweak 源码</h4><p>要在微信运行之后弹出一个对话框，hook 点应该是 Appdelegate 的 didFinishLaunch 方法。前面在 class-dump 的时候已经猜测到了微信的 Appdelegate 对应类名为 <code>MicroMessengerAppDelegate</code>，头文件中也暴露了这个方法出来，因此可以推断出 hook point，编写 .xm 文件如下：<br><img src="https://images.pandara.xyz/5187xm.png" alt="5187xm.png"></p>
 <p><br><code>%hook</code> 指定了需要 hook 的 class，然后编写弹窗代码，在最后 return %orig 调用原始代码。代码中使用了消除警告的宏，这是因为如果出现警告的话，后面 make 编译的时候将无法通过。</p>
 <h4 id="5-4_编辑_MakeFile">5.4 编辑 MakeFile</h4><p><img src="https://images.pandara.xyz/40438make_file.png" alt="40438make_file.png"></p>
@@ -369,7 +370,7 @@
 <h4 id="5-6_打包">5.6 打包</h4><p>打包使用的 make package 命令来自 Theos 本身，其实就是先 make 然后再 dpkg-deb，运行时报了一个错误跟一个警告：<br><img src="https://images.pandara.xyz/76696make_package_error.png" alt="76696make_package_error.png"></p>
 <ul>
 <li>错误指的是，package name 只能包含小写的字母还有数字…于是只好将所有 wechat_hook_test 都替换成 wechathooktest…包括 control, Makefile 还有 plist 文件名</li>
-<li>关于警告，在 github 看到解释，大意上是说可以不用管这个 warning，看得不太懂，希望看懂的朋友告诉一声，<a href="https://github.com/theos/theos/commit/bb5626b03dceda0a364914ed20fdf8f0118b1f1f" target="_blank" rel="external">链接在此</a></li>
+<li>关于警告，在 github 看到解释，大意上是说可以不用管这个 warning，看得不太懂，希望看懂的朋友告诉一声，<a href="https://github.com/theos/theos/commit/bb5626b03dceda0a364914ed20fdf8f0118b1f1f" target="_blank" rel="noopener">链接在此</a></li>
 </ul>
 <p>再次 make package，得到：<br><img src="https://images.pandara.xyz/8664make_package.png" alt="8664make_package.png"></p>
 <p><br>可以看到在 packages 文件夹中生成了我们需要的包。我这里有两个，是因为我打包了两次。</p>
@@ -380,7 +381,7 @@
 <p><br>再次运行，跑通！效果图：<br><img src="https://images.pandara.xyz/6855IMG_0003.PNG" alt="6855IMG_0003.PNG"></p>
 <h3 id="6-_Fake_Location_功能实现">6. Fake Location 功能实现</h3><p>文章已经好长了，这部分内容放在下一篇文章吧。</p>
 <p><br><br>To Be Continute</p>
-<h3 id="参考资料">参考资料</h3><p>1.<a href="https://github.com/jackrex/FakeWeChatLoc" target="_blank" rel="external">手把手教你制作一款iOS越狱App</a><br>2.<a href="http://blog.csdn.net/jymn_chen/article/details/38361161" target="_blank" rel="external">《iOS逆向工程学习笔记》</a><br>3.《iOS应用逆向工程》，机械工业出版社</p>
+<h3 id="参考资料">参考资料</h3><p>1.<a href="https://github.com/jackrex/FakeWeChatLoc" target="_blank" rel="noopener">手把手教你制作一款iOS越狱App</a><br>2.<a href="http://blog.csdn.net/jymn_chen/article/details/38361161" target="_blank" rel="noopener">《iOS逆向工程学习笔记》</a><br>3.《iOS应用逆向工程》，机械工业出版社</p>
 </span>
       
     </div>
@@ -485,7 +486,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -564,7 +565,7 @@
             <div class="copyright" >
   
   &copy; &nbsp; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -792,6 +793,27 @@
 </script>
 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
 
 
@@ -807,6 +829,6 @@
             effect: "fadeIn"
         });
     });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
