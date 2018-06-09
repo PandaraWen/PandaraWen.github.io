@@ -1,0 +1,829 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+	<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--为了使用aevit的js，需要预先加载jquery_20150722-->
+	<script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+    
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.4"/>
+
+
+    <meta name="description" content="一切皆为年少轻狂之诳语·DeepLearning 小白" />
+
+
+
+  <meta name="keywords" content="DeepLearning," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.4" />
+
+
+<meta name="description" content="在 2015 年，Gatys 及其小伙伴们提出一个算法：A Neural Algorithm of Artistic Style，利用它，我们可以将某张艺术作品的风格迁移另外一张图片中。 在这片论文之后，陆续出现不少算法对其进行补充/优化，又或是以另一种思路达到更优结果，文末会对这些算法稍有提及。本文主要针对 Gatys 算法中的主要思路及部分细节做些介绍，后续系列文章会以此为扩展，介绍其他算法，">
+<meta name="keywords" content="DeepLearning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Neural Style Transfer 01">
+<meta property="og:url" content="http://pandara.xyz/2018/06/09/nst/index.html">
+<meta property="og:site_name" content="Pandara&#39;s Zone">
+<meta property="og:description" content="在 2015 年，Gatys 及其小伙伴们提出一个算法：A Neural Algorithm of Artistic Style，利用它，我们可以将某张艺术作品的风格迁移另外一张图片中。 在这片论文之后，陆续出现不少算法对其进行补充/优化，又或是以另一种思路达到更优结果，文末会对这些算法稍有提及。本文主要针对 Gatys 算法中的主要思路及部分细节做些介绍，后续系列文章会以此为扩展，介绍其他算法，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.pandara.xyz/nst_result.jpg">
+<meta property="og:image" content="https://images.pandara.xyz/nst/starry_night.jpg?imageView2/1/w/200/h/200">
+<meta property="og:image" content="https://images.pandara.xyz/nst/water-lilies-1919-2.jpg?imageView2/1/w/200/h/200">
+<meta property="og:image" content="https://images.pandara.xyz/nst/convnet_basic.jpg">
+<meta property="og:image" content="https://images.pandara.xyz/nst/image_patches_layer1.png?imageView2/1/w/300">
+<meta property="og:image" content="https://images.pandara.xyz/nst/image_patches_layer2.png?imageView2/1/w/300">
+<meta property="og:image" content="https://images.pandara.xyz/nst/image_patches_layer3.png?imageView2/1/w/300">
+<meta property="og:image" content="https://images.pandara.xyz/nst/NST_LOSS.png">
+<meta property="og:image" content="https://images.pandara.xyz/nst/NST_GM.png">
+<meta property="og:image" content="https://images.pandara.xyz/nst/model.jpeg">
+<meta property="og:updated_time" content="2018-06-09T11:25:06.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Neural Style Transfer 01">
+<meta name="twitter:description" content="在 2015 年，Gatys 及其小伙伴们提出一个算法：A Neural Algorithm of Artistic Style，利用它，我们可以将某张艺术作品的风格迁移另外一张图片中。 在这片论文之后，陆续出现不少算法对其进行补充/优化，又或是以另一种思路达到更优结果，文末会对这些算法稍有提及。本文主要针对 Gatys 算法中的主要思路及部分细节做些介绍，后续系列文章会以此为扩展，介绍其他算法，">
+<meta name="twitter:image" content="https://images.pandara.xyz/nst_result.jpg">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'hide'
+  };
+</script>
+
+    <title> Neural Style Transfer 01 // Pandara's Zone </title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://images.pandara.xyz/pandara_zone/favico%202.ico" media="screen" /> 
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?c5d0f36c537707dfe01cd190611c07b1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+<div class="container one-column page-post-detail">
+    <div id="pandara-brand" class="my-brand">
+      <div id="space-ship" class="pandara-image"></div>
+      <div id="planet0" class="pandara-image"></div>
+      <div id="earth" class="pandara-image"></div>
+      <div id="planet1" class="pandara-image"></div>
+      <div id="planet2" class="pandara-image"></div>
+      <div id="planet3" class="pandara-image"></div>
+      <div id="satellite" class="pandara-image"></div>
+      <div id="planet4" class="pandara-image"></div>
+      <div id="planet5" class="pandara-image"></div>
+      <div id="planet6" class="pandara-image"></div>
+    </div>
+    <div class="headband"></div>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand" rel="start">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">Pandara's Zone</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+            <a href="/" rel="section">
+              <i class="menu-item-icon icon-home"></i> <br />
+              首页
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+            <a href="/categories" rel="section">
+              <i class="menu-item-icon icon-categories"></i> <br />
+              分类
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+            <a href="/about.html" rel="section">
+              <i class="menu-item-icon icon-about"></i> <br />
+              我是谁˚∆˚
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+            <a href="/archives" rel="section">
+              <i class="menu-item-icon icon-archives"></i> <br />
+              归档
+            </a>
+          
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+            <a href="/tags" rel="section">
+              <i class="menu-item-icon icon-tags"></i> <br />
+              标签
+            </a>
+          
+        </li>
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+        </div>
+    </header>
+
+    <main id="main" class="main">
+        <div class="main-inner">
+            <div id="content" class="content">
+                
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      
+      
+        <h1 class="post-title" itemprop="name headline">
+          
+          
+            
+              Neural Style Transfer 01
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于
+          <time itemprop="dateCreated" datetime="2018-06-09T00:00:00+08:00" content="2018-06-09">
+            2018-06-09
+          </time>
+        </span>
+
+        
+          <span class="post-category" >
+            &nbsp; | &nbsp; 分类于
+            
+              <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a href="/categories/你丫才码农/" itemprop="url" rel="index"><span itemprop="name">你丫才码农</span></a></span>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          <span id="busuanzi_container_page_pv">
+            &nbsp; | &nbsp;
+            访客
+            <span id="busuanzi_value_page_pv">0</span>
+          </span>
+        
+
+       
+
+      </div>
+    </header>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在 2015 年，Gatys 及其小伙伴们提出一个算法：<a href="https://arxiv.org/abs/1508.06576" target="_blank" rel="noopener">A Neural Algorithm of Artistic Style</a>，利用它，我们可以将某张<strong>艺术作品的风格迁移另外一张图片中</strong>。</p>
+<p><br>在这片论文之后，陆续出现不少算法对其进行补充/优化，又或是以另一种思路达到更优结果，文末会对这些算法稍有提及。本文主要针对 Gatys 算法中的主要思路及部分细节做些介绍，后续系列文章会以此为扩展，介绍其他算法，以及填上本文中遗留的坑。</p>
+<p><br><img src="https://images.pandara.xyz/nst_result.jpg" alt=""></p>
+<center><em>本文算法 200 次迭代，耗时 1 小时后的效果图</em></center>
+
+<a id="more"></a>
+<h2 id="0-_简介">0. 简介</h2><p>文首提到 NST 可以<strong>将某艺术作品风格迁移另外一张图片中</strong>。从这句如此简单的描述里面，我们可以提炼出这几个关键点：</p>
+<ul>
+<li>给定某艺术作品，如何定义/概括其风格？</li>
+<li>如何控制合成图中艺术痕迹深浅？</li>
+<li>如何得到合成图？</li>
+</ul>
+<p>以上这三点将成为贯穿全文的主线脉络。下面先来看看第一点：</p>
+<h2 id="1-_艺术风格(Style)">1. 艺术风格(Style)</h2><p>给定一幅艺术作品，要如何定义它的「艺术风格」？或者先来回忆一下，我们通常如何评价某幅作品的「风格」？</p>
+<center><br><a class="fancybox-thumb fancybox-aevit" rel="noopener" href="https://images.pandara.xyz/nst/starry_night.jpg?imageView2/2/w/2048" title="1/2" target="_blank"><img src="https://images.pandara.xyz/nst/starry_night.jpg?imageView2/1/w/200/h/200" alt=""></a><a class="fancybox-thumb fancybox-aevit" rel="noopener" href="https://images.pandara.xyz/nst/water-lilies-1919-2.jpg?imageView2/2/w/2048" title="2/2" target="_blank"><img src="https://images.pandara.xyz/nst/water-lilies-1919-2.jpg?imageView2/1/w/200/h/200" alt=""></a><br>Starry Night &amp; Water Lilies<br></center>
+
+<p><br>上面两张图是 NST 中常用的 Style Image 之二。当我们眼睛扫过这两张作品的瞬间，大脑便会对这两张作品形成大致的印象。我们可能会觉得“Starry Night”是迷幻的，绚丽的；而“Water Lilies”是朦胧的。那为什么“Starry Night”会让人觉得它是迷幻的呢？</p>
+<p><br>如果我来回答，我可能会说：“因为图里面使用了大量的螺旋，曲线<strong>并且</strong>还用了比较强烈的明暗色调对比”。这么一来，似乎 Style 的定义就自然而然流露出来了。现在我们可以说：艺术作品的风格主要由作品中的显著特征 (Feature) <strong>共同</strong>塑造出来。换而言之，我们可以认为 Style 就是一些 Feature 的集合。那怎样用数学表示呢？</p>
+<h3 id="1-1_ConvNet">1.1 ConvNet</h3><p>为了用数学的方式来定义图片的 Style，我们需要利用「卷积神经网络」（Convolutional Neural Network，或 ConvNet）。ConvNet 背后的数学原理其实并不复杂，可从<a href="https://www.youtube.com/watch?v=xQGREGyusys&amp;list=PLBAGcD3siRDjBU8sKRk0zX9pMz9qeVxud&amp;index=8" target="_blank" rel="noopener">此讲解视频</a>中跟随 Andrew Ng 的讲解学习，也推荐他在 Coursera 上开设的<a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener">相关课程</a>。</p>
+<p><br> 举一个 ConvNet 作为例子，它的前两层为 Convolutional Layer，所使用的 Filter 为 3x3，那么这两层的 Forward Propagation 过程如下图所示（为了简便这里先省略了 Channel）：</p>
+<p><br><img src="https://images.pandara.xyz/nst/convnet_basic.jpg" alt=""></p>
+<p><br>从图中可以得到对 ConvNet 的一个直觉上的认知：</p>
+<ul>
+<li>Layer 1 的 Filter 只「看到」原图中 3x3 大小的区域；</li>
+<li>通过 Layer 1，Layer 2 的 Filter 可以间接地「看到」原图中 5x5 大小的区域；</li>
+</ul>
+<p>如果把它稍作推广，我们可以知道：</p>
+<ul>
+<li>Hidden Layer 中每个 Filter（或者 Unit）只能「看到」图像的局部；</li>
+<li>层级越深，该层的 Filter 能「看到」区域越大；</li>
+</ul>
+<p>上面用了若干个「看到」来描述某个 Filter 的操作所涉及到的原图区域大小。那么 ConvNet 在经过训练迭代，完成学习之后，这些处于各个不同 Layer 中的 Filter，从他们看到的东西中，学习到了什么呢？</p>
+<h3 id="1-2_Visualizing_ConvNets">1.2 Visualizing ConvNets</h3><p>以 VGG-19 为例，假设我们输入一张图片，接着选中第一层的某个 Filter，找到此 Filter 输出的 Activation 中最大的 9 个值所对应的图片切片，它们可能是如下图红框部分所示：</p>
+<p><br><img src="https://images.pandara.xyz/nst/image_patches_layer1.png?imageView2/1/w/300" alt=""></p>
+<p><br>而类似地，同一层中其他 Filter 所对应的图片切片，可能如上图其他部分所示。看起来这一层的 Filter 所做的工作是识别不同朝向的边缘。接下来，对于第二层的 Filter，对应的图片切片则可能如下：</p>
+<p><br><img src="https://images.pandara.xyz/nst/image_patches_layer2.png?imageView2/1/w/300" alt=""></p>
+<p><br>看起来比第一层复杂了一点点，识别出了某种纹理，像是多种边缘的组合。然后是第三层：</p>
+<p><br><img src="https://images.pandara.xyz/nst/image_patches_layer3.png?imageView2/1/w/300" alt=""></p>
+<p><br>至此我们很容易得到一种猜测：<strong>层级越深，Filter 所识别的内容(特征，Feature)越复杂</strong>。而实际上这也正是 ConvNets 内部不同层级的 Filter 所具有的规律。这个结论也与前一部分中<strong>「层级越深，该层的 Filter 能看到区域越大」</strong>此直觉认知相呼应。更详细的论证以及实现过程可以参考<a href="https://arxiv.org/abs/1311.2901" target="_blank" rel="noopener">这篇论文</a>以及<a href="https://blog.keras.io/how-convolutional-neural-networks-see-the-world.html" target="_blank" rel="noopener">这篇博客</a>，还没来得及手动实现一遍，之后会把这个坑填上。</p>
+<h3 id="1-3_Gram_Matrix">1.3 Gram Matrix</h3><p>稍微整理一下，到了这里，我们已经有下面的结论：</p>
+<ul>
+<li>艺术风格由作品中的 Feature 集合共同塑造出来，也就是说 Feature 之间具有<strong>关联性</strong>；</li>
+<li>ConvNets 中的 Filter 能识别出图像中的 Feature，Feature 与 Filter 的模式越匹配则 Activation 越高；</li>
+<li>ConvNets 中层级越深，Filter 看到的区域越大，识别的 Featrue 越复杂；</li>
+</ul>
+<p>于是，我们可以考虑利用 ConvNets 中某些层的输出（Activation）来<strong>代表</strong>作品中具有的显著 Feature，然后利用某种数学方式表示作品中 Feature 的<strong>关联性</strong>，便能得到对这幅作品 Style 的数学定义。由此，我们引入概念 Gram Matrix，用以表达 Feature 的<strong>关联性</strong>。</p>
+<p><br>先选中某层的 Activation 输出，并且把它 Flatten，得到一个 $(n_H \times n_W) \times n_C$ 的矩阵，Flatten 后的矩阵可以看作是一系列向量的集合 $(v_1, \dots, v_n)$，其中每个向量都是某个 Filter 的 Activation：</p>
+<p><br><img src="https://images.pandara.xyz/nst/NST_LOSS.png" alt=""></p>
+<center><em>图自<a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener">课程</a>资源</em></center>
+
+<p><br>接着我们计算矩阵 $G$，其中 $G_{ij} = v_i^T v_j$ 得到 Gram Matrix 如下图：</p>
+<p><br><img src="https://images.pandara.xyz/nst/NST_GM.png" alt=""></p>
+<center><em>图自<a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener">课程</a>资源</em></center>
+
+<p><br>于是，矩阵中的元素 $G_{ij}$ 便体现着<strong>不同 Filter 对应的 Feature 之间的关联性</strong>。例如：假如图像中同时具有上图中绿色以及蓝色两个 Filter 对应的 Feature，那么 $G_{01}$ 的值就会较大，也就是说他们关联性较高；反之 $G_{01}$ 的值就会较小。</p>
+<p><br>至此，我们得到了 Style 的数学表达方式：使用 ConvNets 中某些层的 Gram Matrix 来代表此图像的 Style。</p>
+<h2 id="2-_Cost">2. Cost</h2><p>Cost 可以被看作是一个<strong>指标</strong>，稍后会给出这个它的数学定义。Cost 将被用于衡量合成图与原图以及风格图之间的相似度。为了定义此 Cost，我们下面将引入 Style Cost 以及 Content Cost 两个概念。</p>
+<h3 id="2-1_Style_Cost">2.1 Style Cost</h3><p>在上文我们得到了 Style 的数学定义(Gram Matrix)之后，下一步就是利用它，来计算一个<strong>指标</strong>，用以衡量两张图像之间风格的远近。假设现在我们有风格图 $S$ 以及合成图 $G$，并且我们选用某一层 $l$ 的 Activation 来代表整个图像，那么我们可以定义一个函数 $J_{style}^{[l]}$ 来表示这个<strong>指标</strong>：</p>
+<p>$$J_{style}^{[l]}(S,G) = \frac{1}{4 \times {n_C}^2 \times (n_H \times n_W)^2} \sum_{i=1}^{n_C}\sum_{j=1}^{n_C}(G^{(S)}_{ij} - G^{(G)}_{ij})^2 $$</p>
+<p>我们把这个指标称为 <strong>Style Cost</strong>。上边公式分为两部分，前部分是一个用于 Normalize 的常量，后半部分则是计算两个 GM 之间的方差和，也就是它们的「距离」。注意此处出现了命名冲突，GM 以及合成图 G 都用了 $G$ 来表示，需要注意根据上下文分辨。</p>
+<p><br>上面我们得到的是针对网络中某一层所计算得到的 Style Cost，也就是说只涉及到该层中的 Feature。实际上我们可以考虑组合使用其他层的 Feature，并为它们赋予不同的权重，从而得到一个更具代表性的 Style Cost：</p>
+<p>$$J_{style}(S,G) = \sum_{l} \lambda^{[l]} J^{[l]}_{style}(S,G)$$</p>
+<p>其中 $\lambda^{[l]}$ 就是不同层的 Style Cost 对应的权重，调节不同的 $\lambda$ 组合会影响最终生成的图片的风格，一般来说保证 $\sum_{l}\lambda^{[l]} = 1$ 即可。</p>
+<p>从直觉上的认知，当我们在训练的过程中最小化 Style Cost 时，就像是在告诉合成图：你必须具有 Style Image 中的这些纹理，但我不管它们出现在哪里。</p>
+<h3 id="2-2_Content_Cost">2.2 Content Cost</h3><p>与 Style Cost 类似，Content Cost 也可以看作是一个指标，而这个指标用于衡量两张图片的内容的相似度。选定 ConvNets 中的<strong>某一层</strong>，假设输入原图 $C$ 以及合成图 $G$，在选定层所得到的 Activation 分别记为 $a^{(C)}$ 和 $a^{(G)}$，那么 Content Cost 将由以下公式表示：</p>
+<p>$$J_{content}(C,G) =  \frac{1}{4 \times n_H \times n_W \times n_C}\sum _{ \text{all entries}} (a^{(C)} - a^{(G)})^2 $$</p>
+<p>与 $J_{style}$ 类似，$J_{content}$ 也由两部分组成：前部分是一个用于 Normalize 的常量，后半部分则是计算两个 Activation 之间的方差和，也就是它们的「距离」。</p>
+<p>注意，这里我们只选择了<strong>一层</strong>的 Activation 来计算 Content Cost。前面提到，层级越低，识别到的 Feature 越基础(如边缘识别)，层级越高识别到的 Feature 越高级(例如眼睛)，所以：</p>
+<ul>
+<li>假如我们选择了较浅的层，比如说第一层，那么在 Content Cost 的束缚下，合成图将跟原图在像素级别上相似，简单来说就是合成的过程将没有「发展空间」；</li>
+<li>假如我们选择了较深的层，可能 Contnet Cost 只保证合成图里面有眼睛，但不保证眼睛是不是在脸上；</li>
+</ul>
+<p>显然，我们需要选择网络中处于比较中间的一层，来计算 Content Cost，以避免上面提及的问题。</p>
+<h3 id="2-3_Total_Cost">2.3 Total Cost</h3><p>现在我们有了 Content Cost 来衡量合成图与原图之间的内容相似度，以及 Style Cost 来衡量合成图与风格图之间的风格相似度。接下来，我们把 Content Cost 以及 Style Cost 组合起来，得到一个新的指标</p>
+<p>$$J(G) = \alpha J_{content}(C,G) + \beta J_{style}(S,G)$$</p>
+<p>公式中的 $\alpha$ 以及 $\beta$ 控制合成图的整体偏向。简单来说，如果 $\alpha$ 更高，合成图将更偏向原图；如果 $\beta$ 更高，合成图将更偏向风格图。</p>
+<h2 id="3-_合成">3. 合成</h2><p>合成图 $G$ 的生成方法是是这个算法中比较有趣的地方，$G$ 并不是作为 ConvNet 的输出，而是作为 ConvNet 的<strong>输入</strong>(同时也是 ConvNet 的参数)然后进行训练迭代，经过一定次数的迭代后，我们便得到了想要的合成图。</p>
+<p><br>根据原作者的 <a href="https://arxiv.org/abs/1508.06576" target="_blank" rel="noopener">Paper</a>，我们将使用 VGG-19 这个图像识别 Model，它是在 <a href="http://www.image-net.org/" target="_blank" rel="noopener">ImageNet</a> 这个相当庞大的数据库之上被训练出来的，因此它可以识别出大量基础以及高级的图像特征(Feature)。</p>
+<h3 id="3-1_Training">3.1 Training</h3><p>要进行训练，首先我们需要定下一个目标，它是构建整个训练算法的基础。而在这里，我们的训练目标是：<strong>使 $J(G)$ 最小化</strong>。这意味着合成图在内容上需要贴合原图，在风格上需要贴合风格图。</p>
+<p><br>训练的过程大致上可以拆分为 3 个部分：</p>
+<ul>
+<li><strong>迭代:</strong> 一个外层循环，循环中做的事情为如下两点；</li>
+<li><strong>Forward Propagation:</strong> 给 VGG-19 输入我们的初始合成图 $G$，计算得到 $J(G)$；</li>
+<li><strong>Back Propagation:</strong> 通过 BP(即 Backpropagation) 来更新输入的合成图 $G$；<br><br><blockquote>
+<p>关于 BP，可以把它简单地看作是一种<strong>用于优化网络中的参数</strong>的算法，它利用了导数的链式法则以及偏导数。在本次迭代中计算得到 $J(G)$ 之后，通过 BP 来更新网络中的参数，使得下一次迭代计算到的 $J(G)$ 减少。</p>
+</blockquote>
+</li>
+</ul>
+<p><br>最后，在此次训练中，Content Cost 以及 Style Cost 的计算所取用的 Layer 如下图所示：</p>
+<p><br><img src="https://images.pandara.xyz/nst/model.jpeg" alt=""></p>
+<p><br>另外，编码实现时也有一些趣的地方：</p>
+<ul>
+<li>加载模型时没有必要加载 Fully Connect Layer，因为完全不需要使用；</li>
+<li>用 <code>sess.run</code> 来运行某一层来得到输出；</li>
+<li>计算时可以复用所构建的 Computation Graph，只需要 assign 不同的 imput image；</li>
+</ul>
+<h2 id="4-_小结">4. 小结</h2><p>可以尝试调整算法的一些地方来改变得到的合成图：</p>
+<ul>
+<li>Style Cost 中的所选用的 Layer 已经对应的 Weight；</li>
+<li>Content Cost 中的所选用的 Layer；</li>
+<li>Total Cost 中的 $\alpha$ 以及 $\beta$；</li>
+</ul>
+<p>此算法最大的优点就是<strong>所需数据量少</strong>，从头到尾所需要的数据仅仅是我们我们的 Content Image 以及 Style Image。而缺点则是时间久，因为每次合成图片都需要重新进行训练迭代。</p>
+<h3 id="4-1_其他算法">4.1 其他算法</h3><p><br>这篇<a href="https://medium.com/artists-and-machine-intelligence/neural-artistic-style-transfer-a-comprehensive-look-f54d8649c199" target="_blank" rel="noopener">文章</a>里面提到了另一种实现的思路，可以实现即时的合成，不需要重新训练。主要思想是采集大量的图片数据，来训练一个图片转换网络(Image Transformation Network, ITN)。训练所用的 Cost Function 仍然借用 VGG-19，由此构成了一个 Loss Network。进行 BP 时不是更新合成图，而是更新 ITN 的参数。训练</p>
+<p><br><a href="https://medium.com/artists-and-machine-intelligence/neural-artistic-style-transfer-a-comprehensive-look-f54d8649c199" target="_blank" rel="noopener">文章</a> 最后还提到另一种更高级的玩法，可以对于任意给定 Style Image 以及 Content Image 进行合成。主要思想是复用了大部分已经训练好的参数，每次合成只针对 ITN 某些重要的参数进行重新训练。</p>
+<h2 id="End">End</h2><p>本文所用算法的源代码已经放到<a href="https://github.com/PandaraWen/NeuralStyleTransfer" target="_blank" rel="noopener">Github</a>上，任意取阅。</p>
+<h2 id="参考资料">参考资料</h2><ol>
+<li>论文 <a href="https://arxiv.org/abs/1311.2901" target="_blank" rel="noopener">Visualizing and Understanding Convolutional Networks</a>;</li>
+<li>论文 <a href="https://arxiv.org/abs/1508.06576" target="_blank" rel="noopener">A Neural Algorithm of Artistic Style</a>;</li>
+<li>博客 <a href="https://blog.keras.io/how-convolutional-neural-networks-see-the-world.html" target="_blank" rel="noopener">How convolutional neural networks see the world</a>;</li>
+<li>博客 <a href="https://medium.com/artists-and-machine-intelligence/neural-artistic-style-transfer-a-comprehensive-look-f54d8649c199" target="_blank" rel="noopener">Neural Artistic Style Transfer: A Comprehensive Look</a></li>
+<li>课程 <a href="https://www.coursera.org/specializations/deep-learning" target="_blank" rel="noopener">Courses by DeepLearning.ai in Coursera</a>;</li>
+<li>视频 <a href="https://www.youtube.com/watch?v=cNBBNAxC8l4" target="_blank" rel="noopener">Visualizing Convolutional Filters from a CNN</a>;</li>
+<li>模型 <a href="http://www.vlfeat.org/matconvnet/pretrained/" target="_blank" rel="noopener">imagenet-vgg-verydeep-19</a>;</li>
+</ol>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DeepLearning/" rel="tag">#DeepLearning</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/21/new_folder/" rel="next">孩子呀孩子</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+            </div>
+
+            
+
+            
+              <div class="comments" id="comments">
+                
+                  <div id="disqus_thread">
+                    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                  </div>
+                
+              </div>
+            
+        </div>
+
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <div class="site-author-avatar"></div>
+          <p class="site-author-name" itemprop="name">Pandara</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">一切皆为年少轻狂之诳语·DeepLearning 小白</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">92</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/PandaraWen" target="_blank">Github</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://dribbble.com/PandaraWen" target="_blank">Dribbble</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/WenPandara" target="_blank">Twitter</a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">基情链接</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://aevit.xyz/" target="_blank">Aevit's Lab</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://w3ctrain.com" target="_blank">W3cTrain</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://mrazy.com" target="_blank">梦灯笼</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-_简介"><span class="nav-number">1.</span> <span class="nav-text">0. 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-_艺术风格(Style)"><span class="nav-number">2.</span> <span class="nav-text">1. 艺术风格(Style)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1_ConvNet"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 ConvNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2_Visualizing_ConvNets"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Visualizing ConvNets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3_Gram_Matrix"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 Gram Matrix</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-_Cost"><span class="nav-number">3.</span> <span class="nav-text">2. Cost</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1_Style_Cost"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 Style Cost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2_Content_Cost"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Content Cost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3_Total_Cost"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 Total Cost</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-_合成"><span class="nav-number">4.</span> <span class="nav-text">3. 合成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1_Training"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Training</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-_小结"><span class="nav-number">5.</span> <span class="nav-text">4. 小结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1_其他算法"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 其他算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#End"><span class="nav-number">6.</span> <span class="nav-text">End</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+      <div class="side-bar-foot-decorate">
+        <div class="side-bar-man motion-element"></div>
+        <div class="side-bar-star motion-element"></div>
+      </div>
+    </div>
+  </aside>
+
+
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="copyright" >
+  
+  &copy; &nbsp; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pandara</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="powered-by">
+  粤ICP备17156711号-1
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+
+        </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+</div>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'pandara';
+      var disqus_identifier = '2018/06/09/nst/';
+      var disqus_title = 'Neural Style Transfer 01';
+      var disqus_url = 'http://pandara.xyz/2018/06/09/nst/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.4"></script>
+  <script type="text/javascript" src="/js/fancybox-aevit.js"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.4"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.4" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.4" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (CONFIG.sidebar === 'always') {
+            displaySidebar();
+        }
+    });
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+
+
+
+
+<!-- lazyload -->
+<script type="text/javascript" src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery("#posts img").lazyload({
+            placeholder: "/images/loading.gif",
+            effect: "fadeIn"
+        });
+    });
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
