@@ -48,15 +48,15 @@
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="BLE 的重要性相信已经无需多言了。现在可穿戴设备与手机之间的配对连接方式基本都是一色的 BLE。这篇教程会介绍 CoreBluetooth 从 iOS5 到 iOS7 的演变。另外，也会介绍怎么配置 CB central 跟 peripheral，来让他们之间进行通讯，还有一些最佳编程实践。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage11.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage21.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage31.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage7.png">
-<meta property="og:updated_time" content="2015-12-30T08:21:36.000Z">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015%2F12%2F30%2Fios_ble%2FImage11.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015%2F12%2F30%2Fios_ble%2FImage21.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015%2F12%2F30%2Fios_ble%2FImage31.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015%2F12%2F30%2Fios_ble%2FImage7.png">
+<meta property="og:updated_time" content="2018-08-16T07:06:44.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS Core Bluetooth - Theoretical Overview">
 <meta name="twitter:description" content="BLE 的重要性相信已经无需多言了。现在可穿戴设备与手机之间的配对连接方式基本都是一色的 BLE。这篇教程会介绍 CoreBluetooth 从 iOS5 到 iOS7 的演变。另外，也会介绍怎么配置 CB central 跟 peripheral，来让他们之间进行通讯，还有一些最佳编程实践。">
-<meta name="twitter:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage11.png">
+<meta name="twitter:image" content="http://pandarazone.qiniudn.com/2015%2F12%2F30%2Fios_ble%2FImage11.png">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -267,13 +267,13 @@
 <li><strong>Peripheral(外围设备)</strong>：一个有信息需要进行共享的设备(心率、温度等等)。这些信息会被推送或者广播出来。</li>
 </ul>
 <p><br>下面这张图展示了一个 central 以及 peripheral</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage11.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015%2F12%2F30%2Fios_ble%2FImage11.png" alt="image"></p>
 <p><br>上面的两个角色在 iOS 中各有一个类型与之对应，分别为 <code>CBCentralManager</code> 跟 <code>CBPeripheral</code>。</p>
 <p><br><code>CBCentralManager</code> 管理那些被发现或者连接的 peripheral(<code>CBPeripheral</code>)。只要 <code>CBCentralManager</code> 跟一个 peripheral 连接了，它们之间就可以进行数据交互了。peripheral 中存储的数据，依据 service 跟 characteristic，被组织在一个树形结构中。</p>
 <p><br>这些服务可以使消息提醒，血压，心率等等。官方的 GATT 服务定义列表可以在<a href="https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx" target="_blank" rel="noopener">这里</a>查找到。</p>
 <p><br>service 中的 characteristic 实际上是 service 对应的某个实际的值。例如，在这个教程中，<code>Blood pressure</code> service 实际上就是在某个时刻中的血压值。下图描述了一个 peripheral，它拥有一个 service 跟两个 characteristic：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage21.png" alt="image"></p>
-<p><br>在 Core Bluetooth 中，peripheral 的服务用 <code>CBService</code> 对象来表示。同样地，peripheral server 中的 characteristic 在 CB 中使用 <code>CBCharacteristic</code> 对象来表示。下图描述了 <code>CBService</code> 中 peripheral 的层次结构：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage31.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015%2F12%2F30%2Fios_ble%2FImage21.png" alt="image"></p>
+<p><br>在 Core Bluetooth 中，peripheral 的服务用 <code>CBService</code> 对象来表示。同样地，peripheral server 中的 characteristic 在 CB 中使用 <code>CBCharacteristic</code> 对象来表示。下图描述了 <code>CBService</code> 中 peripheral 的层次结构：<br><img src="http://pandarazone.qiniudn.com/2015%2F12%2F30%2Fios_ble%2FImage31.png" alt="image"></p>
 <p><br>一个给定的 peripheral 可以有多个 service，每个 service 可以有多个 characteristic。这两者都没有限定最大数量。</p>
 <p><br>注意，你最好阅读一下官方文档<a href="https://developer.apple.com/library/ios/documentation/CoreBluetooth/Reference/CoreBluetooth_Framework/index.html#//apple_ref/doc/uid/TP40011295" target="_blank" rel="noopener">Core Bluetooth Framework Reference</a>，来通透地了解这部分内容。里面有更加详细的对象层次图以及说明。</p>
 <h5 id="Core_Bluetooth_进化史">Core Bluetooth 进化史</h5><p>Core Bluetooth FrameWork 首次出现在 iOS5，引入了一种新的方式来在设备之间利用蓝牙进行无线通讯。在每一次 iOS 系统的版本升级中，苹果都对 CB 进行提升，并且引入新特性。</p>
@@ -316,7 +316,7 @@
 <li><strong>订阅或者检测 characteris 的值</strong>：在 characteristic 改变时，你可以通过用户输入或者自动执行来取得 characteristic。对应地你需要各使用一个方法。</li>
 <li><strong>终止不需要的连接</strong>：由于补货机制，你可以快速地重连。当 central 需要重连一个设备时，苹果提供一个指定的工作流程。如下图：</li>
 </ul>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F30%2Fios_ble%2FImage7.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015%2F12%2F30%2Fios_ble%2FImage7.png" alt="image"></p>
 <h5 id="CBPeripheral_的最佳实践">CBPeripheral 的最佳实践</h5><p>跟 <code>CBCebtralManager</code> 类似，<code>CBPeripheral</code> 有一些同样地实践条则，在创建一个高效率 APP 的时候需要遵从。</p>
 <p><br>考虑到广播，要记住，当你的 APP 处于前台时，在最初的广播数据中，它最多能够使用28个字节来的空间。注意只广播那些确实重要的数据。同样，你需要给用户提供一种方法来根据需要广播，让用户因此得以控制广播的频次。</p>
 <p><br>当你配置你的 characteristic 时，你应该让它们支持通知。因而需要将 <code>CBAttributePermissionsReadable</code> 这个属性添加到 <code>CBMutableCharacteristic</code> 对象的 <code>permissions</code> 中。</p>

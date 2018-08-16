@@ -48,17 +48,17 @@
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="新版本的 IDE Xcode7 带来了一个新的测试功能 — UITesting，利用它我们可以跑一些自动化的 UI 测试。 Xcode7 除了带来新功能之外，以前那个寂寂无名的 UIAutomation 也被剔除了，虽然它现在在 Instrument 里面仍然可用。但我们现在基本上可以完全抛弃它了，因为我们有新欢—UITesting，一套全新的API。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/new_project.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/new_target.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/recording.gif">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/recording_error.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/test_report.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/table_record.png">
-<meta property="og:updated_time" content="2015-10-25T15:36:45.000Z">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/23/uitest/new_project.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/23/uitest/new_target.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/23/uitest/recording.gif">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/23/uitest/recording_error.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/23/uitest/test_report.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/23/uitest/table_record.png">
+<meta property="og:updated_time" content="2018-08-16T07:06:44.709Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Xcode7 UITesting">
 <meta name="twitter:description" content="新版本的 IDE Xcode7 带来了一个新的测试功能 — UITesting，利用它我们可以跑一些自动化的 UI 测试。 Xcode7 除了带来新功能之外，以前那个寂寂无名的 UIAutomation 也被剔除了，虽然它现在在 Instrument 里面仍然可用。但我们现在基本上可以完全抛弃它了，因为我们有新欢—UITesting，一套全新的API。">
-<meta name="twitter:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/new_project.png">
+<meta name="twitter:image" content="http://pandarazone.qiniudn.com/2015/10/23/uitest/new_project.png">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -265,18 +265,18 @@
 <a id="more"></a>
 <p><br>这套 API 有着友好的 Swift 接口跟 XCTest 插件，所以我们在启动测试的时候，只需要伸出两根手指，轻轻按下两个按键 ⌘U。</p>
 <h5 id="Xcode_7_UI_testing_概览">Xcode 7 UI testing 概览</h5><p>如果是新建项目的话，Xcode已经为我们默认把 UITesting 的选项勾上了：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/new_project.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/23/uitest/new_project.png" alt="image"></p>
 <center><em>默认勾选 UITesting</em></center>
 
 <p><br>如果要为已经存在的项目添加 UITesting，新建一个 target 就好了：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/new_target.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/23/uitest/new_target.png" alt="image"></p>
 <center><em>常年孤独的 Unit Testing Bundle 终于有伴了</em></center>
 
 <p><br>在生成的 UITests.m 文件中，Xcode 已经为我们生成了一些默认的代码，但是它们目前不会产生什么实质性的作用。在代码注释中，Xcode 推荐我们：Use recording to get started writing UI tests.</p>
 <p><br>Recording 是 Xcode7 提供的一项超级超级便捷的工具，可以为我们生成大部分的测试代码。首先我们将光标聚焦在 testExample 函数里面，然后点击下方小红点来开始录制，接着在 app 中进行一些交互，然后你将会见证奇迹发生的时刻：代码就这样被召唤出来了。</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/recording.gif" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/23/uitest/recording.gif" alt="image"></p>
 <p><br>至于上例中，自动生成的代码反而由于编码问题被报错，我也有点醉。</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/recording_error.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/23/uitest/recording_error.png" alt="image"></p>
 <center><em>这是 Bug 吗</em></center>
 
 <p><br>将字符串里面的 <code>\U</code> 替换成 <code>\u</code> 就好了。</p>
@@ -284,10 +284,10 @@
 <p>看起来非常直白，就是代码字面上的意思。点击函数左边的小按钮，我们可以看见类似下面终端输出：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Test Case '-[UITestDemoUITests testExample]' started.</span><br><span class="line">    t =     <span class="number">0.00</span>s     Start Test</span><br><span class="line">    t =     <span class="number">0.00</span>s     Set Up</span><br><span class="line">    t =     <span class="number">0.00</span>s         Launch pandara.UITestDemo</span><br><span class="line"><span class="number">2015</span><span class="number">-10</span><span class="number">-23</span> <span class="number">18</span>:<span class="number">11</span>:<span class="number">42.685</span> <span class="built_in">XCTRunner</span>[<span class="number">31796</span>:<span class="number">964610</span>] Continuing to run tests <span class="keyword">in</span> the background with task ID <span class="number">1</span></span><br><span class="line">    t =     <span class="number">1.00</span>s             Waiting <span class="keyword">for</span> accessibility to load</span><br><span class="line">    t =     <span class="number">2.85</span>s             Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">3.09</span>s     Tap <span class="string">"戳我"</span> Button</span><br><span class="line">    t =     <span class="number">3.09</span>s         Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">3.14</span>s         Find the <span class="string">"戳我"</span> Button</span><br><span class="line">    t =     <span class="number">3.14</span>s             Snapshot accessibility hierarchy <span class="keyword">for</span> pandara.UITestDemo</span><br><span class="line">    t =     <span class="number">3.18</span>s             Find: Descendants matching type Button</span><br><span class="line">    t =     3.19s             Find: Elements matching predicate '"戳我" IN identifiers'</span><br><span class="line">    t =     <span class="number">3.19</span>s             Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">3.25</span>s         Synthesize event</span><br><span class="line">    t =     <span class="number">3.54</span>s         Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">4.02</span>s     Tap <span class="string">"是我的戳"</span> Button</span><br><span class="line">    t =     <span class="number">4.02</span>s         Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">4.07</span>s         Find the <span class="string">"是我的戳"</span> Button</span><br><span class="line">    t =     <span class="number">4.07</span>s             Snapshot accessibility hierarchy <span class="keyword">for</span> pandara.UITestDemo</span><br><span class="line">    t =     <span class="number">4.10</span>s             Find: Descendants matching type Alert</span><br><span class="line">    t =     <span class="number">4.11</span>s             Find: Descendants matching type CollectionView</span><br><span class="line">    t =     <span class="number">4.11</span>s             Find: Descendants matching type Button</span><br><span class="line">    t =     4.11s             Find: Elements matching predicate '"是我的戳" IN identifiers'</span><br><span class="line">    t =     <span class="number">4.12</span>s             Wait <span class="keyword">for</span> app to idle</span><br><span class="line">    t =     <span class="number">4.15</span>s             Check <span class="keyword">for</span> UI interruption: Descendants matching type Alert</span><br><span class="line">    t =     <span class="number">4.16</span>s                 Snapshot accessibility hierarchy <span class="keyword">for</span> pandara.UITestDemo</span><br><span class="line">    t =     <span class="number">4.18</span>s                 Find: Descendants matching type Alert</span><br><span class="line">    t =     <span class="number">4.19</span>s         Synthesize event</span><br><span class="line">    t =     <span class="number">4.45</span>s         Wait <span class="keyword">for</span> app to idle</span><br></pre></td></tr></table></figure></p>
 <p>终端的输出显示了发生在 UI 上的操作，还有它们距离测试开始时的时间间隔。</p>
 <p><br>在 Xcode 的 test reporter 中同样可以看到这些输出：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/test_report.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/23/uitest/test_report.png" alt="image"></p>
 <p><br>聪明的你可能已经察觉出了，UITesting 只能检测某个元素是否在屏幕上面，除此以外它不能检测出其他东西，例如是否多了个元素，是否布局有错乱。</p>
 <h5 id="判断_app_的状态">判断 app 的状态</h5><p>假设 app 存在这样的一种操作：点击按钮之后，弹出一个列表。那么这个时候测试通过的标准就是：点击按钮，弹出列表。利用 recording 生成的代码如下：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/23/uitest/table_record.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/23/uitest/table_record.png" alt="image"></p>
 <p><br>看起来好像还是没什么用。并且跟 Cell 的具体内容耦合得比较高。</p>
 <p><br>我们可以简单地修改一下，来确保当按钮按下的时候，屏幕中有且仅有一个 table，并且 table 中确实有 30 个元素，除非你的屏幕坏了而导致一些元素不见了。相信这个新的测试会比产品经历跟设计师的信息稳定精准得多了去了。</p>
 <p><br>下面，就让我们一步一步地来重写这个 test。test 的开始部分是一样，就是简单地点击屏幕上一开始显示的 show element 按钮。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">XCUIApplication</span> *app = [[<span class="built_in">XCUIApplication</span> alloc] init];</span><br></pre></td></tr></table></figure></p>

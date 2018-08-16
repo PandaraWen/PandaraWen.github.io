@@ -51,10 +51,10 @@
 <meta property="og:image" content="https://images.pandara.xyz/2016/06/06/xcode_strange_problem/01.png">
 <meta property="og:image" content="https://images.pandara.xyz/2016/06/06/xcode_strange_problem/02.png">
 <meta property="og:image" content="https://images.pandara.xyz/03.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2FcocoaPods_warning.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning02.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning01.png">
-<meta property="og:updated_time" content="2017-12-13T05:13:18.049Z">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015%2F12%2F25%2Fwidgets%2FcocoaPods_warning.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning02.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning01.png">
+<meta property="og:updated_time" content="2018-08-16T07:06:44.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOSDev Strange Things">
 <meta name="twitter:description" content="记录 iOS 开发过程中遇到的各种操蛋问题">
@@ -289,11 +289,11 @@
 <p><br>最后再 pod install，就跑通了。</p>
 <p><br>总结：不要忽略官方文档，靠猜不如看文档。另外还有一个问题，为什么指定的 master 分支没有取到最新的提交</p>
 <h5 id="cocoaPods_提示_diff:_/-/Podfile-lock:_No_such_file_or_directory">cocoaPods 提示 <code>diff: /../Podfile.lock: No such file or directory</code></h5><p>因为我刚刚将 podfile 修改了，增加了一些 target 指定。重新 pod install 之后会生成新的配置文件，而原来的配置文件会被删除。但是 cocoaPods 没有帮忙正确设置回来。pod install 的时候终端也有输出警告信息：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2FcocoaPods_warning.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015%2F12%2F25%2Fwidgets%2FcocoaPods_warning.png" alt="image"></p>
 <p><br>在工程目录中找到 Pods 文件夹，在 Target Support Files 文件夹中找到为各个 Target 生成的配置文件，将其重新引入工程：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning02.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning02.png" alt="image"></p>
 <p><br>在项目的 info 中将新的设置文件引入</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning01.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015%2F12%2F25%2Fwidgets%2Fcocospad_warning01.png" alt="image"></p>
 <p><br>问题就消失了</p>
 <h5 id="提示错误_ld:_library_not_found_for_-lPods">提示错误 ld: library not found for -lPods</h5><p>同上，原因是：项目中增加了一个 Target，重新对 pod 增加了一些 pod target 的指定。重新 build 之后原来的库 libPods.a 会被删除。<br>解决方法说来也简单，直接在 Xcode 里将项目中对被删除的 .a 文件的引用删掉即可(红色)。说起来真是羞愧，一直没有注意到这点，Xcode 会对项目中引用的文件进行引入。如果缺失的图片资源那还好办，只会报一个警告；如果缺失的是库文件，直接编译不通过。</p>
 <p><br>顺便一提，libPods-XXX.a 文件目录是在：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Users/用户名/Library/Developer/Xcode/DerivedData/项目名/Build/Products/Debug-iphonesimulator/libPods-XXX.a</span><br></pre></td></tr></table></figure></p>

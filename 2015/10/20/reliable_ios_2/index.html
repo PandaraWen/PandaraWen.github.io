@@ -48,16 +48,16 @@
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="搬运自ChenYiLong’s Github。 题目来自sunnyxx的博客：《招聘一个靠谱的iOS》) 有个人修改   本Part整理 ChenYiLong 原文章中余下的部分相关的题目。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/reliable_ios/ugly_code.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/20/reliable_ios2/clang.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/20/reliable_ios2/obj_struct.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/20/reliable_ios2/objc_struct.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/20/reliable_ios2/obj_struct3.png">
-<meta property="og:updated_time" content="2015-10-23T09:54:37.000Z">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/reliable_ios/ugly_code.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/20/reliable_ios2/clang.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/20/reliable_ios2/obj_struct.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/20/reliable_ios2/objc_struct.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/20/reliable_ios2/obj_struct3.png">
+<meta property="og:updated_time" content="2018-08-16T07:06:44.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《招聘一个靠谱的iOS》— Part ⅠⅠ">
 <meta name="twitter:description" content="搬运自ChenYiLong’s Github。 题目来自sunnyxx的博客：《招聘一个靠谱的iOS》) 有个人修改   本Part整理 ChenYiLong 原文章中余下的部分相关的题目。">
-<meta name="twitter:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/reliable_ios/ugly_code.png">
+<meta name="twitter:image" content="http://pandarazone.qiniudn.com/2015/10/reliable_ios/ugly_code.png">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -268,7 +268,7 @@
 </blockquote>
 <p><br>本Part整理 ChenYiLong 原文章中余下的部分相关的题目。</p>
 <a id="more"></a>
-<h5 id="编码风格纠错">编码风格纠错</h5><p>原代码：<br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/reliable_ios/ugly_code.png" alt="image"></p>
+<h5 id="编码风格纠错">编码风格纠错</h5><p>原代码：<br><img src="http://pandarazone.qiniudn.com/2015/10/reliable_ios/ugly_code.png" alt="image"></p>
 <p><br>修改方法有很多种，现给出一种做示例：</p>
 <figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .h文件</span></span><br><span class="line"><span class="comment">// 这是第一种修改方法，后面会给出第二种修改方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, CYLSex) &#123;</span><br><span class="line">    CYLSexMan,</span><br><span class="line">    CYLSexWoman</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CYLUser</span> : <span class="title">NSObject</span>&lt;<span class="title">NSCopying</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">assign</span>) <span class="built_in">NSUInteger</span> age;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>, <span class="keyword">assign</span>) CYLSex sex;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithName:(<span class="built_in">NSString</span> *)name age:(<span class="built_in">NSUInteger</span>)age sex:(CYLSex)sex;</span><br><span class="line">+ (<span class="keyword">instancetype</span>)userWithName:(<span class="built_in">NSString</span> *)name age:(<span class="built_in">NSUInteger</span>)age sex:(CYLSex)sex;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <p>下面对具体修改的地方，分两部分做下介绍：<strong>硬伤部分</strong> 和 <strong>优化部分</strong>。因为硬伤部分没什么技术含量，为了节省大家时间，放在后面讲，大神请直接看 <strong>优化部分</strong>。</p>
@@ -333,7 +333,7 @@
 <p><br>以下面的代码为例，由于 clang 后的代码达到了10万多行，为了便于区分，添加了一个叫 iOSinit 方法，<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  main.m</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"CYLTest.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        CYLTest *test = [[CYLTest alloc] init];</span><br><span class="line">        [test performSelector:(<span class="keyword">@selector</span>(iOSinit))];</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在终端中输入<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -rewrite-objc main.m</span><br></pre></td></tr></table></figure></p>
 <p>就可以生成一个main.cpp的文件，在最底端（10万4千行左右），可以看到：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/20/reliable_ios2/clang.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/20/reliable_ios2/clang.png" alt="image"></p>
 <p><br>我们可以看到大概是这样的：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((<span class="keyword">void</span> ()(<span class="keyword">id</span>, SEL))(<span class="keyword">void</span> )objc_msgSend)((<span class="keyword">id</span>)obj, sel_registerName(<span class="string">"foo"</span>));</span><br></pre></td></tr></table></figure></p>
 <p>也就是说，<strong><code>[obj foo]</code> 在objc动态编译时，会被转意为：<code>objc_msgSend(obj, @selector(foo))</code>。</strong></p>
 <h5 id="什么时候会报unrecognized_selector的异常？">什么时候会报unrecognized selector的异常？</h5><p>简单来说，当调用该对象上某个方法，而该对象上没有实现这个方法的时候，可以通过“消息转发”进行解决。</p>
@@ -352,12 +352,12 @@
 </ul>
 <p>它内部也有一个isa指针指向元对象(meta class),元对象内部存放的是类方法列表,类对象内部还有一个 superclass 的指针，指向他的父类对象。</p>
 <p><br>每个 Objective-C 对象都有相同的结构，如下图所示：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/20/reliable_ios2/obj_struct.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/20/reliable_ios2/obj_struct.png" alt="image"></p>
 <p><br>翻译过来就是：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/20/reliable_ios2/objc_struct.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/20/reliable_ios2/objc_struct.png" alt="image"></p>
 <p><br>根对象就是NSobject，它的 superclass 指针指向 nil</p>
 <p><br>类对象既然称为对象，那它也是一个实例。类对象中也有一个 isa 指针指向它的元类(meta class)，即类对象是元类的实例。元类内部存放的是类方法列表，根元类的 isa 指针指向自己，superclass 指针指向 NSObject 类。看图：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/20/reliable_ios2/obj_struct3.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/20/reliable_ios2/obj_struct3.png" alt="image"></p>
 <h5 id="一个objc对象的isa的指针指向什么？有什么作用？">一个objc对象的isa的指针指向什么？有什么作用？</h5><p>指向他的类对象,从而可以找到对象上的方法</p>
 <h5 id="下面的代码输出什么？">下面的代码输出什么？</h5><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Son</span> : <span class="title">Father</span></span></span><br><span class="line"> - (<span class="keyword">id</span>)init</span><br><span class="line"> &#123;</span><br><span class="line">     <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">     <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">         <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, <span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]));</span><br><span class="line">         <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, <span class="built_in">NSStringFromClass</span>([<span class="keyword">super</span> <span class="keyword">class</span>]));</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <p><strong>答案：</strong>都输出 Son</p>

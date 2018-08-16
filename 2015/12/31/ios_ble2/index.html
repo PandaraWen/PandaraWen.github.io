@@ -48,12 +48,12 @@
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="Core Bluetooth 让我们得以与配备 BLE 技术的设备进行通讯。通过这篇教程你可以直到如何配置 Core Bluetooth 的 central 跟 peripheral，还有如何进行通讯，跟一些 CB 中固有的最佳编程实践。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F31%2Fios_ble2%2FImage41.png?imageView2/2/w/400">
-<meta property="og:updated_time" content="2015-12-31T03:35:01.000Z">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015%2F12%2F31%2Fios_ble2%2FImage41.png?imageView2/2/w/400">
+<meta property="og:updated_time" content="2018-08-16T07:06:44.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS Core Bluetooth - Practical Lesson">
 <meta name="twitter:description" content="Core Bluetooth 让我们得以与配备 BLE 技术的设备进行通讯。通过这篇教程你可以直到如何配置 Core Bluetooth 的 central 跟 peripheral，还有如何进行通讯，跟一些 CB 中固有的最佳编程实践。">
-<meta name="twitter:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F31%2Fios_ble2%2FImage41.png?imageView2/2/w/400">
+<meta name="twitter:image" content="http://pandarazone.qiniudn.com/2015%2F12%2F31%2Fios_ble2%2FImage41.png?imageView2/2/w/400">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -257,7 +257,7 @@
       
         <span itemprop="articleBody"><p>Core Bluetooth 让我们得以与配备 BLE 技术的设备进行通讯。通过这篇教程你可以直到如何配置 Core Bluetooth 的 central 跟 peripheral，还有如何进行通讯，跟一些 CB 中固有的最佳编程实践。</p>
 <a id="more"></a>
-<p><br>这篇文章为 BLE 系列教程中的第二篇，<a href="http://pandara.xyz/2015/12/30/ios_ble/">第一篇文章</a>阐述了一些理论性的内容，而这片文章则是实践性的内容，文中用到的源代码可以戳<a href="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F31%2Fios_ble2%2FCBTutorial-Initial.zip" target="_blank" rel="noopener">这个链接</a>下载。(发现原文中的样例工程有点问题，可以用<a href="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F31%2Fios_ble2%2FBTLE_Transfer.zip" target="_blank" rel="noopener">苹果的官方 DEMO</a>来做参照，功能是一样的，代码大同小异。)Demo实现的功能很简单，就是在 central 跟 peripheral 之间发送文字消息。下面开撸。</p>
+<p><br>这篇文章为 BLE 系列教程中的第二篇，<a href="http://pandara.xyz/2015/12/30/ios_ble/">第一篇文章</a>阐述了一些理论性的内容，而这片文章则是实践性的内容，文中用到的源代码可以戳<a href="http://pandarazone.qiniudn.com/2015%2F12%2F31%2Fios_ble2%2FCBTutorial-Initial.zip" target="_blank" rel="noopener">这个链接</a>下载。(发现原文中的样例工程有点问题，可以用<a href="http://pandarazone.qiniudn.com/2015%2F12%2F31%2Fios_ble2%2FBTLE_Transfer.zip" target="_blank" rel="noopener">苹果的官方 DEMO</a>来做参照，功能是一样的，代码大同小异。)Demo实现的功能很简单，就是在 central 跟 peripheral 之间发送文字消息。下面开撸。</p>
 <h5 id="下载样例工程源代码">下载样例工程源代码</h5><p>这篇教程的目的是教你如何使用 Core Bluetooth framework。我们准备了一个样例工程代码，让你理解的容易点，让你省去创建工程配置视图之类的杂物事。</p>
 <p><br>这篇教程是建立在你已经有一些使用 Xcode 开发 iOS 的基础知识之上的，下面我们只关注 Core Bluetooth 数据。样例代码包含下面这些内容：</p>
 <ul>
@@ -270,7 +270,7 @@
 <p><br>现在可以找两部支持 BLE 的机子，将工程编译进去，玩儿一下。</p>
 <p><br><code>SERVERS.h</code> 文件包含两个独立的 UUID，它们是在 terminal 中用 <code>uuidgen</code> 命令生成的。你可以自己生成一份或者直接使用它们。</p>
 <p><br>注意，本篇教程需要两部 iOS 设备来工作。运行工程之后你会看到如下界面：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015%2F12%2F31%2Fios_ble2%2FImage41.png?imageView2/2/w/400" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015%2F12%2F31%2Fios_ble2%2FImage41.png?imageView2/2/w/400" alt="image"></p>
 <h5 id="Central_编码">Central 编码</h5><p>这部分内容集中在 <code>CBCentralManagerViewController</code> 这个类。第一部，添加两个协议来支持 <code>CBCentralManager</code> 跟 <code>CBPeripheral</code>。这两个协议定义了一些方法(后详)。你的应该如下：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CBCentralManagerViewController</span> : <span class="title">UIViewController</span> &lt; <span class="title">CBCentralManagerDelegate</span>, <span class="title">CBPeripheralDelegate</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>现在，你需要定义三个属性：<code>CBCentralManager</code>, <code>CBPeripheral</code> 跟 <code>NSMutableData</code>。前面两个对象很明显了，最后一个是用来存储两个设备之间共享的信息，也就是一段文字。<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) CBCentralManager *centralManager;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) CBPeripheral *discoveredPeripheral;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">NSMutableData</span> *data</span><br></pre></td></tr></table></figure></p>
 <p>到这里，你可以转到 .m 文件。你会看见一些警告，因为有一些协议中的必须方法还没有实现，现在先不用着急。我们先来初始化 <code>centralManager</code> 跟 <code>data</code> 这两个对象。初始化 <code>centralManager</code> 应该用自身作为 delegate，queue 参数直接传空。在 <code>viewDidLoad</code> 函数中添加如下代码：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">	...</span><br><span class="line">	_centralManager = [[CBCentralManager alloc] initWithDelegate:<span class="keyword">self</span> queue:<span class="literal">nil</span>];</span><br><span class="line">	_data = [[<span class="built_in">NSMutableData</span> alloc] init];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>

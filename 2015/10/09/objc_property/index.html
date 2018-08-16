@@ -48,15 +48,15 @@
 <meta property="og:site_name" content="Pandara&#39;s Zone">
 <meta property="og:description" content="翻译自 Ry’s Objective-C Tutorial  一个对象的 property 能让其他对象检测或者改变该对象的状态。但是，一个设计良好的面向对象程序，应该避免直接让对象的内部状态被直接访问。相反，应该使用访问器方法(accessor methods, getters and setters)，来作为一种抽象，跟对象的底层数据进行交互。看图：  使用 accessor 方法来跟 pr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/accessor-methods.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/object-ownership.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/retain-cycle.png">
-<meta property="og:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/weak-reference.png">
-<meta property="og:updated_time" content="2015-10-12T15:56:26.000Z">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/09/oc_property/accessor-methods.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/09/oc_property/object-ownership.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/09/oc_property/retain-cycle.png">
+<meta property="og:image" content="http://pandarazone.qiniudn.com/2015/10/09/oc_property/weak-reference.png">
+<meta property="og:updated_time" content="2018-08-16T07:06:44.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OC @property 知多少">
 <meta name="twitter:description" content="翻译自 Ry’s Objective-C Tutorial  一个对象的 property 能让其他对象检测或者改变该对象的状态。但是，一个设计良好的面向对象程序，应该避免直接让对象的内部状态被直接访问。相反，应该使用访问器方法(accessor methods, getters and setters)，来作为一种抽象，跟对象的底层数据进行交互。看图：  使用 accessor 方法来跟 pr">
-<meta name="twitter:image" content="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/accessor-methods.png">
+<meta name="twitter:image" content="http://pandarazone.qiniudn.com/2015/10/09/oc_property/accessor-methods.png">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -262,7 +262,7 @@
 <p>翻译自 <a href="http://rypress.com/tutorials/objective-c/properties" target="_blank" rel="noopener">Ry’s Objective-C Tutorial</a></p>
 </blockquote>
 <p><br>一个对象的 property 能让其他对象检测或者改变该对象的状态。但是，一个设计良好的面向对象程序，应该避免直接让对象的内部状态被直接访问。相反，应该使用访问器方法(accessor methods, getters and setters)，来作为一种抽象，跟对象的底层数据进行交互。看图：</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/accessor-methods.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/09/oc_property/accessor-methods.png" alt="image"></p>
 <center><em>使用 accessor 方法来跟 property 交互</em></center>
 
 <a id="more"></a>
@@ -287,7 +287,7 @@
 <p>这里有一些关于 atomic property 的小小警告。Atomic property 的 accessor 方法（getter和setter）需要<em>成对</em>地<strong>被自动生成</strong>或者<strong>用户自己定义</strong>。换句话说，你要么不定义，要定义就将 setter 跟 getter 一起定义。只有 non-atomic property 才能让你混搭 synthesized accessor 跟自定义的 accessor 方法。想清楚地了解，你可以将上面代码里面的 nonatomic 移除，然后再 Car.m 里面添加自定义的 getter 方法。</p>
 <h4 id="内存管理">内存管理</h4><p>在所有面向对象编程（OOP）语言中，对象存在于计算机的内存中，而内存是稀缺资源，在移动设备中尤为这样。内存管理系统的目的是，以一种有效率的方法，来确保程序不会占有的内存空间不会比他们实际所需要的更多。</p>
 <p><br>很多语言通过垃圾回收机制来实现内存管理，但是 Objective-C 使用一种更加有效率的替代方法，称为 <strong>对象拥有关系（object ownership）</strong>。当你开始与一个对象进行交互，你会被认为拥有（own）该对象，这意味着只要你在使用着它，它就会一直存在。当你完成操作之后，你将释放对该对象的拥有关系（ownship）。而在释放了之后，如果该对象没有其他 owner，操作系统将会销毁该对象，并且释放底层的内存空间。</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/object-ownership.png" alt="image"></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/09/oc_property/object-ownership.png" alt="image"></p>
 <center><em>销毁没有 owner 的对象</em></center>
 
 <p><br>而在 <strong>Automatic Reference Counting</strong> 出现之后，编译器将自动管理你的所有对象 ownership 。这就意味着，在大多数情况下，你将不再需要担忧系统实际上如何进行内存管理。但是，你应该了解 <strong>@property</strong> 里面的 strong，weak 和 copy 这几个属性，因为他们会告诉编译器相应的对象之间会拥有怎样的关系。</p>
@@ -301,10 +301,10 @@
 <p><code>@class Car</code> 代码行是对 Car 类的超前声明（forward declaration）。它像是在告诉编译器：“相信我，Car 类是存在的，所以现在先不要试图马上去寻找它”。我们使用这行代码，而不是使用我们习惯的 <code>#import</code> 语句，是因为 Car 同样也 import Person.h，否则将会导致一个无穷无尽的 import 循环。（编译器不喜欢 endless loop）</p>
 <p><br>下一步，在 honda.driver 赋值语句后面加入下面代码：<br><figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">honda.driver = john;</span><br><span class="line">john.car = honda; <span class="comment">// Add this line</span></span><br></pre></td></tr></table></figure></p>
 <p>我们现在有从 honda 指向 john 的关系，同时也有从 john 到 honda 的关系。这就意味着双方<strong>彼此拥有</strong>，因此内存管理系统永远不能释放他们，即使他们不再被需要。</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/retain-cycle.png" alt="image"><br><em>在 Car 跟 Person 类之间的 retain cycle</em></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/09/oc_property/retain-cycle.png" alt="image"><br><em>在 Car 跟 Person 类之间的 retain cycle</em></p>
 <p><br>这被称为 <strong>retain cycle</strong> ，是一种内存泄露，如我们所知内存泄露是多么的糟糕。幸运的是，要解决这个问题非常简单，只需要让其中一个 property 对其对象的引用更改为 <strong>weak<br> reference</strong>。在 Person.h，如下更改 car property 的声明。<br> <figure class="highlight obj-c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) Car *car;</span><br></pre></td></tr></table></figure></p>
 <p> weak 属性创建了一种对 car 的“非拥有关系（non-owning relationship）”。这允许 john 拥有指向 honda 的关系，同时避免了 retain cycle。但是，这也同时可能会导致这样的一种情况：john 仍然持有指向 honda 的引用，但是 honda 已经被销毁了。如果这种情况发生了， weak 属性会贴心地将 car 设置为 nil，来避免悬空指针（dangling pointer）出现。</p>
-<p><br><img src="http://7ls0ue.com1.z0.glb.clouddn.com/2015/10/09/oc_property/weak-reference.png" alt="image"><br><em>从 Person 类指向 Car 类的 weak reference</em></p>
+<p><br><img src="http://pandarazone.qiniudn.com/2015/10/09/oc_property/weak-reference.png" alt="image"><br><em>从 Person 类指向 Car 类的 weak reference</em></p>
 <p><br>一种普遍的使用 weak 属性的场景是在父子关系的数据结构中。一般情况下，父对象应该持有指向孩子的 strong reference，而子对象应该持有指向父对象的 weak reference。weak reference 同样也是在 delegate 设计模式中固有的一部分。</p>
 <p><br>值得再次提醒，两个对象之间不应该彼此持有指向对方的 strong reference。weak 属性让我们得以维持一个循环的指向关系但是不会引入 retain cycle。</p>
 <h5 id="copy">copy</h5><p>copy 属性是 strong 的另一种替代方式。copy 会对分配给 property 的对象创建一个拷贝，然后持有该拷贝的 ownership，而不是持有原对象的 ownership。只有遵从了 NSCopying 协议的对象能使用它。</p>
